@@ -18,14 +18,15 @@ try:
 except ImportError:
     HAS_GEMINI = False
 
-# Prompt instruction template enforcing structured taxonomy output
 SYSTEM_PROMPT = """
 You are an expert AI Safety & Regulatory Incident Analyst.
 Analyze the following news text about an AI-related event and extract structured taxonomy metadata.
 
+An "AI Incident" is an event/circumstance where the development, deployment, use, malfunction, or misuse of an AI system leads to actual harm, potential harm, security breach, bias, hallucination impact, or significant deviation from safe operation.
+
 Return ONLY a valid JSON object matching this exact schema:
 {
-  "is_ai_incident": true,
+  "is_ai_incident": true/false,
   "title": "Concise factual incident title",
   "summary": "2-3 sentence executive summary of what happened, root causes, and impact",
   "date": "YYYY-MM-DD",
@@ -50,10 +51,18 @@ Return ONLY a valid JSON object matching this exact schema:
   "affected_parties": ["Entity1", "Entity2"]
 }
 
-If the text is NOT an actual AI incident, return: {"is_ai_incident": false}
+If the text is NOT an AI incident, return: {"is_ai_incident": false}
 """
 
-def fetch_google_news_rss(query: str = "AI incident OR LLM security leak OR AI glitch") -> List[Dict[str, str]]:
+SEARCH_QUERIES = [
+    "AI incident OR AI safety risk",
+    "LLM vulnerability OR prompt injection",
+    "AI lawsuit OR copyright AI",
+    "deepfake fraud OR AI scam",
+    "autonomous vehicle accident OR robotaxi"
+]
+
+def fetch_google_news_rss(query: str) -> List[Dict[str, str]]:
     """Fetch recent news articles from Google News RSS feed."""
     encoded_query = urllib.parse.quote(query)
     rss_url = f"https://news.google.com/rss/search?q={encoded_query}&hl=en-US&gl=US&ceid=US:en"
@@ -65,7 +74,7 @@ def fetch_google_news_rss(query: str = "AI incident OR LLM security leak OR AI g
             xml_data = response.read()
             root = ET.fromstring(xml_data)
             
-            for item in root.findall('./channel/item')[:10]: # Top 10 items
+            for item in root.findall('./channel/item')[:5]: # Top 5 per query
                 title = item.find('title').text if item.find('title') is not None else ""
                 link = item.find('link').text if item.find('link') is not None else ""
                 pub_date = item.find('pubDate').text if item.find('pubDate') is not None else ""
@@ -78,7 +87,7 @@ def fetch_google_news_rss(query: str = "AI incident OR LLM security leak OR AI g
                     "description": description
                 })
     except Exception as e:
-        print(f"Error fetching Google News RSS: {e}")
+        print(f"Error fetching Google News RSS for '{query}': {e}")
         
     return articles
 
@@ -112,6 +121,7 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
 def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
     """Save/merge new incidents into src/data/incidents.json."""
     if not new_incidents:
+        print("No new valid AI incidents extracted to save.")
         return
         
     data_dir = os.path.join(os.path.dirname(__file__), "..", "src", "data")
@@ -128,37 +138,45 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
     existing_titles = set(i.get("title", "").lower() for i in existing)
     
     added_count = 0
-    for idx, inc in enumerate(new_incidents, 1):
-        if inc.get("title", "").lower() not in existing_titles:
+    for inc in new_incidents:
+        title = inc.get("title", "")
+        if title and title.lower() not in existing_titles:
             inc["incident_id"] = f"INC-{datetime.now().strftime('%Y%m%d')}-{len(existing) + added_count + 1:03d}"
             if "related_incidents" not in inc:
                 inc["related_incidents"] = []
             existing.insert(0, inc) # Add newest to top
+            existing_titles.add(title.lower())
             added_count += 1
             
     if added_count > 0:
         with open(incidents_path, "w", encoding="utf-8") as f:
             json.dump(existing, f, indent=2)
-        print(f"Saved {added_count} new incidents to src/data/incidents.json")
+        print(f"Successfully saved {added_count} new live incidents to src/data/incidents.json!")
+    else:
+        print("All extracted incidents were duplicates of existing entries.")
 
 def run_ingestion():
     print("Starting automated AI Incident Ingestion pipeline...")
-    articles = fetch_google_news_rss()
-    print(f"Fetched {len(articles)} candidate news items.")
+    all_articles = []
+    for q in SEARCH_QUERIES:
+        arts = fetch_google_news_rss(q)
+        all_articles.extend(arts)
+        
+    print(f"Fetched total of {len(all_articles)} candidate news items across queries.")
     
     api_key = os.environ.get("GEMINI_API_KEY", "")
     if not api_key:
-        print("GEMINI_API_KEY environment variable not set. Running in dry-run/feed verification mode.")
-        for i, a in enumerate(articles[:3], 1):
+        print("GEMINI_API_KEY environment variable not set. Running in dry-run mode.")
+        for i, a in enumerate(all_articles[:3], 1):
             print(f"[{i}] {a['title']} ({a['pub_date']})")
         return
         
     extracted_incidents = []
-    for art in articles:
+    for art in all_articles:
         inc = process_article_with_gemini(art, api_key)
-        if inc:
+        if inc and inc.get("is_ai_incident"):
             extracted_incidents.append(inc)
-            print(f"Extracted Incident: {inc['title']} [Severity: {inc['severity']}]")
+            print(f"[EXTRACTED] {inc.get('title')} | Severity: {inc.get('severity')} | Harm: {inc.get('harm_domain')}")
             
     print(f"Ingestion complete. Extracted {len(extracted_incidents)} valid AI incidents.")
     save_to_incidents_json(extracted_incidents)
