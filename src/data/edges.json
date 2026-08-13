@@ -1,0 +1,18 @@
+[
+  {
+    "edge_id": "EDGE-001",
+    "source_id": "INC-2026-002",
+    "target_id": "INC-2026-001",
+    "relation_type": "lawsuit",
+    "description": "NHTSA regulatory investigation & fine resulting from the autonomous braking glitch.",
+    "confidence": 0.98
+  },
+  {
+    "edge_id": "EDGE-002",
+    "source_id": "INC-2026-007",
+    "target_id": "INC-2026-006",
+    "relation_type": "mitigation_patch",
+    "description": "MediScan deployed corrective software patch v3.1 following the medical hallucination audit.",
+    "confidence": 0.99
+  }
+]
