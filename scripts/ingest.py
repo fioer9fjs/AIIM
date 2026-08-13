@@ -1,7 +1,7 @@
 """
 Automated Data Ingestion & Full-Text Extraction Pipeline for Global AI Incident Monitor.
-Harvests multi-tier queries, scrapes full text, applies noise exclusions, uses Gemini 3.6 Flash,
-updates BOTH src/data/incidents.json AND src/data/edges.json synchronously for Knowledge Graph edges.
+Harvests multi-tier queries, decodes Google News RSS wrapper URLs using googlenewsdecoder,
+scrapes complete article full texts, enforces publication date windowing, and syncs to Supabase.
 """
 
 import os
@@ -13,10 +13,12 @@ from datetime import datetime
 from typing import List, Dict, Any, Optional
 
 try:
+    import requests
     from bs4 import BeautifulSoup
-    HAS_BS4 = True
+    from googlenewsdecoder import gnewsdecoder
+    HAS_SCRAPER = True
 except ImportError:
-    HAS_BS4 = False
+    HAS_SCRAPER = False
 
 try:
     from google import genai
@@ -80,23 +82,33 @@ PREFERRED_MODELS = [
 ]
 
 def fetch_full_text(url: str) -> str:
-    if not url or not HAS_BS4:
+    """Decodes Google News RSS wrapper link to target publisher URL and scrapes full text paragraphs."""
+    if not url or not HAS_SCRAPER:
         return ""
+        
+    real_url = url
     try:
-        req = urllib.request.Request(
-            url,
-            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-        )
-        with urllib.request.urlopen(req, timeout=10) as response:
-            html = response.read().decode('utf-8', errors='ignore')
-            soup = BeautifulSoup(html, 'html.parser')
-            for script in soup(["script", "style", "nav", "header", "footer"]):
-                script.extract()
+        if "news.google.com" in url:
+            decoded = gnewsdecoder(url)
+            if isinstance(decoded, dict) and decoded.get("status") and decoded.get("decoded_url"):
+                real_url = decoded.get("decoded_url")
+    except Exception as e:
+        print(f"Decoder note for {url[:40]}: {e}")
+        
+    try:
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+        resp = requests.get(real_url, headers=headers, timeout=10)
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, 'html.parser')
+            for tag in soup(["script", "style", "nav", "header", "footer", "aside"]):
+                tag.extract()
             paragraphs = [p.get_text().strip() for p in soup.find_all('p') if len(p.get_text().strip()) > 35]
             full_text = "\n\n".join(paragraphs)
             return full_text if len(full_text) > 100 else ""
-    except Exception:
-        return ""
+    except Exception as e:
+        print(f"Scraping error for {real_url[:50]}: {e}")
+        
+    return ""
 
 def get_candidate_models(api_key: str) -> List[str]:
     candidates = list(PREFERRED_MODELS)
@@ -170,14 +182,56 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
             data["source_urls"] = [article["link"]]
             if full_text:
                 data["full_text"] = full_text[:4000]
+                
+            # Enforce current news publication date if Gemini extracted an ancient historical date from inner text
+            article_pub_date = article.get("pub_date_clean") or datetime.now().strftime("%Y-%m-%d")
+            extracted_date = data.get("date", "")
+            if not extracted_date or extracted_date.startswith("2023") or extracted_date.startswith("2024"):
+                data["date"] = article_pub_date
+                
             return data
     except Exception as e:
         print(f"JSON parsing error: {e}")
         
     return None
 
+def fetch_google_news(query: str, max_items: int = 4) -> List[Dict[str, Any]]:
+    encoded_query = urllib.parse.quote(query)
+    rss_url = f"https://news.google.com/rss/search?q={encoded_query}&hl=en-US&gl=US&ceid=US:en"
+    articles = []
+    try:
+        req = urllib.request.Request(rss_url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=8) as response:
+            xml_data = response.read()
+            root = ET.fromstring(xml_data)
+            
+            for item in root.findall('./channel/item')[:max_items]:
+                title = item.find('title').text if item.find('title') is not None else ""
+                link = item.find('link').text if item.find('link') is not None else ""
+                pub_date = item.find('pubDate').text if item.find('pubDate') is not None else ""
+                description = item.find('description').text if item.find('description') is not None else ""
+                
+                # Format clean date YYYY-MM-DD
+                pub_date_clean = datetime.now().strftime("%Y-%m-%d")
+                if pub_date:
+                    try:
+                        dt = datetime.strptime(pub_date[:16], "%a, %d %b %Y")
+                        pub_date_clean = dt.strftime("%Y-%m-%d")
+                    except Exception:
+                        pass
+                
+                articles.append({
+                    "title": title,
+                    "link": link,
+                    "pub_date": pub_date,
+                    "pub_date_clean": pub_date_clean,
+                    "description": description
+                })
+    except Exception as e:
+        print(f"Error fetching RSS: {e}")
+    return articles
+
 def update_knowledge_graph_edges(all_incidents: List[Dict[str, Any]]):
-    """Automatically constructs and updates Knowledge Graph edges based on shared entities and incident evolution."""
     data_dir = os.path.join(os.path.dirname(__file__), "..", "src", "data")
     edges_path = os.path.join(data_dir, "edges.json")
     
@@ -192,7 +246,6 @@ def update_knowledge_graph_edges(all_incidents: List[Dict[str, Any]]):
     existing_pairs = set((e.get("source_id"), e.get("target_id")) for e in existing_edges)
     
     new_edges = []
-    # Discover connections between incidents sharing affected parties & root cause category
     for i, inc1 in enumerate(all_incidents):
         parties1 = set(inc1.get("affected_parties", []))
         id1 = inc1.get("incident_id")
@@ -205,7 +258,6 @@ def update_knowledge_graph_edges(all_incidents: List[Dict[str, Any]]):
             parties2 = set(inc2.get("affected_parties", []))
             common_parties = parties1.intersection(parties2)
             
-            # If they share an affected company/entity and root cause or harm domain
             if common_parties and (inc1.get("root_cause_category") == inc2.get("root_cause_category") or inc1.get("harm_domain") == inc2.get("harm_domain")):
                 if (id1, id2) not in existing_pairs and (id2, id1) not in existing_pairs:
                     rel_type = "lawsuit" if "lawsuit" in inc1.get("title", "").lower() or "lawsuit" in inc2.get("title", "").lower() else "related_cause"
@@ -220,7 +272,6 @@ def update_knowledge_graph_edges(all_incidents: List[Dict[str, Any]]):
                     new_edges.append(edge_obj)
                     existing_pairs.add((id1, id2))
                     
-                    # Update related_incidents list in incident objects
                     if id2 not in inc1.get("related_incidents", []):
                         inc1.setdefault("related_incidents", []).append(id2)
                     if id1 not in inc2.get("related_incidents", []):
@@ -254,7 +305,8 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
     for inc in new_incidents:
         title = inc.get("title", "")
         if title and title.lower() not in existing_titles:
-            inc["incident_id"] = f"INC-{datetime.now().strftime('%Y%m%d')}-{len(existing) + added_count + 1:03d}"
+            date_prefix = str(inc.get("date", "20260814")).replace("-", "")[:8]
+            inc["incident_id"] = f"INC-{date_prefix}-{len(existing) + added_count + 1:03d}"
             if "related_incidents" not in inc:
                 inc["related_incidents"] = []
             existing.insert(0, inc)
@@ -262,45 +314,16 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
             added_count += 1
             
     if added_count > 0 or existing:
-        # Synchronously update Knowledge Graph edges
         update_knowledge_graph_edges(existing)
-        
         with open(incidents_path, "w", encoding="utf-8") as f:
             json.dump(existing, f, indent=2)
         print(f"Successfully saved {added_count} new incidents and updated edges.json!")
         
-        # Trigger Supabase Cloud sync if environment credentials are present
         try:
             from migrate_json_to_supabase import run_migration
             run_migration()
         except Exception as e:
             print(f"Note on Supabase sync: {e}")
-
-def fetch_google_news(query: str, max_items: int = 4) -> List[Dict[str, Any]]:
-    encoded_query = urllib.parse.quote(query)
-    rss_url = f"https://news.google.com/rss/search?q={encoded_query}&hl=en-US&gl=US&ceid=US:en"
-    articles = []
-    try:
-        req = urllib.request.Request(rss_url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req, timeout=8) as response:
-            xml_data = response.read()
-            root = ET.fromstring(xml_data)
-            
-            for item in root.findall('./channel/item')[:max_items]:
-                title = item.find('title').text if item.find('title') is not None else ""
-                link = item.find('link').text if item.find('link') is not None else ""
-                pub_date = item.find('pubDate').text if item.find('pubDate') is not None else ""
-                description = item.find('description').text if item.find('description') is not None else ""
-                
-                articles.append({
-                    "title": title,
-                    "link": link,
-                    "pub_date": pub_date,
-                    "description": description
-                })
-    except Exception as e:
-        print(f"Error fetching RSS: {e}")
-    return articles
 
 def run_ingestion():
     print("Starting Full-Text AI Incident & Knowledge Graph Ingestion pipeline...")
@@ -342,7 +365,7 @@ def run_ingestion():
         inc = process_article_with_gemini(art, api_key)
         if inc and inc.get("is_ai_incident"):
             extracted_incidents.append(inc)
-            print(f"[FULL-TEXT EXTRACTED] {inc.get('title')} | Severity: {inc.get('severity')}")
+            print(f"[FULL-TEXT EXTRACTED] {inc.get('title')} | Full Text Length: {len(inc.get('full_text', ''))} chars")
             
     print(f"Ingestion complete. Extracted {len(extracted_incidents)} valid AI incidents.")
     save_to_incidents_json(extracted_incidents)

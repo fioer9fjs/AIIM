@@ -1,8 +1,8 @@
 """
 Historical 7-Day Backfill Pipeline for Global AI Incident Monitor.
-Loops day-by-day through the past 7 days, fetches raw candidate news items across sources,
-scrapes full text, extracts taxonomy via Gemini 3.6 Flash, deduplicates, and updates BOTH
-incidents.json AND edges.json synchronously.
+Loops day-by-day through the past 7 days, fetches candidate news items,
+decodes Google News RSS wrapper URLs using googlenewsdecoder, scrapes full text,
+extracts taxonomy via Gemini 3.6 Flash, and syncs both incidents.json & Supabase PostgreSQL.
 """
 
 import os
@@ -15,10 +15,12 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
 
 try:
+    import requests
     from bs4 import BeautifulSoup
-    HAS_BS4 = True
+    from googlenewsdecoder import gnewsdecoder
+    HAS_SCRAPER = True
 except ImportError:
-    HAS_BS4 = False
+    HAS_SCRAPER = False
 
 try:
     from google import genai
@@ -39,7 +41,7 @@ from taxonomy_filters import (
 
 SYSTEM_PROMPT = """
 You are an expert AI Safety & Regulatory Incident Analyst.
-Analyze the following news text about an AI-related event and extract structured taxonomy metadata.
+Analyze the following FULL-TEXT news article about an AI-related event and extract structured taxonomy metadata.
 
 An "AI Incident" is an event/circumstance where the development, deployment, use, malfunction, or misuse of an AI system leads to actual harm, potential harm, security breach, bias, hallucination impact, or significant deviation from safe operation.
 
@@ -89,25 +91,35 @@ PREFERRED_MODELS = [
 ]
 
 def fetch_full_text(url: str) -> str:
-    if not url or not HAS_BS4:
+    """Decodes Google News RSS wrapper link to target publisher URL and scrapes full text paragraphs."""
+    if not url or not HAS_SCRAPER:
         return ""
+        
+    real_url = url
     try:
-        req = urllib.request.Request(
-            url,
-            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-        )
-        with urllib.request.urlopen(req, timeout=8) as response:
-            html = response.read().decode('utf-8', errors='ignore')
-            soup = BeautifulSoup(html, 'html.parser')
-            for script in soup(["script", "style", "nav", "header", "footer"]):
-                script.extract()
+        if "news.google.com" in url:
+            decoded = gnewsdecoder(url)
+            if isinstance(decoded, dict) and decoded.get("status") and decoded.get("decoded_url"):
+                real_url = decoded.get("decoded_url")
+    except Exception as e:
+        print(f"Decoder note for {url[:40]}: {e}")
+        
+    try:
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+        resp = requests.get(real_url, headers=headers, timeout=10)
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, 'html.parser')
+            for tag in soup(["script", "style", "nav", "header", "footer", "aside"]):
+                tag.extract()
             paragraphs = [p.get_text().strip() for p in soup.find_all('p') if len(p.get_text().strip()) > 35]
             full_text = "\n\n".join(paragraphs)
             return full_text if len(full_text) > 100 else ""
-    except Exception:
-        return ""
+    except Exception as e:
+        print(f"Scraping error for {real_url[:50]}: {e}")
+        
+    return ""
 
-def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Optional[Dict[str, Any]]:
+def process_article_with_gemini(article: Dict[str, str], api_key: str, target_date_str: str) -> Optional[Dict[str, Any]]:
     global _WORKING_MODEL_NAME
     if not api_key:
         return None
@@ -151,6 +163,9 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
             data["source_urls"] = [article["link"]]
             if full_text:
                 data["full_text"] = full_text[:4000]
+                
+            # Enforce target backfill publication date
+            data["date"] = target_date_str
             return data
     except Exception:
         pass
@@ -185,7 +200,6 @@ def fetch_rss_for_date_range(query: str, target_date_str: str) -> List[Dict[str,
     return articles
 
 def update_knowledge_graph_edges(all_incidents: List[Dict[str, Any]]):
-    """Automatically constructs and updates Knowledge Graph edges based on shared entities and incident evolution."""
     data_dir = os.path.join(os.path.dirname(__file__), "..", "src", "data")
     edges_path = os.path.join(data_dir, "edges.json")
     
@@ -258,7 +272,8 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]) -> int:
     for inc in new_incidents:
         title = inc.get("title", "")
         if title and title.lower() not in existing_titles:
-            inc["incident_id"] = f"INC-{datetime.now().strftime('%Y%m%d')}-{len(existing) + added_count + 1:03d}"
+            date_prefix = str(inc.get("date", "20260814")).replace("-", "")[:8]
+            inc["incident_id"] = f"INC-{date_prefix}-{len(existing) + added_count + 1:03d}"
             if "related_incidents" not in inc:
                 inc["related_incidents"] = []
             existing.insert(0, inc)
@@ -269,6 +284,12 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]) -> int:
         update_knowledge_graph_edges(existing)
         with open(incidents_path, "w", encoding="utf-8") as f:
             json.dump(existing, f, indent=2)
+            
+        try:
+            from migrate_json_to_supabase import run_migration
+            run_migration()
+        except Exception as e:
+            print(f"Note on Supabase sync: {e}")
             
     return added_count
 
@@ -306,11 +327,10 @@ def run_7day_backfill():
         
         day_extracted = []
         for art in passed_articles:
-            inc = process_article_with_gemini(art, api_key)
+            inc = process_article_with_gemini(art, api_key, date_str)
             if inc and inc.get("is_ai_incident"):
-                inc["date"] = date_str
                 day_extracted.append(inc)
-                print(f"     [EXTRACTED] {inc.get('title')} [{inc.get('severity')}]")
+                print(f"     [FULL-TEXT EXTRACTED] {inc.get('title')} | Text Length: {len(inc.get('full_text', ''))} chars")
                 
         added = save_to_incidents_json(day_extracted)
         total_added += added
