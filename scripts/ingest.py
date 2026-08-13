@@ -1,7 +1,7 @@
 """
 Automated Data Ingestion & Full-Text Extraction Pipeline for Global AI Incident Monitor.
-Harvests multi-tier queries, scrapes complete article full texts using BeautifulSoup,
-applies noise exclusions, uses Gemini 3.6 Flash for deep taxonomy analysis, and merges dataset.
+Harvests multi-tier queries, scrapes full text, applies noise exclusions, uses Gemini 3.6 Flash,
+updates BOTH src/data/incidents.json AND src/data/edges.json synchronously for Knowledge Graph edges.
 """
 
 import os
@@ -75,10 +75,8 @@ PREFERRED_MODELS = [
 ]
 
 def fetch_full_text(url: str) -> str:
-    """Scrapes the complete full-text body paragraphs from a news article URL."""
     if not url or not HAS_BS4:
         return ""
-        
     try:
         req = urllib.request.Request(
             url,
@@ -87,11 +85,8 @@ def fetch_full_text(url: str) -> str:
         with urllib.request.urlopen(req, timeout=10) as response:
             html = response.read().decode('utf-8', errors='ignore')
             soup = BeautifulSoup(html, 'html.parser')
-            
-            # Remove scripts, styles, navigation
             for script in soup(["script", "style", "nav", "header", "footer"]):
                 script.extract()
-                
             paragraphs = [p.get_text().strip() for p in soup.find_all('p') if len(p.get_text().strip()) > 35]
             full_text = "\n\n".join(paragraphs)
             return full_text if len(full_text) > 100 else ""
@@ -117,10 +112,8 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
     if not api_key:
         return None
         
-    # Attempt full-text web scraping
     full_text = fetch_full_text(article['link'])
     text_payload = full_text if full_text else article.get('description', '')
-    
     prompt = f"{SYSTEM_PROMPT}\n\nARTICLE TITLE: {article['title']}\n\nARTICLE FULL TEXT:\n{text_payload[:12000]}"
     
     candidate_models = get_candidate_models(api_key)
@@ -171,38 +164,68 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
         if data.get("is_ai_incident"):
             data["source_urls"] = [article["link"]]
             if full_text:
-                data["full_text"] = full_text[:4000] # Store primary full text body
+                data["full_text"] = full_text[:4000]
             return data
     except Exception as e:
         print(f"JSON parsing error: {e}")
         
     return None
 
-def fetch_google_news(query: str, max_items: int = 4) -> List[Dict[str, Any]]:
-    encoded_query = urllib.parse.quote(query)
-    rss_url = f"https://news.google.com/rss/search?q={encoded_query}&hl=en-US&gl=US&ceid=US:en"
-    articles = []
-    try:
-        req = urllib.request.Request(rss_url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req, timeout=8) as response:
-            xml_data = response.read()
-            root = ET.fromstring(xml_data)
+def update_knowledge_graph_edges(all_incidents: List[Dict[str, Any]]):
+    """Automatically constructs and updates Knowledge Graph edges based on shared entities and incident evolution."""
+    data_dir = os.path.join(os.path.dirname(__file__), "..", "src", "data")
+    edges_path = os.path.join(data_dir, "edges.json")
+    
+    existing_edges = []
+    if os.path.exists(edges_path):
+        try:
+            with open(edges_path, "r", encoding="utf-8") as f:
+                existing_edges = json.load(f)
+        except Exception:
+            existing_edges = []
             
-            for item in root.findall('./channel/item')[:max_items]:
-                title = item.find('title').text if item.find('title') is not None else ""
-                link = item.find('link').text if item.find('link') is not None else ""
-                pub_date = item.find('pubDate').text if item.find('pubDate') is not None else ""
-                description = item.find('description').text if item.find('description') is not None else ""
+    existing_pairs = set((e.get("source_id"), e.get("target_id")) for e in existing_edges)
+    
+    new_edges = []
+    # Discover connections between incidents sharing affected parties & root cause category
+    for i, inc1 in enumerate(all_incidents):
+        parties1 = set(inc1.get("affected_parties", []))
+        id1 = inc1.get("incident_id")
+        
+        for inc2 in all_incidents[i+1:]:
+            id2 = inc2.get("incident_id")
+            if not id1 or not id2 or id1 == id2:
+                continue
                 
-                articles.append({
-                    "title": title,
-                    "link": link,
-                    "pub_date": pub_date,
-                    "description": description
-                })
-    except Exception as e:
-        print(f"Error fetching RSS: {e}")
-    return articles
+            parties2 = set(inc2.get("affected_parties", []))
+            common_parties = parties1.intersection(parties2)
+            
+            # If they share an affected company/entity and root cause or harm domain
+            if common_parties and (inc1.get("root_cause_category") == inc2.get("root_cause_category") or inc1.get("harm_domain") == inc2.get("harm_domain")):
+                if (id1, id2) not in existing_pairs and (id2, id1) not in existing_pairs:
+                    rel_type = "lawsuit" if "lawsuit" in inc1.get("title", "").lower() or "lawsuit" in inc2.get("title", "").lower() else "related_cause"
+                    edge_obj = {
+                        "edge_id": f"EDGE-{len(existing_edges) + len(new_edges) + 1:03d}",
+                        "source_id": id1,
+                        "target_id": id2,
+                        "relation_type": rel_type,
+                        "description": f"Linked via shared entity ({', '.join(list(common_parties)[:2])}) & harm profile.",
+                        "confidence": 0.90
+                    }
+                    new_edges.append(edge_obj)
+                    existing_pairs.add((id1, id2))
+                    
+                    # Update related_incidents list in incident objects
+                    if id2 not in inc1.get("related_incidents", []):
+                        inc1.setdefault("related_incidents", []).append(id2)
+                    if id1 not in inc2.get("related_incidents", []):
+                        inc2.setdefault("related_incidents", []).append(id1)
+
+    if new_edges:
+        existing_edges.extend(new_edges)
+        with open(edges_path, "w", encoding="utf-8") as f:
+            json.dump(existing_edges, f, indent=2)
+        print(f"Updated Knowledge Graph: Added {len(new_edges)} new edges to src/data/edges.json!")
 
 def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
     if not new_incidents:
@@ -233,15 +256,42 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
             existing_titles.add(title.lower())
             added_count += 1
             
-    if added_count > 0:
+    if added_count > 0 or existing:
+        # Synchronously update Knowledge Graph edges
+        update_knowledge_graph_edges(existing)
+        
         with open(incidents_path, "w", encoding="utf-8") as f:
             json.dump(existing, f, indent=2)
-        print(f"Successfully saved {added_count} new full-text extracted incidents to src/data/incidents.json!")
-    else:
-        print("All extracted incidents were duplicates of existing entries.")
+        print(f"Successfully saved {added_count} new incidents and updated edges.json!")
+
+def fetch_google_news(query: str, max_items: int = 4) -> List[Dict[str, Any]]:
+    encoded_query = urllib.parse.quote(query)
+    rss_url = f"https://news.google.com/rss/search?q={encoded_query}&hl=en-US&gl=US&ceid=US:en"
+    articles = []
+    try:
+        req = urllib.request.Request(rss_url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=8) as response:
+            xml_data = response.read()
+            root = ET.fromstring(xml_data)
+            
+            for item in root.findall('./channel/item')[:max_items]:
+                title = item.find('title').text if item.find('title') is not None else ""
+                link = item.find('link').text if item.find('link') is not None else ""
+                pub_date = item.find('pubDate').text if item.find('pubDate') is not None else ""
+                description = item.find('description').text if item.find('description') is not None else ""
+                
+                articles.append({
+                    "title": title,
+                    "link": link,
+                    "pub_date": pub_date,
+                    "description": description
+                })
+    except Exception as e:
+        print(f"Error fetching RSS: {e}")
+    return articles
 
 def run_ingestion():
-    print("Starting Full-Text AI Incident Ingestion pipeline...")
+    print("Starting Full-Text AI Incident & Knowledge Graph Ingestion pipeline...")
     
     from taxonomy_filters import (
         TIER_1_MODELS_PRODUCTS,

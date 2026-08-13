@@ -1,7 +1,8 @@
 """
 Historical 7-Day Backfill Pipeline for Global AI Incident Monitor.
 Loops day-by-day through the past 7 days, fetches raw candidate news items across sources,
-scrapes full text, extracts taxonomy via Gemini 3.6 Flash, deduplicates, and populates incidents.json.
+scrapes full text, extracts taxonomy via Gemini 3.6 Flash, deduplicates, and updates BOTH
+incidents.json AND edges.json synchronously.
 """
 
 import os
@@ -152,8 +153,6 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
     return None
 
 def fetch_rss_for_date_range(query: str, target_date_str: str) -> List[Dict[str, Any]]:
-    """Fetch RSS articles filtered for a specific date string (YYYY-MM-DD)."""
-    # Combine query with Google date filter
     full_query = f"{query} after:{target_date_str} before:{(datetime.strptime(target_date_str, '%Y-%m-%d') + timedelta(days=1)).strftime('%Y-%m-%d')}"
     encoded_query = urllib.parse.quote(full_query)
     rss_url = f"https://news.google.com/rss/search?q={encoded_query}&hl=en-US&gl=US&ceid=US:en"
@@ -179,6 +178,59 @@ def fetch_rss_for_date_range(query: str, target_date_str: str) -> List[Dict[str,
     except Exception:
         pass
     return articles
+
+def update_knowledge_graph_edges(all_incidents: List[Dict[str, Any]]):
+    """Automatically constructs and updates Knowledge Graph edges based on shared entities and incident evolution."""
+    data_dir = os.path.join(os.path.dirname(__file__), "..", "src", "data")
+    edges_path = os.path.join(data_dir, "edges.json")
+    
+    existing_edges = []
+    if os.path.exists(edges_path):
+        try:
+            with open(edges_path, "r", encoding="utf-8") as f:
+                existing_edges = json.load(f)
+        except Exception:
+            existing_edges = []
+            
+    existing_pairs = set((e.get("source_id"), e.get("target_id")) for e in existing_edges)
+    
+    new_edges = []
+    for i, inc1 in enumerate(all_incidents):
+        parties1 = set(inc1.get("affected_parties", []))
+        id1 = inc1.get("incident_id")
+        
+        for inc2 in all_incidents[i+1:]:
+            id2 = inc2.get("incident_id")
+            if not id1 or not id2 or id1 == id2:
+                continue
+                
+            parties2 = set(inc2.get("affected_parties", []))
+            common_parties = parties1.intersection(parties2)
+            
+            if common_parties and (inc1.get("root_cause_category") == inc2.get("root_cause_category") or inc1.get("harm_domain") == inc2.get("harm_domain")):
+                if (id1, id2) not in existing_pairs and (id2, id1) not in existing_pairs:
+                    rel_type = "lawsuit" if "lawsuit" in inc1.get("title", "").lower() or "lawsuit" in inc2.get("title", "").lower() else "related_cause"
+                    edge_obj = {
+                        "edge_id": f"EDGE-{len(existing_edges) + len(new_edges) + 1:03d}",
+                        "source_id": id1,
+                        "target_id": id2,
+                        "relation_type": rel_type,
+                        "description": f"Linked via shared entity ({', '.join(list(common_parties)[:2])}) & harm profile.",
+                        "confidence": 0.90
+                    }
+                    new_edges.append(edge_obj)
+                    existing_pairs.add((id1, id2))
+                    
+                    if id2 not in inc1.get("related_incidents", []):
+                        inc1.setdefault("related_incidents", []).append(id2)
+                    if id1 not in inc2.get("related_incidents", []):
+                        inc2.setdefault("related_incidents", []).append(id1)
+
+    if new_edges:
+        existing_edges.extend(new_edges)
+        with open(edges_path, "w", encoding="utf-8") as f:
+            json.dump(existing_edges, f, indent=2)
+        print(f"Updated Knowledge Graph: Added {len(new_edges)} new edges to src/data/edges.json!")
 
 def save_to_incidents_json(new_incidents: List[Dict[str, Any]]) -> int:
     if not new_incidents:
@@ -208,7 +260,8 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]) -> int:
             existing_titles.add(title.lower())
             added_count += 1
             
-    if added_count > 0:
+    if added_count > 0 or existing:
+        update_knowledge_graph_edges(existing)
         with open(incidents_path, "w", encoding="utf-8") as f:
             json.dump(existing, f, indent=2)
             
@@ -233,7 +286,6 @@ def run_7day_backfill():
     total_added = 0
     today = datetime.now()
     
-    # Loop day by day for past 7 days
     for day_offset in range(1, 8):
         target_date = today - timedelta(days=day_offset)
         date_str = target_date.strftime("%Y-%m-%d")
@@ -251,14 +303,14 @@ def run_7day_backfill():
         for art in passed_articles:
             inc = process_article_with_gemini(art, api_key)
             if inc and inc.get("is_ai_incident"):
-                inc["date"] = date_str # Ensure target backfill date
+                inc["date"] = date_str
                 day_extracted.append(inc)
                 print(f"     [EXTRACTED] {inc.get('title')} [{inc.get('severity')}]")
                 
         added = save_to_incidents_json(day_extracted)
         total_added += added
         print(f"     Saved {added} new incidents for {date_str}.")
-        time.sleep(1) # Polite pause between days
+        time.sleep(1)
         
     print("\n" + "=" * 85)
     print(f"7-DAY BACKFILL COMPLETE: Added total of {total_added} new historical incidents to dataset!")
