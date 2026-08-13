@@ -1,8 +1,7 @@
 """
-Automated Data Ingestion & Extraction Pipeline for Global AI Incident Monitor.
-Harvests from multi-tier queries (GDELT, ArXiv, AIID, Google News), applies noise exclusions,
-uses official google-genai client with Gemini 3.6 Flash & Gemini 3.5 Flash-Lite,
-extracts taxonomy metadata, and merges with store.
+Automated Data Ingestion & Full-Text Extraction Pipeline for Global AI Incident Monitor.
+Harvests multi-tier queries, scrapes complete article full texts using BeautifulSoup,
+applies noise exclusions, uses Gemini 3.6 Flash for deep taxonomy analysis, and merges dataset.
 """
 
 import os
@@ -13,9 +12,11 @@ import xml.etree.ElementTree as ET
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 
-# Prefer official google-genai SDK, fallback to google-generativeai
-HAS_GENAI = False
-HAS_LEGACY_GENAI = False
+try:
+    from bs4 import BeautifulSoup
+    HAS_BS4 = True
+except ImportError:
+    HAS_BS4 = False
 
 try:
     from google import genai
@@ -29,7 +30,7 @@ except ImportError:
 
 SYSTEM_PROMPT = """
 You are an expert AI Safety & Regulatory Incident Analyst.
-Analyze the following news text about an AI-related event and extract structured taxonomy metadata.
+Analyze the following FULL-TEXT news article about an AI-related event and extract structured taxonomy metadata.
 
 An "AI Incident" is an event/circumstance where the development, deployment, use, malfunction, or misuse of an AI system leads to actual harm, potential harm, security breach, bias, hallucination impact, or significant deviation from safe operation.
 
@@ -44,7 +45,7 @@ Return ONLY a valid JSON object matching this exact schema:
   "system_classification": "high_risk_regulated" | "general_purpose_model" | "autonomous_agent" | "biometric_identification" | "critical_infrastructure_component" | "dual_use_security" | "unclassified",
   "root_cause_category": "data" | "model" | "human" | "governance" | "external" | "undetermined",
   "root_cause_subtype": "hallucination/poisoning/bias/adversarial_attack/etc",
-  "failure_mode": "Brief narrative connecting cause to consequence",
+  "failure_mode": "Brief narrative connecting cause to consequence based on full text details",
   "harm_domain": "persons_physical" | "persons_mental" | "persons_rights" | "property" | "environment" | "systemic_integrity" | "societal",
   "temporality": "actual" | "potential" | "latent",
   "severity": "critical" | "high" | "medium" | "low",
@@ -73,10 +74,32 @@ PREFERRED_MODELS = [
     "gemini-2.0-flash"
 ]
 
+def fetch_full_text(url: str) -> str:
+    """Scrapes the complete full-text body paragraphs from a news article URL."""
+    if not url or not HAS_BS4:
+        return ""
+        
+    try:
+        req = urllib.request.Request(
+            url,
+            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+        )
+        with urllib.request.urlopen(req, timeout=10) as response:
+            html = response.read().decode('utf-8', errors='ignore')
+            soup = BeautifulSoup(html, 'html.parser')
+            
+            # Remove scripts, styles, navigation
+            for script in soup(["script", "style", "nav", "header", "footer"]):
+                script.extract()
+                
+            paragraphs = [p.get_text().strip() for p in soup.find_all('p') if len(p.get_text().strip()) > 35]
+            full_text = "\n\n".join(paragraphs)
+            return full_text if len(full_text) > 100 else ""
+    except Exception:
+        return ""
+
 def get_candidate_models(api_key: str) -> List[str]:
-    """Retrieves candidate models prioritizing current Gemini 3.6 / 3.5 Flash series."""
     candidates = list(PREFERRED_MODELS)
-    
     if HAS_GENAI:
         try:
             client = genai.Client(api_key=api_key)
@@ -85,9 +108,8 @@ def get_candidate_models(api_key: str) -> List[str]:
                 for f in fetched:
                     if f not in candidates:
                         candidates.append(f)
-        except Exception as e:
-            print(f"Note on listing models: {e}")
-            
+        except Exception:
+            pass
     return candidates
 
 def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Optional[Dict[str, Any]]:
@@ -95,7 +117,11 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
     if not api_key:
         return None
         
-    prompt = f"{SYSTEM_PROMPT}\n\nARTICLE TITLE: {article['title']}\nARTICLE CONTENT: {article.get('description', '')}"
+    # Attempt full-text web scraping
+    full_text = fetch_full_text(article['link'])
+    text_payload = full_text if full_text else article.get('description', '')
+    
+    prompt = f"{SYSTEM_PROMPT}\n\nARTICLE TITLE: {article['title']}\n\nARTICLE FULL TEXT:\n{text_payload[:12000]}"
     
     candidate_models = get_candidate_models(api_key)
     if _WORKING_MODEL_NAME and _WORKING_MODEL_NAME in candidate_models:
@@ -103,7 +129,6 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
         candidate_models.insert(0, _WORKING_MODEL_NAME)
 
     text_clean = ""
-    
     for model_name in candidate_models:
         if HAS_GENAI:
             try:
@@ -117,11 +142,9 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
                     text_clean = response.text.strip()
                     if _WORKING_MODEL_NAME != model_name:
                         _WORKING_MODEL_NAME = model_name
-                        print(f"--> Successfully verified active model: {model_name}")
+                        print(f"--> Verified working Gemini model: {model_name}")
                     break
-            except Exception as e:
-                err_msg = str(e)
-                print(f"Attempt with model '{model_name}' failed: {err_msg[:120]}...")
+            except Exception:
                 continue
                     
         elif HAS_LEGACY_GENAI:
@@ -147,6 +170,8 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
         data = json.loads(text_clean.strip())
         if data.get("is_ai_incident"):
             data["source_urls"] = [article["link"]]
+            if full_text:
+                data["full_text"] = full_text[:4000] # Store primary full text body
             return data
     except Exception as e:
         print(f"JSON parsing error: {e}")
@@ -211,12 +236,12 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
     if added_count > 0:
         with open(incidents_path, "w", encoding="utf-8") as f:
             json.dump(existing, f, indent=2)
-        print(f"Successfully saved {added_count} new live incidents to src/data/incidents.json!")
+        print(f"Successfully saved {added_count} new full-text extracted incidents to src/data/incidents.json!")
     else:
         print("All extracted incidents were duplicates of existing entries.")
 
 def run_ingestion():
-    print("Starting Tiered AI Incident Ingestion pipeline...")
+    print("Starting Full-Text AI Incident Ingestion pipeline...")
     
     from taxonomy_filters import (
         TIER_1_MODELS_PRODUCTS,
@@ -255,7 +280,7 @@ def run_ingestion():
         inc = process_article_with_gemini(art, api_key)
         if inc and inc.get("is_ai_incident"):
             extracted_incidents.append(inc)
-            print(f"[EXTRACTED] {inc.get('title')} | Severity: {inc.get('severity')} | Harm: {inc.get('harm_domain')}")
+            print(f"[FULL-TEXT EXTRACTED] {inc.get('title')} | Severity: {inc.get('severity')}")
             
     print(f"Ingestion complete. Extracted {len(extracted_incidents)} valid AI incidents.")
     save_to_incidents_json(extracted_incidents)

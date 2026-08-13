@@ -57,6 +57,7 @@ export interface AIIncident {
   incident_id: string;
   title: string;
   summary: string;
+  full_text?: string;
   date: string;
   verification_status: VerificationStatus;
   lifecycle_phase: LifecyclePhase;
