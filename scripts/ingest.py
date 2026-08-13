@@ -268,6 +268,13 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
         with open(incidents_path, "w", encoding="utf-8") as f:
             json.dump(existing, f, indent=2)
         print(f"Successfully saved {added_count} new incidents and updated edges.json!")
+        
+        # Trigger Supabase Cloud sync if environment credentials are present
+        try:
+            from migrate_json_to_supabase import run_migration
+            run_migration()
+        except Exception as e:
+            print(f"Note on Supabase sync: {e}")
 
 def fetch_google_news(query: str, max_items: int = 4) -> List[Dict[str, Any]]:
     encoded_query = urllib.parse.quote(query)
