@@ -6,10 +6,11 @@ Gemini Flash, detects deduplications/timeline links, and updates the incident st
 
 import os
 import json
+import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 
 try:
     import google.generativeai as genai
@@ -24,7 +25,7 @@ Analyze the following news text about an AI-related event and extract structured
 
 Return ONLY a valid JSON object matching this exact schema:
 {
-  "is_ai_incident": true/false,
+  "is_ai_incident": true,
   "title": "Concise factual incident title",
   "summary": "2-3 sentence executive summary of what happened, root causes, and impact",
   "date": "YYYY-MM-DD",
@@ -38,16 +39,18 @@ Return ONLY a valid JSON object matching this exact schema:
   "temporality": "actual" | "potential" | "latent",
   "severity": "critical" | "high" | "medium" | "low",
   "confidence_scores": {
-    "verification_status": 0.0-1.0,
-    "lifecycle_phase": 0.0-1.0,
-    "system_classification": 0.0-1.0,
-    "root_cause_category": 0.0-1.0,
-    "harm_domain": 0.0-1.0,
-    "severity": 0.0-1.0
+    "verification_status": 0.95,
+    "lifecycle_phase": 0.90,
+    "system_classification": 0.95,
+    "root_cause_category": 0.90,
+    "harm_domain": 0.95,
+    "severity": 0.90
   },
   "geographic_scope": ["Country/Region"],
   "affected_parties": ["Entity1", "Entity2"]
 }
+
+If the text is NOT an actual AI incident, return: {"is_ai_incident": false}
 """
 
 def fetch_google_news_rss(query: str = "AI incident OR LLM security leak OR AI glitch") -> List[Dict[str, str]]:
@@ -92,7 +95,12 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
     
     try:
         response = model.generate_content(prompt, generation_config={"response_mime_type": "application/json"})
-        data = json.loads(response.text)
+        text_clean = response.text.strip()
+        if text_clean.startswith("```json"):
+            text_clean = text_clean[7:]
+        if text_clean.endswith("```"):
+            text_clean = text_clean[:-3]
+        data = json.loads(text_clean.strip())
         if data.get("is_ai_incident"):
             data["source_urls"] = [article["link"]]
             return data
@@ -100,6 +108,38 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
         print(f"Gemini API error during extraction: {e}")
         
     return None
+
+def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
+    """Save/merge new incidents into src/data/incidents.json."""
+    if not new_incidents:
+        return
+        
+    data_dir = os.path.join(os.path.dirname(__file__), "..", "src", "data")
+    incidents_path = os.path.join(data_dir, "incidents.json")
+    
+    existing = []
+    if os.path.exists(incidents_path):
+        try:
+            with open(incidents_path, "r", encoding="utf-8") as f:
+                existing = json.load(f)
+        except Exception:
+            existing = []
+            
+    existing_titles = set(i.get("title", "").lower() for i in existing)
+    
+    added_count = 0
+    for idx, inc in enumerate(new_incidents, 1):
+        if inc.get("title", "").lower() not in existing_titles:
+            inc["incident_id"] = f"INC-{datetime.now().strftime('%Y%m%d')}-{len(existing) + added_count + 1:03d}"
+            if "related_incidents" not in inc:
+                inc["related_incidents"] = []
+            existing.insert(0, inc) # Add newest to top
+            added_count += 1
+            
+    if added_count > 0:
+        with open(incidents_path, "w", encoding="utf-8") as f:
+            json.dump(existing, f, indent=2)
+        print(f"Saved {added_count} new incidents to src/data/incidents.json")
 
 def run_ingestion():
     print("Starting automated AI Incident Ingestion pipeline...")
@@ -121,6 +161,7 @@ def run_ingestion():
             print(f"Extracted Incident: {inc['title']} [Severity: {inc['severity']}]")
             
     print(f"Ingestion complete. Extracted {len(extracted_incidents)} valid AI incidents.")
+    save_to_incidents_json(extracted_incidents)
 
 if __name__ == "__main__":
     run_ingestion()
