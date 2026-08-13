@@ -1,8 +1,9 @@
 """
 Historical 7-Day Backfill Pipeline for Global AI Incident Monitor.
-Loops day-by-day through the past 7 days, fetches candidate news items,
+Loops day-by-day through the past 7 days, fetches candidate news items across sources,
 decodes Google News RSS wrapper URLs using googlenewsdecoder, scrapes full text,
-extracts taxonomy via Gemini 3.6 Flash, and syncs both incidents.json & Supabase PostgreSQL.
+extracts taxonomy via Gemini 3.6 Flash, and updates incidents.json, edges.json AND
+records daily source telemetry stats in Supabase PostgreSQL table 'daily_source_stats'.
 """
 
 import os
@@ -91,7 +92,6 @@ PREFERRED_MODELS = [
 ]
 
 def fetch_full_text(url: str) -> str:
-    """Decodes Google News RSS wrapper link to target publisher URL and scrapes full text paragraphs."""
     if not url or not HAS_SCRAPER:
         return ""
         
@@ -101,11 +101,11 @@ def fetch_full_text(url: str) -> str:
             decoded = gnewsdecoder(url)
             if isinstance(decoded, dict) and decoded.get("status") and decoded.get("decoded_url"):
                 real_url = decoded.get("decoded_url")
-    except Exception as e:
-        print(f"Decoder note for {url[:40]}: {e}")
+    except Exception:
+        pass
         
     try:
-        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
         resp = requests.get(real_url, headers=headers, timeout=10)
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
@@ -114,8 +114,8 @@ def fetch_full_text(url: str) -> str:
             paragraphs = [p.get_text().strip() for p in soup.find_all('p') if len(p.get_text().strip()) > 35]
             full_text = "\n\n".join(paragraphs)
             return full_text if len(full_text) > 100 else ""
-    except Exception as e:
-        print(f"Scraping error for {real_url[:50]}: {e}")
+    except Exception:
+        pass
         
     return ""
 
@@ -164,7 +164,6 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str, target_da
             if full_text:
                 data["full_text"] = full_text[:4000]
                 
-            # Enforce target backfill publication date
             data["date"] = target_date_str
             return data
     except Exception:
@@ -249,7 +248,6 @@ def update_knowledge_graph_edges(all_incidents: List[Dict[str, Any]]):
         existing_edges.extend(new_edges)
         with open(edges_path, "w", encoding="utf-8") as f:
             json.dump(existing_edges, f, indent=2)
-        print(f"Updated Knowledge Graph: Added {len(new_edges)} new edges to src/data/edges.json!")
 
 def save_to_incidents_json(new_incidents: List[Dict[str, Any]]) -> int:
     if not new_incidents:
@@ -335,6 +333,23 @@ def run_7day_backfill():
         added = save_to_incidents_json(day_extracted)
         total_added += added
         print(f"     Saved {added} new incidents for {date_str}.")
+        
+        # Record Telemetry Stats for Backfill Day
+        try:
+            from migrate_json_to_supabase import record_daily_source_stats
+            record_daily_source_stats(
+                stat_date=date_str,
+                rss_count=len(day_articles),
+                gdelt_count=0,
+                arxiv_count=0,
+                aiid_count=0,
+                total_fetched=len(day_articles),
+                passed_filter=len(passed_articles),
+                extracted_incidents=len(day_extracted)
+            )
+        except Exception:
+            pass
+            
         time.sleep(1)
         
     print("\n" + "=" * 85)

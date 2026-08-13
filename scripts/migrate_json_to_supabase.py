@@ -1,7 +1,8 @@
 """
-One-Click JSON-to-Supabase PostgreSQL Data Migration Script.
+One-Click JSON-to-Supabase PostgreSQL Data Migration & Telemetry Script.
 Reads all existing incidents and Knowledge Graph edges from static JSON files,
 deduplicates incident_id keys in the batch payload, and uploads them into Supabase PostgreSQL.
+Includes telemetry tracking for daily source ingestion statistics.
 """
 
 import os
@@ -39,7 +40,7 @@ def post_to_supabase_table(url: str, key: str, table_name: str, records: List[Di
     try:
         with urllib.request.urlopen(req) as resp:
             if resp.status in (200, 201, 204):
-                print(f"Successfully migrated {len(records)} records to Supabase table '{table_name}'!")
+                print(f"Successfully updated Supabase table '{table_name}'!")
                 return True
     except urllib.error.HTTPError as e:
         error_body = ""
@@ -54,6 +55,33 @@ def post_to_supabase_table(url: str, key: str, table_name: str, records: List[Di
         print(f"Error uploading to Supabase table '{table_name}': {e}")
         
     return False
+
+def record_daily_source_stats(
+    stat_date: str,
+    rss_count: int = 0,
+    gdelt_count: int = 0,
+    arxiv_count: int = 0,
+    aiid_count: int = 0,
+    total_fetched: int = 0,
+    passed_filter: int = 0,
+    extracted_incidents: int = 0
+):
+    """Upserts daily telemetry metrics regarding source breakdown and ingestion health into Supabase."""
+    url, key = get_supabase_credentials()
+    if not url or not key:
+        return
+        
+    record = [{
+        "stat_date": stat_date,
+        "rss_count": rss_count,
+        "gdelt_count": gdelt_count,
+        "arxiv_count": arxiv_count,
+        "aiid_count": aiid_count,
+        "total_fetched": total_fetched,
+        "passed_filter": passed_filter,
+        "extracted_incidents": extracted_incidents
+    }]
+    post_to_supabase_table(url, key, "daily_source_stats", record, "stat_date")
 
 def run_migration():
     print("=" * 80)
@@ -81,21 +109,19 @@ def run_migration():
         idx_counter = 1
         for inc in incidents_data:
             iid = inc.get("incident_id")
-            # If incident_id is missing or duplicate in local batch, re-assign clean unique ID
             if not iid or iid in seen_incident_ids:
-                date_prefix = str(inc.get("date", "20260813")).replace("-", "")[:8]
+                date_prefix = str(inc.get("date", "20260814")).replace("-", "")[:8]
                 iid = f"INC-{date_prefix}-{idx_counter:03d}"
                 idx_counter += 1
                 
             seen_incident_ids.add(iid)
             valid_incident_ids.add(iid)
             
-            # Clean and sanitize date to valid YYYY-MM-DD
-            date_val = str(inc.get("date", "2026-08-13")).strip()
+            date_val = str(inc.get("date", "2026-08-14")).strip()
             if len(date_val) > 10:
                 date_val = date_val[:10]
             if not date_val or "-" not in date_val:
-                date_val = "2026-08-13"
+                date_val = "2026-08-14"
                 
             taxonomy_obj = {
                 "lifecycle_phase": inc.get("lifecycle_phase"),
@@ -150,7 +176,6 @@ def run_migration():
             src = edge.get("source_id")
             tgt = edge.get("target_id")
             
-            # Ensure both source and target exist in validated incidents
             if src in valid_incident_ids and tgt in valid_incident_ids:
                 row = {
                     "edge_id": eid,

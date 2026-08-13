@@ -14,7 +14,6 @@ CREATE TABLE IF NOT EXISTS incidents (
     severity TEXT,
     
     -- Hybrid JSONB Column for flexible taxonomy metadata (MIT, AIID, CSET, EU AI Act, NatSec)
-    -- Allows 0-friction additions of new fields without ALTER TABLE migrations
     taxonomy JSONB NOT NULL DEFAULT '{}'::jsonb,
     
     confidence_scores JSONB NOT NULL DEFAULT '{}'::jsonb,
@@ -36,15 +35,32 @@ CREATE TABLE IF NOT EXISTS edges (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- 3. Enable Row Level Security (RLS)
+-- 3. Create Daily Source Telemetry & Ingestion Statistics Table
+CREATE TABLE IF NOT EXISTS daily_source_stats (
+    stat_date DATE PRIMARY KEY,
+    rss_count INTEGER DEFAULT 0,
+    gdelt_count INTEGER DEFAULT 0,
+    arxiv_count INTEGER DEFAULT 0,
+    aiid_count INTEGER DEFAULT 0,
+    total_fetched INTEGER DEFAULT 0,
+    passed_filter INTEGER DEFAULT 0,
+    extracted_incidents INTEGER DEFAULT 0,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 4. Enable Row Level Security (RLS)
 ALTER TABLE incidents ENABLE ROW LEVEL SECURITY;
 ALTER TABLE edges ENABLE ROW LEVEL SECURITY;
+ALTER TABLE daily_source_stats ENABLE ROW LEVEL SECURITY;
 
--- 4. Create RLS Policies for Public Read & Service Role Write
+-- 5. Create RLS Policies for Public Read & Service Role Write
 CREATE POLICY "Allow public read access to incidents" ON incidents
     FOR SELECT USING (true);
 
 CREATE POLICY "Allow public read access to edges" ON edges
+    FOR SELECT USING (true);
+
+CREATE POLICY "Allow public read access to daily_source_stats" ON daily_source_stats
     FOR SELECT USING (true);
 
 CREATE POLICY "Allow service role full access to incidents" ON incidents
@@ -53,7 +69,10 @@ CREATE POLICY "Allow service role full access to incidents" ON incidents
 CREATE POLICY "Allow service role full access to edges" ON edges
     FOR ALL USING (true);
 
--- 5. Create Performance Indexes for Fast Searching & Sorting
+CREATE POLICY "Allow service role full access to daily_source_stats" ON daily_source_stats
+    FOR ALL USING (true);
+
+-- 6. Create Performance Indexes for Fast Searching & Sorting
 CREATE INDEX IF NOT EXISTS idx_incidents_date ON incidents(date DESC);
 CREATE INDEX IF NOT EXISTS idx_incidents_severity ON incidents(severity);
 CREATE INDEX IF NOT EXISTS idx_incidents_taxonomy_gin ON incidents USING GIN (taxonomy);

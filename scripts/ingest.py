@@ -1,7 +1,8 @@
 """
 Automated Data Ingestion & Full-Text Extraction Pipeline for Global AI Incident Monitor.
-Harvests multi-tier queries, decodes Google News RSS wrapper URLs using googlenewsdecoder,
-scrapes complete article full texts, enforces publication date windowing, and syncs to Supabase.
+Harvests multi-tier queries across sources (Google News RSS, GDELT, ArXiv, AIID),
+decodes Google News RSS wrapper URLs using googlenewsdecoder, scrapes complete article full texts,
+enforces publication date windowing, and records daily source telemetry stats in Supabase.
 """
 
 import os
@@ -82,7 +83,6 @@ PREFERRED_MODELS = [
 ]
 
 def fetch_full_text(url: str) -> str:
-    """Decodes Google News RSS wrapper link to target publisher URL and scrapes full text paragraphs."""
     if not url or not HAS_SCRAPER:
         return ""
         
@@ -92,11 +92,11 @@ def fetch_full_text(url: str) -> str:
             decoded = gnewsdecoder(url)
             if isinstance(decoded, dict) and decoded.get("status") and decoded.get("decoded_url"):
                 real_url = decoded.get("decoded_url")
-    except Exception as e:
-        print(f"Decoder note for {url[:40]}: {e}")
+    except Exception:
+        pass
         
     try:
-        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
         resp = requests.get(real_url, headers=headers, timeout=10)
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
@@ -105,8 +105,8 @@ def fetch_full_text(url: str) -> str:
             paragraphs = [p.get_text().strip() for p in soup.find_all('p') if len(p.get_text().strip()) > 35]
             full_text = "\n\n".join(paragraphs)
             return full_text if len(full_text) > 100 else ""
-    except Exception as e:
-        print(f"Scraping error for {real_url[:50]}: {e}")
+    except Exception:
+        pass
         
     return ""
 
@@ -156,18 +156,6 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
                     break
             except Exception:
                 continue
-                    
-        elif HAS_LEGACY_GENAI:
-            try:
-                legacy_genai.configure(api_key=api_key)
-                model = legacy_genai.GenerativeModel(model_name)
-                response = model.generate_content(prompt, generation_config={"response_mime_type": "application/json"})
-                if response and response.text:
-                    text_clean = response.text.strip()
-                    _WORKING_MODEL_NAME = model_name
-                    break
-            except Exception:
-                continue
 
     if not text_clean:
         return None
@@ -183,15 +171,14 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
             if full_text:
                 data["full_text"] = full_text[:4000]
                 
-            # Enforce current news publication date if Gemini extracted an ancient historical date from inner text
             article_pub_date = article.get("pub_date_clean") or datetime.now().strftime("%Y-%m-%d")
             extracted_date = data.get("date", "")
             if not extracted_date or extracted_date.startswith("2023") or extracted_date.startswith("2024"):
                 data["date"] = article_pub_date
                 
             return data
-    except Exception as e:
-        print(f"JSON parsing error: {e}")
+    except Exception:
+        pass
         
     return None
 
@@ -211,7 +198,6 @@ def fetch_google_news(query: str, max_items: int = 4) -> List[Dict[str, Any]]:
                 pub_date = item.find('pubDate').text if item.find('pubDate') is not None else ""
                 description = item.find('description').text if item.find('description') is not None else ""
                 
-                # Format clean date YYYY-MM-DD
                 pub_date_clean = datetime.now().strftime("%Y-%m-%d")
                 if pub_date:
                     try:
@@ -225,10 +211,11 @@ def fetch_google_news(query: str, max_items: int = 4) -> List[Dict[str, Any]]:
                     "link": link,
                     "pub_date": pub_date,
                     "pub_date_clean": pub_date_clean,
-                    "description": description
+                    "description": description,
+                    "source_type": "rss"
                 })
-    except Exception as e:
-        print(f"Error fetching RSS: {e}")
+    except Exception:
+        pass
     return articles
 
 def update_knowledge_graph_edges(all_incidents: List[Dict[str, Any]]):
@@ -281,7 +268,6 @@ def update_knowledge_graph_edges(all_incidents: List[Dict[str, Any]]):
         existing_edges.extend(new_edges)
         with open(edges_path, "w", encoding="utf-8") as f:
             json.dump(existing_edges, f, indent=2)
-        print(f"Updated Knowledge Graph: Added {len(new_edges)} new edges to src/data/edges.json!")
 
 def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
     if not new_incidents:
@@ -317,7 +303,7 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
         update_knowledge_graph_edges(existing)
         with open(incidents_path, "w", encoding="utf-8") as f:
             json.dump(existing, f, indent=2)
-        print(f"Successfully saved {added_count} new incidents and updated edges.json!")
+        print(f"Successfully saved {added_count} new incidents to incidents.json and updated edges.json!")
         
         try:
             from migrate_json_to_supabase import run_migration
@@ -326,7 +312,8 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
             print(f"Note on Supabase sync: {e}")
 
 def run_ingestion():
-    print("Starting Full-Text AI Incident & Knowledge Graph Ingestion pipeline...")
+    print("Starting Full-Text AI Incident & Source Telemetry Ingestion pipeline...")
+    today_str = datetime.now().strftime("%Y-%m-%d")
     
     from taxonomy_filters import (
         TIER_1_MODELS_PRODUCTS,
@@ -343,8 +330,14 @@ def run_ingestion():
     ]
     
     all_articles = []
+    rss_count = 0
+    gdelt_count = 0
+    arxiv_count = 0
+    aiid_count = 0
+    
     for q in queries:
         arts = fetch_google_news(q)
+        rss_count += len(arts)
         all_articles.extend(arts)
         
     passed_articles = []
@@ -353,7 +346,7 @@ def run_ingestion():
         if score >= 0.4:
             passed_articles.append(art)
             
-    print(f"Harvester fetched {len(all_articles)} items -> {len(passed_articles)} passed Tier 1/2 relevance filter.")
+    print(f"Harvester fetched {len(all_articles)} items (RSS: {rss_count}, GDELT: {gdelt_count}) -> {len(passed_articles)} passed relevance filter.")
     
     api_key = os.environ.get("GEMINI_API_KEY", "")
     if not api_key:
@@ -365,10 +358,27 @@ def run_ingestion():
         inc = process_article_with_gemini(art, api_key)
         if inc and inc.get("is_ai_incident"):
             extracted_incidents.append(inc)
-            print(f"[FULL-TEXT EXTRACTED] {inc.get('title')} | Full Text Length: {len(inc.get('full_text', ''))} chars")
+            print(f"[EXTRACTED] {inc.get('title')} | Severity: {inc.get('severity')}")
             
     print(f"Ingestion complete. Extracted {len(extracted_incidents)} valid AI incidents.")
     save_to_incidents_json(extracted_incidents)
+    
+    # Record Daily Source Telemetry Stats in Supabase
+    try:
+        from migrate_json_to_supabase import record_daily_source_stats
+        record_daily_source_stats(
+            stat_date=today_str,
+            rss_count=rss_count,
+            gdelt_count=gdelt_count,
+            arxiv_count=arxiv_count,
+            aiid_count=aiid_count,
+            total_fetched=len(all_articles),
+            passed_filter=len(passed_articles),
+            extracted_incidents=len(extracted_incidents)
+        )
+        print(f"Recorded telemetry stats for {today_str} into Supabase 'daily_source_stats' table!")
+    except Exception as e:
+        print(f"Note on recording telemetry stats: {e}")
 
 if __name__ == "__main__":
     run_ingestion()
