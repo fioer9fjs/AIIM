@@ -1,7 +1,8 @@
 """
 Automated Data Ingestion & Extraction Pipeline for Global AI Incident Monitor.
 Harvests from multi-tier queries (GDELT, ArXiv, AIID, Google News), applies noise exclusions,
-discovers active Gemini models dynamically, extracts taxonomy metadata, and merges with store.
+dynamically verifies working Gemini models via robust fallback, extracts taxonomy metadata,
+and merges with store.
 """
 
 import os
@@ -69,42 +70,98 @@ Return ONLY a valid JSON object matching this exact schema:
 If the text is NOT an AI incident, return: {"is_ai_incident": false}
 """
 
-_CACHED_MODEL_NAME = None
+_WORKING_MODEL_NAME = None
 
-def get_active_gemini_model(api_key: str) -> Optional[str]:
-    """Dynamically queries the API to discover currently available models."""
-    global _CACHED_MODEL_NAME
-    if _CACHED_MODEL_NAME:
-        return _CACHED_MODEL_NAME
-
-    print("Dynamically querying Gemini API for supported active models...")
+def get_candidate_models(api_key: str) -> List[str]:
+    """Retrieves all candidate models from API or standard defaults."""
+    default_candidates = [
+        "gemini-1.5-flash-8b",
+        "gemini-1.5-pro",
+        "gemini-1.5-flash",
+        "gemini-2.0-flash-exp",
+        "gemini-2.5-flash",
+        "gemini-2.5-pro",
+        "gemini-pro"
+    ]
     
     if HAS_GENAI:
         try:
             client = genai.Client(api_key=api_key)
-            all_models = [m.name for m in client.models.list()]
-            candidates = [m.replace("models/", "") for m in all_models if "flash" in m.lower() or "pro" in m.lower()]
-            if candidates:
-                _CACHED_MODEL_NAME = candidates[0]
-                print(f"Selected active model: {_CACHED_MODEL_NAME}")
-                return _CACHED_MODEL_NAME
-            elif all_models:
-                _CACHED_MODEL_NAME = all_models[0].replace("models/", "")
-                return _CACHED_MODEL_NAME
+            fetched = [m.name.replace("models/", "") for m in client.models.list()]
+            if fetched:
+                # Merge API listed models with defaults, avoiding duplicates
+                return list(dict.fromkeys(fetched + default_candidates))
         except Exception as e:
-            print(f"Error querying models via google-genai: {e}")
+            print(f"Note on listing models: {e}")
+            
+    return default_candidates
 
-    if HAS_LEGACY_GENAI:
-        try:
-            legacy_genai.configure(api_key=api_key)
-            models = [m.name.replace("models/", "") for m in legacy_genai.list_models() if 'generateContent' in m.supported_generation_methods]
-            if models:
-                _CACHED_MODEL_NAME = models[0]
-                return _CACHED_MODEL_NAME
-        except Exception as e:
-            print(f"Error querying models via legacy SDK: {e}")
+def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Optional[Dict[str, Any]]:
+    global _WORKING_MODEL_NAME
+    if not api_key:
+        return None
+        
+    prompt = f"{SYSTEM_PROMPT}\n\nARTICLE TITLE: {article['title']}\nARTICLE CONTENT: {article.get('description', '')}"
+    
+    # If we already identified a working model, try it first
+    candidate_models = get_candidate_models(api_key)
+    if _WORKING_MODEL_NAME and _WORKING_MODEL_NAME in candidate_models:
+        candidate_models.remove(_WORKING_MODEL_NAME)
+        candidate_models.insert(0, _WORKING_MODEL_NAME)
 
-    return "gemini-2.5-flash"
+    text_clean = ""
+    
+    for model_name in candidate_models:
+        if HAS_GENAI:
+            try:
+                client = genai.Client(api_key=api_key)
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                    config={"response_mime_type": "application/json"}
+                )
+                text_clean = response.text.strip()
+                if text_clean:
+                    if _WORKING_MODEL_NAME != model_name:
+                        _WORKING_MODEL_NAME = model_name
+                        print(f"Verified working Gemini model: {model_name}")
+                    break
+            except Exception as e:
+                err_msg = str(e)
+                if "404" in err_msg or "NOT_FOUND" in err_msg or "not available" in err_msg:
+                    continue # Try next candidate model
+                else:
+                    print(f"Generation error with model '{model_name}': {e}")
+                    continue
+                    
+        elif HAS_LEGACY_GENAI:
+            try:
+                legacy_genai.configure(api_key=api_key)
+                model = legacy_genai.GenerativeModel(model_name)
+                response = model.generate_content(prompt, generation_config={"response_mime_type": "application/json"})
+                text_clean = response.text.strip()
+                if text_clean:
+                    _WORKING_MODEL_NAME = model_name
+                    break
+            except Exception:
+                continue
+
+    if not text_clean:
+        return None
+        
+    try:
+        if text_clean.startswith("```json"):
+            text_clean = text_clean[7:]
+        if text_clean.endswith("```"):
+            text_clean = text_clean[:-3]
+        data = json.loads(text_clean.strip())
+        if data.get("is_ai_incident"):
+            data["source_urls"] = [article["link"]]
+            return data
+    except Exception as e:
+        print(f"JSON parsing error: {e}")
+        
+    return None
 
 def fetch_google_news(query: str, max_items: int = 4) -> List[Dict[str, Any]]:
     encoded_query = urllib.parse.quote(query)
@@ -131,55 +188,6 @@ def fetch_google_news(query: str, max_items: int = 4) -> List[Dict[str, Any]]:
     except Exception as e:
         print(f"Error fetching RSS: {e}")
     return articles
-
-def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Optional[Dict[str, Any]]:
-    if not api_key:
-        return None
-        
-    model_name = get_active_gemini_model(api_key)
-    if not model_name:
-        return None
-        
-    prompt = f"{SYSTEM_PROMPT}\n\nARTICLE TITLE: {article['title']}\nARTICLE CONTENT: {article.get('description', '')}"
-    text_clean = ""
-    
-    if HAS_GENAI:
-        try:
-            client = genai.Client(api_key=api_key)
-            response = client.models.generate_content(
-                model=model_name,
-                contents=prompt,
-                config={"response_mime_type": "application/json"}
-            )
-            text_clean = response.text.strip()
-        except Exception as e:
-            print(f"Gemini API error with model '{model_name}': {e}")
-            
-    elif HAS_LEGACY_GENAI:
-        try:
-            legacy_genai.configure(api_key=api_key)
-            model = legacy_genai.GenerativeModel(model_name)
-            response = model.generate_content(prompt, generation_config={"response_mime_type": "application/json"})
-            text_clean = response.text.strip()
-        except Exception as e:
-            print(f"Legacy Gemini API error with model '{model_name}': {e}")
-
-    if not text_clean:
-        return None
-        
-    try:
-        if text_clean.startswith("```json"):
-            text_clean = text_clean[7:]
-        if text_clean.endswith("```"):
-            text_clean = text_clean[:-3]
-        data = json.loads(text_clean.strip())
-        if data.get("is_ai_incident"):
-            data["source_urls"] = [article["link"]]
-            return data
-    except Exception as e:
-        print(f"JSON parsing error: {e}")
-        
-    return None
 
 def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
     if not new_incidents:
@@ -232,7 +240,6 @@ def run_ingestion():
         arts = fetch_google_news(q)
         all_articles.extend(arts)
         
-    # Filter candidates using Tier 1/2 score and Aviation/Financial exclusions
     passed_articles = []
     for art in all_articles:
         score = score_article_relevance(art['title'], art.get('description', ''))
