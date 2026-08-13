@@ -1,7 +1,7 @@
 """
 Automated Data Ingestion & Extraction Pipeline for Global AI Incident Monitor.
 Harvests from multi-tier queries (GDELT, ArXiv, AIID, Google News), applies noise exclusions,
-uses official google-genai client, dynamically iterates model fallbacks (gemini-2.0-flash),
+uses official google-genai client with Gemini 3.6 Flash & Gemini 3.5 Flash-Lite,
 extracts taxonomy metadata, and merges with store.
 """
 
@@ -66,15 +66,15 @@ If the text is NOT an AI incident, return: {"is_ai_incident": false}
 _WORKING_MODEL_NAME = None
 
 PREFERRED_MODELS = [
-    "gemini-2.0-flash",
-    "gemini-1.5-flash",
-    "gemini-1.5-pro",
+    "gemini-3.6-flash",
+    "gemini-3.5-flash-lite",
+    "gemini-3.0-flash",
     "gemini-2.5-flash",
-    "gemini-pro"
+    "gemini-2.0-flash"
 ]
 
 def get_candidate_models(api_key: str) -> List[str]:
-    """Retrieves all candidate models from API or standard defaults."""
+    """Retrieves candidate models prioritizing current Gemini 3.6 / 3.5 Flash series."""
     candidates = list(PREFERRED_MODELS)
     
     if HAS_GENAI:
@@ -117,10 +117,11 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
                     text_clean = response.text.strip()
                     if _WORKING_MODEL_NAME != model_name:
                         _WORKING_MODEL_NAME = model_name
-                        print(f"--> Verified working Gemini model: {model_name}")
+                        print(f"--> Successfully verified active model: {model_name}")
                     break
             except Exception as e:
-                # Catch 404/NOT_FOUND or deprecation errors and continue to next model
+                err_msg = str(e)
+                print(f"Attempt with model '{model_name}' failed: {err_msg[:120]}...")
                 continue
                     
         elif HAS_LEGACY_GENAI:
