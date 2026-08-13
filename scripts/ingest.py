@@ -1,7 +1,8 @@
 """
 Automated Data Ingestion & Extraction Pipeline for Global AI Incident Monitor.
 Fetches GDELT and Google News RSS feeds, extracts academic/regulatory taxonomy using
-Gemini Flash, detects deduplications/timeline links, and updates the incident store.
+the official Google GenAI SDK (Gemini 2.5 Flash), detects deduplications/timeline links,
+and updates the incident store.
 """
 
 import os
@@ -12,11 +13,19 @@ import xml.etree.ElementTree as ET
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 
+# Prefer official google-genai SDK, fallback to google-generativeai if needed
+HAS_GENAI = False
+HAS_LEGACY_GENAI = False
+
 try:
-    import google.generativeai as genai
-    HAS_GEMINI = True
+    from google import genai
+    HAS_GENAI = True
 except ImportError:
-    HAS_GEMINI = False
+    try:
+        import google.generativeai as legacy_genai
+        HAS_LEGACY_GENAI = True
+    except ImportError:
+        pass
 
 SYSTEM_PROMPT = """
 You are an expert AI Safety & Regulatory Incident Analyst.
@@ -92,19 +101,52 @@ def fetch_google_news_rss(query: str) -> List[Dict[str, str]]:
     return articles
 
 def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Optional[Dict[str, Any]]:
-    """Process news text with Gemini Flash to extract taxonomy."""
-    if not HAS_GEMINI or not api_key:
-        print("Gemini SDK not configured or missing API key.")
+    """Process news text with Gemini Flash using official google-genai SDK."""
+    if not api_key:
+        print("Missing Gemini API Key.")
         return None
         
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel("gemini-1.5-flash")
-    
     prompt = f"{SYSTEM_PROMPT}\n\nARTICLE TITLE: {article['title']}\nARTICLE CONTENT: {article['description']}"
     
+    text_clean = ""
+    
+    if HAS_GENAI:
+        try:
+            client = genai.Client(api_key=api_key)
+            # Try gemini-2.5-flash first, fallback to gemini-1.5-flash
+            for model_name in ["gemini-2.5-flash", "gemini-1.5-flash", "gemini-2.0-flash"]:
+                try:
+                    response = client.models.generate_content(
+                        model=model_name,
+                        contents=prompt,
+                        config={"response_mime_type": "application/json"}
+                    )
+                    text_clean = response.text.strip()
+                    break
+                except Exception as inner_e:
+                    print(f"Model {model_name} failed: {inner_e}")
+                    continue
+        except Exception as e:
+            print(f"google-genai Client error: {e}")
+            
+    elif HAS_LEGACY_GENAI:
+        try:
+            legacy_genai.configure(api_key=api_key)
+            for model_name in ["gemini-2.5-flash", "gemini-1.5-flash", "gemini-pro"]:
+                try:
+                    model = legacy_genai.GenerativeModel(model_name)
+                    response = model.generate_content(prompt, generation_config={"response_mime_type": "application/json"})
+                    text_clean = response.text.strip()
+                    break
+                except Exception:
+                    continue
+        except Exception as e:
+            print(f"Legacy Gemini API error: {e}")
+
+    if not text_clean:
+        return None
+        
     try:
-        response = model.generate_content(prompt, generation_config={"response_mime_type": "application/json"})
-        text_clean = response.text.strip()
         if text_clean.startswith("```json"):
             text_clean = text_clean[7:]
         if text_clean.endswith("```"):
@@ -114,7 +156,7 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
             data["source_urls"] = [article["link"]]
             return data
     except Exception as e:
-        print(f"Gemini API error during extraction: {e}")
+        print(f"JSON parsing error: {e}")
         
     return None
 
