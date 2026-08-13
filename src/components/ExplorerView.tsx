@@ -1,25 +1,33 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Filter, ExternalLink, GitCommit } from 'lucide-react';
-import { AIIncident, Severity, VerificationStatus, SystemClassification } from '../types/incident';
+import { Search, ArrowUpDown, GitCommit } from 'lucide-react';
+import { AIIncident } from '../types/incident';
 
 interface ExplorerViewProps {
   incidents: AIIncident[];
   onSelectIncident: (incident: AIIncident) => void;
 }
 
+const SEVERITY_RANK: Record<string, number> = {
+  critical: 4,
+  high: 3,
+  medium: 2,
+  low: 1
+};
+
 export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectIncident }) => {
   const [search, setSearch] = useState('');
   const [severityFilter, setSeverityFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [systemFilter, setSystemFilter] = useState<string>('all');
+  const [sortBy, setSortBy] = useState<string>('date-desc');
 
-  const filteredIncidents = useMemo(() => {
-    return incidents.filter((inc) => {
+  const filteredAndSortedIncidents = useMemo(() => {
+    const list = incidents.filter((inc) => {
       const matchesSearch =
         search === '' ||
         inc.title.toLowerCase().includes(search.toLowerCase()) ||
         inc.summary.toLowerCase().includes(search.toLowerCase()) ||
-        inc.affected_parties.some((p) => p.toLowerCase().includes(search.toLowerCase()));
+        (inc.affected_parties && inc.affected_parties.some((p) => p.toLowerCase().includes(search.toLowerCase())));
 
       const matchesSeverity = severityFilter === 'all' || inc.severity === severityFilter;
       const matchesStatus = statusFilter === 'all' || inc.verification_status === statusFilter;
@@ -27,11 +35,34 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
 
       return matchesSearch && matchesSeverity && matchesStatus && matchesSystem;
     });
-  }, [incidents, search, severityFilter, statusFilter, systemFilter]);
+
+    return list.sort((a, b) => {
+      if (sortBy === 'date-desc') {
+        return (b.date || '').localeCompare(a.date || '');
+      } else if (sortBy === 'date-asc') {
+        return (a.date || '').localeCompare(b.date || '');
+      } else if (sortBy === 'entity-asc') {
+        const entityA = (a.affected_parties?.[0] || a.title).toLowerCase();
+        const entityB = (b.affected_parties?.[0] || b.title).toLowerCase();
+        return entityA.localeCompare(entityB);
+      } else if (sortBy === 'entity-desc') {
+        const entityA = (a.affected_parties?.[0] || a.title).toLowerCase();
+        const entityB = (b.affected_parties?.[0] || b.title).toLowerCase();
+        return entityB.localeCompare(entityA);
+      } else if (sortBy === 'severity-desc') {
+        return (SEVERITY_RANK[b.severity] || 0) - (SEVERITY_RANK[a.severity] || 0);
+      } else if (sortBy === 'severity-asc') {
+        return (SEVERITY_RANK[a.severity] || 0) - (SEVERITY_RANK[b.severity] || 0);
+      } else if (sortBy === 'confidence-desc') {
+        return (b.confidence_scores?.severity || 1.0) - (a.confidence_scores?.severity || 1.0);
+      }
+      return 0;
+    });
+  }, [incidents, search, severityFilter, statusFilter, systemFilter, sortBy]);
 
   return (
     <div>
-      {/* Controls / Filters */}
+      {/* Controls / Filters & Sort */}
       <div className="controls-bar" style={{ borderRadius: '8px', marginBottom: '1.5rem' }}>
         <div className="search-input-wrapper">
           <Search className="search-icon" />
@@ -42,6 +73,25 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
+        </div>
+
+        {/* Sort Selector */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+          <ArrowUpDown size={14} style={{ color: 'var(--accent-cyan)' }} />
+          <select
+            className="filter-select"
+            style={{ borderColor: 'var(--accent-cyan)' }}
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+          >
+            <option value="date-desc">Sort: Date (Newest First)</option>
+            <option value="date-asc">Sort: Date (Oldest First)</option>
+            <option value="entity-asc">Sort: Affected Entity (A-Z)</option>
+            <option value="entity-desc">Sort: Affected Entity (Z-A)</option>
+            <option value="severity-desc">Sort: Severity (Highest First)</option>
+            <option value="severity-asc">Sort: Severity (Lowest First)</option>
+            <option value="confidence-desc">Sort: Confidence (Highest First)</option>
+          </select>
         </div>
 
         <select
@@ -61,7 +111,7 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
         >
-          <option value="all">All Verification Statuses</option>
+          <option value="all">All Statuses</option>
           <option value="confirmed">Confirmed</option>
           <option value="alleged">Alleged</option>
           <option value="disputed">Disputed</option>
@@ -82,13 +132,13 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
 
       {/* Grid of Incidents */}
       <div className="grid-cards">
-        {filteredIncidents.map((inc) => (
+        {filteredAndSortedIncidents.map((inc) => (
           <div key={inc.incident_id} className="incident-card" onClick={() => onSelectIncident(inc)}>
             <div className="card-header">
               <span className={`badge badge-${inc.severity}`}>{inc.severity}</span>
               <span className={`badge badge-${inc.verification_status}`}>{inc.verification_status}</span>
               <span className="confidence-tag" title="Extraction confidence">
-                {(inc.confidence_scores?.severity ?? 1.0) * 100}% Conf.
+                {Math.round((inc.confidence_scores?.severity ?? 1.0) * 100)}% Conf.
               </span>
             </div>
 
@@ -97,7 +147,7 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
 
             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
               <span className="confidence-tag" style={{ color: 'var(--accent-cyan)' }}>
-                {inc.system_classification.replace(/_/g, ' ')}
+                {inc.affected_parties?.[0] ? `Entity: ${inc.affected_parties[0]}` : inc.system_classification.replace(/_/g, ' ')}
               </span>
               <span className="confidence-tag" style={{ color: 'var(--accent-purple)' }}>
                 {inc.harm_domain.replace(/_/g, ' ')}
@@ -107,9 +157,9 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
             <div className="card-footer">
               <span>{inc.date}</span>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                {inc.related_incidents.length > 0 && (
+                {inc.related_incidents && inc.related_incidents.length > 0 && (
                   <span style={{ color: 'var(--accent-blue)', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
-                    <GitCommit size={14} /> {inc.related_incidents.length} Graph Edge(s)
+                    <GitCommit size={14} /> {inc.related_incidents.length} Edge(s)
                   </span>
                 )}
               </div>
@@ -118,7 +168,7 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
         ))}
       </div>
 
-      {filteredIncidents.length === 0 && (
+      {filteredAndSortedIncidents.length === 0 && (
         <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--text-muted)' }}>
           No AI incidents match the selected search & filter criteria.
         </div>
