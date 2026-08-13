@@ -1,13 +1,14 @@
 """
 One-Click JSON-to-Supabase PostgreSQL Data Migration Script.
 Reads all existing incidents and Knowledge Graph edges from static JSON files
-and uploads them seamlessly into Supabase PostgreSQL tables using REST API.
+and uploads them seamlessly into Supabase PostgreSQL tables using PostgREST.
 """
 
 import os
 import json
 import urllib.request
 import urllib.parse
+import urllib.error
 from typing import List, Dict, Any
 
 def get_supabase_credentials():
@@ -15,7 +16,7 @@ def get_supabase_credentials():
     key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "") or os.environ.get("SUPABASE_KEY", "")
     return url, key
 
-def post_to_supabase_table(url: str, key: str, table_name: str, records: List[Dict[str, Any]]) -> bool:
+def post_to_supabase_table(url: str, key: str, table_name: str, records: List[Dict[str, Any]], primary_key: str) -> bool:
     if not url or not key or not records:
         print(f"Skipping {table_name}: Missing Supabase credentials or empty records.")
         return False
@@ -30,7 +31,7 @@ def post_to_supabase_table(url: str, key: str, table_name: str, records: List[Di
             "apikey": key,
             "Authorization": f"Bearer {key}",
             "Content-Type": "application/json",
-            "Prefer": "resolution=merge-duplicates" # Upsert behavior
+            "Prefer": f"resolution=merge-duplicates,on_conflict={primary_key}"
         },
         method="POST"
     )
@@ -40,6 +41,15 @@ def post_to_supabase_table(url: str, key: str, table_name: str, records: List[Di
             if resp.status in (200, 201, 204):
                 print(f"Successfully migrated {len(records)} records to Supabase table '{table_name}'!")
                 return True
+    except urllib.error.HTTPError as e:
+        error_body = ""
+        try:
+            error_body = e.read().decode('utf-8')
+        except Exception:
+            pass
+        print(f"Error uploading to Supabase table '{table_name}': HTTP Error {e.code}: {e.reason}")
+        if error_body:
+            print(f"--> Supabase Error Details: {error_body}")
     except Exception as e:
         print(f"Error uploading to Supabase table '{table_name}': {e}")
         
@@ -66,7 +76,13 @@ def run_migration():
             
         supabase_incidents = []
         for inc in incidents_data:
-            # Map core fields to SQL columns and taxonomy fields to JSONB
+            # Clean and sanitize date to valid YYYY-MM-DD
+            date_val = str(inc.get("date", "2026-01-01")).strip()
+            if len(date_val) > 10:
+                date_val = date_val[:10]
+            if not date_val or "-" not in date_val:
+                date_val = "2026-01-01"
+                
             taxonomy_obj = {
                 "lifecycle_phase": inc.get("lifecycle_phase"),
                 "system_classification": inc.get("system_classification"),
@@ -84,12 +100,12 @@ def run_migration():
             
             row = {
                 "incident_id": inc.get("incident_id"),
-                "title": inc.get("title"),
-                "summary": inc.get("summary"),
+                "title": inc.get("title", ""),
+                "summary": inc.get("summary", ""),
                 "full_text": inc.get("full_text"),
-                "date": inc.get("date"),
-                "verification_status": inc.get("verification_status"),
-                "severity": inc.get("severity"),
+                "date": date_val,
+                "verification_status": inc.get("verification_status", "confirmed"),
+                "severity": inc.get("severity", "medium"),
                 "taxonomy": taxonomy_obj,
                 "confidence_scores": inc.get("confidence_scores", {}),
                 "geographic_scope": inc.get("geographic_scope", []),
@@ -99,7 +115,8 @@ def run_migration():
             }
             supabase_incidents.append(row)
             
-        post_to_supabase_table(url, key, "incidents", supabase_incidents)
+        print(f"Prepared {len(supabase_incidents)} incident records. Uploading to 'incidents' table...")
+        incidents_success = post_to_supabase_table(url, key, "incidents", supabase_incidents, "incident_id")
 
     if os.path.exists(edges_file):
         with open(edges_file, "r", encoding="utf-8") as f:
@@ -111,13 +128,14 @@ def run_migration():
                 "edge_id": edge.get("edge_id"),
                 "source_id": edge.get("source_id"),
                 "target_id": edge.get("target_id"),
-                "relation_type": edge.get("relation_type"),
-                "description": edge.get("description"),
+                "relation_type": edge.get("relation_type", "related_cause"),
+                "description": edge.get("description", ""),
                 "confidence": edge.get("confidence", 0.90)
             }
             supabase_edges.append(row)
             
-        post_to_supabase_table(url, key, "edges", supabase_edges)
+        print(f"Prepared {len(supabase_edges)} graph edge records. Uploading to 'edges' table...")
+        post_to_supabase_table(url, key, "edges", supabase_edges, "edge_id")
         
     print("\n" + "=" * 80)
     print("MIGRATION FINISHED!")
