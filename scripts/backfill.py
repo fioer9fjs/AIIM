@@ -161,6 +161,7 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str, target_da
         data = json.loads(text_clean.strip())
         if data.get("is_ai_incident"):
             data["source_urls"] = [article["link"]]
+            data["source_type"] = article.get("source_type", "google_news_rss")
             if full_text:
                 data["full_text"] = full_text[:4000]
                 

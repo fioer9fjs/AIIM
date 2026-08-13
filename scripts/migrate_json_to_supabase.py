@@ -135,7 +135,8 @@ def run_migration():
                 "primary_purpose": inc.get("primary_purpose"),
                 "harm_type": inc.get("harm_type"),
                 "eu_ai_act_tier": inc.get("eu_ai_act_tier"),
-                "natsec_impact": inc.get("natsec_impact")
+                "natsec_impact": inc.get("natsec_impact"),
+                "source_type": inc.get("source_type", "google_news_rss")
             }
             
             row = {
@@ -146,6 +147,7 @@ def run_migration():
                 "date": date_val,
                 "verification_status": inc.get("verification_status", "confirmed"),
                 "severity": inc.get("severity", "medium"),
+                "source_type": inc.get("source_type", "google_news_rss"),
                 "taxonomy": taxonomy_obj,
                 "confidence_scores": inc.get("confidence_scores", {}),
                 "geographic_scope": inc.get("geographic_scope", []),

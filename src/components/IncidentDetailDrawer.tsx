@@ -44,6 +44,9 @@ export const IncidentDetailDrawer: React.FC<IncidentDetailDrawerProps> = ({
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
             <span className={`badge badge-${incident.severity}`}>{incident.severity}</span>
             <span className={`badge badge-${incident.verification_status}`}>{incident.verification_status}</span>
+            <span className="badge" style={{ backgroundColor: 'rgba(168, 85, 247, 0.2)', color: '#d8b4fe' }}>
+              Src: {(incident.source_type || 'google_news_rss').replace(/_/g, ' ')}
+            </span>
             {incident.eu_ai_act_tier && (
               <span className="badge" style={{ backgroundColor: 'rgba(59, 130, 246, 0.2)', color: '#93c5fd' }}>
                 EU: {incident.eu_ai_act_tier.replace('_', ' ')}

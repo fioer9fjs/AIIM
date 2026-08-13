@@ -37,6 +37,8 @@ export type Temporality = 'actual' | 'potential' | 'latent';
 
 export type Severity = 'critical' | 'high' | 'medium' | 'low';
 
+export type SourceType = 'google_news_rss' | 'gdelt' | 'arxiv' | 'aiid' | 'other';
+
 // MIT & AIID Taxonomy Additions
 export type IncidentIntent = 'intentional_misuse' | 'unintentional_failure';
 
@@ -88,6 +90,9 @@ export interface AIIncident {
   temporality: Temporality;
   severity: Severity;
   
+  // Data Origin Telemetry
+  source_type?: SourceType;
+
   // MIT & AIID Extensions
   intent?: IncidentIntent;
   primary_purpose?: PrimaryPurpose;

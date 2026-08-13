@@ -271,6 +271,9 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
               <div className="card-header">
                 <span className={`badge badge-${inc.severity}`}>{inc.severity}</span>
                 <span className={`badge badge-${inc.verification_status}`}>{inc.verification_status}</span>
+                <span className="badge" style={{ backgroundColor: 'rgba(168, 85, 247, 0.2)', color: '#d8b4fe' }}>
+                  Src: {(inc.source_type || 'google_news_rss').replace(/_/g, ' ')}
+                </span>
                 {inc.eu_ai_act_tier && (
                   <span className="badge" style={{ backgroundColor: 'rgba(59, 130, 246, 0.2)', color: '#93c5fd' }}>
                     EU: {inc.eu_ai_act_tier.replace('_', ' ')}
