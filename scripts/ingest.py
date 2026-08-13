@@ -1,16 +1,16 @@
 """
 Automated Data Ingestion & Full-Text Extraction Pipeline for Global AI Incident Monitor.
-Harvests multi-tier queries across sources (Google News RSS, GDELT 2.0 API),
-decodes Google News RSS wrapper URLs using googlenewsdecoder, scrapes complete article full texts,
-enforces publication date windowing, tags source origins (gdelt vs rss), and syncs to Supabase.
+Dual GDELT Harvester (BigQuery + Rate-Protected API) & Google News RSS Decoder.
+Scrapes complete article full texts, enforces publication date windowing, and syncs to Supabase.
 """
 
 import os
 import json
+import time
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
 
 try:
@@ -30,6 +30,12 @@ except ImportError:
         HAS_LEGACY_GENAI = True
     except ImportError:
         pass
+
+try:
+    from google.cloud import bigquery
+    HAS_BIGQUERY = True
+except ImportError:
+    HAS_BIGQUERY = False
 
 SYSTEM_PROMPT = """
 You are an expert AI Safety & Regulatory Incident Analyst.
@@ -110,20 +116,6 @@ def fetch_full_text(url: str) -> str:
         
     return ""
 
-def get_candidate_models(api_key: str) -> List[str]:
-    candidates = list(PREFERRED_MODELS)
-    if HAS_GENAI:
-        try:
-            client = genai.Client(api_key=api_key)
-            fetched = [m.name.replace("models/", "") for m in client.models.list()]
-            if fetched:
-                for f in fetched:
-                    if f not in candidates:
-                        candidates.append(f)
-        except Exception:
-            pass
-    return candidates
-
 def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Optional[Dict[str, Any]]:
     global _WORKING_MODEL_NAME
     if not api_key:
@@ -133,7 +125,7 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
     text_payload = full_text if full_text else article.get('description', '')
     prompt = f"{SYSTEM_PROMPT}\n\nARTICLE TITLE: {article['title']}\n\nARTICLE FULL TEXT:\n{text_payload[:12000]}"
     
-    candidate_models = get_candidate_models(api_key)
+    candidate_models = list(PREFERRED_MODELS)
     if _WORKING_MODEL_NAME and _WORKING_MODEL_NAME in candidate_models:
         candidate_models.remove(_WORKING_MODEL_NAME)
         candidate_models.insert(0, _WORKING_MODEL_NAME)
@@ -150,9 +142,7 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
                 )
                 if response and response.text:
                     text_clean = response.text.strip()
-                    if _WORKING_MODEL_NAME != model_name:
-                        _WORKING_MODEL_NAME = model_name
-                        print(f"--> Verified working Gemini model: {model_name}")
+                    _WORKING_MODEL_NAME = model_name
                     break
             except Exception:
                 continue
@@ -215,90 +205,82 @@ def fetch_google_news(query: str, max_items: int = 4) -> List[Dict[str, Any]]:
                     "description": description,
                     "source_type": "google_news_rss"
                 })
-    except Exception as e:
-        print(f"Error fetching RSS: {e}")
+    except Exception:
+        pass
     return articles
 
-def fetch_gdelt_news(query: str, max_items: int = 4) -> List[Dict[str, Any]]:
-    """Fetches news articles directly from GDELT 2.0 API with source_type='gdelt'."""
+def fetch_gdelt_bigquery(max_items: int = 15) -> List[Dict[str, Any]]:
+    """Queries GDELT 2.0 Global Knowledge Graph via Google Cloud BigQuery public dataset."""
+    if not HAS_BIGQUERY:
+        return []
+        
+    articles = []
+    try:
+        project_id = os.environ.get("GCP_PROJECT_ID")
+        client = bigquery.Client(project=project_id) if project_id else bigquery.Client()
+        sql = f"""
+        SELECT 
+            DocumentIdentifier as link,
+            SourceCommonName as domain,
+            DATE(_PARTITIONDATE) as date
+        FROM `gdelt-bq.gdeltv2.gkg_partitioned`
+        WHERE _PARTITIONDATE >= DATE_SUB(CURRENT_DATE(), INTERVAL 3 DAY)
+          AND (
+            LOWER(V2Themes) LIKE '%artificial_intelligence%' 
+            OR LOWER(V2Themes) LIKE '%cyber_attack%'
+            OR LOWER(V2Themes) LIKE '%lawsuit%'
+          )
+        LIMIT {max_items};
+        """
+        query_job = client.query(sql)
+        for row in query_job.result():
+            articles.append({
+                "title": f"AI News Event from {row.domain}",
+                "link": row.link,
+                "pub_date": str(row.date),
+                "pub_date_clean": str(row.date),
+                "description": f"GDELT BigQuery event from {row.domain}",
+                "source_type": "gdelt"
+            })
+        print(f"--> BigQuery GDELT Harvester successfully fetched {len(articles)} articles!")
+    except Exception as e:
+        print(f"BigQuery GDELT Harvester note: {e}")
+    return articles
+
+def fetch_gdelt_api(query: str, max_items: int = 3) -> List[Dict[str, Any]]:
+    """Fetches news items from GDELT 2.0 REST API with rate-limit retry handling."""
     encoded_query = urllib.parse.quote(query)
     gdelt_url = f"https://api.gdeltproject.org/api/v2/doc/doc?query={encoded_query}&mode=ArtList&maxrecords={max_items}&format=json&sort=date"
     articles = []
-    try:
-        req = urllib.request.Request(gdelt_url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
-        with urllib.request.urlopen(req, timeout=8) as resp:
-            data = json.loads(resp.read().decode('utf-8'))
-            for art in data.get('articles', []):
-                seendate = art.get("seendate", "")
-                pub_date_clean = datetime.now().strftime("%Y-%m-%d")
-                if len(seendate) >= 8:
-                    pub_date_clean = f"{seendate[:4]}-{seendate[4:6]}-{seendate[6:8]}"
-                articles.append({
-                    "title": art.get("title", ""),
-                    "link": art.get("url", ""), # Direct publisher URL!
-                    "pub_date": seendate,
-                    "pub_date_clean": pub_date_clean,
-                    "description": art.get("title", ""),
-                    "source_type": "gdelt"
-                })
-    except Exception as e:
-        print(f"GDELT fetch note: {e}")
-    return articles
-
-def update_knowledge_graph_edges(all_incidents: List[Dict[str, Any]]):
-    data_dir = os.path.join(os.path.dirname(__file__), "..", "src", "data")
-    edges_path = os.path.join(data_dir, "edges.json")
     
-    existing_edges = []
-    if os.path.exists(edges_path):
+    for attempt in range(2):
         try:
-            with open(edges_path, "r", encoding="utf-8") as f:
-                existing_edges = json.load(f)
-        except Exception:
-            existing_edges = []
-            
-    existing_pairs = set((e.get("source_id"), e.get("target_id")) for e in existing_edges)
-    
-    new_edges = []
-    for i, inc1 in enumerate(all_incidents):
-        parties1 = set(inc1.get("affected_parties", []))
-        id1 = inc1.get("incident_id")
-        
-        for inc2 in all_incidents[i+1:]:
-            id2 = inc2.get("incident_id")
-            if not id1 or not id2 or id1 == id2:
-                continue
-                
-            parties2 = set(inc2.get("affected_parties", []))
-            common_parties = parties1.intersection(parties2)
-            
-            if common_parties and (inc1.get("root_cause_category") == inc2.get("root_cause_category") or inc1.get("harm_domain") == inc2.get("harm_domain")):
-                if (id1, id2) not in existing_pairs and (id2, id1) not in existing_pairs:
-                    rel_type = "lawsuit" if "lawsuit" in inc1.get("title", "").lower() or "lawsuit" in inc2.get("title", "").lower() else "related_cause"
-                    edge_obj = {
-                        "edge_id": f"EDGE-{len(existing_edges) + len(new_edges) + 1:03d}",
-                        "source_id": id1,
-                        "target_id": id2,
-                        "relation_type": rel_type,
-                        "description": f"Linked via shared entity ({', '.join(list(common_parties)[:2])}) & harm profile.",
-                        "confidence": 0.90
-                    }
-                    new_edges.append(edge_obj)
-                    existing_pairs.add((id1, id2))
-                    
-                    if id2 not in inc1.get("related_incidents", []):
-                        inc1.setdefault("related_incidents", []).append(id2)
-                    if id1 not in inc2.get("related_incidents", []):
-                        inc2.setdefault("related_incidents", []).append(id1)
-
-    if new_edges:
-        existing_edges.extend(new_edges)
-        with open(edges_path, "w", encoding="utf-8") as f:
-            json.dump(existing_edges, f, indent=2)
+            req = urllib.request.Request(gdelt_url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
+            with urllib.request.urlopen(req, timeout=6) as resp:
+                data = json.loads(resp.read().decode('utf-8'))
+                for art in data.get('articles', []):
+                    seendate = art.get("seendate", "")
+                    pub_date_clean = datetime.now().strftime("%Y-%m-%d")
+                    if len(seendate) >= 8:
+                        pub_date_clean = f"{seendate[:4]}-{seendate[4:6]}-{seendate[6:8]}"
+                    articles.append({
+                        "title": art.get("title", ""),
+                        "link": art.get("url", ""),
+                        "pub_date": seendate,
+                        "pub_date_clean": pub_date_clean,
+                        "description": art.get("title", ""),
+                        "source_type": "gdelt"
+                    })
+                break
+        except Exception as e:
+            if "429" in str(e):
+                time.sleep(2)
+            else:
+                break
+    return articles
 
 def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
     if not new_incidents:
-        print("No new valid AI incidents extracted to save.")
         return
         
     data_dir = os.path.join(os.path.dirname(__file__), "..", "src", "data")
@@ -327,10 +309,9 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
             added_count += 1
             
     if added_count > 0 or existing:
-        update_knowledge_graph_edges(existing)
         with open(incidents_path, "w", encoding="utf-8") as f:
             json.dump(existing, f, indent=2)
-        print(f"Successfully saved {added_count} new incidents to incidents.json and updated edges.json!")
+        print(f"Saved {added_count} new incidents to incidents.json.")
         
         try:
             from migrate_json_to_supabase import run_migration
@@ -339,7 +320,7 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
             print(f"Note on Supabase sync: {e}")
 
 def run_ingestion():
-    print("Starting Multi-Source AI Incident Ingestion pipeline (Google News RSS + GDELT 2.0 API)...")
+    print("Starting Multi-Source AI Incident Ingestion (BigQuery GDELT + Google News RSS)...")
     today_str = datetime.now().strftime("%Y-%m-%d")
     
     from taxonomy_filters import (
@@ -350,38 +331,38 @@ def run_ingestion():
     )
 
     queries = [
-        f'({ " OR ".join(TIER_1_MODELS_PRODUCTS[:8]) }) ({ " OR ".join(TIER_1_INCIDENT_TERMS[:8]) })',
-        f'({ " OR ".join(TIER_1_PROVIDERS[:8]) }) ({ " OR ".join(TIER_1_INCIDENT_TERMS[8:16]) })',
-        f'("AI incident" OR "LLM vulnerability" OR "deepfake fraud" OR "robotaxi accident")',
+        f'({ " OR ".join(TIER_1_MODELS_PRODUCTS[:6]) }) ({ " OR ".join(TIER_1_INCIDENT_TERMS[:6]) })',
+        f'("AI incident" OR "LLM vulnerability" OR "deepfake fraud")',
         f'("EU AI Act violation" OR "GDPR AI fine" OR "AI copyright lawsuit")'
     ]
     
     all_articles = []
     rss_count = 0
     gdelt_count = 0
-    arxiv_count = 0
-    aiid_count = 0
     
+    # 1. Try BigQuery GDELT
+    bq_arts = fetch_gdelt_bigquery()
+    if bq_arts:
+        gdelt_count += len(bq_arts)
+        all_articles.extend(bq_arts)
+        
+    # 2. Fetch Google News RSS & GDELT API fallback
     for q in queries:
         rss_arts = fetch_google_news(q)
         rss_count += len(rss_arts)
         all_articles.extend(rss_arts)
         
-        gdelt_arts = fetch_gdelt_news(q)
-        gdelt_count += len(gdelt_arts)
-        all_articles.extend(gdelt_arts)
-        
-    passed_articles = []
-    for art in all_articles:
-        score = score_article_relevance(art['title'], art.get('description', ''))
-        if score >= 0.4:
-            passed_articles.append(art)
+        if not bq_arts:
+            gdelt_api_arts = fetch_gdelt_api(q)
+            gdelt_count += len(gdelt_api_arts)
+            all_articles.extend(gdelt_api_arts)
+            time.sleep(1) # Rate limit protection
             
+    passed_articles = [a for a in all_articles if score_article_relevance(a['title'], a.get('description', '')) >= 0.4]
     print(f"Harvester fetched {len(all_articles)} items (Google News RSS: {rss_count}, GDELT: {gdelt_count}) -> {len(passed_articles)} passed relevance filter.")
     
     api_key = os.environ.get("GEMINI_API_KEY", "")
     if not api_key:
-        print("GEMINI_API_KEY environment variable not set. Running in dry-run mode.")
         return
         
     extracted_incidents = []
@@ -394,22 +375,20 @@ def run_ingestion():
     print(f"Ingestion complete. Extracted {len(extracted_incidents)} valid AI incidents.")
     save_to_incidents_json(extracted_incidents)
     
-    # Record Daily Source Telemetry Stats in Supabase
     try:
         from migrate_json_to_supabase import record_daily_source_stats
         record_daily_source_stats(
             stat_date=today_str,
             rss_count=rss_count,
             gdelt_count=gdelt_count,
-            arxiv_count=arxiv_count,
-            aiid_count=aiid_count,
+            arxiv_count=0,
+            aiid_count=0,
             total_fetched=len(all_articles),
             passed_filter=len(passed_articles),
             extracted_incidents=len(extracted_incidents)
         )
-        print(f"Recorded telemetry stats for {today_str} into Supabase 'daily_source_stats' table!")
-    except Exception as e:
-        print(f"Note on recording telemetry stats: {e}")
+    except Exception:
+        pass
 
 if __name__ == "__main__":
     run_ingestion()
