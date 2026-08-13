@@ -1,7 +1,7 @@
 """
 One-Click JSON-to-Supabase PostgreSQL Data Migration Script.
-Reads all existing incidents and Knowledge Graph edges from static JSON files
-and uploads them seamlessly into Supabase PostgreSQL tables using PostgREST.
+Reads all existing incidents and Knowledge Graph edges from static JSON files,
+deduplicates incident_id keys in the batch payload, and uploads them into Supabase PostgreSQL.
 """
 
 import os
@@ -70,18 +70,32 @@ def run_migration():
     incidents_file = os.path.join(base_dir, "incidents.json")
     edges_file = os.path.join(base_dir, "edges.json")
     
+    seen_incident_ids = set()
+    valid_incident_ids = set()
+    supabase_incidents = []
+    
     if os.path.exists(incidents_file):
         with open(incidents_file, "r", encoding="utf-8") as f:
             incidents_data = json.load(f)
             
-        supabase_incidents = []
+        idx_counter = 1
         for inc in incidents_data:
+            iid = inc.get("incident_id")
+            # If incident_id is missing or duplicate in local batch, re-assign clean unique ID
+            if not iid or iid in seen_incident_ids:
+                date_prefix = str(inc.get("date", "20260813")).replace("-", "")[:8]
+                iid = f"INC-{date_prefix}-{idx_counter:03d}"
+                idx_counter += 1
+                
+            seen_incident_ids.add(iid)
+            valid_incident_ids.add(iid)
+            
             # Clean and sanitize date to valid YYYY-MM-DD
-            date_val = str(inc.get("date", "2026-01-01")).strip()
+            date_val = str(inc.get("date", "2026-08-13")).strip()
             if len(date_val) > 10:
                 date_val = date_val[:10]
             if not date_val or "-" not in date_val:
-                date_val = "2026-01-01"
+                date_val = "2026-08-13"
                 
             taxonomy_obj = {
                 "lifecycle_phase": inc.get("lifecycle_phase"),
@@ -99,7 +113,7 @@ def run_migration():
             }
             
             row = {
-                "incident_id": inc.get("incident_id"),
+                "incident_id": iid,
                 "title": inc.get("title", ""),
                 "summary": inc.get("summary", ""),
                 "full_text": inc.get("full_text"),
@@ -115,26 +129,40 @@ def run_migration():
             }
             supabase_incidents.append(row)
             
-        print(f"Prepared {len(supabase_incidents)} incident records. Uploading to 'incidents' table...")
-        incidents_success = post_to_supabase_table(url, key, "incidents", supabase_incidents, "incident_id")
+        print(f"Prepared {len(supabase_incidents)} unique incident records. Uploading to 'incidents' table...")
+        post_to_supabase_table(url, key, "incidents", supabase_incidents, "incident_id")
 
     if os.path.exists(edges_file):
         with open(edges_file, "r", encoding="utf-8") as f:
             edges_data = json.load(f)
             
+        seen_edge_ids = set()
         supabase_edges = []
+        edge_idx = 1
         for edge in edges_data:
-            row = {
-                "edge_id": edge.get("edge_id"),
-                "source_id": edge.get("source_id"),
-                "target_id": edge.get("target_id"),
-                "relation_type": edge.get("relation_type", "related_cause"),
-                "description": edge.get("description", ""),
-                "confidence": edge.get("confidence", 0.90)
-            }
-            supabase_edges.append(row)
+            eid = edge.get("edge_id")
+            if not eid or eid in seen_edge_ids:
+                eid = f"EDGE-{edge_idx:03d}"
+                
+            seen_edge_ids.add(eid)
+            edge_idx += 1
             
-        print(f"Prepared {len(supabase_edges)} graph edge records. Uploading to 'edges' table...")
+            src = edge.get("source_id")
+            tgt = edge.get("target_id")
+            
+            # Ensure both source and target exist in validated incidents
+            if src in valid_incident_ids and tgt in valid_incident_ids:
+                row = {
+                    "edge_id": eid,
+                    "source_id": src,
+                    "target_id": tgt,
+                    "relation_type": edge.get("relation_type", "related_cause"),
+                    "description": edge.get("description", ""),
+                    "confidence": edge.get("confidence", 0.90)
+                }
+                supabase_edges.append(row)
+            
+        print(f"Prepared {len(supabase_edges)} valid graph edge records. Uploading to 'edges' table...")
         post_to_supabase_table(url, key, "edges", supabase_edges, "edge_id")
         
     print("\n" + "=" * 80)
