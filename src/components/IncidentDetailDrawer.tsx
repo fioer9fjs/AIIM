@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, ExternalLink, ShieldCheck, AlertTriangle, GitFork } from 'lucide-react';
+import { X, ExternalLink, ShieldCheck, AlertTriangle, GitFork, ShieldAlert, Zap, Layers } from 'lucide-react';
 import { AIIncident, GraphEdge } from '../types/incident';
 
 interface IncidentDetailDrawerProps {
@@ -41,9 +41,19 @@ export const IncidentDetailDrawer: React.FC<IncidentDetailDrawerProps> = ({
         </div>
 
         <div>
-          <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.75rem' }}>
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
             <span className={`badge badge-${incident.severity}`}>{incident.severity}</span>
             <span className={`badge badge-${incident.verification_status}`}>{incident.verification_status}</span>
+            {incident.eu_ai_act_tier && (
+              <span className="badge" style={{ backgroundColor: 'rgba(59, 130, 246, 0.2)', color: '#93c5fd' }}>
+                EU: {incident.eu_ai_act_tier.replace('_', ' ')}
+              </span>
+            )}
+            {incident.natsec_impact && (
+              <span className="badge" style={{ backgroundColor: 'rgba(239, 68, 68, 0.25)', color: '#fca5a5', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
+                <ShieldAlert size={12} /> NatSec Impact
+              </span>
+            )}
           </div>
           <h2 style={{ fontSize: '1.25rem', fontWeight: 700, lineHeight: 1.3 }}>{incident.title}</h2>
           <span style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>Reported Date: {incident.date}</span>
@@ -72,6 +82,43 @@ export const IncidentDetailDrawer: React.FC<IncidentDetailDrawerProps> = ({
           </div>
         )}
 
+        {/* MIT & AIID Extended Classification */}
+        {(incident.intent || incident.primary_purpose || incident.harm_type) && (
+          <div className="detail-section" style={{ borderColor: 'rgba(56, 189, 248, 0.3)' }}>
+            <h4 style={{ color: 'var(--accent-cyan)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <Layers size={14} /> MIT AI Risk & AIID Taxonomy Extensions
+            </h4>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', fontSize: '0.8rem' }}>
+              {incident.intent && (
+                <div>
+                  <span style={{ color: 'var(--text-dim)' }}>Intent / Causality:</span>
+                  <div style={{ fontWeight: 600, color: incident.intent === 'intentional_misuse' ? '#f87171' : '#a7f3d0' }}>
+                    {incident.intent.replace(/_/g, ' ')}
+                  </div>
+                </div>
+              )}
+              {incident.primary_purpose && (
+                <div>
+                  <span style={{ color: 'var(--text-dim)' }}>Primary AI Purpose:</span>
+                  <div style={{ fontWeight: 600 }}>{incident.primary_purpose.replace(/_/g, ' ')}</div>
+                </div>
+              )}
+              {incident.harm_type && (
+                <div>
+                  <span style={{ color: 'var(--text-dim)' }}>CSET Harm Type:</span>
+                  <div style={{ fontWeight: 600, color: 'var(--accent-purple)' }}>{incident.harm_type.replace(/_/g, ' ')}</div>
+                </div>
+              )}
+              {incident.eu_ai_act_tier && (
+                <div>
+                  <span style={{ color: 'var(--text-dim)' }}>EU AI Act Tier:</span>
+                  <div style={{ fontWeight: 600, color: '#93c5fd' }}>{incident.eu_ai_act_tier.replace(/_/g, ' ')}</div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Taxonomy Metadata Grid */}
         <div className="detail-section">
           <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
@@ -82,14 +129,14 @@ export const IncidentDetailDrawer: React.FC<IncidentDetailDrawerProps> = ({
               <span style={{ color: 'var(--text-dim)' }}>Lifecycle Phase:</span>
               <div style={{ fontWeight: 600 }}>{incident.lifecycle_phase.replace(/_/g, ' ')}</div>
               <span className="confidence-tag">
-                {(incident.confidence_scores?.lifecycle_phase ?? 1.0) * 100}% Conf.
+                {Math.round((incident.confidence_scores?.lifecycle_phase ?? 1.0) * 100)}% Conf.
               </span>
             </div>
             <div>
               <span style={{ color: 'var(--text-dim)' }}>System Classification:</span>
               <div style={{ fontWeight: 600 }}>{incident.system_classification.replace(/_/g, ' ')}</div>
               <span className="confidence-tag">
-                {(incident.confidence_scores?.system_classification ?? 1.0) * 100}% Conf.
+                {Math.round((incident.confidence_scores?.system_classification ?? 1.0) * 100)}% Conf.
               </span>
             </div>
             <div>
@@ -98,14 +145,14 @@ export const IncidentDetailDrawer: React.FC<IncidentDetailDrawerProps> = ({
                 {incident.root_cause_category} {incident.root_cause_subtype ? `(${incident.root_cause_subtype})` : ''}
               </div>
               <span className="confidence-tag">
-                {(incident.confidence_scores?.root_cause_category ?? 1.0) * 100}% Conf.
+                {Math.round((incident.confidence_scores?.root_cause_category ?? 1.0) * 100)}% Conf.
               </span>
             </div>
             <div>
               <span style={{ color: 'var(--text-dim)' }}>Harm Domain (OECD):</span>
               <div style={{ fontWeight: 600 }}>{incident.harm_domain.replace(/_/g, ' ')}</div>
               <span className="confidence-tag">
-                {(incident.confidence_scores?.harm_domain ?? 1.0) * 100}% Conf.
+                {Math.round((incident.confidence_scores?.harm_domain ?? 1.0) * 100)}% Conf.
               </span>
             </div>
           </div>
@@ -139,7 +186,9 @@ export const IncidentDetailDrawer: React.FC<IncidentDetailDrawerProps> = ({
                       <span style={{ fontWeight: 600 }}>{edge.relation_type.replace(/_/g, ' ')}</span>
                       <span>{otherId}</span>
                     </div>
-                    <p style={{ color: 'var(--text-muted)', marginTop: '0.2rem' }}>{edge.description}</p>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '2px' }}>
+                      {edge.description}
+                    </div>
                   </div>
                 );
               })}
@@ -149,22 +198,15 @@ export const IncidentDetailDrawer: React.FC<IncidentDetailDrawerProps> = ({
 
         {/* Source URLs */}
         <div className="detail-section">
-          <h4>Verified News Sources</h4>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+          <h4>Source Evidence URLs</h4>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.8rem' }}>
             {incident.source_urls.map((url, idx) => (
               <a
                 key={idx}
                 href={url}
                 target="_blank"
                 rel="noreferrer"
-                style={{
-                  color: 'var(--accent-blue)',
-                  fontSize: '0.8rem',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.3rem',
-                  textDecoration: 'none'
-                }}
+                style={{ color: 'var(--accent-blue)', display: 'flex', alignItems: 'center', gap: '0.3rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
               >
                 <ExternalLink size={12} /> {url}
               </a>

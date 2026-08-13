@@ -1,13 +1,13 @@
 export type VerificationStatus = 'alleged' | 'confirmed' | 'disputed';
 
-export type LifecyclePhase = 
+export type LifecyclePhase =
   | 'design_and_training'
   | 'testing_and_validation'
   | 'deployment_and_integration'
   | 'operation_and_monitoring'
   | 'decommissioning';
 
-export type SystemClassification = 
+export type SystemClassification =
   | 'high_risk_regulated'
   | 'general_purpose_model'
   | 'autonomous_agent'
@@ -16,7 +16,7 @@ export type SystemClassification =
   | 'dual_use_security'
   | 'unclassified';
 
-export type RootCauseCategory = 
+export type RootCauseCategory =
   | 'data'
   | 'model'
   | 'human'
@@ -24,7 +24,7 @@ export type RootCauseCategory =
   | 'external'
   | 'undetermined';
 
-export type HarmDomain = 
+export type HarmDomain =
   | 'persons_physical'
   | 'persons_mental'
   | 'persons_rights'
@@ -37,12 +37,31 @@ export type Temporality = 'actual' | 'potential' | 'latent';
 
 export type Severity = 'critical' | 'high' | 'medium' | 'low';
 
-export type RelationType = 
-  | 'follow_up'
-  | 'lawsuit'
-  | 'mitigation_patch'
-  | 'official_rebuttal'
-  | 'related_cause';
+// MIT & AIID Taxonomy Additions
+export type IncidentIntent = 'intentional_misuse' | 'unintentional_failure';
+
+export type PrimaryPurpose =
+  | 'generative_content'
+  | 'autonomous_mobility'
+  | 'biometric_surveillance'
+  | 'financial_fintech'
+  | 'healthcare_medical'
+  | 'recruitment_hr'
+  | 'defense_national_security'
+  | 'content_recommendation'
+  | 'other';
+
+export type HarmType =
+  | 'discrimination_bias'
+  | 'privacy_breach'
+  | 'physical_safety'
+  | 'misinformation'
+  | 'economic_labor'
+  | 'copyright_ip'
+  | 'psychological_harm'
+  | 'national_security';
+
+export type EUAIActTier = 'prohibited' | 'high_risk' | 'limited_risk' | 'minimal_risk';
 
 export interface ConfidenceScores {
   verification_status: number;
@@ -63,11 +82,19 @@ export interface AIIncident {
   lifecycle_phase: LifecyclePhase;
   system_classification: SystemClassification;
   root_cause_category: RootCauseCategory;
-  root_cause_subtype?: string;
-  failure_mode?: string;
+  root_cause_subtype: string;
+  failure_mode: string;
   harm_domain: HarmDomain;
   temporality: Temporality;
   severity: Severity;
+  
+  // MIT & AIID Extensions
+  intent?: IncidentIntent;
+  primary_purpose?: PrimaryPurpose;
+  harm_type?: HarmType;
+  eu_ai_act_tier?: EUAIActTier;
+  natsec_impact?: boolean;
+
   confidence_scores: ConfidenceScores;
   geographic_scope: string[];
   affected_parties: string[];
@@ -75,11 +102,18 @@ export interface AIIncident {
   related_incidents: string[];
 }
 
+export interface GraphNode {
+  id: string;
+  title: string;
+  severity: Severity;
+  harm_domain: HarmDomain;
+}
+
 export interface GraphEdge {
   edge_id: string;
   source_id: string;
   target_id: string;
-  relation_type: RelationType;
+  relation_type: 'lawsuit' | 'regulatory_action' | 'patch' | 'fork' | 'related_cause';
   description: string;
   confidence: number;
 }

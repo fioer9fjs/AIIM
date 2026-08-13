@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Search, ArrowUpDown, GitCommit } from 'lucide-react';
+import { Search, ArrowUpDown, GitCommit, ShieldAlert, Zap } from 'lucide-react';
 import { AIIncident } from '../types/incident';
 
 interface ExplorerViewProps {
@@ -19,6 +19,10 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
   const [severityFilter, setSeverityFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [systemFilter, setSystemFilter] = useState<string>('all');
+  const [intentFilter, setIntentFilter] = useState<string>('all');
+  const [euFilter, setEuFilter] = useState<string>('all');
+  const [purposeFilter, setPurposeFilter] = useState<string>('all');
+  const [natsecFilter, setNatsecFilter] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('date-desc');
 
   const filteredAndSortedIncidents = useMemo(() => {
@@ -32,8 +36,12 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
       const matchesSeverity = severityFilter === 'all' || inc.severity === severityFilter;
       const matchesStatus = statusFilter === 'all' || inc.verification_status === statusFilter;
       const matchesSystem = systemFilter === 'all' || inc.system_classification === systemFilter;
+      const matchesIntent = intentFilter === 'all' || inc.intent === intentFilter;
+      const matchesEu = euFilter === 'all' || inc.eu_ai_act_tier === euFilter;
+      const matchesPurpose = purposeFilter === 'all' || inc.primary_purpose === purposeFilter;
+      const matchesNatsec = natsecFilter === 'all' || (natsecFilter === 'yes' ? inc.natsec_impact === true : inc.natsec_impact === false);
 
-      return matchesSearch && matchesSeverity && matchesStatus && matchesSystem;
+      return matchesSearch && matchesSeverity && matchesStatus && matchesSystem && matchesIntent && matchesEu && matchesPurpose && matchesNatsec;
     });
 
     return list.sort((a, b) => {
@@ -58,13 +66,13 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
       }
       return 0;
     });
-  }, [incidents, search, severityFilter, statusFilter, systemFilter, sortBy]);
+  }, [incidents, search, severityFilter, statusFilter, systemFilter, intentFilter, euFilter, purposeFilter, natsecFilter, sortBy]);
 
   return (
     <div>
       {/* Controls / Filters & Sort */}
-      <div className="controls-bar" style={{ borderRadius: '8px', marginBottom: '1.5rem' }}>
-        <div className="search-input-wrapper">
+      <div className="controls-bar" style={{ borderRadius: '8px', marginBottom: '1.5rem', gap: '0.6rem', flexWrap: 'wrap' }}>
+        <div className="search-input-wrapper" style={{ minWidth: '240px' }}>
           <Search className="search-icon" />
           <input
             type="text"
@@ -94,6 +102,58 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
           </select>
         </div>
 
+        {/* MIT & AIID Filters */}
+        <select
+          className="filter-select"
+          value={intentFilter}
+          onChange={(e) => setIntentFilter(e.target.value)}
+          title="Filter by Intent (MIT AI Risk Repository)"
+        >
+          <option value="all">All Intent Types</option>
+          <option value="intentional_misuse">Intentional Misuse</option>
+          <option value="unintentional_failure">Unintentional System Failure</option>
+        </select>
+
+        <select
+          className="filter-select"
+          value={euFilter}
+          onChange={(e) => setEuFilter(e.target.value)}
+          title="Filter by EU AI Act Risk Tier"
+        >
+          <option value="all">All EU AI Act Tiers</option>
+          <option value="prohibited">Prohibited / Unacceptable Risk</option>
+          <option value="high_risk">High Risk (Annex III)</option>
+          <option value="limited_risk">Limited Risk (Transparency)</option>
+          <option value="minimal_risk">Minimal Risk</option>
+        </select>
+
+        <select
+          className="filter-select"
+          value={purposeFilter}
+          onChange={(e) => setPurposeFilter(e.target.value)}
+          title="Filter by Primary AI Purpose"
+        >
+          <option value="all">All AI Purpose Sectors</option>
+          <option value="generative_content">Generative Content</option>
+          <option value="autonomous_mobility">Autonomous Mobility</option>
+          <option value="biometric_surveillance">Biometric Surveillance</option>
+          <option value="financial_fintech">Financial / Fintech</option>
+          <option value="healthcare_medical">Healthcare & Medical</option>
+          <option value="recruitment_hr">Recruitment & HR</option>
+          <option value="defense_national_security">Defense & NatSec</option>
+        </select>
+
+        <select
+          className="filter-select"
+          value={natsecFilter}
+          onChange={(e) => setNatsecFilter(e.target.value)}
+          title="Filter by National Security Impact"
+        >
+          <option value="all">All NatSec Statuses</option>
+          <option value="yes">NatSec Impact: Yes</option>
+          <option value="no">NatSec Impact: No</option>
+        </select>
+
         <select
           className="filter-select"
           value={severityFilter}
@@ -116,18 +176,6 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
           <option value="alleged">Alleged</option>
           <option value="disputed">Disputed</option>
         </select>
-
-        <select
-          className="filter-select"
-          value={systemFilter}
-          onChange={(e) => setSystemFilter(e.target.value)}
-        >
-          <option value="all">All System Types</option>
-          <option value="autonomous_agent">Autonomous Agent</option>
-          <option value="general_purpose_model">General-Purpose Model</option>
-          <option value="high_risk_regulated">High-Risk Regulated</option>
-          <option value="dual_use_security">Dual-Use / Security</option>
-        </select>
       </div>
 
       {/* Grid of Incidents */}
@@ -137,15 +185,28 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
             <div className="card-header">
               <span className={`badge badge-${inc.severity}`}>{inc.severity}</span>
               <span className={`badge badge-${inc.verification_status}`}>{inc.verification_status}</span>
-              <span className="confidence-tag" title="Extraction confidence">
-                {Math.round((inc.confidence_scores?.severity ?? 1.0) * 100)}% Conf.
-              </span>
+              {inc.eu_ai_act_tier && (
+                <span className="badge" style={{ backgroundColor: 'rgba(59, 130, 246, 0.2)', color: '#93c5fd' }}>
+                  EU: {inc.eu_ai_act_tier.replace('_', ' ')}
+                </span>
+              )}
+              {inc.natsec_impact && (
+                <span className="badge" style={{ backgroundColor: 'rgba(239, 68, 68, 0.25)', color: '#fca5a5', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
+                  <ShieldAlert size={12} /> NatSec
+                </span>
+              )}
             </div>
 
             <h3 className="card-title">{inc.title}</h3>
             <p className="card-summary">{inc.summary}</p>
 
             <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+              {inc.intent && (
+                <span className="confidence-tag" style={{ color: inc.intent === 'intentional_misuse' ? '#f87171' : '#a7f3d0' }}>
+                  <Zap size={11} style={{ marginRight: '3px' }} />
+                  {inc.intent.replace('_', ' ')}
+                </span>
+              )}
               <span className="confidence-tag" style={{ color: 'var(--accent-cyan)' }}>
                 {inc.affected_parties?.[0] ? `Entity: ${inc.affected_parties[0]}` : inc.system_classification.replace(/_/g, ' ')}
               </span>
