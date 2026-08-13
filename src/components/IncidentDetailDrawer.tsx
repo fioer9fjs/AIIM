@@ -64,15 +64,6 @@ export const IncidentDetailDrawer: React.FC<IncidentDetailDrawerProps> = ({
           <p style={{ fontSize: '0.9rem', color: 'var(--text-main)', lineHeight: 1.5 }}>{incident.summary}</p>
         </div>
 
-        {incident.full_text && (
-          <div className="detail-section">
-            <h4>Scraped Article Full Text</h4>
-            <p style={{ fontSize: '0.825rem', color: 'var(--text-muted)', lineHeight: 1.6, maxHeight: '200px', overflowY: 'auto' }}>
-              {incident.full_text}
-            </p>
-          </div>
-        )}
-
         {incident.failure_mode && (
           <div className="detail-section" style={{ borderColor: 'rgba(239, 68, 68, 0.3)' }}>
             <h4 style={{ color: '#fca5a5', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
