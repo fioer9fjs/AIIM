@@ -1,8 +1,8 @@
 """
 Automated Data Ingestion & Extraction Pipeline for Global AI Incident Monitor.
 Harvests from multi-tier queries (GDELT, ArXiv, AIID, Google News), applies noise exclusions,
-dynamically verifies working Gemini models via robust fallback, extracts taxonomy metadata,
-and merges with store.
+uses official google-genai client, dynamically iterates model fallbacks (gemini-2.0-flash),
+extracts taxonomy metadata, and merges with store.
 """
 
 import os
@@ -12,13 +12,6 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from typing import List, Dict, Any, Optional
-
-from taxonomy_filters import (
-    TIER_1_MODELS_PRODUCTS,
-    TIER_1_PROVIDERS,
-    TIER_1_INCIDENT_TERMS,
-    score_article_relevance
-)
 
 # Prefer official google-genai SDK, fallback to google-generativeai
 HAS_GENAI = False
@@ -72,29 +65,30 @@ If the text is NOT an AI incident, return: {"is_ai_incident": false}
 
 _WORKING_MODEL_NAME = None
 
+PREFERRED_MODELS = [
+    "gemini-2.0-flash",
+    "gemini-1.5-flash",
+    "gemini-1.5-pro",
+    "gemini-2.5-flash",
+    "gemini-pro"
+]
+
 def get_candidate_models(api_key: str) -> List[str]:
     """Retrieves all candidate models from API or standard defaults."""
-    default_candidates = [
-        "gemini-1.5-flash-8b",
-        "gemini-1.5-pro",
-        "gemini-1.5-flash",
-        "gemini-2.0-flash-exp",
-        "gemini-2.5-flash",
-        "gemini-2.5-pro",
-        "gemini-pro"
-    ]
+    candidates = list(PREFERRED_MODELS)
     
     if HAS_GENAI:
         try:
             client = genai.Client(api_key=api_key)
             fetched = [m.name.replace("models/", "") for m in client.models.list()]
             if fetched:
-                # Merge API listed models with defaults, avoiding duplicates
-                return list(dict.fromkeys(fetched + default_candidates))
+                for f in fetched:
+                    if f not in candidates:
+                        candidates.append(f)
         except Exception as e:
             print(f"Note on listing models: {e}")
             
-    return default_candidates
+    return candidates
 
 def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Optional[Dict[str, Any]]:
     global _WORKING_MODEL_NAME
@@ -103,7 +97,6 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
         
     prompt = f"{SYSTEM_PROMPT}\n\nARTICLE TITLE: {article['title']}\nARTICLE CONTENT: {article.get('description', '')}"
     
-    # If we already identified a working model, try it first
     candidate_models = get_candidate_models(api_key)
     if _WORKING_MODEL_NAME and _WORKING_MODEL_NAME in candidate_models:
         candidate_models.remove(_WORKING_MODEL_NAME)
@@ -120,27 +113,23 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
                     contents=prompt,
                     config={"response_mime_type": "application/json"}
                 )
-                text_clean = response.text.strip()
-                if text_clean:
+                if response and response.text:
+                    text_clean = response.text.strip()
                     if _WORKING_MODEL_NAME != model_name:
                         _WORKING_MODEL_NAME = model_name
-                        print(f"Verified working Gemini model: {model_name}")
+                        print(f"--> Verified working Gemini model: {model_name}")
                     break
             except Exception as e:
-                err_msg = str(e)
-                if "404" in err_msg or "NOT_FOUND" in err_msg or "not available" in err_msg:
-                    continue # Try next candidate model
-                else:
-                    print(f"Generation error with model '{model_name}': {e}")
-                    continue
+                # Catch 404/NOT_FOUND or deprecation errors and continue to next model
+                continue
                     
         elif HAS_LEGACY_GENAI:
             try:
                 legacy_genai.configure(api_key=api_key)
                 model = legacy_genai.GenerativeModel(model_name)
                 response = model.generate_content(prompt, generation_config={"response_mime_type": "application/json"})
-                text_clean = response.text.strip()
-                if text_clean:
+                if response and response.text:
+                    text_clean = response.text.strip()
                     _WORKING_MODEL_NAME = model_name
                     break
             except Exception:
@@ -228,6 +217,13 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
 def run_ingestion():
     print("Starting Tiered AI Incident Ingestion pipeline...")
     
+    from taxonomy_filters import (
+        TIER_1_MODELS_PRODUCTS,
+        TIER_1_PROVIDERS,
+        TIER_1_INCIDENT_TERMS,
+        score_article_relevance
+    )
+
     queries = [
         f'({ " OR ".join(TIER_1_MODELS_PRODUCTS[:8]) }) ({ " OR ".join(TIER_1_INCIDENT_TERMS[:8]) })',
         f'({ " OR ".join(TIER_1_PROVIDERS[:8]) }) ({ " OR ".join(TIER_1_INCIDENT_TERMS[8:16]) })',
