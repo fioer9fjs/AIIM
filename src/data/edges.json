@@ -14,5 +14,1701 @@
     "relation_type": "mitigation_patch",
     "description": "MediScan deployed corrective software patch v3.1 following the medical hallucination audit.",
     "confidence": 0.99
+  },
+  {
+    "edge_id": "EDGE-003",
+    "source_id": "INC-20260812-047",
+    "target_id": "INC-20260813-040",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-004",
+    "source_id": "INC-20260812-047",
+    "target_id": "INC-20260813-038",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Hugging Face) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-005",
+    "source_id": "INC-20260812-047",
+    "target_id": "INC-20260813-036",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-006",
+    "source_id": "INC-20260812-047",
+    "target_id": "INC-20260813-029",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-007",
+    "source_id": "INC-20260812-047",
+    "target_id": "INC-20260813-025",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-008",
+    "source_id": "INC-20260812-047",
+    "target_id": "INC-20260813-019",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Hugging Face, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-009",
+    "source_id": "INC-20260812-047",
+    "target_id": "INC-20260813-017",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-010",
+    "source_id": "INC-20260812-047",
+    "target_id": "INC-20260813-020",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-011",
+    "source_id": "INC-20260812-047",
+    "target_id": "INC-20260813-014",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-012",
+    "source_id": "INC-20260812-047",
+    "target_id": "INC-20260813-012",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-013",
+    "source_id": "INC-20260812-047",
+    "target_id": "INC-20260813-010",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Hugging Face, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-014",
+    "source_id": "INC-20260812-043",
+    "target_id": "INC-20260813-029",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-015",
+    "source_id": "INC-20260812-043",
+    "target_id": "INC-20260813-026",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-016",
+    "source_id": "INC-20260812-043",
+    "target_id": "INC-20260813-017",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-017",
+    "source_id": "INC-20260812-043",
+    "target_id": "INC-20260813-014",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-018",
+    "source_id": "INC-20260812-043",
+    "target_id": "INC-20260813-012",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-019",
+    "source_id": "INC-20260813-040",
+    "target_id": "INC-20260813-038",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-020",
+    "source_id": "INC-20260813-040",
+    "target_id": "INC-20260813-036",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-021",
+    "source_id": "INC-20260813-040",
+    "target_id": "INC-20260813-029",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-022",
+    "source_id": "INC-20260813-040",
+    "target_id": "INC-20260813-025",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-023",
+    "source_id": "INC-20260813-040",
+    "target_id": "INC-20260813-019",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-024",
+    "source_id": "INC-20260813-040",
+    "target_id": "INC-20260813-017",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-025",
+    "source_id": "INC-20260813-040",
+    "target_id": "INC-20260813-020",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-026",
+    "source_id": "INC-20260813-040",
+    "target_id": "INC-20260813-014",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-027",
+    "source_id": "INC-20260813-040",
+    "target_id": "INC-20260813-012",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-028",
+    "source_id": "INC-20260813-040",
+    "target_id": "INC-20260813-010",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-029",
+    "source_id": "INC-20260813-038",
+    "target_id": "INC-20260813-019",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Hugging Face) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-030",
+    "source_id": "INC-20260813-038",
+    "target_id": "INC-20260813-010",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Hugging Face) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-031",
+    "source_id": "INC-20260813-038",
+    "target_id": "INC-20260813-036",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Meta, Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-032",
+    "source_id": "INC-20260813-038",
+    "target_id": "INC-20260813-029",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-033",
+    "source_id": "INC-20260813-038",
+    "target_id": "INC-20260813-025",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-034",
+    "source_id": "INC-20260813-038",
+    "target_id": "INC-20260813-021",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-035",
+    "source_id": "INC-20260813-038",
+    "target_id": "INC-20260813-017",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-036",
+    "source_id": "INC-20260813-038",
+    "target_id": "INC-20260813-020",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-037",
+    "source_id": "INC-20260813-038",
+    "target_id": "INC-20260813-016",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-038",
+    "source_id": "INC-20260813-038",
+    "target_id": "INC-20260813-014",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-039",
+    "source_id": "INC-20260813-038",
+    "target_id": "INC-20260813-012",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-040",
+    "source_id": "INC-20260813-036",
+    "target_id": "INC-20260813-025",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-041",
+    "source_id": "INC-20260813-036",
+    "target_id": "INC-20260813-021",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-042",
+    "source_id": "INC-20260813-036",
+    "target_id": "INC-20260813-019",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-043",
+    "source_id": "INC-20260813-036",
+    "target_id": "INC-20260813-020",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-044",
+    "source_id": "INC-20260813-036",
+    "target_id": "INC-20260813-016",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-045",
+    "source_id": "INC-20260813-036",
+    "target_id": "INC-20260813-010",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-046",
+    "source_id": "INC-20260813-034",
+    "target_id": "INC-20260813-033",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic (Claude)) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-047",
+    "source_id": "INC-20260813-035",
+    "target_id": "INC-20260813-023",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (AG Sunday, Public) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-048",
+    "source_id": "INC-20260813-029",
+    "target_id": "INC-20260813-026",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-049",
+    "source_id": "INC-20260813-029",
+    "target_id": "INC-20260813-025",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-050",
+    "source_id": "INC-20260813-029",
+    "target_id": "INC-20260813-017",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-051",
+    "source_id": "INC-20260813-029",
+    "target_id": "INC-20260813-020",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-052",
+    "source_id": "INC-20260813-029",
+    "target_id": "INC-20260813-014",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-053",
+    "source_id": "INC-20260813-029",
+    "target_id": "INC-20260813-012",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-054",
+    "source_id": "INC-20260813-026",
+    "target_id": "INC-20260813-017",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-055",
+    "source_id": "INC-20260813-026",
+    "target_id": "INC-20260813-014",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-056",
+    "source_id": "INC-20260813-026",
+    "target_id": "INC-20260813-012",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-057",
+    "source_id": "INC-20260813-029",
+    "target_id": "INC-20260813-027",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (Authors, Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-058",
+    "source_id": "INC-20260813-029",
+    "target_id": "INC-20260813-024",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-059",
+    "source_id": "INC-20260813-029",
+    "target_id": "INC-20260813-022",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (Authors) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-060",
+    "source_id": "INC-20260813-027",
+    "target_id": "INC-20260813-024",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-061",
+    "source_id": "INC-20260813-027",
+    "target_id": "INC-20260813-022",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (Authors) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-062",
+    "source_id": "INC-20260813-025",
+    "target_id": "INC-20260813-019",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-063",
+    "source_id": "INC-20260813-025",
+    "target_id": "INC-20260813-017",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-064",
+    "source_id": "INC-20260813-025",
+    "target_id": "INC-20260813-020",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-065",
+    "source_id": "INC-20260813-025",
+    "target_id": "INC-20260813-014",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-066",
+    "source_id": "INC-20260813-025",
+    "target_id": "INC-20260813-012",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-067",
+    "source_id": "INC-20260813-025",
+    "target_id": "INC-20260813-010",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-068",
+    "source_id": "INC-20260813-021",
+    "target_id": "INC-20260813-016",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-069",
+    "source_id": "INC-20260813-019",
+    "target_id": "INC-20260813-020",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-070",
+    "source_id": "INC-20260813-019",
+    "target_id": "INC-20260813-010",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Hugging Face, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-071",
+    "source_id": "INC-20260813-017",
+    "target_id": "INC-20260813-020",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-072",
+    "source_id": "INC-20260813-017",
+    "target_id": "INC-20260813-014",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-073",
+    "source_id": "INC-20260813-017",
+    "target_id": "INC-20260813-012",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-074",
+    "source_id": "INC-20260813-020",
+    "target_id": "INC-20260813-014",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-075",
+    "source_id": "INC-20260813-020",
+    "target_id": "INC-20260813-012",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-076",
+    "source_id": "INC-20260813-020",
+    "target_id": "INC-20260813-010",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-077",
+    "source_id": "INC-20260813-014",
+    "target_id": "INC-20260813-012",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-078",
+    "source_id": "INC-20260811-049",
+    "target_id": "INC-20260811-047",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenClaw, Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-079",
+    "source_id": "INC-20260811-049",
+    "target_id": "INC-20260813-038",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-080",
+    "source_id": "INC-20260811-049",
+    "target_id": "INC-20260813-036",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-081",
+    "source_id": "INC-20260811-049",
+    "target_id": "INC-20260813-021",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-082",
+    "source_id": "INC-20260811-049",
+    "target_id": "INC-20260813-016",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-083",
+    "source_id": "INC-20260811-047",
+    "target_id": "INC-20260813-038",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-084",
+    "source_id": "INC-20260811-047",
+    "target_id": "INC-20260813-036",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-085",
+    "source_id": "INC-20260811-047",
+    "target_id": "INC-20260813-031",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Australian gym website) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-086",
+    "source_id": "INC-20260811-047",
+    "target_id": "INC-20260813-021",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-087",
+    "source_id": "INC-20260811-047",
+    "target_id": "INC-20260813-016",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-088",
+    "source_id": "INC-20260809-051",
+    "target_id": "INC-20260809-049",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-089",
+    "source_id": "INC-20260809-051",
+    "target_id": "INC-20260811-049",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-090",
+    "source_id": "INC-20260809-051",
+    "target_id": "INC-20260811-047",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-091",
+    "source_id": "INC-20260809-051",
+    "target_id": "INC-20260812-047",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-092",
+    "source_id": "INC-20260809-051",
+    "target_id": "INC-20260813-040",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-093",
+    "source_id": "INC-20260809-051",
+    "target_id": "INC-20260813-038",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-094",
+    "source_id": "INC-20260809-051",
+    "target_id": "INC-20260813-036",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-095",
+    "source_id": "INC-20260809-051",
+    "target_id": "INC-20260813-029",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-096",
+    "source_id": "INC-20260809-051",
+    "target_id": "INC-20260813-027",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-097",
+    "source_id": "INC-20260809-051",
+    "target_id": "INC-20260813-025",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-098",
+    "source_id": "INC-20260809-051",
+    "target_id": "INC-20260813-021",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-099",
+    "source_id": "INC-20260809-051",
+    "target_id": "INC-20260813-019",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-100",
+    "source_id": "INC-20260809-051",
+    "target_id": "INC-20260813-024",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-101",
+    "source_id": "INC-20260809-051",
+    "target_id": "INC-20260813-020",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-102",
+    "source_id": "INC-20260809-051",
+    "target_id": "INC-20260813-016",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-103",
+    "source_id": "INC-20260809-051",
+    "target_id": "INC-20260813-010",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-104",
+    "source_id": "INC-20260809-049",
+    "target_id": "INC-20260811-049",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-105",
+    "source_id": "INC-20260809-049",
+    "target_id": "INC-20260811-047",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-106",
+    "source_id": "INC-20260809-049",
+    "target_id": "INC-20260812-047",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-107",
+    "source_id": "INC-20260809-049",
+    "target_id": "INC-20260813-040",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Irregular) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-108",
+    "source_id": "INC-20260809-049",
+    "target_id": "INC-20260813-038",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Meta, Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-109",
+    "source_id": "INC-20260809-049",
+    "target_id": "INC-20260813-036",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Meta, Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-110",
+    "source_id": "INC-20260809-049",
+    "target_id": "INC-20260813-029",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-111",
+    "source_id": "INC-20260809-049",
+    "target_id": "INC-20260813-027",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-112",
+    "source_id": "INC-20260809-049",
+    "target_id": "INC-20260813-025",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-113",
+    "source_id": "INC-20260809-049",
+    "target_id": "INC-20260813-021",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-114",
+    "source_id": "INC-20260809-049",
+    "target_id": "INC-20260813-019",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-115",
+    "source_id": "INC-20260809-049",
+    "target_id": "INC-20260813-024",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-116",
+    "source_id": "INC-20260809-049",
+    "target_id": "INC-20260813-020",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-117",
+    "source_id": "INC-20260809-049",
+    "target_id": "INC-20260813-016",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-118",
+    "source_id": "INC-20260809-049",
+    "target_id": "INC-20260813-010",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-119",
+    "source_id": "INC-20260808-055",
+    "target_id": "INC-20260808-053",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-120",
+    "source_id": "INC-20260808-055",
+    "target_id": "INC-20260808-051",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-121",
+    "source_id": "INC-20260808-055",
+    "target_id": "INC-20260809-051",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-122",
+    "source_id": "INC-20260808-055",
+    "target_id": "INC-20260809-049",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-123",
+    "source_id": "INC-20260808-055",
+    "target_id": "INC-20260812-047",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-124",
+    "source_id": "INC-20260808-055",
+    "target_id": "INC-20260813-040",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-125",
+    "source_id": "INC-20260808-055",
+    "target_id": "INC-20260813-038",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-126",
+    "source_id": "INC-20260808-055",
+    "target_id": "INC-20260813-036",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-127",
+    "source_id": "INC-20260808-055",
+    "target_id": "INC-20260813-029",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-128",
+    "source_id": "INC-20260808-055",
+    "target_id": "INC-20260813-025",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-129",
+    "source_id": "INC-20260808-055",
+    "target_id": "INC-20260813-019",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-130",
+    "source_id": "INC-20260808-055",
+    "target_id": "INC-20260813-017",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-131",
+    "source_id": "INC-20260808-055",
+    "target_id": "INC-20260813-020",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-132",
+    "source_id": "INC-20260808-055",
+    "target_id": "INC-20260813-014",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-133",
+    "source_id": "INC-20260808-055",
+    "target_id": "INC-20260813-012",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-134",
+    "source_id": "INC-20260808-055",
+    "target_id": "INC-20260813-010",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-135",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260808-051",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, Hugging Face) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-136",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260809-051",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-137",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260809-049",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-138",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260811-049",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-139",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260811-047",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-140",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260812-047",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Hugging Face, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-141",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260813-040",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-142",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260813-038",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Hugging Face) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-143",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260813-036",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-144",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260813-029",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-145",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260813-025",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-146",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260813-021",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-147",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260813-019",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Hugging Face, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-148",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260813-017",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-149",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260813-020",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-150",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260813-016",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-151",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260813-014",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-152",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260813-012",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-153",
+    "source_id": "INC-20260808-053",
+    "target_id": "INC-20260813-010",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Hugging Face, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-154",
+    "source_id": "INC-20260808-051",
+    "target_id": "INC-20260809-051",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-155",
+    "source_id": "INC-20260808-051",
+    "target_id": "INC-20260809-049",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Meta, Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-156",
+    "source_id": "INC-20260808-051",
+    "target_id": "INC-20260811-049",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-157",
+    "source_id": "INC-20260808-051",
+    "target_id": "INC-20260811-047",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-158",
+    "source_id": "INC-20260808-051",
+    "target_id": "INC-20260812-047",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Hugging Face, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-159",
+    "source_id": "INC-20260808-051",
+    "target_id": "INC-20260813-040",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-160",
+    "source_id": "INC-20260808-051",
+    "target_id": "INC-20260813-038",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Hugging Face) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-161",
+    "source_id": "INC-20260808-051",
+    "target_id": "INC-20260813-036",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Meta, Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-162",
+    "source_id": "INC-20260808-051",
+    "target_id": "INC-20260813-029",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-163",
+    "source_id": "INC-20260808-051",
+    "target_id": "INC-20260813-025",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-164",
+    "source_id": "INC-20260808-051",
+    "target_id": "INC-20260813-021",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-165",
+    "source_id": "INC-20260808-051",
+    "target_id": "INC-20260813-019",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Hugging Face, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-166",
+    "source_id": "INC-20260808-051",
+    "target_id": "INC-20260813-017",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-167",
+    "source_id": "INC-20260808-051",
+    "target_id": "INC-20260813-020",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-168",
+    "source_id": "INC-20260808-051",
+    "target_id": "INC-20260813-016",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-169",
+    "source_id": "INC-20260808-051",
+    "target_id": "INC-20260813-014",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-170",
+    "source_id": "INC-20260808-051",
+    "target_id": "INC-20260813-012",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-171",
+    "source_id": "INC-20260808-051",
+    "target_id": "INC-20260813-010",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Hugging Face, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-172",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260807-056",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-173",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260808-055",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-174",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260808-053",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-175",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260808-051",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-176",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260809-051",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-177",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260809-049",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-178",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260811-049",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-179",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260811-047",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-180",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260812-047",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-181",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260813-040",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-182",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260813-038",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-183",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260813-036",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-184",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260813-029",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-185",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260813-025",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-186",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260813-021",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-187",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260813-019",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-188",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260813-017",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-189",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260813-020",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-190",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260813-016",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-191",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260813-014",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-192",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260813-012",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-193",
+    "source_id": "INC-20260807-060",
+    "target_id": "INC-20260813-010",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-194",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260808-055",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-195",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260808-053",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, Hugging Face) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-196",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260808-051",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, Hugging Face) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-197",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260809-051",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-198",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260809-049",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-199",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260811-049",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-200",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260811-047",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-201",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260812-047",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Hugging Face, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-202",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260813-040",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-203",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260813-038",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Hugging Face) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-204",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260813-036",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-205",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260813-029",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-206",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260813-025",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-207",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260813-021",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-208",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260813-019",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Hugging Face, OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-209",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260813-017",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-210",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260813-020",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-211",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260813-016",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Anthropic) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-212",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260813-014",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-213",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260813-012",
+    "relation_type": "lawsuit",
+    "description": "Linked via shared entity (OpenAI) & harm profile.",
+    "confidence": 0.9
+  },
+  {
+    "edge_id": "EDGE-214",
+    "source_id": "INC-20260807-056",
+    "target_id": "INC-20260813-010",
+    "relation_type": "related_cause",
+    "description": "Linked via shared entity (Hugging Face, OpenAI) & harm profile.",
+    "confidence": 0.9
   }
 ]
