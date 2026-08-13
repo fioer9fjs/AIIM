@@ -1,8 +1,8 @@
 """
 Automated Data Ingestion & Full-Text Extraction Pipeline for Global AI Incident Monitor.
-Harvests multi-tier queries across sources (Google News RSS, GDELT, ArXiv, AIID),
+Harvests multi-tier queries across sources (Google News RSS, GDELT 2.0 API),
 decodes Google News RSS wrapper URLs using googlenewsdecoder, scrapes complete article full texts,
-enforces publication date windowing, and records daily source telemetry stats in Supabase.
+enforces publication date windowing, tags source origins (gdelt vs rss), and syncs to Supabase.
 """
 
 import os
@@ -213,10 +213,36 @@ def fetch_google_news(query: str, max_items: int = 4) -> List[Dict[str, Any]]:
                     "pub_date": pub_date,
                     "pub_date_clean": pub_date_clean,
                     "description": description,
-                    "source_type": "rss"
+                    "source_type": "google_news_rss"
                 })
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"Error fetching RSS: {e}")
+    return articles
+
+def fetch_gdelt_news(query: str, max_items: int = 4) -> List[Dict[str, Any]]:
+    """Fetches news articles directly from GDELT 2.0 API with source_type='gdelt'."""
+    encoded_query = urllib.parse.quote(query)
+    gdelt_url = f"https://api.gdeltproject.org/api/v2/doc/doc?query={encoded_query}&mode=ArtList&maxrecords={max_items}&format=json&sort=date"
+    articles = []
+    try:
+        req = urllib.request.Request(gdelt_url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
+        with urllib.request.urlopen(req, timeout=8) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+            for art in data.get('articles', []):
+                seendate = art.get("seendate", "")
+                pub_date_clean = datetime.now().strftime("%Y-%m-%d")
+                if len(seendate) >= 8:
+                    pub_date_clean = f"{seendate[:4]}-{seendate[4:6]}-{seendate[6:8]}"
+                articles.append({
+                    "title": art.get("title", ""),
+                    "link": art.get("url", ""), # Direct publisher URL!
+                    "pub_date": seendate,
+                    "pub_date_clean": pub_date_clean,
+                    "description": art.get("title", ""),
+                    "source_type": "gdelt"
+                })
+    except Exception as e:
+        print(f"GDELT fetch note: {e}")
     return articles
 
 def update_knowledge_graph_edges(all_incidents: List[Dict[str, Any]]):
@@ -313,7 +339,7 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
             print(f"Note on Supabase sync: {e}")
 
 def run_ingestion():
-    print("Starting Full-Text AI Incident & Source Telemetry Ingestion pipeline...")
+    print("Starting Multi-Source AI Incident Ingestion pipeline (Google News RSS + GDELT 2.0 API)...")
     today_str = datetime.now().strftime("%Y-%m-%d")
     
     from taxonomy_filters import (
@@ -337,9 +363,13 @@ def run_ingestion():
     aiid_count = 0
     
     for q in queries:
-        arts = fetch_google_news(q)
-        rss_count += len(arts)
-        all_articles.extend(arts)
+        rss_arts = fetch_google_news(q)
+        rss_count += len(rss_arts)
+        all_articles.extend(rss_arts)
+        
+        gdelt_arts = fetch_gdelt_news(q)
+        gdelt_count += len(gdelt_arts)
+        all_articles.extend(gdelt_arts)
         
     passed_articles = []
     for art in all_articles:
@@ -347,7 +377,7 @@ def run_ingestion():
         if score >= 0.4:
             passed_articles.append(art)
             
-    print(f"Harvester fetched {len(all_articles)} items (RSS: {rss_count}, GDELT: {gdelt_count}) -> {len(passed_articles)} passed relevance filter.")
+    print(f"Harvester fetched {len(all_articles)} items (Google News RSS: {rss_count}, GDELT: {gdelt_count}) -> {len(passed_articles)} passed relevance filter.")
     
     api_key = os.environ.get("GEMINI_API_KEY", "")
     if not api_key:
@@ -359,7 +389,7 @@ def run_ingestion():
         inc = process_article_with_gemini(art, api_key)
         if inc and inc.get("is_ai_incident"):
             extracted_incidents.append(inc)
-            print(f"[EXTRACTED] {inc.get('title')} | Severity: {inc.get('severity')}")
+            print(f"[EXTRACTED - {inc.get('source_type')}] {inc.get('title')} | Severity: {inc.get('severity')}")
             
     print(f"Ingestion complete. Extracted {len(extracted_incidents)} valid AI incidents.")
     save_to_incidents_json(extracted_incidents)

@@ -1,7 +1,7 @@
 """
 Historical 7-Day Backfill Pipeline for Global AI Incident Monitor.
-Loops day-by-day through the past 7 days, fetches candidate news items across sources,
-decodes Google News RSS wrapper URLs using googlenewsdecoder, scrapes full text,
+Loops day-by-day through the past 7 days, fetches candidate news items across sources
+(Google News RSS + GDELT 2.0 API), decodes URLs, scrapes full text,
 extracts taxonomy via Gemini 3.6 Flash, and updates incidents.json, edges.json AND
 records daily source telemetry stats in Supabase PostgreSQL table 'daily_source_stats'.
 """
@@ -193,7 +193,32 @@ def fetch_rss_for_date_range(query: str, target_date_str: str) -> List[Dict[str,
                     "title": title,
                     "link": link,
                     "pub_date": pub_date,
-                    "description": description
+                    "description": description,
+                    "source_type": "google_news_rss"
+                })
+    except Exception:
+        pass
+    return articles
+
+def fetch_gdelt_for_date_range(query: str, target_date_str: str) -> List[Dict[str, Any]]:
+    """Fetches articles from GDELT 2.0 API for a specific historical date string (YYYY-MM-DD)."""
+    date_compact = target_date_str.replace("-", "")
+    start_dt = f"{date_compact}000000"
+    end_dt = f"{date_compact}235959"
+    encoded_query = urllib.parse.quote(query)
+    gdelt_url = f"https://api.gdeltproject.org/api/v2/doc/doc?query={encoded_query}&mode=ArtList&maxrecords=6&format=json&startdatetime={start_dt}&enddatetime={end_dt}"
+    articles = []
+    try:
+        req = urllib.request.Request(gdelt_url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
+        with urllib.request.urlopen(req, timeout=8) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+            for art in data.get('articles', []):
+                articles.append({
+                    "title": art.get("title", ""),
+                    "link": art.get("url", ""),
+                    "pub_date": target_date_str,
+                    "description": art.get("title", ""),
+                    "source_type": "gdelt"
                 })
     except Exception:
         pass
@@ -294,7 +319,7 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]) -> int:
 
 def run_7day_backfill():
     print("=" * 85)
-    print("GLOBAL AI INCIDENT MONITOR - 7-DAY HISTORICAL BACKFILL PIPELINE")
+    print("GLOBAL AI INCIDENT MONITOR - MULTI-SOURCE 7-DAY HISTORICAL BACKFILL")
     print("=" * 85)
     
     api_key = os.environ.get("GEMINI_API_KEY", "")
@@ -317,19 +342,27 @@ def run_7day_backfill():
         print(f"\n---> PROCESSING HISTORICAL DAY: {date_str} (Day -{day_offset})")
         
         day_articles = []
+        rss_count = 0
+        gdelt_count = 0
+        
         for q in queries:
-            arts = fetch_rss_for_date_range(q, date_str)
-            day_articles.extend(arts)
+            rss_arts = fetch_rss_for_date_range(q, date_str)
+            rss_count += len(rss_arts)
+            day_articles.extend(rss_arts)
+            
+            gdelt_arts = fetch_gdelt_for_date_range(q, date_str)
+            gdelt_count += len(gdelt_arts)
+            day_articles.extend(gdelt_arts)
             
         passed_articles = [a for a in day_articles if score_article_relevance(a['title'], a.get('description', '')) >= 0.4]
-        print(f"     Fetched {len(day_articles)} raw news items -> {len(passed_articles)} passed relevance filter.")
+        print(f"     Fetched {len(day_articles)} raw news items (RSS: {rss_count}, GDELT: {gdelt_count}) -> {len(passed_articles)} passed relevance filter.")
         
         day_extracted = []
         for art in passed_articles:
             inc = process_article_with_gemini(art, api_key, date_str)
             if inc and inc.get("is_ai_incident"):
                 day_extracted.append(inc)
-                print(f"     [FULL-TEXT EXTRACTED] {inc.get('title')} | Text Length: {len(inc.get('full_text', ''))} chars")
+                print(f"     [EXTRACTED - {inc.get('source_type')}] {inc.get('title')} | Text Length: {len(inc.get('full_text', ''))} chars")
                 
         added = save_to_incidents_json(day_extracted)
         total_added += added
@@ -340,8 +373,8 @@ def run_7day_backfill():
             from migrate_json_to_supabase import record_daily_source_stats
             record_daily_source_stats(
                 stat_date=date_str,
-                rss_count=len(day_articles),
-                gdelt_count=0,
+                rss_count=rss_count,
+                gdelt_count=gdelt_count,
                 arxiv_count=0,
                 aiid_count=0,
                 total_fetched=len(day_articles),
