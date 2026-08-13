@@ -1,8 +1,7 @@
 """
 Automated Data Ingestion & Extraction Pipeline for Global AI Incident Monitor.
-Fetches GDELT and Google News RSS feeds, dynamically discovers active Gemini Flash/Pro models,
-extracts academic/regulatory taxonomy, detects deduplications/timeline links,
-and updates the incident store.
+Harvests from multi-tier queries (GDELT, ArXiv, AIID, Google News), applies noise exclusions,
+discovers active Gemini models dynamically, extracts taxonomy metadata, and merges with store.
 """
 
 import os
@@ -12,6 +11,13 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from typing import List, Dict, Any, Optional
+
+from taxonomy_filters import (
+    TIER_1_MODELS_PRODUCTS,
+    TIER_1_PROVIDERS,
+    TIER_1_INCIDENT_TERMS,
+    score_article_relevance
+)
 
 # Prefer official google-genai SDK, fallback to google-generativeai
 HAS_GENAI = False
@@ -63,14 +69,6 @@ Return ONLY a valid JSON object matching this exact schema:
 If the text is NOT an AI incident, return: {"is_ai_incident": false}
 """
 
-SEARCH_QUERIES = [
-    "AI incident OR AI safety risk",
-    "LLM vulnerability OR prompt injection",
-    "AI lawsuit OR copyright AI",
-    "deepfake fraud OR AI scam",
-    "autonomous vehicle accident OR robotaxi"
-]
-
 _CACHED_MODEL_NAME = None
 
 def get_active_gemini_model(api_key: str) -> Optional[str]:
@@ -81,20 +79,11 @@ def get_active_gemini_model(api_key: str) -> Optional[str]:
 
     print("Dynamically querying Gemini API for supported active models...")
     
-    # 1. Try google-genai SDK
     if HAS_GENAI:
         try:
             client = genai.Client(api_key=api_key)
             all_models = [m.name for m in client.models.list()]
-            print(f"API returned {len(all_models)} total models: {all_models[:10]}")
-            
-            # Prioritize active flash/pro models
-            candidates = []
-            for name in all_models:
-                clean_name = name.replace("models/", "")
-                if "flash" in clean_name.lower() or "pro" in clean_name.lower():
-                    candidates.append(clean_name)
-                    
+            candidates = [m.replace("models/", "") for m in all_models if "flash" in m.lower() or "pro" in m.lower()]
             if candidates:
                 _CACHED_MODEL_NAME = candidates[0]
                 print(f"Selected active model: {_CACHED_MODEL_NAME}")
@@ -105,12 +94,10 @@ def get_active_gemini_model(api_key: str) -> Optional[str]:
         except Exception as e:
             print(f"Error querying models via google-genai: {e}")
 
-    # 2. Try legacy SDK list_models
     if HAS_LEGACY_GENAI:
         try:
             legacy_genai.configure(api_key=api_key)
             models = [m.name.replace("models/", "") for m in legacy_genai.list_models() if 'generateContent' in m.supported_generation_methods]
-            print(f"Legacy API returned models: {models}")
             if models:
                 _CACHED_MODEL_NAME = models[0]
                 return _CACHED_MODEL_NAME
@@ -119,19 +106,17 @@ def get_active_gemini_model(api_key: str) -> Optional[str]:
 
     return "gemini-2.5-flash"
 
-def fetch_google_news_rss(query: str) -> List[Dict[str, str]]:
-    """Fetch recent news articles from Google News RSS feed."""
+def fetch_google_news(query: str, max_items: int = 4) -> List[Dict[str, Any]]:
     encoded_query = urllib.parse.quote(query)
     rss_url = f"https://news.google.com/rss/search?q={encoded_query}&hl=en-US&gl=US&ceid=US:en"
-    
     articles = []
     try:
         req = urllib.request.Request(rss_url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req) as response:
+        with urllib.request.urlopen(req, timeout=8) as response:
             xml_data = response.read()
             root = ET.fromstring(xml_data)
             
-            for item in root.findall('./channel/item')[:5]:
+            for item in root.findall('./channel/item')[:max_items]:
                 title = item.find('title').text if item.find('title') is not None else ""
                 link = item.find('link').text if item.find('link') is not None else ""
                 pub_date = item.find('pubDate').text if item.find('pubDate') is not None else ""
@@ -144,22 +129,18 @@ def fetch_google_news_rss(query: str) -> List[Dict[str, str]]:
                     "description": description
                 })
     except Exception as e:
-        print(f"Error fetching Google News RSS for '{query}': {e}")
-        
+        print(f"Error fetching RSS: {e}")
     return articles
 
 def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Optional[Dict[str, Any]]:
-    """Process news text with Gemini using dynamic active model discovery."""
     if not api_key:
-        print("Missing Gemini API Key.")
         return None
         
     model_name = get_active_gemini_model(api_key)
     if not model_name:
-        print("No active Gemini model available.")
         return None
         
-    prompt = f"{SYSTEM_PROMPT}\n\nARTICLE TITLE: {article['title']}\nARTICLE CONTENT: {article['description']}"
+    prompt = f"{SYSTEM_PROMPT}\n\nARTICLE TITLE: {article['title']}\nARTICLE CONTENT: {article.get('description', '')}"
     text_clean = ""
     
     if HAS_GENAI:
@@ -201,7 +182,6 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
     return None
 
 def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
-    """Save/merge new incidents into src/data/incidents.json."""
     if not new_incidents:
         print("No new valid AI incidents extracted to save.")
         return
@@ -238,23 +218,36 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
         print("All extracted incidents were duplicates of existing entries.")
 
 def run_ingestion():
-    print("Starting automated AI Incident Ingestion pipeline...")
+    print("Starting Tiered AI Incident Ingestion pipeline...")
+    
+    queries = [
+        f'({ " OR ".join(TIER_1_MODELS_PRODUCTS[:8]) }) ({ " OR ".join(TIER_1_INCIDENT_TERMS[:8]) })',
+        f'({ " OR ".join(TIER_1_PROVIDERS[:8]) }) ({ " OR ".join(TIER_1_INCIDENT_TERMS[8:16]) })',
+        f'("AI incident" OR "LLM vulnerability" OR "deepfake fraud" OR "robotaxi accident")',
+        f'("EU AI Act violation" OR "GDPR AI fine" OR "AI copyright lawsuit")'
+    ]
+    
     all_articles = []
-    for q in SEARCH_QUERIES:
-        arts = fetch_google_news_rss(q)
+    for q in queries:
+        arts = fetch_google_news(q)
         all_articles.extend(arts)
         
-    print(f"Fetched total of {len(all_articles)} candidate news items across queries.")
+    # Filter candidates using Tier 1/2 score and Aviation/Financial exclusions
+    passed_articles = []
+    for art in all_articles:
+        score = score_article_relevance(art['title'], art.get('description', ''))
+        if score >= 0.4:
+            passed_articles.append(art)
+            
+    print(f"Harvester fetched {len(all_articles)} items -> {len(passed_articles)} passed Tier 1/2 relevance filter.")
     
     api_key = os.environ.get("GEMINI_API_KEY", "")
     if not api_key:
         print("GEMINI_API_KEY environment variable not set. Running in dry-run mode.")
-        for i, a in enumerate(all_articles[:3], 1):
-            print(f"[{i}] {a['title']} ({a['pub_date']})")
         return
         
     extracted_incidents = []
-    for art in all_articles:
+    for art in passed_articles:
         inc = process_article_with_gemini(art, api_key)
         if inc and inc.get("is_ai_incident"):
             extracted_incidents.append(inc)
