@@ -2,6 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { AIIncident, formatFinancialDamage } from '../types/incident';
 import { Calendar, FileText, ShieldAlert, DollarSign, Globe, Award, TrendingUp, ChevronLeft, ChevronRight, Copy, Check, AlertCircle } from 'lucide-react';
 
+import { deduplicateIncidents } from '../App';
+
 interface DailyBriefingViewProps {
   incidents: AIIncident[];
   onSelectIncident: (incident: AIIncident) => void;
@@ -42,10 +44,11 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
     }
   };
 
-  // Incidents for selected date, SORTED BY CRITICALITY DESCENDING
+  // Incidents for selected date, DEDUPLICATED AND SORTED BY CRITICALITY DESCENDING
   const dailyIncidents = useMemo(() => {
     const list = incidents.filter((inc) => inc.date === selectedDate);
-    return list.sort((a, b) => (SEVERITY_RANK[b.severity] || 0) - (SEVERITY_RANK[a.severity] || 0));
+    const dedupped = deduplicateIncidents(list);
+    return dedupped.sort((a, b) => (SEVERITY_RANK[b.severity] || 0) - (SEVERITY_RANK[a.severity] || 0));
   }, [incidents, selectedDate]);
 
   // Daily statistics
