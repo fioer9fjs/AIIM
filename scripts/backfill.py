@@ -93,10 +93,10 @@ _WORKING_MODEL_NAME = None
 
 PREFERRED_MODELS = [
     "gemini-3.6-flash",
+    "gemini-3.5-flash",
     "gemini-3.5-flash-lite",
-    "gemini-3.0-flash",
-    "gemini-2.5-flash",
-    "gemini-2.0-flash"
+    "gemini-2.5-flash-lite",
+    "gemini-flash-latest"
 ]
 
 def fetch_full_text(url: str) -> str:
