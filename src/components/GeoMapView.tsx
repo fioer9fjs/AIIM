@@ -28,6 +28,10 @@ const REGION_COORDINATES: Record<string, { name: string; lat: number; lng: numbe
   'australia': { name: 'Australia', lat: -25.2744, lng: 133.7751 },
   'brazil': { name: 'Brazil', lat: -14.2350, lng: -51.9253 },
   'south africa': { name: 'South Africa', lat: -30.5595, lng: 22.9375 },
+  'russia': { name: 'Russia', lat: 61.5240, lng: 105.3188 },
+  'spain': { name: 'Spain', lat: 40.4637, lng: -3.7492 },
+  'taiwan': { name: 'Taiwan', lat: 23.6978, lng: 120.9605 },
+  'israel': { name: 'Israel', lat: 31.0461, lng: 34.8516 },
   'global': { name: 'Global / Multi-Region', lat: 20.0, lng: 0.0 }
 };
 

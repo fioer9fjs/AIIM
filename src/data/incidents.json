@@ -120,7 +120,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "operational capacity mismatch",
       "root_cause_category": "governance",
-      "system_classification": "general_purpose_model"
+      "system_classification": "general_purpose_model",
+      "geographic_scope": [
+        "Japan"
+      ]
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -131,7 +134,7 @@
       "system_classification": 0.9
     },
     "geographic_scope": [
-      "Global"
+      "Japan"
     ],
     "affected_parties": [
       "Apple",
@@ -170,7 +173,11 @@
       "primary_purpose": "defense_national_security",
       "root_cause_subtype": "autonomous goal-directed breakout/adversarial behavior",
       "root_cause_category": "model",
-      "system_classification": "general_purpose_model"
+      "system_classification": "general_purpose_model",
+      "geographic_scope": [
+        "United States",
+        "China"
+      ]
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -182,7 +189,7 @@
     },
     "geographic_scope": [
       "United States",
-      "Global"
+      "China"
     ],
     "affected_parties": [
       "OpenAI",
@@ -220,7 +227,10 @@
       "primary_purpose": "defense_national_security",
       "root_cause_subtype": "misconfiguration/sandbox_containment_failure",
       "root_cause_category": "governance",
-      "system_classification": "autonomous_agent"
+      "system_classification": "autonomous_agent",
+      "geographic_scope": [
+        "China"
+      ]
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -231,8 +241,7 @@
       "system_classification": 0.95
     },
     "geographic_scope": [
-      "China",
-      "United States"
+      "China"
     ],
     "affected_parties": [
       "Moonshot AI",
@@ -319,7 +328,10 @@
       "primary_purpose": "defense_national_security",
       "root_cause_subtype": "test_environment_misconfiguration/ambiguous_instructions",
       "root_cause_category": "human",
-      "system_classification": "general_purpose_model"
+      "system_classification": "general_purpose_model",
+      "geographic_scope": [
+        "United Kingdom"
+      ]
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -330,8 +342,7 @@
       "system_classification": 0.9
     },
     "geographic_scope": [
-      "United Kingdom",
-      "Global"
+      "United Kingdom"
     ],
     "affected_parties": [
       "OpenAI",
@@ -605,7 +616,11 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "loss of human control / dual use biosecurity risk",
       "root_cause_category": "model",
-      "system_classification": "general_purpose_model"
+      "system_classification": "general_purpose_model",
+      "geographic_scope": [
+        "United States",
+        "China"
+      ]
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -616,7 +631,8 @@
       "system_classification": 0.9
     },
     "geographic_scope": [
-      "United States"
+      "United States",
+      "China"
     ],
     "affected_parties": [
       "OpenAI",
@@ -654,7 +670,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "unexpected autonomous behavior",
       "root_cause_category": "model",
-      "system_classification": "autonomous_agent"
+      "system_classification": "autonomous_agent",
+      "geographic_scope": [
+        "Australia"
+      ]
     },
     "confidence_scores": {
       "severity": 0.7,
@@ -665,7 +684,7 @@
       "system_classification": 0.8
     },
     "geographic_scope": [
-      "Global"
+      "Australia"
     ],
     "affected_parties": [
       "General Public",
@@ -795,7 +814,11 @@
       "primary_purpose": "autonomous_mobility",
       "root_cause_subtype": "supply_chain_vulnerability/geopolitical_risk",
       "root_cause_category": "governance",
-      "system_classification": "autonomous_agent"
+      "system_classification": "autonomous_agent",
+      "geographic_scope": [
+        "United States",
+        "Japan"
+      ]
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -806,7 +829,8 @@
       "system_classification": 0.95
     },
     "geographic_scope": [
-      "United States"
+      "United States",
+      "Japan"
     ],
     "affected_parties": [
       "Federal Communications Commission (FCC)",
@@ -842,7 +866,11 @@
       "primary_purpose": "defense_national_security",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "external",
-      "system_classification": "autonomous_agent"
+      "system_classification": "autonomous_agent",
+      "geographic_scope": [
+        "China",
+        "Taiwan"
+      ]
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -853,8 +881,8 @@
       "system_classification": 0.95
     },
     "geographic_scope": [
-      "Taiwan",
-      "China"
+      "China",
+      "Taiwan"
     ],
     "affected_parties": [
       "Taiwan Government",
@@ -890,7 +918,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "lack_of_ai_policy_training/employee_negligence",
       "root_cause_category": "human",
-      "system_classification": "general_purpose_model"
+      "system_classification": "general_purpose_model",
+      "geographic_scope": [
+        "Russia"
+      ]
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -901,9 +932,7 @@
       "system_classification": 0.95
     },
     "geographic_scope": [
-      "Russia",
-      "United States",
-      "European Union"
+      "Russia"
     ],
     "affected_parties": [
       "EnergoProf Group LLC",
@@ -939,7 +968,11 @@
       "primary_purpose": "defense_national_security",
       "root_cause_subtype": "emergent_behavior/goal_misgeneralization/sandbox_escape",
       "root_cause_category": "model",
-      "system_classification": "autonomous_agent"
+      "system_classification": "autonomous_agent",
+      "geographic_scope": [
+        "United Kingdom",
+        "United States"
+      ]
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -950,8 +983,8 @@
       "system_classification": 0.98
     },
     "geographic_scope": [
-      "United States",
-      "United Kingdom"
+      "United Kingdom",
+      "United States"
     ],
     "affected_parties": [
       "OpenAI",
@@ -1011,7 +1044,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "pattern_matching/extrapolation",
       "root_cause_category": "model",
-      "system_classification": "general_purpose_model"
+      "system_classification": "general_purpose_model",
+      "geographic_scope": [
+        "Canada"
+      ]
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -1022,8 +1058,7 @@
       "system_classification": 0.95
     },
     "geographic_scope": [
-      "Canada",
-      "Global"
+      "Canada"
     ],
     "affected_parties": [
       "Klub Kofta",
@@ -1123,7 +1158,10 @@
       "primary_purpose": "defense_national_security",
       "root_cause_subtype": "infrastructure_misconfiguration/unverified_isolation",
       "root_cause_category": "human",
-      "system_classification": "general_purpose_model"
+      "system_classification": "general_purpose_model",
+      "geographic_scope": [
+        "Israel"
+      ]
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1134,8 +1172,7 @@
       "system_classification": 0.95
     },
     "geographic_scope": [
-      "Israel",
-      "United States"
+      "Israel"
     ],
     "affected_parties": [
       "Irregular",
@@ -1245,7 +1282,11 @@
       "primary_purpose": "defense_national_security",
       "root_cause_subtype": "inadequate_testing_safeguards_and_unrestricted_network_access",
       "root_cause_category": "governance",
-      "system_classification": "autonomous_agent"
+      "system_classification": "autonomous_agent",
+      "geographic_scope": [
+        "United Kingdom",
+        "European Union"
+      ]
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1257,7 +1298,7 @@
     },
     "geographic_scope": [
       "United Kingdom",
-      "Global"
+      "European Union"
     ],
     "affected_parties": [
       "UK AI Security Institute (AISI)",
@@ -1387,7 +1428,10 @@
       "primary_purpose": "financial_fintech",
       "root_cause_subtype": "adversarial_attack/malicious_deployment",
       "root_cause_category": "human",
-      "system_classification": "general_purpose_model"
+      "system_classification": "general_purpose_model",
+      "geographic_scope": [
+        "United States"
+      ]
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -1398,7 +1442,7 @@
       "system_classification": 0.95
     },
     "geographic_scope": [
-      "Global"
+      "United States"
     ],
     "affected_parties": [
       "Chainalysis",
@@ -1599,7 +1643,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "lack_of_awareness/unintentional_disclosure",
       "root_cause_category": "human",
-      "system_classification": "general_purpose_model"
+      "system_classification": "general_purpose_model",
+      "geographic_scope": [
+        "Russia"
+      ]
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1610,8 +1657,7 @@
       "system_classification": 0.95
     },
     "geographic_scope": [
-      "Russia",
-      "European Union"
+      "Russia"
     ],
     "affected_parties": [
       "EnergoProf Group LLC",
@@ -2159,7 +2205,10 @@
       "primary_purpose": null,
       "root_cause_subtype": "artifact/glitch/generative imperfection",
       "root_cause_category": "model",
-      "system_classification": "general_purpose_model"
+      "system_classification": "general_purpose_model",
+      "geographic_scope": [
+        "Spain"
+      ]
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -2170,7 +2219,7 @@
       "system_classification": 0.9
     },
     "geographic_scope": [
-      "Global"
+      "Spain"
     ],
     "affected_parties": [
       "Digital Certificate Issuer",
@@ -2205,7 +2254,10 @@
       "primary_purpose": null,
       "root_cause_subtype": "misuse/abuse",
       "root_cause_category": "human",
-      "system_classification": "general_purpose_model"
+      "system_classification": "general_purpose_model",
+      "geographic_scope": [
+        "South Korea"
+      ]
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -2216,7 +2268,7 @@
       "system_classification": 0.95
     },
     "geographic_scope": [
-      "China"
+      "South Korea"
     ],
     "affected_parties": [
       "7 female peers",
@@ -2576,7 +2628,10 @@
       "primary_purpose": "defense_national_security",
       "root_cause_subtype": "configuration_error/guardrail_removal",
       "root_cause_category": "human",
-      "system_classification": "autonomous_agent"
+      "system_classification": "autonomous_agent",
+      "geographic_scope": [
+        "United Kingdom"
+      ]
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -2587,8 +2642,7 @@
       "system_classification": 0.95
     },
     "geographic_scope": [
-      "United Kingdom",
-      "United States"
+      "United Kingdom"
     ],
     "affected_parties": [
       "Meta",
@@ -2798,7 +2852,11 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "human",
-      "system_classification": "general_purpose_model"
+      "system_classification": "general_purpose_model",
+      "geographic_scope": [
+        "South Korea",
+        "United States"
+      ]
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -2809,9 +2867,8 @@
       "system_classification": 0.95
     },
     "geographic_scope": [
-      "North Korea",
       "South Korea",
-      "Global"
+      "United States"
     ],
     "affected_parties": [
       "Cryptocurrency holders and exchanges",
@@ -2848,7 +2905,10 @@
       "primary_purpose": null,
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "external",
-      "system_classification": "dual_use_security"
+      "system_classification": "dual_use_security",
+      "geographic_scope": [
+        "Israel"
+      ]
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -2859,8 +2919,7 @@
       "system_classification": 0.9
     },
     "geographic_scope": [
-      "Israel",
-      "United States"
+      "Israel"
     ],
     "affected_parties": [
       "OpenAI",

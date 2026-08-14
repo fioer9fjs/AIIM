@@ -80,7 +80,7 @@ Return ONLY a valid JSON object matching this exact schema:
     "harm_domain": 0.95,
     "severity": 0.90
   },
-  "geographic_scope": ["Country/Region"],
+  "geographic_scope": ["Country/Region"], // CRITICAL GEOLOCATION RULE: Identify the exact physical country/jurisdiction where the event/harm occurred (e.g., ["Australia"], ["South Korea"], ["Spain"], ["Germany"], ["United States"]). DO NOT default to ["Global"] if a specific national jurisdiction or victim location is named.
   "affected_parties": ["Entity1", "Entity2"]
 }
 
