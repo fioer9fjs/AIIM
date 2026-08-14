@@ -1,5 +1,5 @@
 import React from 'react';
-import { Info, ShieldAlert, Database, DollarSign, GitMerge, CheckCircle2, ExternalLink } from 'lucide-react';
+import { Info, ShieldAlert, Database, DollarSign, GitMerge, CheckCircle2, ExternalLink, AlertTriangle } from 'lucide-react';
 
 export const AboutView: React.FC = () => {
   return (
@@ -121,6 +121,58 @@ export const AboutView: React.FC = () => {
               <p style={{ background: 'rgba(0,0,0,0.2)', padding: '0.85rem', borderRadius: '6px', border: '1px solid var(--border-color)', fontSize: '0.85rem' }}>
                 When multiple articles describe the same underlying event across different dates, the pipeline automatically merges their source URLs into a single canonical record while preserving the earliest date and highest severity score.
               </p>
+            </div>
+          </section>
+
+          {/* Section 5: Risk Severity Classification Criteria */}
+          <section className="detail-section">
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
+              <AlertTriangle size={18} style={{ color: 'var(--accent-orange)' }} />
+              5. Severity Level Classification Matrix
+            </h3>
+            <div style={{ fontSize: '0.95rem', color: 'var(--text-muted)', lineHeight: 1.75, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <p>
+                Every incident is automatically evaluated and assigned a severity rating based on physical impact, financial damage scale, autonomy level, and regulatory severity:
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.25rem' }}>
+                
+                <div style={{ background: 'rgba(239, 68, 68, 0.1)', borderLeft: '4px solid var(--accent-red)', padding: '0.85rem 1rem', borderRadius: '6px' }}>
+                  <h4 style={{ color: 'var(--accent-red)', fontSize: '0.9rem', marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    🔴 CRITICAL RISK
+                  </h4>
+                  <p style={{ fontSize: '0.825rem', color: 'var(--text-main)', margin: 0 }}>
+                    Incidents involving human loss of life/fatalities, severe physical injury, multi-million dollar catastrophic systemic infrastructure breaches (&gt; $10M USD), unauthorized autonomous weapons/national security escapes, or EU AI Act Prohibited Risk violations.
+                  </p>
+                </div>
+
+                <div style={{ background: 'rgba(249, 115, 22, 0.1)', borderLeft: '4px solid var(--accent-orange)', padding: '0.85rem 1rem', borderRadius: '6px' }}>
+                  <h4 style={{ color: 'var(--accent-orange)', fontSize: '0.9rem', marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    🟠 HIGH RISK
+                  </h4>
+                  <p style={{ fontSize: '0.825rem', color: 'var(--text-main)', margin: 0 }}>
+                    Incidents causing substantial financial losses ($100K – $10M USD), widespread biometric/privacy breaches, corporate trade secret exfiltration, active deepfake fraud campaigns, or high-risk regulated AI systems operating without safety guardrails.
+                  </p>
+                </div>
+
+                <div style={{ background: 'rgba(234, 179, 8, 0.1)', borderLeft: '4px solid #eab308', padding: '0.85rem 1rem', borderRadius: '6px' }}>
+                  <h4 style={{ color: '#eab308', fontSize: '0.9rem', marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    🟡 MEDIUM RISK
+                  </h4>
+                  <p style={{ fontSize: '0.825rem', color: 'var(--text-main)', margin: 0 }}>
+                    Incidents involving localized autonomous system malfunctions (e.g. unprompted agent behavior, gym/booking hacks, algorithmic discrimination in recruitment/loans), Moderate financial losses (&lt; $100K USD), or disputed safety disclosures.
+                  </p>
+                </div>
+
+                <div style={{ background: 'rgba(59, 130, 246, 0.1)', borderLeft: '4px solid var(--accent-blue)', padding: '0.85rem 1rem', borderRadius: '6px' }}>
+                  <h4 style={{ color: 'var(--accent-cyan)', fontSize: '0.9rem', marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    🔵 LOW RISK
+                  </h4>
+                  <p style={{ fontSize: '0.825rem', color: 'var(--text-main)', margin: 0 }}>
+                    Minor model alignment deviations, benign hallucination reports without physical or financial harm, controlled academic sandbox vulnerability disclosures, or theoretical latent safety research.
+                  </p>
+                </div>
+
+              </div>
             </div>
           </section>
 
