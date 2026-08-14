@@ -1,40 +1,44 @@
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { AIIncident, formatFinancialDamage } from '../types/incident';
-import { Globe, ShieldAlert, DollarSign, MapPin, ChevronRight } from 'lucide-react';
+import { Globe, DollarSign, MapPin, ChevronRight, ShieldAlert } from 'lucide-react';
 
 interface GeoMapViewProps {
   incidents: AIIncident[];
   onSelectIncident: (incident: AIIncident) => void;
 }
 
-// Precise Mercator projection coordinates for countries & regions (Canvas size 900x480)
-// European countries are offset to prevent pin overlap in dense areas
-const REGION_COORDINATES: Record<string, { name: string; cx: number; cy: number; code: string }> = {
-  'united states': { name: 'United States', cx: 210, cy: 175, code: 'US' },
-  'usa': { name: 'United States', cx: 210, cy: 175, code: 'US' },
-  'us': { name: 'United States', cx: 210, cy: 175, code: 'US' },
-  'canada': { name: 'Canada', cx: 200, cy: 110, code: 'CA' },
-  'united kingdom': { name: 'United Kingdom', cx: 430, cy: 130, code: 'UK' },
-  'uk': { name: 'United Kingdom', cx: 430, cy: 130, code: 'UK' },
-  'france': { name: 'France', cx: 440, cy: 170, code: 'FR' },
-  'germany': { name: 'Germany', cx: 485, cy: 135, code: 'DE' },
-  'european union': { name: 'European Union', cx: 495, cy: 175, code: 'EU' },
-  'eu': { name: 'European Union', cx: 495, cy: 175, code: 'EU' },
-  'china': { name: 'China', cx: 690, cy: 195, code: 'CN' },
-  'japan': { name: 'Japan', cx: 775, cy: 190, code: 'JP' },
-  'india': { name: 'India', cx: 640, cy: 235, code: 'IN' },
-  'south korea': { name: 'South Korea', cx: 740, cy: 195, code: 'KR' },
-  'australia': { name: 'Australia', cx: 760, cy: 370, code: 'AU' },
-  'brazil': { name: 'Brazil', cx: 320, cy: 320, code: 'BR' },
-  'south africa': { name: 'South Africa', cx: 490, cy: 360, code: 'ZA' },
-  'global': { name: 'Global / Multi-Region', cx: 460, cy: 280, code: 'INT' }
+// Real-world WGS84 Latitude / Longitude coordinates for key countries & regions
+const REGION_COORDINATES: Record<string, { name: string; lat: number; lng: number }> = {
+  'united states': { name: 'United States', lat: 37.0902, lng: -95.7129 },
+  'usa': { name: 'United States', lat: 37.0902, lng: -95.7129 },
+  'us': { name: 'United States', lat: 37.0902, lng: -95.7129 },
+  'canada': { name: 'Canada', lat: 56.1304, lng: -106.3468 },
+  'united kingdom': { name: 'United Kingdom', lat: 55.3781, lng: -3.4360 },
+  'uk': { name: 'United Kingdom', lat: 55.3781, lng: -3.4360 },
+  'france': { name: 'France', lat: 46.2276, lng: 2.2137 },
+  'germany': { name: 'Germany', lat: 51.1657, lng: 10.4515 },
+  'european union': { name: 'European Union', lat: 50.8503, lng: 4.3517 },
+  'eu': { name: 'European Union', lat: 50.8503, lng: 4.3517 },
+  'china': { name: 'China', lat: 35.8617, lng: 104.1954 },
+  'japan': { name: 'Japan', lat: 36.2048, lng: 138.2529 },
+  'india': { name: 'India', lat: 20.5937, lng: 78.9629 },
+  'south korea': { name: 'South Korea', lat: 35.9078, lng: 127.7669 },
+  'australia': { name: 'Australia', lat: -25.2744, lng: 133.7751 },
+  'brazil': { name: 'Brazil', lat: -14.2350, lng: -51.9253 },
+  'south africa': { name: 'South Africa', lat: -30.5595, lng: 22.9375 },
+  'global': { name: 'Global / Multi-Region', lat: 20.0, lng: 0.0 }
 };
 
 export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncident }) => {
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
-  const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
+  const mapContainerRef = useRef<HTMLDivElement | null>(null);
+  const mapInstanceRef = useRef<L.Map | null>(null);
+  const markersGroupRef = useRef<L.LayerGroup | null>(null);
 
-  // Group incidents by geographic scope region
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+
+  // Group incidents by region key
   const regionMap = useMemo(() => {
     const map = new Map<string, AIIncident[]>();
     incidents.forEach((inc) => {
@@ -53,31 +57,127 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
     return regionMap.get(selectedCountry.toLowerCase()) || [];
   }, [selectedCountry, regionMap, incidents]);
 
-  // Compute aggregated hover statistics for tooltip
-  const hoverStats = useMemo(() => {
-    if (!hoveredCountry) return null;
-    const list = regionMap.get(hoveredCountry.toLowerCase()) || [];
-    if (list.length === 0) return null;
-    const totalDamage = list.reduce((sum, inc) => sum + (inc.financial_damage_usd || 0), 0);
-    const criticalCount = list.filter((inc) => inc.severity === 'critical').length;
-    return {
-      count: list.length,
-      totalDamage,
-      criticalCount,
-      regionName: REGION_COORDINATES[hoveredCountry.toLowerCase()]?.name || hoveredCountry
+  // Initialize Leaflet Map instance with CartoDB Dark Matter tile layer
+  useEffect(() => {
+    if (!mapContainerRef.current) return;
+
+    if (!mapInstanceRef.current) {
+      const map = L.map(mapContainerRef.current, {
+        center: [25.0, 10.0],
+        zoom: 2,
+        minZoom: 2,
+        maxZoom: 8,
+        zoomControl: true,
+        attributionControl: true
+      });
+
+      // CartoDB Dark Matter Tile Layer (100% Free, Keyless, HD Dark Theme)
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }).addTo(map);
+
+      markersGroupRef.current = L.layerGroup().addTo(map);
+      mapInstanceRef.current = map;
+    }
+
+    return () => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
     };
-  }, [hoveredCountry, regionMap]);
+  }, []);
+
+  // Update Map Markers when incidents or selectedCountry changes
+  useEffect(() => {
+    if (!mapInstanceRef.current || !markersGroupRef.current) return;
+
+    markersGroupRef.current.clearLayers();
+
+    Object.entries(REGION_COORDINATES).forEach(([key, coords]) => {
+      const regionIncidents = regionMap.get(key) || [];
+      if (regionIncidents.length === 0) return;
+
+      const isSelected = selectedCountry?.toLowerCase() === key;
+      const criticalCount = regionIncidents.filter((i) => i.severity === 'critical').length;
+      const markerColor = criticalCount > 0 ? '#ef4444' : '#38bdf8';
+      const count = regionIncidents.length;
+
+      // Custom Leaflet DivIcon with pulsing HTML badge
+      const customIcon = L.divIcon({
+        className: 'custom-leaflet-marker',
+        html: `
+          <div style="
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: ${28 + Math.min(count, 12)}px;
+            height: ${28 + Math.min(count, 12)}px;
+            background: ${markerColor};
+            border: 2px solid ${isSelected ? '#ffffff' : 'rgba(255,255,255,0.7)'};
+            border-radius: 50%;
+            box-shadow: 0 0 15px ${markerColor};
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 12px;
+            font-family: sans-serif;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+          ">
+            ${count}
+            <div style="
+              position: absolute;
+              bottom: -18px;
+              white-space: nowrap;
+              background: rgba(15, 23, 42, 0.9);
+              color: ${isSelected ? '#38bdf8' : '#e2e8f0'};
+              border: 1px solid rgba(255,255,255,0.2);
+              padding: 1px 5px;
+              border-radius: 4px;
+              font-size: 10px;
+              font-weight: 600;
+            ">${coords.name}</div>
+          </div>
+        `,
+        iconSize: [36, 36],
+        iconAnchor: [18, 18]
+      });
+
+      const marker = L.marker([coords.lat, coords.lng], { icon: customIcon });
+
+      const totalDamage = regionIncidents.reduce((sum, inc) => sum + (inc.financial_damage_usd || 0), 0);
+
+      // Interactive Popup
+      marker.bindPopup(`
+        <div style="font-family: sans-serif; padding: 4px; color: #0f172a;">
+          <h4 style="margin: 0 0 6px 0; font-size: 14px; font-weight: 700;">📍 ${coords.name}</h4>
+          <p style="margin: 0 0 4px 0; font-size: 12px;">Incidents: <strong>${count}</strong></p>
+          <p style="margin: 0 0 4px 0; font-size: 12px; color: #dc2626;">Critical Events: <strong>${criticalCount}</strong></p>
+          ${totalDamage > 0 ? `<p style="margin: 0; font-size: 12px; color: #16a34a;">Est. Impact: <strong>${formatFinancialDamage(totalDamage)}</strong></p>` : ''}
+        </div>
+      `);
+
+      marker.on('click', () => {
+        setSelectedCountry(isSelected ? null : key);
+      });
+
+      markersGroupRef.current?.addLayer(marker);
+    });
+  }, [regionMap, selectedCountry]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-      {/* Map Control Header */}
+      {/* Header bar */}
       <div className="detail-section" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <h3 style={{ fontSize: '1.1rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Globe size={20} style={{ color: 'var(--accent-cyan)' }} /> Global Geospatial Risk & Incident Map
+            <Globe size={20} style={{ color: 'var(--accent-cyan)' }} /> Global Geospatial Risk Map (CartoDB Dark Matter)
           </h3>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-            High-definition spatial visualization of AI security breaches, regulatory actions, and financial impact.
+            Real-world OpenStreetMap GIS tiles showing global AI security breaches, regulatory actions, and financial impact.
           </p>
         </div>
 
@@ -92,138 +192,19 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
         )}
       </div>
 
-      {/* Main High-Definition World Map Canvas */}
+      {/* Leaflet Map Viewport Container */}
       <div
         className="detail-section"
         style={{
           position: 'relative',
-          padding: '0.5rem',
-          background: '#070a12',
+          padding: 0,
           borderRadius: '12px',
+          overflow: 'hidden',
           border: '1px solid var(--border-color)',
-          overflow: 'hidden'
+          height: '520px'
         }}
       >
-        <svg viewBox="0 0 900 480" width="100%" height="100%" style={{ background: '#05070f', borderRadius: '8px' }}>
-          {/* Subtle Grid Lines */}
-          <line x1="0" y1="240" x2="900" y2="240" stroke="#1e293b" strokeDasharray="3,3" opacity="0.6" />
-          <line x1="450" y1="0" x2="450" y2="480" stroke="#1e293b" strokeDasharray="3,3" opacity="0.6" />
-          <circle cx="450" cy="240" r="220" stroke="#1e293b" strokeDasharray="4,4" fill="none" opacity="0.3" />
-
-          {/* HD Vector Continent Landmass Outlines */}
-          {/* North America */}
-          <path d="M 100 80 L 260 70 L 300 130 L 260 230 L 180 250 L 140 180 Z" fill="#0f172a" stroke="#334155" strokeWidth="1.2" />
-          {/* South America */}
-          <path d="M 270 260 L 350 270 L 340 410 L 280 430 L 250 340 Z" fill="#0f172a" stroke="#334155" strokeWidth="1.2" />
-          {/* Europe & UK */}
-          <path d="M 410 100 L 530 90 L 540 190 L 420 200 Z" fill="#0f172a" stroke="#334155" strokeWidth="1.2" />
-          {/* Africa */}
-          <path d="M 410 210 L 530 210 L 540 370 L 460 390 L 410 280 Z" fill="#0f172a" stroke="#334155" strokeWidth="1.2" />
-          {/* Asia */}
-          <path d="M 540 80 L 800 80 L 820 250 L 630 270 L 540 170 Z" fill="#0f172a" stroke="#334155" strokeWidth="1.2" />
-          {/* Australia */}
-          <path d="M 700 310 L 810 310 L 800 410 L 710 410 Z" fill="#0f172a" stroke="#334155" strokeWidth="1.2" />
-
-          {/* Connecting offset lines for dense European pins */}
-          <line x1="430" y1="130" x2="495" y2="175" stroke="#334155" strokeDasharray="2,2" opacity="0.5" />
-          <line x1="440" y1="170" x2="485" y2="135" stroke="#334155" strokeDasharray="2,2" opacity="0.5" />
-
-          {/* Region Markers with Collision-Free Positions */}
-          {Object.entries(REGION_COORDINATES).map(([key, reg]) => {
-            const regionIncidents = regionMap.get(key) || [];
-            if (regionIncidents.length === 0) return null;
-
-            const isSelected = selectedCountry?.toLowerCase() === key;
-            const isHovered = hoveredCountry?.toLowerCase() === key;
-            const criticalCount = regionIncidents.filter((i) => i.severity === 'critical').length;
-            const markerColor = criticalCount > 0 ? '#ef4444' : '#38bdf8';
-
-            return (
-              <g
-                key={key}
-                transform={`translate(${reg.cx},${reg.cy})`}
-                style={{ cursor: 'pointer', transition: 'transform 0.2s ease' }}
-                onMouseEnter={() => setHoveredCountry(key)}
-                onMouseLeave={() => setHoveredCountry(null)}
-                onClick={() => setSelectedCountry(isSelected ? null : key)}
-              >
-                {/* Outer Glow Ring */}
-                <circle r={14 + Math.min(regionIncidents.length, 10)} fill={markerColor} opacity={isSelected || isHovered ? '0.4' : '0.15'}>
-                  <animate attributeName="r" values="12;20;12" dur="3s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0.3;0.1;0.3" dur="3s" repeatCount="indefinite" />
-                </circle>
-
-                {/* Main Marker Circle */}
-                <circle
-                  r={11 + Math.min(regionIncidents.length, 6)}
-                  fill={markerColor}
-                  stroke={isSelected || isHovered ? '#ffffff' : 'rgba(255,255,255,0.6)'}
-                  strokeWidth={isSelected || isHovered ? 3 : 1.5}
-                />
-
-                {/* Count Badge */}
-                <text y={4} fill="#ffffff" fontSize="11" fontWeight="700" textAnchor="middle" fontFamily="Inter">
-                  {regionIncidents.length}
-                </text>
-
-                {/* Region Label Tag */}
-                <rect
-                  x="-35"
-                  y="18"
-                  width="70"
-                  height="16"
-                  rx="4"
-                  fill="rgba(15, 23, 42, 0.85)"
-                  stroke={isSelected ? 'var(--accent-cyan)' : 'rgba(255,255,255,0.15)'}
-                  strokeWidth="1"
-                />
-                <text y={30} fill={isSelected ? 'var(--accent-cyan)' : '#e2e8f0'} fontSize="9" fontWeight="600" textAnchor="middle" fontFamily="Inter">
-                  {reg.name.length > 12 ? `${reg.name.substring(0, 10)}..` : reg.name}
-                </text>
-              </g>
-            );
-          })}
-        </svg>
-
-        {/* Hover Tooltip Card */}
-        {hoverStats && (
-          <div
-            style={{
-              position: 'absolute',
-              top: '1.5rem',
-              left: '1.5rem',
-              background: 'rgba(15, 23, 42, 0.95)',
-              border: '1px solid var(--accent-cyan)',
-              padding: '0.75rem 1rem',
-              borderRadius: '8px',
-              boxShadow: '0 10px 25px rgba(0,0,0,0.5)',
-              pointerEvents: 'none',
-              backdropFilter: 'blur(10px)',
-              zIndex: 10
-            }}
-          >
-            <h4 style={{ fontSize: '0.9rem', color: '#f8fafc', fontWeight: 700, marginBottom: '0.3rem' }}>
-              📍 {hoverStats.regionName}
-            </h4>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-              <span>Total Incidents: <strong style={{ color: 'var(--accent-cyan)' }}>{hoverStats.count}</strong></span>
-              <span>Critical Risk Events: <strong style={{ color: '#ef4444' }}>{hoverStats.criticalCount}</strong></span>
-              {hoverStats.totalDamage > 0 && (
-                <span>Est. Financial Impact: <strong style={{ color: '#34d399' }}>{formatFinancialDamage(hoverStats.totalDamage)}</strong></span>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* Legend Overlay */}
-        <div style={{ position: 'absolute', bottom: '1rem', right: '1rem', background: 'rgba(15, 23, 42, 0.85)', padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid var(--border-color)', fontSize: '0.75rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-            <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ef4444' }} /> Critical Risk
-          </span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-            <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#38bdf8' }} /> Standard Incident
-          </span>
-        </div>
+        <div ref={mapContainerRef} style={{ width: '100%', height: '100%', background: '#090d16' }} />
       </div>
 
       {/* Region Incident Feed Grid */}
@@ -244,10 +225,15 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
                   Src: {(inc.source_type || 'google_news_rss').replace(/_/g, ' ')}
                 </span>
                 {inc.financial_damage_usd ? inc.financial_damage_usd > 0 ? (
-                  <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.2)', color: '#34d399', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
+                  <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.2)', color: '#34d399', display: 'inline-flex', alignItems: 'center', gap: '0.2rem', fontWeight: 700 }}>
                     <DollarSign size={12} /> {formatFinancialDamage(inc.financial_damage_usd)}
                   </span>
                 ) : null : null}
+                {inc.natsec_impact && (
+                  <span className="badge" style={{ backgroundColor: 'rgba(239, 68, 68, 0.25)', color: '#fca5a5', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
+                    <ShieldAlert size={12} /> NatSec
+                  </span>
+                )}
               </div>
 
               <h3 style={{ fontSize: '1rem', fontWeight: 600, margin: '0.5rem 0', color: 'var(--text-main)' }}>{inc.title}</h3>
