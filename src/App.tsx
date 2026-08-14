@@ -68,8 +68,8 @@ export const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewType>('briefing');
   const [selectedIncident, setSelectedIncident] = useState<AIIncident | null>(null);
 
-  const [incidents, setIncidents] = useState<AIIncident[]>(() => deduplicateIncidents(incidentsData as AIIncident[]));
-  const [edges, setEdges] = useState<GraphEdge[]>(edgesData as GraphEdge[]);
+  const [incidents, setIncidents] = useState<AIIncident[]>(() => deduplicateIncidents(incidentsData as unknown as AIIncident[]));
+  const [edges, setEdges] = useState<GraphEdge[]>(edgesData as unknown as GraphEdge[]);
 
   useEffect(() => {
     if (isSupabaseConfigured) {
