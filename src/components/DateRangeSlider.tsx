@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Calendar, RotateCcw } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 
 interface DateRangeSliderProps {
   availableDates: string[]; // Sorted ascending e.g. ["2025-08-01", ..., "2026-08-14"]
@@ -68,17 +68,17 @@ export const DateRangeSlider: React.FC<DateRangeSliderProps> = ({
   const isSingleDay = selectedRange[0] === selectedRange[1];
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', background: 'rgba(15, 23, 42, 0.75)', padding: '0.4rem 0.85rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', background: 'rgba(15, 23, 42, 0.85)', padding: '0.35rem 0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)', flexWrap: 'nowrap', flexShrink: 0 }}>
       {/* Date Icon & Formatted Label Badge */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.825rem', color: 'var(--text-main)', whiteSpace: 'nowrap' }}>
-        <Calendar size={14} style={{ color: 'var(--accent-cyan)' }} />
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.8rem', color: 'var(--text-main)', whiteSpace: 'nowrap' }}>
+        <Calendar size={13} style={{ color: 'var(--accent-cyan)', flexShrink: 0 }} />
         <span style={{ fontWeight: 600, color: 'var(--accent-cyan)' }}>
           {isSingleDay ? selectedRange[0] : `${selectedRange[0]} → ${selectedRange[1]}`}
         </span>
       </div>
 
       {/* Dual Slider Control */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', position: 'relative', width: '180px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', position: 'relative', width: '130px', flexShrink: 1 }}>
         <input
           type="range"
           min={minIndex}
@@ -110,11 +110,11 @@ export const DateRangeSlider: React.FC<DateRangeSliderProps> = ({
       </div>
 
       {/* Quick Presets */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', flexShrink: 0 }}>
         <button
           onClick={setLatestDay}
           className="tab-button"
-          style={{ padding: '0.2rem 0.5rem', fontSize: '0.725rem', height: 'auto', background: isSingleDay && selectedRange[0] === availableDates[maxIndex] ? 'rgba(56, 189, 248, 0.2)' : 'transparent' }}
+          style={{ padding: '0.15rem 0.4rem', fontSize: '0.7rem', height: 'auto', background: isSingleDay && selectedRange[0] === availableDates[maxIndex] ? 'rgba(56, 189, 248, 0.2)' : 'transparent' }}
           title="Jump to latest day"
         >
           Today
@@ -122,7 +122,7 @@ export const DateRangeSlider: React.FC<DateRangeSliderProps> = ({
         <button
           onClick={setLast7Days}
           className="tab-button"
-          style={{ padding: '0.2rem 0.5rem', fontSize: '0.725rem', height: 'auto' }}
+          style={{ padding: '0.15rem 0.4rem', fontSize: '0.7rem', height: 'auto' }}
           title="Select last 7 days"
         >
           7D
@@ -130,7 +130,7 @@ export const DateRangeSlider: React.FC<DateRangeSliderProps> = ({
         <button
           onClick={setLast30Days}
           className="tab-button"
-          style={{ padding: '0.2rem 0.5rem', fontSize: '0.725rem', height: 'auto' }}
+          style={{ padding: '0.15rem 0.4rem', fontSize: '0.7rem', height: 'auto' }}
           title="Select last 30 days"
         >
           30D
@@ -138,7 +138,7 @@ export const DateRangeSlider: React.FC<DateRangeSliderProps> = ({
         <button
           onClick={setAllTime}
           className="tab-button"
-          style={{ padding: '0.2rem 0.5rem', fontSize: '0.725rem', height: 'auto' }}
+          style={{ padding: '0.15rem 0.4rem', fontSize: '0.7rem', height: 'auto' }}
           title="Show all time"
         >
           All

@@ -38,35 +38,41 @@ body {
 
 /* Header */
 .header {
-  height: 4rem;
-  background-color: rgba(17, 24, 39, 0.95);
-  backdrop-filter: blur(8px);
+  min-height: 4.5rem;
+  height: auto;
+  background-color: rgba(17, 24, 39, 0.96);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1.5rem;
+  padding: 0.75rem 1.5rem;
   position: sticky;
   top: 0;
   z-index: 40;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .logo-group {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  flex-shrink: 0;
 }
 
 .logo-icon {
   color: var(--accent-blue);
   width: 1.75rem;
   height: 1.75rem;
+  flex-shrink: 0;
 }
 
 .logo-title {
   font-size: 1.125rem;
   font-weight: 700;
   letter-spacing: -0.025em;
+  line-height: 1.2;
   background: linear-gradient(to right, #ffffff, #93c5fd);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -79,6 +85,8 @@ body {
   padding: 0.25rem;
   border-radius: 8px;
   border: 1px solid var(--border-color);
+  flex-wrap: wrap;
+  flex-shrink: 0;
 }
 
 .tab-button {

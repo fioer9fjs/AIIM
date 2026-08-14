@@ -23,7 +23,7 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   return (
     <header className="header">
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap', flex: '1 1 auto', minWidth: 0 }}>
         {/* Logo Group */}
         <div
           className="logo-group"
@@ -34,13 +34,13 @@ export const Header: React.FC<HeaderProps> = ({
           <ShieldAlert className="logo-icon" />
           <div>
             <h1 className="logo-title">Global AI Incident Monitor</h1>
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
-              Safety Analytics & Multi-Source Intelligence • {incidentCount} Active Filtered Records
+            <span style={{ fontSize: '0.725rem', color: 'var(--text-dim)', display: 'block', lineHeight: 1.2 }}>
+              Multi-Source Intelligence • {incidentCount} Records
             </span>
           </div>
         </div>
 
-        {/* Global Date Range Slider Widget (Placed right next to logo / Daily Briefing) */}
+        {/* Global Date Range Slider Widget */}
         <DateRangeSlider
           availableDates={availableDates}
           selectedRange={selectedRange}
