@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { Calendar } from 'lucide-react';
 
 interface DateRangeSliderProps {
   availableDates: string[]; // Sorted ascending e.g. ["2025-08-01", ..., "2026-08-14"]
@@ -16,7 +15,6 @@ export const DateRangeSlider: React.FC<DateRangeSliderProps> = ({
     return null;
   }
 
-  // Sorted indices mapping
   const minIndex = 0;
   const maxIndex = availableDates.length - 1;
 
@@ -30,16 +28,40 @@ export const DateRangeSlider: React.FC<DateRangeSliderProps> = ({
     return idx !== -1 ? idx : maxIndex;
   }, [availableDates, selectedRange, maxIndex]);
 
-  const handleStartChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Calculate percentages for visual track bar
+  const startPercent = (startIndex / maxIndex) * 100;
+  const endPercent = (endIndex / maxIndex) * 100;
+  const activeWidth = Math.max(0, endPercent - startPercent);
+
+  // Handlers for Slider Range Inputs
+  const handleStartSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = parseInt(e.target.value, 10);
     const newStartIdx = Math.min(val, endIndex);
     onRangeChange([availableDates[newStartIdx], availableDates[endIndex]]);
   };
 
-  const handleEndChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEndSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = parseInt(e.target.value, 10);
     const newEndIdx = Math.max(val, startIndex);
     onRangeChange([availableDates[startIndex], availableDates[newEndIdx]]);
+  };
+
+  // Handlers for Direct Date Pickers
+  const handleStartDatePicker = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    if (!val) return;
+    // Find closest available date or use typed date
+    if (val <= selectedRange[1]) {
+      onRangeChange([val, selectedRange[1]]);
+    }
+  };
+
+  const handleEndDatePicker = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    if (!val) return;
+    if (val >= selectedRange[0]) {
+      onRangeChange([selectedRange[0], val]);
+    }
   };
 
   // Presets
@@ -64,86 +86,155 @@ export const DateRangeSlider: React.FC<DateRangeSliderProps> = ({
     onRangeChange([availableDates[0], availableDates[maxIndex]]);
   };
 
-  // Format label
   const isSingleDay = selectedRange[0] === selectedRange[1];
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', background: 'rgba(15, 23, 42, 0.85)', padding: '0.35rem 0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)', flexWrap: 'nowrap', flexShrink: 0 }}>
-      {/* Date Icon & Formatted Label Badge */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.8rem', color: 'var(--text-main)', whiteSpace: 'nowrap' }}>
-        <Calendar size={13} style={{ color: 'var(--accent-cyan)', flexShrink: 0 }} />
-        <span style={{ fontWeight: 600, color: 'var(--accent-cyan)' }}>
-          {isSingleDay ? selectedRange[0] : `${selectedRange[0]} → ${selectedRange[1]}`}
-        </span>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', background: 'rgba(15, 23, 42, 0.9)', padding: '0.45rem 0.85rem', borderRadius: '8px', border: '1px solid var(--border-color)', minWidth: '320px', flexShrink: 0 }}>
+      
+      {/* TOP ROW: Explicit Date Picker Inputs + Presets */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
+        
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+          {/* Start Date Input Box */}
+          <input
+            type="date"
+            value={selectedRange[0]}
+            min={availableDates[0]}
+            max={selectedRange[1]}
+            onChange={handleStartDatePicker}
+            style={{
+              background: 'rgba(0,0,0,0.4)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '5px',
+              color: 'var(--accent-cyan)',
+              padding: '0.2rem 0.4rem',
+              fontSize: '0.775rem',
+              fontWeight: 600,
+              fontFamily: 'inherit',
+              colorScheme: 'dark',
+              cursor: 'pointer'
+            }}
+          />
+
+          <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)', fontWeight: 600 }}>to</span>
+
+          {/* End Date Input Box */}
+          <input
+            type="date"
+            value={selectedRange[1]}
+            min={selectedRange[0]}
+            max={availableDates[maxIndex]}
+            onChange={handleEndDatePicker}
+            style={{
+              background: 'rgba(0,0,0,0.4)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '5px',
+              color: 'var(--accent-purple)',
+              padding: '0.2rem 0.4rem',
+              fontSize: '0.775rem',
+              fontWeight: 600,
+              fontFamily: 'inherit',
+              colorScheme: 'dark',
+              cursor: 'pointer'
+            }}
+          />
+        </div>
+
+        {/* Quick Presets Buttons */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
+          <button
+            onClick={setLatestDay}
+            className="tab-button"
+            style={{ padding: '0.15rem 0.4rem', fontSize: '0.7rem', height: 'auto', background: isSingleDay && selectedRange[0] === availableDates[maxIndex] ? 'rgba(56, 189, 248, 0.2)' : 'transparent' }}
+            title="Jump to latest day"
+          >
+            Today
+          </button>
+          <button
+            onClick={setLast7Days}
+            className="tab-button"
+            style={{ padding: '0.15rem 0.4rem', fontSize: '0.7rem', height: 'auto' }}
+            title="Select last 7 days"
+          >
+            7D
+          </button>
+          <button
+            onClick={setLast30Days}
+            className="tab-button"
+            style={{ padding: '0.15rem 0.4rem', fontSize: '0.7rem', height: 'auto' }}
+            title="Select last 30 days"
+          >
+            30D
+          </button>
+          <button
+            onClick={setAllTime}
+            className="tab-button"
+            style={{ padding: '0.15rem 0.4rem', fontSize: '0.7rem', height: 'auto' }}
+            title="Show all time"
+          >
+            All
+          </button>
+        </div>
+
       </div>
 
-      {/* Dual Slider Control */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', position: 'relative', width: '130px', flexShrink: 1 }}>
+      {/* BOTTOM ROW: Visual Double-Slider Timeline Track */}
+      <div style={{ position: 'relative', width: '100%', height: '14px', display: 'flex', alignItems: 'center' }}>
+        {/* Background Track Line */}
+        <div style={{ position: 'absolute', width: '100%', height: '4px', background: 'rgba(255,255,255,0.1)', borderRadius: '2px' }} />
+        
+        {/* Highlighted Active Range Bar */}
+        <div
+          style={{
+            position: 'absolute',
+            left: `${startPercent}%`,
+            width: `${activeWidth}%`,
+            height: '4px',
+            background: 'linear-gradient(to right, var(--accent-cyan), var(--accent-purple))',
+            borderRadius: '2px',
+            zIndex: 1
+          }}
+        />
+
+        {/* Start Handle Input */}
         <input
           type="range"
           min={minIndex}
           max={maxIndex}
           value={startIndex}
-          onChange={handleStartChange}
+          onChange={handleStartSlider}
           style={{
+            position: 'absolute',
             width: '100%',
-            accentColor: 'var(--accent-cyan)',
-            cursor: 'pointer',
-            height: '4px'
+            appearance: 'none',
+            background: 'transparent',
+            pointerEvents: 'none',
+            zIndex: 3,
+            margin: 0
           }}
           title={`Start Date: ${availableDates[startIndex]}`}
         />
+
+        {/* End Handle Input */}
         <input
           type="range"
           min={minIndex}
           max={maxIndex}
           value={endIndex}
-          onChange={handleEndChange}
+          onChange={handleEndSlider}
           style={{
+            position: 'absolute',
             width: '100%',
-            accentColor: 'var(--accent-purple)',
-            cursor: 'pointer',
-            height: '4px'
+            appearance: 'none',
+            background: 'transparent',
+            pointerEvents: 'none',
+            zIndex: 4,
+            margin: 0
           }}
           title={`End Date: ${availableDates[endIndex]}`}
         />
       </div>
 
-      {/* Quick Presets */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', flexShrink: 0 }}>
-        <button
-          onClick={setLatestDay}
-          className="tab-button"
-          style={{ padding: '0.15rem 0.4rem', fontSize: '0.7rem', height: 'auto', background: isSingleDay && selectedRange[0] === availableDates[maxIndex] ? 'rgba(56, 189, 248, 0.2)' : 'transparent' }}
-          title="Jump to latest day"
-        >
-          Today
-        </button>
-        <button
-          onClick={setLast7Days}
-          className="tab-button"
-          style={{ padding: '0.15rem 0.4rem', fontSize: '0.7rem', height: 'auto' }}
-          title="Select last 7 days"
-        >
-          7D
-        </button>
-        <button
-          onClick={setLast30Days}
-          className="tab-button"
-          style={{ padding: '0.15rem 0.4rem', fontSize: '0.7rem', height: 'auto' }}
-          title="Select last 30 days"
-        >
-          30D
-        </button>
-        <button
-          onClick={setAllTime}
-          className="tab-button"
-          style={{ padding: '0.15rem 0.4rem', fontSize: '0.7rem', height: 'auto' }}
-          title="Show all time"
-        >
-          All
-        </button>
-      </div>
     </div>
   );
 };
