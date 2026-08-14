@@ -59,7 +59,7 @@ Return ONLY a valid JSON object matching this exact schema:
   "failure_mode": "Brief narrative connecting cause to consequence based on full text details",
   "harm_domain": "persons_physical" | "persons_mental" | "persons_rights" | "property" | "environment" | "systemic_integrity" | "societal",
   "harm_type": "discrimination_bias" | "privacy_breach" | "physical_safety" | "misinformation" | "economic_labor" | "copyright_ip" | "psychological_harm" | "national_security",
-  "financial_damage_usd": 15000000,
+  "financial_damage_usd": 15000000, // Numeric total USD financial impact (fines, settlements, losses). For fatal harm or loss of human life, apply standard VSL (Value of a Statistical Life) benchmark of $12,500,000 USD per fatality.
   "eu_ai_act_tier": "prohibited" | "high_risk" | "limited_risk" | "minimal_risk",
   "natsec_impact": true/false,
   "temporality": "actual" | "potential" | "latent",
