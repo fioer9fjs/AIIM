@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { AIIncident, formatFinancialDamage } from '../types/incident';
-import { FileText, ShieldAlert, DollarSign, TrendingUp, Copy, Check, ExternalLink } from 'lucide-react';
+import { FileText, ShieldAlert, DollarSign, TrendingUp, Copy, Check, ExternalLink, ArrowUpDown } from 'lucide-react';
 
 import { deduplicateIncidents } from '../App';
 
@@ -19,12 +19,16 @@ const SEVERITY_RANK: Record<string, number> = {
 
 export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents, dateRange, onSelectIncident }) => {
   const [copied, setCopied] = useState<boolean>(false);
+  const [briefingSort, setBriefingSort] = useState<'criticality' | 'damage'>('criticality');
 
-  // Incidents for active filter window, DEDUPLICATED AND SORTED BY CRITICALITY DESCENDING
+  // Incidents for active filter window, DEDUPLICATED AND SORTED BY USER SELECTION
   const dailyIncidents = useMemo(() => {
     const dedupped = deduplicateIncidents(incidents);
+    if (briefingSort === 'damage') {
+      return dedupped.sort((a, b) => (b.financial_damage_usd || 0) - (a.financial_damage_usd || 0));
+    }
     return dedupped.sort((a, b) => (SEVERITY_RANK[b.severity] || 0) - (SEVERITY_RANK[a.severity] || 0));
-  }, [incidents]);
+  }, [incidents, briefingSort]);
 
   // Statistics
   const criticalCount = useMemo(() => {
@@ -70,7 +74,7 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
   const handleCopyBriefing = () => {
     let text = `Executive Intelligence Synthesis — ${dateText}\n`;
     text += `On ${dateText}, the Global AI Incident Monitor tracked ${dailyIncidents.length} AI Incidents across international channels.\n\n`;
-    text += `Key Risk Drivers (Sorted by Criticality)\n`;
+    text += `Key Risk Drivers (Sorted by ${briefingSort === 'damage' ? 'Financial Damage ($ USD)' : 'Criticality'})\n`;
 
     dailyIncidents.forEach((inc) => {
       const damageStr = (inc.financial_damage_usd || 0) > 0 ? `$${inc.financial_damage_usd?.toLocaleString()} USD` : 'N/A';
@@ -93,7 +97,7 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
               Executive Intelligence Synthesis — {dateText}
             </h2>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-              Synthesized 1-page intelligence briefing sorted by criticality with embedded financial impact estimations.
+              Synthesized 1-page intelligence briefing with embedded financial impact estimations.
             </p>
           </div>
         </div>
@@ -125,16 +129,50 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
               borderRadius: '12px'
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <ShieldAlert size={18} style={{ color: 'var(--accent-purple)' }} />
                 <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-main)' }}>
                   Daily AI Safety & Incident Synthesis
                 </h3>
               </div>
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
-                Click any incident to open technical detail drawer
-              </span>
+              
+              {/* Sort Switcher Widget for Daily Briefing */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', background: 'rgba(0,0,0,0.4)', padding: '0.2rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                <ArrowUpDown size={12} style={{ color: 'var(--text-muted)', marginLeft: '0.2rem' }} />
+                <button
+                  onClick={() => setBriefingSort('criticality')}
+                  style={{
+                    border: 'none',
+                    background: briefingSort === 'criticality' ? 'var(--accent-purple)' : 'transparent',
+                    color: briefingSort === 'criticality' ? '#ffffff' : 'var(--text-muted)',
+                    fontSize: '0.725rem',
+                    padding: '0.2rem 0.5rem',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    fontWeight: 600
+                  }}
+                  title="Sort by Incident Criticality"
+                >
+                  Criticality
+                </button>
+                <button
+                  onClick={() => setBriefingSort('damage')}
+                  style={{
+                    border: 'none',
+                    background: briefingSort === 'damage' ? '#10b981' : 'transparent',
+                    color: briefingSort === 'damage' ? '#ffffff' : 'var(--text-muted)',
+                    fontSize: '0.725rem',
+                    padding: '0.2rem 0.5rem',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    fontWeight: 600
+                  }}
+                  title="Sort by Highest Financial Impact ($ USD)"
+                >
+                  Financial Impact ($)
+                </button>
+              </div>
             </div>
 
             {dailyIncidents.length === 0 ? (
@@ -148,10 +186,10 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
                   {totalDamageUSD > 0 && ` Total cumulative estimated financial impact for the period reached ${formatFinancialDamage(totalDamageUSD)} USD.`}
                 </p>
 
-                {/* Risk Breakdown Box (Sorted by Criticality & Damage in Parentheses) */}
+                {/* Risk Breakdown Box (Sorted by Criticality or Financial Impact) */}
                 <div style={{ background: 'rgba(0,0,0,0.3)', padding: '1.25rem', borderRadius: '8px', border: '1px solid var(--border-color)', margin: '0.5rem 0' }}>
                   <h4 style={{ fontSize: '0.85rem', color: 'var(--accent-cyan)', marginBottom: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                    <ShieldAlert size={14} /> Key Risk Drivers (Sorted by Criticality)
+                    <ShieldAlert size={14} /> Key Risk Drivers (Sorted by {briefingSort === 'damage' ? 'Financial Damage' : 'Criticality'})
                   </h4>
                   <ul style={{ paddingLeft: 0, listStyle: 'none', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.925rem' }}>
                     {dailyIncidents.map((inc) => (
@@ -189,7 +227,7 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
                         </div>
                         <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
                           {inc.summary}{' '}
-                          <span style={{ color: 'var(--accent-cyan)', fontWeight: 600 }}>
+                          <span style={{ color: (inc.financial_damage_usd || 0) > 0 ? '#34d399' : 'var(--accent-cyan)', fontWeight: 600 }}>
                             (Est. Financial Impact: {formatFinancialDamage(inc.financial_damage_usd)})
                           </span>
                         </p>

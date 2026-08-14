@@ -150,6 +150,8 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
         return (SEVERITY_RANK[a.severity] || 0) - (SEVERITY_RANK[b.severity] || 0);
       } else if (sortBy === 'damage-desc') {
         return (b.financial_damage_usd || 0) - (a.financial_damage_usd || 0);
+      } else if (sortBy === 'damage-asc') {
+        return (a.financial_damage_usd || 0) - (b.financial_damage_usd || 0);
       } else if (sortBy === 'confidence-desc') {
         return (b.confidence_scores?.severity || 1.0) - (a.confidence_scores?.severity || 1.0);
       }
@@ -249,7 +251,8 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
             >
               <option value="date-desc">Newest First (Date)</option>
               <option value="date-asc">Oldest First (Date)</option>
-              <option value="damage-desc">Highest Damage ($ USD)</option>
+              <option value="damage-desc">💰 Highest Financial Impact ($ USD)</option>
+              <option value="damage-asc">💵 Lowest Financial Impact ($ USD)</option>
               <option value="severity-desc">Highest Severity</option>
               <option value="severity-asc">Lowest Severity</option>
               <option value="entity-asc">Affected Entity (A-Z)</option>
