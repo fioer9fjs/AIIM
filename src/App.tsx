@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Header, ViewType } from './components/Header';
 import { ExplorerView } from './components/ExplorerView';
 import { GraphView } from './components/GraphView';
@@ -15,8 +15,6 @@ import edgesData from './data/edges.json';
 
 /**
  * Robust Client-Side Fuzzy Deduplicator.
- * Guarantees zero duplicate incidents are ever displayed in the UI,
- * merging source URLs and financial damage metrics.
  */
 export function deduplicateIncidents(list: AIIncident[]): AIIncident[] {
   const result: AIIncident[] = [];
@@ -28,13 +26,11 @@ export function deduplicateIncidents(list: AIIncident[]): AIIncident[] {
     const dupIndex = result.findIndex((existing) => {
       const exTitle = (existing.title || '').toLowerCase().trim();
       
-      // 1. Exact or substring title match
       if (titleClean === exTitle) return true;
       if (titleClean.length > 20 && exTitle.length > 20) {
         if (titleClean.includes(exTitle) || exTitle.includes(titleClean)) return true;
       }
 
-      // 2. Significant word overlap match (Jaccard similarity >= 0.5)
       const words1 = new Set(titleClean.split(/[^a-z0-9]+/).filter(w => w.length > 3));
       const words2 = new Set(exTitle.split(/[^a-z0-9]+/).filter(w => w.length > 3));
       
@@ -50,7 +46,6 @@ export function deduplicateIncidents(list: AIIncident[]): AIIncident[] {
     if (dupIndex === -1) {
       result.push({ ...inc });
     } else {
-      // Merge source URLs into canonical item
       const canonical = result[dupIndex];
       const urls1 = canonical.source_urls || [];
       const urls2 = inc.source_urls || [];
@@ -65,19 +60,51 @@ export function deduplicateIncidents(list: AIIncident[]): AIIncident[] {
 }
 
 export const App: React.FC = () => {
-  // Set default home view to 'briefing'
   const [currentView, setCurrentView] = useState<ViewType>('briefing');
   const [selectedIncident, setSelectedIncident] = useState<AIIncident | null>(null);
 
-  const [incidents, setIncidents] = useState<AIIncident[]>(() => deduplicateIncidents(incidentsData as unknown as AIIncident[]));
+  const [rawIncidents, setRawIncidents] = useState<AIIncident[]>(() => deduplicateIncidents(incidentsData as unknown as AIIncident[]));
   const [edges, setEdges] = useState<GraphEdge[]>(edgesData as unknown as GraphEdge[]);
+
+  // Unique sorted dates ascending e.g. ["2025-08-01", ..., "2026-08-14"]
+  const availableDates = useMemo(() => {
+    const datesSet = new Set<string>();
+    rawIncidents.forEach((inc) => {
+      if (inc.date) datesSet.add(inc.date);
+    });
+    return Array.from(datesSet).sort((a, b) => a.localeCompare(b));
+  }, [rawIncidents]);
+
+  // Default dateRange to latest available single date [latestDate, latestDate]
+  const [selectedRange, setSelectedRange] = useState<[string, string]>(() => {
+    const latest = availableDates.length > 0 ? availableDates[availableDates.length - 1] : new Date().toISOString().split('T')[0];
+    return [latest, latest];
+  });
+
+  // Keep selectedRange valid if availableDates change on Supabase load
+  useEffect(() => {
+    if (availableDates.length > 0) {
+      const latest = availableDates[availableDates.length - 1];
+      // Only set if range is uninitialized
+      if (!selectedRange[0] || !selectedRange[1]) {
+        setSelectedRange([latest, latest]);
+      }
+    }
+  }, [availableDates]);
 
   useEffect(() => {
     if (isSupabaseConfigured) {
       console.log('Supabase credentials detected! Loading live dataset from Supabase PostgreSQL...');
       Promise.all([fetchIncidentsFromSupabase(), fetchEdgesFromSupabase()]).then(([dbIncidents, dbEdges]) => {
         if (dbIncidents.length > 0) {
-          setIncidents(deduplicateIncidents(dbIncidents));
+          const dedupped = deduplicateIncidents(dbIncidents);
+          setRawIncidents(dedupped);
+          // Set initial range to latest date from DB
+          const dates = Array.from(new Set(dedupped.map(i => i.date).filter(Boolean))).sort((a, b) => a.localeCompare(b));
+          if (dates.length > 0) {
+            const latest = dates[dates.length - 1];
+            setSelectedRange([latest, latest]);
+          }
         }
         if (dbEdges.length > 0) {
           setEdges(dbEdges);
@@ -86,29 +113,43 @@ export const App: React.FC = () => {
     }
   }, []);
 
+  // Filter incidents globally by selectedRange
+  const filteredIncidents = useMemo(() => {
+    const [start, end] = selectedRange;
+    if (!start || !end) return rawIncidents;
+    return rawIncidents.filter((inc) => inc.date >= start && inc.date <= end);
+  }, [rawIncidents, selectedRange]);
+
   return (
     <div className="app-container">
       <Header
         currentView={currentView}
         onViewChange={setCurrentView}
-        incidentCount={incidents.length}
+        incidentCount={filteredIncidents.length}
+        availableDates={availableDates}
+        selectedRange={selectedRange}
+        onRangeChange={setSelectedRange}
       />
 
       <main className="main-content">
         {currentView === 'briefing' && (
-          <DailyBriefingView incidents={incidents} onSelectIncident={setSelectedIncident} />
+          <DailyBriefingView
+            incidents={filteredIncidents}
+            dateRange={selectedRange}
+            onSelectIncident={setSelectedIncident}
+          />
         )}
         {currentView === 'explorer' && (
-          <ExplorerView incidents={incidents} onSelectIncident={setSelectedIncident} />
+          <ExplorerView incidents={filteredIncidents} onSelectIncident={setSelectedIncident} />
         )}
         {currentView === 'graph' && (
-          <GraphView incidents={incidents} edges={edges} onSelectIncident={setSelectedIncident} />
+          <GraphView incidents={filteredIncidents} edges={edges} onSelectIncident={setSelectedIncident} />
         )}
         {currentView === 'map' && (
-          <GeoMapView incidents={incidents} onSelectIncident={setSelectedIncident} />
+          <GeoMapView incidents={filteredIncidents} onSelectIncident={setSelectedIncident} />
         )}
         {currentView === 'analytics' && (
-          <AnalyticsView incidents={incidents} onSelectIncident={setSelectedIncident} />
+          <AnalyticsView incidents={filteredIncidents} onSelectIncident={setSelectedIncident} />
         )}
         {currentView === 'about' && (
           <AboutView />
@@ -118,7 +159,7 @@ export const App: React.FC = () => {
       <IncidentDetailDrawer
         incident={selectedIncident}
         edges={edges}
-        allIncidents={incidents}
+        allIncidents={rawIncidents}
         onClose={() => setSelectedIncident(null)}
         onSelectRelated={(relatedInc) => setSelectedIncident(relatedInc)}
       />

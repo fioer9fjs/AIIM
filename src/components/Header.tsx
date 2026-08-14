@@ -1,5 +1,6 @@
 import React from 'react';
 import { ShieldAlert, Network, Table, BarChart3, Globe, FileText, Info } from 'lucide-react';
+import { DateRangeSlider } from './DateRangeSlider';
 
 export type ViewType = 'explorer' | 'graph' | 'map' | 'analytics' | 'briefing' | 'about';
 
@@ -7,24 +8,44 @@ interface HeaderProps {
   currentView: ViewType;
   onViewChange: (view: ViewType) => void;
   incidentCount: number;
+  availableDates: string[];
+  selectedRange: [string, string];
+  onRangeChange: (range: [string, string]) => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ currentView, onViewChange, incidentCount }) => {
+export const Header: React.FC<HeaderProps> = ({
+  currentView,
+  onViewChange,
+  incidentCount,
+  availableDates,
+  selectedRange,
+  onRangeChange
+}) => {
   return (
     <header className="header">
-      <div
-        className="logo-group"
-        onClick={() => onViewChange('briefing')}
-        style={{ cursor: 'pointer', userSelect: 'none' }}
-        title="Go to Home Briefing"
-      >
-        <ShieldAlert className="logo-icon" />
-        <div>
-          <h1 className="logo-title">Global AI Incident Monitor</h1>
-          <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
-            Safety Analytics & Multi-Source Intelligence • {incidentCount} Records Ingested
-          </span>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+        {/* Logo Group */}
+        <div
+          className="logo-group"
+          onClick={() => onViewChange('briefing')}
+          style={{ cursor: 'pointer', userSelect: 'none' }}
+          title="Go to Home Briefing"
+        >
+          <ShieldAlert className="logo-icon" />
+          <div>
+            <h1 className="logo-title">Global AI Incident Monitor</h1>
+            <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
+              Safety Analytics & Multi-Source Intelligence • {incidentCount} Active Filtered Records
+            </span>
+          </div>
         </div>
+
+        {/* Global Date Range Slider Widget (Placed right next to logo / Daily Briefing) */}
+        <DateRangeSlider
+          availableDates={availableDates}
+          selectedRange={selectedRange}
+          onRangeChange={onRangeChange}
+        />
       </div>
 
       <div className="nav-tabs">
