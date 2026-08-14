@@ -281,6 +281,18 @@ def fetch_gdelt_api(query: str, max_items: int = 3) -> List[Dict[str, Any]]:
                 break
     return articles
 
+def is_fuzzy_duplicate(inc1: Dict[str, Any], inc2: Dict[str, Any]) -> bool:
+    import difflib
+    t1 = inc1.get("title", "").lower()
+    t2 = inc2.get("title", "").lower()
+    ratio = difflib.SequenceMatcher(None, t1, t2).ratio()
+    if ratio >= 0.55:
+        return True
+    words1 = set(inc1.get("summary", "").lower().split())
+    words2 = set(inc2.get("summary", "").lower().split())
+    jaccard = len(words1.intersection(words2)) / float(max(len(words1.union(words2)), 1))
+    return jaccard >= 0.45
+
 def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
     if not new_incidents:
         return
@@ -296,18 +308,29 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
         except Exception:
             existing = []
             
-    existing_titles = set(i.get("title", "").lower() for i in existing)
-    
     added_count = 0
     for inc in new_incidents:
         title = inc.get("title", "")
-        if title and title.lower() not in existing_titles:
+        if not title:
+            continue
+            
+        # Check against all existing records using fuzzy matching
+        is_dup = False
+        for ex in existing:
+            if is_fuzzy_duplicate(inc, ex):
+                is_dup = True
+                # Merge URLs
+                urls1 = ex.get("source_urls", []) or []
+                urls2 = inc.get("source_urls", []) or []
+                ex["source_urls"] = list(dict.fromkeys(urls1 + urls2))
+                break
+                
+        if not is_dup:
             date_prefix = str(inc.get("date", "20260814")).replace("-", "")[:8]
             inc["incident_id"] = f"INC-{date_prefix}-{len(existing) + added_count + 1:03d}"
             if "related_incidents" not in inc:
                 inc["related_incidents"] = []
             existing.insert(0, inc)
-            existing_titles.add(title.lower())
             added_count += 1
             
     if added_count > 0 or existing:
