@@ -95,6 +95,7 @@ Return ONLY a valid JSON object matching this exact schema:
   "failure_mode": "Brief narrative connecting cause to consequence based on full text details",
   "harm_domain": "persons_physical" | "persons_mental" | "persons_rights" | "property" | "environment" | "systemic_integrity" | "societal",
   "harm_type": "discrimination_bias" | "privacy_breach" | "physical_safety" | "misinformation" | "economic_labor" | "copyright_ip" | "psychological_harm" | "national_security",
+  "impact_scope": "discrete_incident" | "cumulative_macro_trend", // "discrete_incident" for single events; "cumulative_macro_trend" for industry/annual threat reports
   "financial_damage_usd": 15000000,
   "eu_ai_act_tier": "prohibited" | "high_risk" | "limited_risk" | "minimal_risk",
   "nist_ai_rmf_function": "GOVERN" | "MAP" | "MEASURE" | "MANAGE",
@@ -242,6 +243,14 @@ def process_article_3stage_pipeline(article: Dict[str, str], api_key: str) -> Op
     data = stage3_extract_taxonomy(real_title, real_text, api_key)
     if not data:
         return None
+
+    # IMPACT SCOPE AUTOMATIC VALIDATOR (Discrete Event vs Macro Industry Trend)
+    usd = data.get("financial_damage_usd", 0) or 0
+    text_corpus = f"{real_title} {real_text}".lower()
+    if usd >= 5_000_000_000 or any(k in text_corpus for k in ["annual report", "chainalysis", "interpol", "global losses", "across industry", "industry report"]):
+        data["impact_scope"] = "cumulative_macro_trend"
+    elif not data.get("impact_scope"):
+        data["impact_scope"] = "discrete_incident"
 
     data["source_urls"] = [article["link"]]
     data["source_type"] = article.get("source_type", "google_news_rss")

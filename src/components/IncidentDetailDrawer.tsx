@@ -91,6 +91,15 @@ export const IncidentDetailDrawer: React.FC<IncidentDetailDrawerProps> = ({
               <span className="badge" style={{ backgroundColor: 'rgba(168, 85, 247, 0.2)', color: '#d8b4fe' }}>
                 Src: {(incident.source_type || 'google_news_rss').replace(/_/g, ' ')}
               </span>
+              {incident.impact_scope === 'cumulative_macro_trend' || (incident.financial_damage_usd || 0) >= 5_000_000_000 ? (
+                <span className="badge" style={{ backgroundColor: 'rgba(168, 85, 247, 0.2)', color: '#c084fc', border: '1px solid rgba(168, 85, 247, 0.4)' }}>
+                  🌐 Macro Industry Report
+                </span>
+              ) : (
+                <span className="badge" style={{ backgroundColor: 'rgba(52, 211, 153, 0.15)', color: '#34d399', border: '1px solid rgba(52, 211, 153, 0.3)' }}>
+                  📌 Discrete Single Event
+                </span>
+              )}
               {incident.financial_damage_usd ? incident.financial_damage_usd > 0 ? (
                 <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.2)', color: '#34d399', display: 'inline-flex', alignItems: 'center', gap: '0.2rem', fontWeight: 700 }}>
                   <DollarSign size={12} /> Est. Damage: {formatFinancialDamage(incident.financial_damage_usd)}

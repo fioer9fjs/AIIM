@@ -111,6 +111,20 @@ def assign_compliance_frameworks(inc: Dict[str, Any]):
         inc["taxonomy"]["nist_ai_rmf_function"] = nist
         inc["taxonomy"]["iso_42001_category"] = iso
 
+def assign_impact_scope(inc: Dict[str, Any]):
+    """Assigns impact_scope ('discrete_incident' | 'cumulative_macro_trend')."""
+    usd = inc.get("financial_damage_usd", 0) or 0
+    text_corpus = f"{inc.get('title', '')} {inc.get('summary', '')} {inc.get('full_text', '')}".lower()
+    
+    if usd >= 5_000_000_000 or any(k in text_corpus for k in ["annual report", "chainalysis", "interpol", "global losses", "across industry", "industry report"]):
+        scope = "cumulative_macro_trend"
+    else:
+        scope = "discrete_incident"
+        
+    inc["impact_scope"] = scope
+    if isinstance(inc.get("taxonomy"), dict):
+        inc["taxonomy"]["impact_scope"] = scope
+
 def estimate_financial_damage(inc: Dict[str, Any]) -> int:
     """Calculates realistic financial damage in USD based on text figures, VSL benchmarks, and risk severity."""
     text_corpus = f"{inc.get('title', '')} {inc.get('summary', '')} {inc.get('full_text', '')}".lower()
@@ -236,6 +250,7 @@ def main():
         assign_compliance_frameworks(inc)
         damage = estimate_financial_damage(inc)
         inc["financial_damage_usd"] = damage
+        assign_impact_scope(inc)
         if isinstance(inc.get("taxonomy"), dict):
             inc["taxonomy"]["financial_damage_usd"] = damage
         if damage > 0:

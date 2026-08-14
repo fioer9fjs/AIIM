@@ -10,7 +10,8 @@ import {
   Pie,
   Cell
 } from 'recharts';
-import { AIIncident, formatFinancialDamage } from '../types/incident';
+import { AIIncident, formatFinancialDamage, computeFinancialImpactTotals } from '../types/incident';
+
 import { RotateCcw, Filter, DollarSign, Globe, ShieldAlert } from 'lucide-react';
 
 interface AnalyticsViewProps {
@@ -21,6 +22,10 @@ interface AnalyticsViewProps {
 const COLORS = ['#ef4444', '#f97316', '#eab308', '#3b82f6', '#10b981', '#8b5cf6'];
 
 export const AnalyticsView: React.FC<AnalyticsViewProps> = ({ incidents, onSelectIncident }) => {
+  const { discreteTotalUSD, macroBenchmarkUSD } = useMemo(() => {
+    return computeFinancialImpactTotals(incidents);
+  }, [incidents]);
+
   const [selectedFilter, setSelectedFilter] = useState<{ type: 'severity' | 'harm' | 'system' | 'all'; value: string; label: string }>({
     type: 'all',
     value: 'all',
@@ -101,27 +106,31 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({ incidents, onSelec
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       {/* Overview Stat Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
         <div className="detail-section">
           <h4>Total Incidents Tracked</h4>
-          <p style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--accent-cyan)' }}>{incidents.length}</p>
+          <p style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--accent-cyan)' }}>{incidents.length}</p>
         </div>
-        <div className="detail-section">
-          <h4>Total Estimated Financial Damage</h4>
-          <p style={{ fontSize: '2rem', fontWeight: 700, color: '#34d399' }}>
-            {formatFinancialDamage(totalFinancialDamageUSD)}
+        <div className="detail-section" style={{ borderColor: 'rgba(52, 211, 153, 0.3)' }}>
+          <h4 style={{ color: '#34d399', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+            <DollarSign size={14} /> Discrete Single Losses
+          </h4>
+          <p style={{ fontSize: '1.8rem', fontWeight: 700, color: '#34d399' }}>
+            {formatFinancialDamage(discreteTotalUSD)}
+          </p>
+        </div>
+        <div className="detail-section" style={{ borderColor: 'rgba(168, 85, 247, 0.3)' }}>
+          <h4 style={{ color: '#c084fc', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+            <Globe size={14} /> Macro Industry Benchmark
+          </h4>
+          <p style={{ fontSize: '1.8rem', fontWeight: 700, color: '#c084fc' }}>
+            {formatFinancialDamage(macroBenchmarkUSD)}
           </p>
         </div>
         <div className="detail-section">
           <h4>Critical Incidents</h4>
-          <p style={{ fontSize: '2rem', fontWeight: 700, color: '#ef4444' }}>
+          <p style={{ fontSize: '1.8rem', fontWeight: 700, color: '#ef4444' }}>
             {severityCounts['critical'] || 0}
-          </p>
-        </div>
-        <div className="detail-section">
-          <h4>High-Risk Regulated Systems</h4>
-          <p style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--accent-purple)' }}>
-            {systemCounts['high risk regulated'] || 0}
           </p>
         </div>
       </div>

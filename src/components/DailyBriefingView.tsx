@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { AIIncident, formatFinancialDamage } from '../types/incident';
-import { FileText, ShieldAlert, DollarSign, TrendingUp, Copy, Check, ExternalLink, ArrowUpDown } from 'lucide-react';
+import { AIIncident, formatFinancialDamage, computeFinancialImpactTotals } from '../types/incident';
+import { FileText, ShieldAlert, DollarSign, TrendingUp, Copy, Check, ExternalLink, ArrowUpDown, Globe } from 'lucide-react';
 
 import { deduplicateIncidents } from '../App';
 
@@ -35,8 +35,9 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
     return dailyIncidents.filter((i) => i.severity === 'critical').length;
   }, [dailyIncidents]);
 
-  const totalDamageUSD = useMemo(() => {
-    return dailyIncidents.reduce((sum, inc) => sum + (inc.financial_damage_usd || 0), 0);
+  // Separated Financial Impact Totals (Discrete Events vs Macro Industry Trend)
+  const { discreteTotalUSD, macroBenchmarkUSD } = useMemo(() => {
+    return computeFinancialImpactTotals(dailyIncidents);
   }, [dailyIncidents]);
 
   const affectedOrgs = useMemo(() => {
@@ -73,12 +74,17 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
   // Copy Executive Briefing Text to Clipboard
   const handleCopyBriefing = () => {
     let text = `Executive Intelligence Synthesis — ${dateText}\n`;
-    text += `On ${dateText}, the Global AI Incident Monitor tracked ${dailyIncidents.length} AI Incidents across international channels.\n\n`;
-    text += `Key Risk Drivers (Sorted by ${briefingSort === 'damage' ? 'Financial Damage ($ USD)' : 'Criticality'})\n`;
+    text += `On ${dateText}, the Global AI Incident Monitor tracked ${dailyIncidents.length} AI Incidents across international channels.\n`;
+    text += `Discrete Single-Event Damages: ${formatFinancialDamage(discreteTotalUSD)} USD\n`;
+    if (macroBenchmarkUSD > 0) {
+      text += `Industry Macro Trend Benchmark: ${formatFinancialDamage(macroBenchmarkUSD)} USD\n`;
+    }
+    text += `\nKey Risk Drivers (Sorted by ${briefingSort === 'damage' ? 'Financial Damage ($ USD)' : 'Criticality'})\n`;
 
     dailyIncidents.forEach((inc) => {
       const damageStr = (inc.financial_damage_usd || 0) > 0 ? `$${inc.financial_damage_usd?.toLocaleString()} USD` : 'N/A';
-      text += `${inc.severity.toUpperCase()} — ${inc.title}: ${inc.summary} (Est. Financial Impact: ${damageStr})\n`;
+      const scopeLabel = inc.impact_scope === 'cumulative_macro_trend' ? '[Macro Industry Trend]' : '[Discrete Event]';
+      text += `${inc.severity.toUpperCase()} — ${inc.title}: ${inc.summary} (${scopeLabel} Est. Impact: ${damageStr})\n`;
     });
 
     navigator.clipboard.writeText(text);
@@ -97,7 +103,7 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
               Executive Intelligence Synthesis — {dateText}
             </h2>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-              Synthesized 1-page intelligence briefing with embedded financial impact estimations.
+              Synthesized 1-page intelligence briefing with separated discrete losses and macro industry benchmarks.
             </p>
           </div>
         </div>
@@ -183,56 +189,69 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', maxWidth: '68ch', fontSize: '1.025rem', color: '#e2e8f0', lineHeight: 1.75 }}>
                 <p>
                   On <strong>{dateText}</strong>, the Global AI Incident Monitor tracked <strong>{dailyIncidents.length} AI Incidents</strong> across international channels.
-                  {totalDamageUSD > 0 && ` Total cumulative estimated financial impact for the period reached ${formatFinancialDamage(totalDamageUSD)} USD.`}
+                  {discreteTotalUSD > 0 && ` Total discrete single-event financial losses reached ${formatFinancialDamage(discreteTotalUSD)} USD.`}
+                  {macroBenchmarkUSD > 0 && ` Additionally, industry macro threat reports documented ${formatFinancialDamage(macroBenchmarkUSD)} USD in cumulative sector losses.`}
                 </p>
 
-                {/* Risk Breakdown Box (Sorted by Criticality or Financial Impact) */}
+                {/* Risk Breakdown Box */}
                 <div style={{ background: 'rgba(0,0,0,0.3)', padding: '1.25rem', borderRadius: '8px', border: '1px solid var(--border-color)', margin: '0.5rem 0' }}>
                   <h4 style={{ fontSize: '0.85rem', color: 'var(--accent-cyan)', marginBottom: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                     <ShieldAlert size={14} /> Key Risk Drivers (Sorted by {briefingSort === 'damage' ? 'Financial Damage' : 'Criticality'})
                   </h4>
                   <ul style={{ paddingLeft: 0, listStyle: 'none', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.925rem' }}>
-                    {dailyIncidents.map((inc) => (
-                      <li
-                        key={inc.incident_id}
-                        onClick={() => onSelectIncident(inc)}
-                        style={{
-                          background: 'rgba(255,255,255,0.02)',
-                          padding: '0.75rem 0.85rem',
-                          borderRadius: '6px',
-                          border: '1px solid rgba(255,255,255,0.06)',
-                          cursor: 'pointer',
-                          transition: 'all 0.15s ease',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: '0.35rem'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = 'rgba(56, 189, 248, 0.08)';
-                          e.currentTarget.style.borderColor = 'rgba(56, 189, 248, 0.3)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
-                          e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
-                        }}
-                      >
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                            <span className={`severity-badge severity-${inc.severity}`} style={{ fontSize: '0.65rem', padding: '0.1rem 0.35rem', textTransform: 'uppercase', fontWeight: 700 }}>
-                              {inc.severity}
-                            </span>
-                            <strong style={{ color: 'var(--text-main)', fontSize: '0.95rem' }}>{inc.title}</strong>
+                    {dailyIncidents.map((inc) => {
+                      const isMacro = inc.impact_scope === 'cumulative_macro_trend' || (inc.financial_damage_usd || 0) >= 5_000_000_000;
+                      return (
+                        <li
+                          key={inc.incident_id}
+                          onClick={() => onSelectIncident(inc)}
+                          style={{
+                            background: 'rgba(255,255,255,0.02)',
+                            padding: '0.75rem 0.85rem',
+                            borderRadius: '6px',
+                            border: '1px solid rgba(255,255,255,0.06)',
+                            cursor: 'pointer',
+                            transition: 'all 0.15s ease',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '0.35rem'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = 'rgba(56, 189, 248, 0.08)';
+                            e.currentTarget.style.borderColor = 'rgba(56, 189, 248, 0.3)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
+                            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+                          }}
+                        >
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
+                              <span className={`severity-badge severity-${inc.severity}`} style={{ fontSize: '0.65rem', padding: '0.1rem 0.35rem', textTransform: 'uppercase', fontWeight: 700 }}>
+                                {inc.severity}
+                              </span>
+                              {isMacro ? (
+                                <span style={{ fontSize: '0.65rem', background: 'rgba(168, 85, 247, 0.2)', color: '#c084fc', border: '1px solid rgba(168, 85, 247, 0.4)', padding: '0.1rem 0.35rem', borderRadius: '4px', display: 'inline-flex', alignItems: 'center', gap: '0.2rem', fontWeight: 600 }}>
+                                  <Globe size={10} /> Macro Trend Report
+                                </span>
+                              ) : (
+                                <span style={{ fontSize: '0.65rem', background: 'rgba(52, 211, 153, 0.15)', color: '#34d399', border: '1px solid rgba(52, 211, 153, 0.3)', padding: '0.1rem 0.35rem', borderRadius: '4px', fontWeight: 600 }}>
+                                  📌 Discrete Event
+                                </span>
+                              )}
+                              <strong style={{ color: 'var(--text-main)', fontSize: '0.95rem' }}>{inc.title}</strong>
+                            </div>
+                            <ExternalLink size={13} style={{ color: 'var(--text-dim)', flexShrink: 0 }} />
                           </div>
-                          <ExternalLink size={13} style={{ color: 'var(--text-dim)', flexShrink: 0 }} />
-                        </div>
-                        <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-                          {inc.summary}{' '}
-                          <span style={{ color: (inc.financial_damage_usd || 0) > 0 ? '#34d399' : 'var(--accent-cyan)', fontWeight: 600 }}>
-                            (Est. Financial Impact: {formatFinancialDamage(inc.financial_damage_usd)})
-                          </span>
-                        </p>
-                      </li>
-                    ))}
+                          <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+                            {inc.summary}{' '}
+                            <span style={{ color: (inc.financial_damage_usd || 0) > 0 ? '#34d399' : 'var(--accent-cyan)', fontWeight: 600 }}>
+                              (Est. Impact: {formatFinancialDamage(inc.financial_damage_usd)})
+                            </span>
+                          </p>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
 
@@ -268,18 +287,33 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
             </div>
           </div>
 
-          {/* Financial Impact Card */}
+          {/* Discrete Financial Impact Card */}
           <div className="detail-section" style={{ background: 'rgba(52, 211, 153, 0.08)', borderColor: 'rgba(52, 211, 153, 0.25)' }}>
             <h4 style={{ fontSize: '0.75rem', color: '#34d399', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-              <DollarSign size={14} /> Cumulative Financial Impact
+              <DollarSign size={14} /> Discrete Single-Event Losses
             </h4>
-            <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#34d399', marginBottom: '0.2rem' }}>
-              {formatFinancialDamage(totalDamageUSD)}
+            <div style={{ fontSize: '1.35rem', fontWeight: 800, color: '#34d399', marginBottom: '0.2rem' }}>
+              {formatFinancialDamage(discreteTotalUSD)}
             </div>
             <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-              Estimated economic damage including regulatory fines, class action losses, and statistical life valuations.
+              Non-overlapping financial losses from specific single-event hacks, fines, and settlements.
             </p>
           </div>
+
+          {/* Macro Industry Trend Benchmark Card */}
+          {macroBenchmarkUSD > 0 && (
+            <div className="detail-section" style={{ background: 'rgba(168, 85, 247, 0.08)', borderColor: 'rgba(168, 85, 247, 0.25)' }}>
+              <h4 style={{ fontSize: '0.75rem', color: '#c084fc', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <Globe size={14} /> Industry Macro Trend Benchmark
+              </h4>
+              <div style={{ fontSize: '1.35rem', fontWeight: 800, color: '#c084fc', marginBottom: '0.2rem' }}>
+                {formatFinancialDamage(macroBenchmarkUSD)}
+              </div>
+              <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                Aggregated sector threat report totals (e.g. Chainalysis global annual fraud totals). Kept strictly separate to prevent double-counting.
+              </p>
+            </div>
+          )}
 
           {/* Dominant Risk Focus */}
           <div className="detail-section">

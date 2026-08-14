@@ -39,6 +39,9 @@ export type Severity = 'critical' | 'high' | 'medium' | 'low';
 
 export type SourceType = 'google_news_rss' | 'gdelt' | 'arxiv' | 'aiid' | 'other';
 
+// Impact Scope Taxonomy: Discrete Single Event vs Macro Industry Trend
+export type ImpactScope = 'discrete_incident' | 'cumulative_macro_trend';
+
 // MIT & AIID Taxonomy Additions
 export type IncidentIntent = 'intentional_misuse' | 'unintentional_failure';
 
@@ -98,6 +101,9 @@ export interface AIIncident {
   temporality: Temporality;
   severity: Severity;
   
+  // Impact Scope: Single Event vs Macro Industry Trend
+  impact_scope?: ImpactScope;
+
   // Data Origin Telemetry
   source_type?: SourceType;
 
@@ -144,4 +150,22 @@ export function formatFinancialDamage(usd?: number): string {
   if (usd >= 1_000_000) return `$${(usd / 1_000_000).toFixed(2)}M`;
   if (usd >= 1_000) return `$${(usd / 1_000).toFixed(0)}K`;
   return `$${usd.toLocaleString()}`;
+}
+
+export function computeFinancialImpactTotals(incidents: AIIncident[]): { discreteTotalUSD: number; macroBenchmarkUSD: number } {
+  let discreteTotalUSD = 0;
+  let macroBenchmarkUSD = 0;
+
+  incidents.forEach((inc) => {
+    const usd = inc.financial_damage_usd || 0;
+    if (usd > 0) {
+      if (inc.impact_scope === 'cumulative_macro_trend' || usd >= 5_000_000_000) {
+        macroBenchmarkUSD += usd;
+      } else {
+        discreteTotalUSD += usd;
+      }
+    }
+  });
+
+  return { discreteTotalUSD, macroBenchmarkUSD };
 }
