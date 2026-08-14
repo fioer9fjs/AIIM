@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { AIIncident, formatFinancialDamage } from '../types/incident';
-import { Calendar, FileText, ShieldAlert, DollarSign, Globe, Award, TrendingUp, Copy, Check, AlertCircle } from 'lucide-react';
+import { FileText, ShieldAlert, DollarSign, TrendingUp, Copy, Check, ExternalLink } from 'lucide-react';
 
 import { deduplicateIncidents } from '../App';
 
@@ -93,7 +93,7 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
               Executive Intelligence Synthesis — {dateText}
             </h2>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-              Synthesized intelligence briefing sorted by criticality with embedded financial impact estimations.
+              Synthesized 1-page intelligence briefing sorted by criticality with embedded financial impact estimations.
             </p>
           </div>
         </div>
@@ -125,11 +125,16 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
               borderRadius: '12px'
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.25rem' }}>
-              <Calendar size={18} style={{ color: 'var(--accent-purple)' }} />
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-main)' }}>
-                Daily AI Safety & Incident Report
-              </h3>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <ShieldAlert size={18} style={{ color: 'var(--accent-purple)' }} />
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-main)' }}>
+                  Daily AI Safety & Incident Synthesis
+                </h3>
+              </div>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
+                Click any incident to open technical detail drawer
+              </span>
             </div>
 
             {dailyIncidents.length === 0 ? (
@@ -145,75 +150,60 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
 
                 {/* Risk Breakdown Box (Sorted by Criticality & Damage in Parentheses) */}
                 <div style={{ background: 'rgba(0,0,0,0.3)', padding: '1.25rem', borderRadius: '8px', border: '1px solid var(--border-color)', margin: '0.5rem 0' }}>
-                  <h4 style={{ fontSize: '0.85rem', color: 'var(--accent-cyan)', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <h4 style={{ fontSize: '0.85rem', color: 'var(--accent-cyan)', marginBottom: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                     <ShieldAlert size={14} /> Key Risk Drivers (Sorted by Criticality)
                   </h4>
-                  <ul style={{ paddingLeft: '1.25rem', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.925rem' }}>
+                  <ul style={{ paddingLeft: 0, listStyle: 'none', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.925rem' }}>
                     {dailyIncidents.map((inc) => (
-                      <li key={inc.incident_id} style={{ cursor: 'pointer' }} onClick={() => onSelectIncident(inc)}>
-                        <span className={`severity-badge severity-${inc.severity}`} style={{ fontSize: '0.7rem', padding: '0.1rem 0.4rem', marginRight: '0.4rem', textTransform: 'uppercase', fontWeight: 700 }}>
-                          {inc.severity}
-                        </span>
-                        <strong style={{ color: 'var(--text-main)' }}>{inc.title}</strong>: {inc.summary}{' '}
-                        <span style={{ color: 'var(--accent-cyan)', fontWeight: 600 }}>
-                          (Est. Financial Impact: {formatFinancialDamage(inc.financial_damage_usd)})
-                        </span>
+                      <li
+                        key={inc.incident_id}
+                        onClick={() => onSelectIncident(inc)}
+                        style={{
+                          background: 'rgba(255,255,255,0.02)',
+                          padding: '0.75rem 0.85rem',
+                          borderRadius: '6px',
+                          border: '1px solid rgba(255,255,255,0.06)',
+                          cursor: 'pointer',
+                          transition: 'all 0.15s ease',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '0.35rem'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = 'rgba(56, 189, 248, 0.08)';
+                          e.currentTarget.style.borderColor = 'rgba(56, 189, 248, 0.3)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
+                          e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                            <span className={`severity-badge severity-${inc.severity}`} style={{ fontSize: '0.65rem', padding: '0.1rem 0.35rem', textTransform: 'uppercase', fontWeight: 700 }}>
+                              {inc.severity}
+                            </span>
+                            <strong style={{ color: 'var(--text-main)', fontSize: '0.95rem' }}>{inc.title}</strong>
+                          </div>
+                          <ExternalLink size={13} style={{ color: 'var(--text-dim)', flexShrink: 0 }} />
+                        </div>
+                        <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+                          {inc.summary}{' '}
+                          <span style={{ color: 'var(--accent-cyan)', fontWeight: 600 }}>
+                            (Est. Financial Impact: {formatFinancialDamage(inc.financial_damage_usd)})
+                          </span>
+                        </p>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <p style={{ fontSize: '0.925rem', color: 'var(--text-muted)', fontStyle: 'italic', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem' }}>
-                  * All incident reports are automatically ingested via multi-source harvesting and categorized using CSET & EU AI Act risk taxonomies.
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontStyle: 'italic', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '0.85rem' }}>
+                  * All incident reports are automatically ingested via multi-source harvesting and categorized using CSET & EU AI Act risk taxonomies. Click any incident above to open the full technical drawer.
                 </p>
               </div>
             )}
           </article>
-
-          {/* Detailed Incident Cards List */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <AlertCircle size={18} style={{ color: 'var(--accent-cyan)' }} />
-              Detailed Incident Reports ({dailyIncidents.length})
-            </h3>
-
-            {dailyIncidents.map((inc) => (
-              <div
-                key={inc.incident_id}
-                className="incident-card"
-                onClick={() => onSelectIncident(inc)}
-                style={{ cursor: 'pointer', transition: 'all 0.2s ease' }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem', marginBottom: '0.5rem' }}>
-                  <span className={`severity-badge severity-${inc.severity}`}>
-                    {inc.severity}
-                  </span>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>
-                    ID: {inc.incident_id} • {inc.date}
-                  </span>
-                </div>
-
-                <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '0.4rem' }}>
-                  {inc.title}
-                </h4>
-
-                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.75rem', lineHeight: 1.5 }}>
-                  {inc.summary}
-                </p>
-
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem', borderTop: '1px solid var(--border-color)', paddingTop: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                  <span style={{ color: 'var(--accent-cyan)', fontWeight: 600 }}>
-                    Est. Financial Impact: {formatFinancialDamage(inc.financial_damage_usd)}
-                  </span>
-                  {inc.source_urls && inc.source_urls.length > 0 && (
-                    <span style={{ color: 'var(--text-dim)', fontSize: '0.75rem' }}>
-                      {inc.source_urls.length} Verified Source{inc.source_urls.length > 1 ? 's' : ''}
-                    </span>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
 
         </div>
 
@@ -222,7 +212,7 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
           
           <div className="detail-section">
             <h4 style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem' }}>
-              Daily Incident Metrics
+              Period Incident Metrics
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
