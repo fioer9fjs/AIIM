@@ -5,6 +5,7 @@ import { GraphView } from './components/GraphView';
 import { GeoMapView } from './components/GeoMapView';
 import { AnalyticsView } from './components/AnalyticsView';
 import { DailyBriefingView } from './components/DailyBriefingView';
+import { AboutView } from './components/AboutView';
 import { IncidentDetailDrawer } from './components/IncidentDetailDrawer';
 import { AIIncident, GraphEdge } from './types/incident';
 import { isSupabaseConfigured, fetchIncidentsFromSupabase, fetchEdgesFromSupabase } from './lib/supabase';
@@ -108,6 +109,9 @@ export const App: React.FC = () => {
         )}
         {currentView === 'analytics' && (
           <AnalyticsView incidents={incidents} onSelectIncident={setSelectedIncident} />
+        )}
+        {currentView === 'about' && (
+          <AboutView />
         )}
       </main>
 

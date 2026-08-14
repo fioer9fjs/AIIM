@@ -176,7 +176,7 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', maxWidth: '68ch', fontSize: '1.025rem', color: '#e2e8f0', lineHeight: 1.75 }}>
                 <p>
-                  On <strong>{selectedDate}</strong>, the Global AI Incident Monitor tracked <strong>{dailyIncidents.length} AI safety and regulatory events</strong> across international channels.
+                  On <strong>{selectedDate}</strong>, the Global AI Incident Monitor tracked <strong>{dailyIncidents.length} AI Incidents</strong> across international channels.
                   {totalDamageUSD > 0 && ` Total cumulative estimated financial impact for the day reached ${formatFinancialDamage(totalDamageUSD)} USD.`}
                 </p>
 

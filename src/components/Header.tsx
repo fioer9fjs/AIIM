@@ -1,7 +1,7 @@
 import React from 'react';
-import { ShieldAlert, Network, Table, BarChart3, Globe, FileText } from 'lucide-react';
+import { ShieldAlert, Network, Table, BarChart3, Globe, FileText, Info } from 'lucide-react';
 
-export type ViewType = 'explorer' | 'graph' | 'map' | 'analytics' | 'briefing';
+export type ViewType = 'explorer' | 'graph' | 'map' | 'analytics' | 'briefing' | 'about';
 
 interface HeaderProps {
   currentView: ViewType;
@@ -57,6 +57,12 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onViewChange, incid
           onClick={() => onViewChange('analytics')}
         >
           <BarChart3 size={16} /> Analytics
+        </button>
+        <button
+          className={`tab-button ${currentView === 'about' ? 'active' : ''}`}
+          onClick={() => onViewChange('about')}
+        >
+          <Info size={16} /> About & Methodology
         </button>
       </div>
     </header>
