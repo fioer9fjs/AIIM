@@ -143,11 +143,12 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str, target_da
     for model_name in candidate_models:
         if HAS_GENAI:
             try:
+                from google.genai import types
                 client = genai.Client(api_key=api_key)
                 response = client.models.generate_content(
                     model=model_name,
                     contents=prompt,
-                    config={"response_mime_type": "application/json"}
+                    config=types.GenerateContentConfig(response_mime_type="application/json")
                 )
                 if response and response.text:
                     text_clean = response.text.strip()

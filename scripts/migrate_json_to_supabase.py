@@ -48,6 +48,11 @@ def post_to_supabase_table(url: str, key: str, table_name: str, records: List[Di
             error_body = e.read().decode('utf-8')
         except Exception:
             pass
+            
+        if e.code == 404 and "PGRST205" in error_body:
+            print(f"--> [NOTICE] Supabase table '{table_name}' does not exist yet. Run SQL in supabase_schema.sql to create it.")
+            return False
+
         print(f"Error uploading to Supabase table '{table_name}': HTTP Error {e.code}: {e.reason}")
         if error_body:
             print(f"--> Supabase Error Details: {error_body}")
