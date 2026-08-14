@@ -12,7 +12,12 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ currentView, onViewChange, incidentCount }) => {
   return (
     <header className="header">
-      <div className="logo-group">
+      <div
+        className="logo-group"
+        onClick={() => onViewChange('briefing')}
+        style={{ cursor: 'pointer', userSelect: 'none' }}
+        title="Go to Home Briefing"
+      >
         <ShieldAlert className="logo-icon" />
         <div>
           <h1 className="logo-title">Global AI Incident Monitor</h1>
@@ -23,6 +28,12 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onViewChange, incid
       </div>
 
       <div className="nav-tabs">
+        <button
+          className={`tab-button ${currentView === 'briefing' ? 'active' : ''}`}
+          onClick={() => onViewChange('briefing')}
+        >
+          <FileText size={16} /> Daily Briefing
+        </button>
         <button
           className={`tab-button ${currentView === 'explorer' ? 'active' : ''}`}
           onClick={() => onViewChange('explorer')}
@@ -46,12 +57,6 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onViewChange, incid
           onClick={() => onViewChange('analytics')}
         >
           <BarChart3 size={16} /> Analytics
-        </button>
-        <button
-          className={`tab-button ${currentView === 'briefing' ? 'active' : ''}`}
-          onClick={() => onViewChange('briefing')}
-        >
-          <FileText size={16} /> Daily Briefing
         </button>
       </div>
     </header>

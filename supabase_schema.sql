@@ -63,21 +63,21 @@ ALTER TABLE incidents ENABLE ROW LEVEL SECURITY;
 ALTER TABLE edges ENABLE ROW LEVEL SECURITY;
 ALTER TABLE daily_source_stats ENABLE ROW LEVEL SECURITY;
 
--- 5. Create RLS Policies for Public Read & Service Role Write
-CREATE POLICY "Allow public read access to incidents" ON incidents
-    FOR SELECT USING (true);
+-- 5. Create RLS Policies for Public Read & Service Role Write (Idempotent)
+DROP POLICY IF EXISTS "Allow public read access to incidents" ON incidents;
+CREATE POLICY "Allow public read access to incidents" ON incidents FOR SELECT USING (true);
 
-CREATE POLICY "Allow public read access to edges" ON edges
-    FOR SELECT USING (true);
+DROP POLICY IF EXISTS "Allow public read access to edges" ON edges;
+CREATE POLICY "Allow public read access to edges" ON edges FOR SELECT USING (true);
 
-CREATE POLICY "Allow public read access to daily_source_stats" ON daily_source_stats
-    FOR SELECT USING (true);
+DROP POLICY IF EXISTS "Allow public read access to daily_source_stats" ON daily_source_stats;
+CREATE POLICY "Allow public read access to daily_source_stats" ON daily_source_stats FOR SELECT USING (true);
 
-CREATE POLICY "Allow service role full access to incidents" ON incidents
-    FOR ALL USING (true);
+DROP POLICY IF EXISTS "Allow service role full access to incidents" ON incidents;
+CREATE POLICY "Allow service role full access to incidents" ON incidents FOR ALL USING (true);
 
-CREATE POLICY "Allow service role full access to edges" ON edges
-    FOR ALL USING (true);
+DROP POLICY IF EXISTS "Allow service role full access to edges" ON edges;
+CREATE POLICY "Allow service role full access to edges" ON edges FOR ALL USING (true);
 
-CREATE POLICY "Allow service role full access to daily_source_stats" ON daily_source_stats
-    FOR ALL USING (true);
+DROP POLICY IF EXISTS "Allow service role full access to daily_source_stats" ON daily_source_stats;
+CREATE POLICY "Allow service role full access to daily_source_stats" ON daily_source_stats FOR ALL USING (true);

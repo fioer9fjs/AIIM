@@ -13,7 +13,8 @@ import incidentsData from './data/incidents.json';
 import edgesData from './data/edges.json';
 
 export const App: React.FC = () => {
-  const [currentView, setCurrentView] = useState<ViewType>('explorer');
+  // Set default home view to 'briefing'
+  const [currentView, setCurrentView] = useState<ViewType>('briefing');
   const [selectedIncident, setSelectedIncident] = useState<AIIncident | null>(null);
 
   const [incidents, setIncidents] = useState<AIIncident[]>(incidentsData as AIIncident[]);
@@ -42,6 +43,9 @@ export const App: React.FC = () => {
       />
 
       <main className="main-content">
+        {currentView === 'briefing' && (
+          <DailyBriefingView incidents={incidents} onSelectIncident={setSelectedIncident} />
+        )}
         {currentView === 'explorer' && (
           <ExplorerView incidents={incidents} onSelectIncident={setSelectedIncident} />
         )}
@@ -53,9 +57,6 @@ export const App: React.FC = () => {
         )}
         {currentView === 'analytics' && (
           <AnalyticsView incidents={incidents} onSelectIncident={setSelectedIncident} />
-        )}
-        {currentView === 'briefing' && (
-          <DailyBriefingView incidents={incidents} onSelectIncident={setSelectedIncident} />
         )}
       </main>
 
