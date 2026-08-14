@@ -93,6 +93,9 @@ export interface AIIncident {
   // Data Origin Telemetry
   source_type?: SourceType;
 
+  // Estimated Financial Damage (USD)
+  financial_damage_usd?: number;
+
   // MIT & AIID Extensions
   intent?: IncidentIntent;
   primary_purpose?: PrimaryPurpose;
@@ -121,4 +124,12 @@ export interface GraphEdge {
   relation_type: 'lawsuit' | 'regulatory_action' | 'patch' | 'fork' | 'related_cause';
   description: string;
   confidence: number;
+}
+
+export function formatFinancialDamage(usd?: number): string {
+  if (!usd || usd <= 0) return 'N/A';
+  if (usd >= 1_000_000_000) return `$${(usd / 1_000_000_000).toFixed(2)}B`;
+  if (usd >= 1_000_000) return `$${(usd / 1_000_000).toFixed(2)}M`;
+  if (usd >= 1_000) return `$${(usd / 1_000).toFixed(0)}K`;
+  return `$${usd.toLocaleString()}`;
 }

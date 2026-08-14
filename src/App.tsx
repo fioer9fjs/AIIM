@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Header } from './components/Header';
+import { Header, ViewType } from './components/Header';
 import { ExplorerView } from './components/ExplorerView';
 import { GraphView } from './components/GraphView';
+import { GeoMapView } from './components/GeoMapView';
 import { AnalyticsView } from './components/AnalyticsView';
+import { DailyBriefingView } from './components/DailyBriefingView';
 import { IncidentDetailDrawer } from './components/IncidentDetailDrawer';
 import { AIIncident, GraphEdge } from './types/incident';
 import { isSupabaseConfigured, fetchIncidentsFromSupabase, fetchEdgesFromSupabase } from './lib/supabase';
@@ -11,7 +13,7 @@ import incidentsData from './data/incidents.json';
 import edgesData from './data/edges.json';
 
 export const App: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'explorer' | 'graph' | 'analytics'>('explorer');
+  const [currentView, setCurrentView] = useState<ViewType>('explorer');
   const [selectedIncident, setSelectedIncident] = useState<AIIncident | null>(null);
 
   const [incidents, setIncidents] = useState<AIIncident[]>(incidentsData as AIIncident[]);
@@ -46,7 +48,15 @@ export const App: React.FC = () => {
         {currentView === 'graph' && (
           <GraphView incidents={incidents} edges={edges} onSelectIncident={setSelectedIncident} />
         )}
-        {currentView === 'analytics' && <AnalyticsView incidents={incidents} />}
+        {currentView === 'map' && (
+          <GeoMapView incidents={incidents} onSelectIncident={setSelectedIncident} />
+        )}
+        {currentView === 'analytics' && (
+          <AnalyticsView incidents={incidents} onSelectIncident={setSelectedIncident} />
+        )}
+        {currentView === 'briefing' && (
+          <DailyBriefingView incidents={incidents} onSelectIncident={setSelectedIncident} />
+        )}
       </main>
 
       <IncidentDetailDrawer

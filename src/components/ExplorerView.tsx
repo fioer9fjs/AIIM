@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { Search, ArrowUpDown, GitCommit, ShieldAlert, Zap, Filter, RotateCcw } from 'lucide-react';
-import { AIIncident } from '../types/incident';
+import { Search, ArrowUpDown, ShieldAlert, Filter, RotateCcw, DollarSign, Globe } from 'lucide-react';
+import { AIIncident, formatFinancialDamage } from '../types/incident';
 
 interface ExplorerViewProps {
   incidents: AIIncident[];
@@ -23,7 +23,19 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
   const [euFilter, setEuFilter] = useState<string>('all');
   const [purposeFilter, setPurposeFilter] = useState<string>('all');
   const [natsecFilter, setNatsecFilter] = useState<string>('all');
+  const [sourceFilter, setSourceFilter] = useState<string>('all');
+  const [countryFilter, setCountryFilter] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('date-desc');
+
+  const uniqueCountries = useMemo(() => {
+    const set = new Set<string>();
+    incidents.forEach((inc) => {
+      if (inc.geographic_scope) {
+        inc.geographic_scope.forEach((c) => set.add(c));
+      }
+    });
+    return Array.from(set).sort();
+  }, [incidents]);
 
   const handleResetFilters = () => {
     setSearch('');
@@ -34,6 +46,8 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
     setEuFilter('all');
     setPurposeFilter('all');
     setNatsecFilter('all');
+    setSourceFilter('all');
+    setCountryFilter('all');
     setSortBy('date-desc');
   };
 
@@ -52,8 +66,21 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
       const matchesEu = euFilter === 'all' || inc.eu_ai_act_tier === euFilter;
       const matchesPurpose = purposeFilter === 'all' || inc.primary_purpose === purposeFilter;
       const matchesNatsec = natsecFilter === 'all' || (natsecFilter === 'yes' ? inc.natsec_impact === true : inc.natsec_impact === false);
+      const matchesSource = sourceFilter === 'all' || (inc.source_type || 'google_news_rss') === sourceFilter;
+      const matchesCountry = countryFilter === 'all' || (inc.geographic_scope && inc.geographic_scope.includes(countryFilter));
 
-      return matchesSearch && matchesSeverity && matchesStatus && matchesSystem && matchesIntent && matchesEu && matchesPurpose && matchesNatsec;
+      return (
+        matchesSearch &&
+        matchesSeverity &&
+        matchesStatus &&
+        matchesSystem &&
+        matchesIntent &&
+        matchesEu &&
+        matchesPurpose &&
+        matchesNatsec &&
+        matchesSource &&
+        matchesCountry
+      );
     });
 
     return list.sort((a, b) => {
@@ -73,12 +100,14 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
         return (SEVERITY_RANK[b.severity] || 0) - (SEVERITY_RANK[a.severity] || 0);
       } else if (sortBy === 'severity-asc') {
         return (SEVERITY_RANK[a.severity] || 0) - (SEVERITY_RANK[b.severity] || 0);
+      } else if (sortBy === 'damage-desc') {
+        return (b.financial_damage_usd || 0) - (a.financial_damage_usd || 0);
       } else if (sortBy === 'confidence-desc') {
         return (b.confidence_scores?.severity || 1.0) - (a.confidence_scores?.severity || 1.0);
       }
       return 0;
     });
-  }, [incidents, search, severityFilter, statusFilter, systemFilter, intentFilter, euFilter, purposeFilter, natsecFilter, sortBy]);
+  }, [incidents, search, severityFilter, statusFilter, systemFilter, intentFilter, euFilter, purposeFilter, natsecFilter, sourceFilter, countryFilter, sortBy]);
 
   return (
     <div className="explorer-layout">
@@ -104,30 +133,63 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
           </div>
         </div>
 
-        {/* Sort */}
+        {/* Sort By */}
         <div className="filter-group">
-          <label style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-            <ArrowUpDown size={12} style={{ color: 'var(--accent-cyan)' }} /> Sort Order
-          </label>
+          <label>Sort Incidents</label>
+          <div className="select-wrapper">
+            <ArrowUpDown size={14} style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+            <select
+              className="filter-select"
+              style={{ paddingLeft: '2.2rem' }}
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+            >
+              <option value="date-desc">Newest First (Date)</option>
+              <option value="date-asc">Oldest First (Date)</option>
+              <option value="damage-desc">Highest Damage ($ USD)</option>
+              <option value="severity-desc">Highest Severity</option>
+              <option value="severity-asc">Lowest Severity</option>
+              <option value="entity-asc">Affected Entity (A-Z)</option>
+              <option value="entity-desc">Affected Entity (Z-A)</option>
+              <option value="confidence-desc">Highest Confidence</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Source Origin Filter */}
+        <div className="filter-group">
+          <label>Data Origin / Provider</label>
           <select
             className="filter-select"
-            style={{ borderColor: 'var(--accent-cyan)' }}
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
+            value={sourceFilter}
+            onChange={(e) => setSourceFilter(e.target.value)}
           >
-            <option value="date-desc">Date (Newest First)</option>
-            <option value="date-asc">Date (Oldest First)</option>
-            <option value="entity-asc">Affected Entity (A-Z)</option>
-            <option value="entity-desc">Affected Entity (Z-A)</option>
-            <option value="severity-desc">Severity (Highest First)</option>
-            <option value="severity-asc">Severity (Lowest First)</option>
-            <option value="confidence-desc">Confidence (Highest First)</option>
+            <option value="all">All Data Sources</option>
+            <option value="google_news_rss">Google News RSS</option>
+            <option value="gdelt">GDELT 2.0 (BigQuery/API)</option>
+            <option value="arxiv">ArXiv AI Safety</option>
+            <option value="aiid">AI Incident Database</option>
           </select>
         </div>
 
-        {/* Intent / Causality */}
+        {/* Country / Region Filter */}
         <div className="filter-group">
-          <label>Intent / Causality</label>
+          <label>Geographic Scope / Country</label>
+          <select
+            className="filter-select"
+            value={countryFilter}
+            onChange={(e) => setCountryFilter(e.target.value)}
+          >
+            <option value="all">All Countries / Global</option>
+            {uniqueCountries.map((c) => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Intent */}
+        <div className="filter-group">
+          <label>Incident Intent</label>
           <select
             className="filter-select"
             value={intentFilter}
@@ -135,42 +197,43 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
           >
             <option value="all">All Intent Types</option>
             <option value="intentional_misuse">Intentional Misuse</option>
-            <option value="unintentional_failure">Unintentional System Failure</option>
+            <option value="unintentional_failure">Unintentional Failure</option>
           </select>
         </div>
 
         {/* EU AI Act Tier */}
         <div className="filter-group">
-          <label>EU AI Act Risk Tier</label>
+          <label>EU AI Act Classification</label>
           <select
             className="filter-select"
             value={euFilter}
             onChange={(e) => setEuFilter(e.target.value)}
           >
-            <option value="all">All EU AI Act Tiers</option>
-            <option value="prohibited">Prohibited / Unacceptable Risk</option>
-            <option value="high_risk">High Risk (Annex III)</option>
-            <option value="limited_risk">Limited Risk (Transparency)</option>
+            <option value="all">All EU Risk Tiers</option>
+            <option value="prohibited">Prohibited Risk</option>
+            <option value="high_risk">High Risk</option>
+            <option value="limited_risk">Limited Risk</option>
             <option value="minimal_risk">Minimal Risk</option>
           </select>
         </div>
 
         {/* Primary Purpose */}
         <div className="filter-group">
-          <label>Primary AI Purpose</label>
+          <label>Primary AI Domain / Purpose</label>
           <select
             className="filter-select"
             value={purposeFilter}
             onChange={(e) => setPurposeFilter(e.target.value)}
           >
-            <option value="all">All AI Purpose Sectors</option>
+            <option value="all">All System Purposes</option>
             <option value="generative_content">Generative Content</option>
             <option value="autonomous_mobility">Autonomous Mobility</option>
             <option value="biometric_surveillance">Biometric Surveillance</option>
-            <option value="financial_fintech">Financial / Fintech</option>
+            <option value="financial_fintech">Financial & Fintech</option>
             <option value="healthcare_medical">Healthcare & Medical</option>
             <option value="recruitment_hr">Recruitment & HR</option>
             <option value="defense_national_security">Defense & NatSec</option>
+            <option value="other">Other Domain</option>
           </select>
         </div>
 
@@ -219,32 +282,13 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
           </select>
         </div>
 
-        {/* System Classification */}
-        <div className="filter-group">
-          <label>System Classification</label>
-          <select
-            className="filter-select"
-            value={systemFilter}
-            onChange={(e) => setSystemFilter(e.target.value)}
-          >
-            <option value="all">All System Types</option>
-            <option value="autonomous_agent">Autonomous Agent</option>
-            <option value="general_purpose_model">General-Purpose Model</option>
-            <option value="high_risk_regulated">High-Risk Regulated</option>
-            <option value="dual_use_security">Dual-Use / Security</option>
-          </select>
-        </div>
-
+        {/* Reset Button */}
         <button
           onClick={handleResetFilters}
+          className="button button-outline"
           style={{
+            width: '100%',
             marginTop: '0.5rem',
-            padding: '0.5rem',
-            background: 'rgba(255, 255, 255, 0.05)',
-            border: '1px solid var(--border-color)',
-            borderRadius: '6px',
-            color: 'var(--text-muted)',
-            cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -274,6 +318,11 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
                 <span className="badge" style={{ backgroundColor: 'rgba(168, 85, 247, 0.2)', color: '#d8b4fe' }}>
                   Src: {(inc.source_type || 'google_news_rss').replace(/_/g, ' ')}
                 </span>
+                {inc.financial_damage_usd ? inc.financial_damage_usd > 0 ? (
+                  <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.2)', color: '#34d399', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
+                    <DollarSign size={12} /> {formatFinancialDamage(inc.financial_damage_usd)}
+                  </span>
+                ) : null : null}
                 {inc.eu_ai_act_tier && (
                   <span className="badge" style={{ backgroundColor: 'rgba(59, 130, 246, 0.2)', color: '#93c5fd' }}>
                     EU: {inc.eu_ai_act_tier.replace('_', ' ')}
@@ -286,43 +335,26 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
                 )}
               </div>
 
-              <h3 className="card-title">{inc.title}</h3>
+              <h3 style={{ fontSize: '1rem', fontWeight: 600, margin: '0.5rem 0', color: 'var(--text-main)' }}>{inc.title}</h3>
               <p className="card-summary">{inc.summary}</p>
 
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                {inc.intent && (
-                  <span className="confidence-tag" style={{ color: inc.intent === 'intentional_misuse' ? '#f87171' : '#a7f3d0' }}>
-                    <Zap size={11} style={{ marginRight: '3px' }} />
-                    {inc.intent.replace('_', ' ')}
-                  </span>
-                )}
-                <span className="confidence-tag" style={{ color: 'var(--accent-cyan)' }}>
-                  {inc.affected_parties?.[0] ? `Entity: ${inc.affected_parties[0]}` : inc.system_classification.replace(/_/g, ' ')}
-                </span>
-                <span className="confidence-tag" style={{ color: 'var(--accent-purple)' }}>
-                  {inc.harm_domain.replace(/_/g, ' ')}
-                </span>
-              </div>
-
               <div className="card-footer">
-                <span>{inc.date}</span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  {inc.related_incidents && inc.related_incidents.length > 0 && (
-                    <span style={{ color: 'var(--accent-blue)', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
-                      <GitCommit size={14} /> {inc.related_incidents.length} Edge(s)
+                <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                  <span>📅 {inc.date}</span>
+                  {inc.geographic_scope && inc.geographic_scope.length > 0 && (
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
+                      <Globe size={11} /> {inc.geographic_scope.slice(0, 2).join(', ')}
                     </span>
                   )}
+                  {inc.affected_parties && inc.affected_parties.length > 0 && (
+                    <span>• {inc.affected_parties[0]}</span>
+                  )}
                 </div>
+                <span className="details-link">Details →</span>
               </div>
             </div>
           ))}
         </div>
-
-        {filteredAndSortedIncidents.length === 0 && (
-          <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--text-muted)' }}>
-            No AI incidents match the selected search & filter criteria.
-          </div>
-        )}
       </section>
     </div>
   );

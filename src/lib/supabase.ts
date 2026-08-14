@@ -38,6 +38,7 @@ export async function fetchIncidentsFromSupabase(): Promise<AIIncident[]> {
     verification_status: row.verification_status || 'confirmed',
     severity: row.severity || 'medium',
     source_type: row.source_type || row.taxonomy?.source_type || 'google_news_rss',
+    financial_damage_usd: row.financial_damage_usd ?? row.taxonomy?.financial_damage_usd ?? 0,
     lifecycle_phase: row.taxonomy?.lifecycle_phase || 'operation_and_monitoring',
     system_classification: row.taxonomy?.system_classification || 'general_purpose_model',
     root_cause_category: row.taxonomy?.root_cause_category || 'governance',

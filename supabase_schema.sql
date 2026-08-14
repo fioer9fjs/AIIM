@@ -16,6 +16,9 @@ CREATE TABLE IF NOT EXISTS incidents (
     -- Data Provider Origin Telemetry (RSS, GDELT, ArXiv, AIID)
     source_type TEXT DEFAULT 'google_news_rss',
     
+    -- Estimated Financial Damage in USD (e.g. 1500000000 = $1.5B)
+    financial_damage_usd NUMERIC DEFAULT 0,
+    
     -- Hybrid JSONB Column for flexible taxonomy metadata (MIT, AIID, CSET, EU AI Act, NatSec)
     taxonomy JSONB NOT NULL DEFAULT '{}'::jsonb,
     
@@ -27,8 +30,9 @@ CREATE TABLE IF NOT EXISTS incidents (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Ensure source_type column exists if table was created previously
+-- Ensure columns exist if table was created previously
 ALTER TABLE incidents ADD COLUMN IF NOT EXISTS source_type TEXT DEFAULT 'google_news_rss';
+ALTER TABLE incidents ADD COLUMN IF NOT EXISTS financial_damage_usd NUMERIC DEFAULT 0;
 
 -- 2. Create Knowledge Graph Edges Table
 CREATE TABLE IF NOT EXISTS edges (
@@ -63,7 +67,7 @@ ALTER TABLE daily_source_stats ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Allow public read access to incidents" ON incidents
     FOR SELECT USING (true);
 
-CREATE POLICY "Allow public read access to edges" ON edges
+CREATE POLICY "Allow public read access to edges" ON incidents
     FOR SELECT USING (true);
 
 CREATE POLICY "Allow public read access to daily_source_stats" ON daily_source_stats
@@ -82,6 +86,7 @@ CREATE POLICY "Allow service role full access to daily_source_stats" ON daily_so
 CREATE INDEX IF NOT EXISTS idx_incidents_date ON incidents(date DESC);
 CREATE INDEX IF NOT EXISTS idx_incidents_severity ON incidents(severity);
 CREATE INDEX IF NOT EXISTS idx_incidents_source_type ON incidents(source_type);
+CREATE INDEX IF NOT EXISTS idx_incidents_financial_damage ON incidents(financial_damage_usd DESC);
 CREATE INDEX IF NOT EXISTS idx_incidents_taxonomy_gin ON incidents USING GIN (taxonomy);
 CREATE INDEX IF NOT EXISTS idx_edges_source ON edges(source_id);
 CREATE INDEX IF NOT EXISTS idx_edges_target ON edges(target_id);
