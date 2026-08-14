@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { AIIncident, formatFinancialDamage } from '../types/incident';
-import { Calendar, FileText, ShieldAlert, DollarSign, Globe, Award, TrendingUp } from 'lucide-react';
+import { Calendar, FileText, ShieldAlert, DollarSign, Globe, Award, TrendingUp, ChevronLeft, ChevronRight, Copy, Check } from 'lucide-react';
 
 interface DailyBriefingViewProps {
   incidents: AIIncident[];
@@ -19,6 +19,21 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
   }, [incidents]);
 
   const [selectedDate, setSelectedDate] = useState<string>(availableDates[0] || '');
+  const [copied, setCopied] = useState<boolean>(false);
+
+  const currentIndex = availableDates.indexOf(selectedDate);
+
+  const handlePrevDate = () => {
+    if (currentIndex < availableDates.length - 1) {
+      setSelectedDate(availableDates[currentIndex + 1]);
+    }
+  };
+
+  const handleNextDate = () => {
+    if (currentIndex > 0) {
+      setSelectedDate(availableDates[currentIndex - 1]);
+    }
+  };
 
   // Incidents for selected date
   const dailyIncidents = useMemo(() => {
@@ -42,9 +57,24 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
     return Array.from(set).slice(0, 5);
   }, [dailyIncidents]);
 
+  // Copy Executive Briefing to Clipboard
+  const handleCopyBriefing = () => {
+    const summaryText = `DAILY AI INCIDENT INTELLIGENCE BRIEFING (${selectedDate})\n` +
+      `Total Incidents Tracked: ${dailyIncidents.length}\n` +
+      `Critical Severity Events: ${criticalCount}\n` +
+      `Estimated Financial Impact: ${formatFinancialDamage(totalDamageUSD)} USD\n` +
+      `Impacted Entities: ${topEntities.join(', ') || 'N/A'}\n\n` +
+      `KEY RISK DRIVERS & EVENTS:\n` +
+      dailyIncidents.map((inc, i) => `${i + 1}. [${inc.severity.toUpperCase()}] ${inc.title}: ${inc.summary}`).join('\n\n');
+
+    navigator.clipboard.writeText(summaryText);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-      {/* Date Switcher Bar */}
+      {/* Date Switcher Bar with Stepper Buttons */}
       <div className="detail-section" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <FileText size={22} style={{ color: 'var(--accent-purple)' }} />
@@ -56,21 +86,53 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
           </div>
         </div>
 
+        {/* Date Stepper Controls */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Calendar size={16} style={{ color: 'var(--accent-cyan)' }} />
-          <label style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Select Date:</label>
-          <select
-            className="filter-select"
-            style={{ width: '160px', padding: '0.4rem 0.75rem', fontWeight: 600 }}
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
+          <button
+            onClick={handlePrevDate}
+            disabled={currentIndex >= availableDates.length - 1}
+            className="button button-outline"
+            style={{ padding: '0.35rem 0.6rem', opacity: currentIndex >= availableDates.length - 1 ? 0.4 : 1 }}
+            title="Previous Day"
           >
-            {availableDates.map((d) => (
-              <option key={d} value={d}>
-                {d}
-              </option>
-            ))}
-          </select>
+            <ChevronLeft size={16} />
+          </button>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+            <Calendar size={15} style={{ color: 'var(--accent-cyan)' }} />
+            <select
+              className="filter-select"
+              style={{ width: '150px', padding: '0.35rem 0.6rem', fontWeight: 600, fontSize: '0.85rem' }}
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+            >
+              {availableDates.map((d) => (
+                <option key={d} value={d}>
+                  {d}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <button
+            onClick={handleNextDate}
+            disabled={currentIndex <= 0}
+            className="button button-outline"
+            style={{ padding: '0.35rem 0.6rem', opacity: currentIndex <= 0 ? 0.4 : 1 }}
+            title="Next Day"
+          >
+            <ChevronRight size={16} />
+          </button>
+
+          {/* Copy Briefing Button */}
+          <button
+            onClick={handleCopyBriefing}
+            className="button button-primary"
+            style={{ marginLeft: '0.5rem', fontSize: '0.8rem', padding: '0.4rem 0.75rem', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}
+          >
+            {copied ? <Check size={14} /> : <Copy size={14} />}
+            {copied ? 'Copied to Clipboard!' : 'Copy Executive Briefing'}
+          </button>
         </div>
       </div>
 
@@ -102,9 +164,11 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
 
       {/* Synthesized Briefing Text Card */}
       <div className="detail-section" style={{ background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.9) 100%)', borderLeft: '4px solid var(--accent-purple)', padding: '1.5rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-          <Award size={18} style={{ color: 'var(--accent-purple)' }} />
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 600 }}>Executive Synthesis — {selectedDate}</h3>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <Award size={18} style={{ color: 'var(--accent-purple)' }} />
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 600 }}>Executive Intelligence Synthesis — {selectedDate}</h3>
+          </div>
         </div>
 
         {dailyIncidents.length === 0 ? (
@@ -141,7 +205,7 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
         ) : (
           <div className="grid-cards">
             {dailyIncidents.map((inc) => (
-              <div key={inc.incident_id} className="incident-card" onClick={() => onSelectIncident(inc)}>
+              <div key={inc.incident_id} className={`incident-card card-${inc.severity}`} onClick={() => onSelectIncident(inc)}>
                 <div className="card-header">
                   <span className={`badge badge-${inc.severity}`}>{inc.severity}</span>
                   <span className={`badge badge-${inc.verification_status}`}>{inc.verification_status}</span>
@@ -149,7 +213,7 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
                     Src: {(inc.source_type || 'google_news_rss').replace(/_/g, ' ')}
                   </span>
                   {inc.financial_damage_usd ? inc.financial_damage_usd > 0 ? (
-                    <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.2)', color: '#34d399', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
+                    <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.2)', color: '#34d399', display: 'inline-flex', alignItems: 'center', gap: '0.2rem', fontWeight: 700 }}>
                       <DollarSign size={12} /> {formatFinancialDamage(inc.financial_damage_usd)}
                     </span>
                   ) : null : null}
@@ -172,7 +236,9 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
                       </span>
                     )}
                   </div>
-                  <span className="details-link">Details →</span>
+                  <span className="details-link" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
+                    Details <ChevronRight size={14} />
+                  </span>
                 </div>
               </div>
             ))}

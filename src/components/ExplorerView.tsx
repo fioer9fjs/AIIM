@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Search, ArrowUpDown, ShieldAlert, Filter, RotateCcw, DollarSign, Globe } from 'lucide-react';
+import { Search, ArrowUpDown, ShieldAlert, Filter, RotateCcw, DollarSign, Globe, ChevronDown, ChevronUp, X, ChevronRight } from 'lucide-react';
 import { AIIncident, formatFinancialDamage } from '../types/incident';
 
 interface ExplorerViewProps {
@@ -27,6 +27,9 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
   const [countryFilter, setCountryFilter] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('date-desc');
 
+  // Toggle for Advanced Taxonomy Accordion in Left Sidebar
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState<boolean>(false);
+
   const uniqueCountries = useMemo(() => {
     const set = new Set<string>();
     incidents.forEach((inc) => {
@@ -50,6 +53,21 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
     setCountryFilter('all');
     setSortBy('date-desc');
   };
+
+  // Active filter chips calculation
+  const activeChips = useMemo(() => {
+    const chips: { label: string; reset: () => void }[] = [];
+    if (search) chips.push({ label: `Search: "${search}"`, reset: () => setSearch('') });
+    if (severityFilter !== 'all') chips.push({ label: `Severity: ${severityFilter}`, reset: () => setSeverityFilter('all') });
+    if (sourceFilter !== 'all') chips.push({ label: `Source: ${sourceFilter.replace(/_/g, ' ')}`, reset: () => setSourceFilter('all') });
+    if (countryFilter !== 'all') chips.push({ label: `Country: ${countryFilter}`, reset: () => setCountryFilter('all') });
+    if (euFilter !== 'all') chips.push({ label: `EU AI Act: ${euFilter.replace(/_/g, ' ')}`, reset: () => setEuFilter('all') });
+    if (intentFilter !== 'all') chips.push({ label: `Intent: ${intentFilter.replace(/_/g, ' ')}`, reset: () => setIntentFilter('all') });
+    if (purposeFilter !== 'all') chips.push({ label: `Purpose: ${purposeFilter.replace(/_/g, ' ')}`, reset: () => setPurposeFilter('all') });
+    if (natsecFilter !== 'all') chips.push({ label: `NatSec: ${natsecFilter}`, reset: () => setNatsecFilter('all') });
+    if (statusFilter !== 'all') chips.push({ label: `Status: ${statusFilter}`, reset: () => setStatusFilter('all') });
+    return chips;
+  }, [search, severityFilter, sourceFilter, countryFilter, euFilter, intentFilter, purposeFilter, natsecFilter, statusFilter]);
 
   const filteredAndSortedIncidents = useMemo(() => {
     const list = incidents.filter((inc) => {
@@ -111,13 +129,14 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
 
   return (
     <div className="explorer-layout">
-      {/* Sticky Left Sidebar Filters */}
+      {/* 2-TIER LEFT SIDEBAR FILTERS */}
       <aside className="filters-sidebar">
         <div className="sidebar-header">
           <Filter size={18} />
           <h3>Filter & Sort Controls</h3>
         </div>
 
+        {/* --- TIER 1: PRIMARY FILTERS (ALWAYS VISIBLE ON LEFT) --- */}
         {/* Search */}
         <div className="filter-group">
           <label>Search Query</label>
@@ -156,9 +175,25 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
           </div>
         </div>
 
+        {/* Severity */}
+        <div className="filter-group">
+          <label>Severity Level</label>
+          <select
+            className="filter-select"
+            value={severityFilter}
+            onChange={(e) => setSeverityFilter(e.target.value)}
+          >
+            <option value="all">All Severities</option>
+            <option value="critical">🔴 Critical Risk</option>
+            <option value="high">🟠 High Risk</option>
+            <option value="medium">🟡 Medium Risk</option>
+            <option value="low">🔵 Low Risk</option>
+          </select>
+        </div>
+
         {/* Source Origin Filter */}
         <div className="filter-group">
-          <label>Data Origin / Provider</label>
+          <label>Data Provider / Source</label>
           <select
             className="filter-select"
             value={sourceFilter}
@@ -187,99 +222,110 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
           </select>
         </div>
 
-        {/* Intent */}
-        <div className="filter-group">
-          <label>Incident Intent</label>
-          <select
-            className="filter-select"
-            value={intentFilter}
-            onChange={(e) => setIntentFilter(e.target.value)}
+        {/* --- TIER 2: ADVANCED REGULATORY TAXONOMY ACCORDION --- */}
+        <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem' }}>
+          <button
+            onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+            style={{
+              width: '100%',
+              background: 'transparent',
+              border: 'none',
+              color: 'var(--accent-cyan)',
+              fontSize: '0.8rem',
+              fontWeight: 600,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              cursor: 'pointer',
+              padding: '0.3rem 0'
+            }}
           >
-            <option value="all">All Intent Types</option>
-            <option value="intentional_misuse">Intentional Misuse</option>
-            <option value="unintentional_failure">Unintentional Failure</option>
-          </select>
-        </div>
+            <span>Advanced Regulatory Taxonomy</span>
+            {showAdvancedFilters ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+          </button>
 
-        {/* EU AI Act Tier */}
-        <div className="filter-group">
-          <label>EU AI Act Classification</label>
-          <select
-            className="filter-select"
-            value={euFilter}
-            onChange={(e) => setEuFilter(e.target.value)}
-          >
-            <option value="all">All EU Risk Tiers</option>
-            <option value="prohibited">Prohibited Risk</option>
-            <option value="high_risk">High Risk</option>
-            <option value="limited_risk">Limited Risk</option>
-            <option value="minimal_risk">Minimal Risk</option>
-          </select>
-        </div>
+          {showAdvancedFilters && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', marginTop: '0.75rem' }}>
+              {/* EU AI Act Tier */}
+              <div className="filter-group">
+                <label>EU AI Act Classification</label>
+                <select
+                  className="filter-select"
+                  value={euFilter}
+                  onChange={(e) => setEuFilter(e.target.value)}
+                >
+                  <option value="all">All EU Risk Tiers</option>
+                  <option value="prohibited">Prohibited Risk</option>
+                  <option value="high_risk">High Risk</option>
+                  <option value="limited_risk">Limited Risk</option>
+                  <option value="minimal_risk">Minimal Risk</option>
+                </select>
+              </div>
 
-        {/* Primary Purpose */}
-        <div className="filter-group">
-          <label>Primary AI Domain / Purpose</label>
-          <select
-            className="filter-select"
-            value={purposeFilter}
-            onChange={(e) => setPurposeFilter(e.target.value)}
-          >
-            <option value="all">All System Purposes</option>
-            <option value="generative_content">Generative Content</option>
-            <option value="autonomous_mobility">Autonomous Mobility</option>
-            <option value="biometric_surveillance">Biometric Surveillance</option>
-            <option value="financial_fintech">Financial & Fintech</option>
-            <option value="healthcare_medical">Healthcare & Medical</option>
-            <option value="recruitment_hr">Recruitment & HR</option>
-            <option value="defense_national_security">Defense & NatSec</option>
-            <option value="other">Other Domain</option>
-          </select>
-        </div>
+              {/* Intent */}
+              <div className="filter-group">
+                <label>Incident Intent</label>
+                <select
+                  className="filter-select"
+                  value={intentFilter}
+                  onChange={(e) => setIntentFilter(e.target.value)}
+                >
+                  <option value="all">All Intent Types</option>
+                  <option value="intentional_misuse">Intentional Misuse</option>
+                  <option value="unintentional_failure">Unintentional Failure</option>
+                </select>
+              </div>
 
-        {/* NatSec Impact */}
-        <div className="filter-group">
-          <label>NatSec Impact</label>
-          <select
-            className="filter-select"
-            value={natsecFilter}
-            onChange={(e) => setNatsecFilter(e.target.value)}
-          >
-            <option value="all">All NatSec Statuses</option>
-            <option value="yes">NatSec Impact: Yes</option>
-            <option value="no">NatSec Impact: No</option>
-          </select>
-        </div>
+              {/* Primary Purpose */}
+              <div className="filter-group">
+                <label>Primary System Purpose</label>
+                <select
+                  className="filter-select"
+                  value={purposeFilter}
+                  onChange={(e) => setPurposeFilter(e.target.value)}
+                >
+                  <option value="all">All System Purposes</option>
+                  <option value="generative_content">Generative Content</option>
+                  <option value="autonomous_mobility">Autonomous Mobility</option>
+                  <option value="biometric_surveillance">Biometric Surveillance</option>
+                  <option value="financial_fintech">Financial & Fintech</option>
+                  <option value="healthcare_medical">Healthcare & Medical</option>
+                  <option value="recruitment_hr">Recruitment & HR</option>
+                  <option value="defense_national_security">Defense & NatSec</option>
+                  <option value="other">Other Domain</option>
+                </select>
+              </div>
 
-        {/* Severity */}
-        <div className="filter-group">
-          <label>Severity Level</label>
-          <select
-            className="filter-select"
-            value={severityFilter}
-            onChange={(e) => setSeverityFilter(e.target.value)}
-          >
-            <option value="all">All Severities</option>
-            <option value="critical">Critical</option>
-            <option value="high">High</option>
-            <option value="medium">Medium</option>
-            <option value="low">Low</option>
-          </select>
-        </div>
+              {/* NatSec Impact */}
+              <div className="filter-group">
+                <label>NatSec Impact</label>
+                <select
+                  className="filter-select"
+                  value={natsecFilter}
+                  onChange={(e) => setNatsecFilter(e.target.value)}
+                >
+                  <option value="all">All NatSec Statuses</option>
+                  <option value="yes">NatSec Impact: Yes</option>
+                  <option value="no">NatSec Impact: No</option>
+                </select>
+              </div>
 
-        {/* Status */}
-        <div className="filter-group">
-          <label>Verification Status</label>
-          <select
-            className="filter-select"
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-          >
-            <option value="all">All Statuses</option>
-            <option value="confirmed">Confirmed</option>
-            <option value="alleged">Alleged</option>
-            <option value="disputed">Disputed</option>
-          </select>
+              {/* Status */}
+              <div className="filter-group">
+                <label>Verification Status</label>
+                <select
+                  className="filter-select"
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                >
+                  <option value="all">All Statuses</option>
+                  <option value="confirmed">Confirmed</option>
+                  <option value="alleged">Alleged</option>
+                  <option value="disputed">Disputed</option>
+                </select>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Reset Button */}
@@ -300,18 +346,36 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
         </button>
       </aside>
 
-      {/* Main Content Area */}
+      {/* MAIN CONTENT AREA */}
       <section className="explorer-content">
+        {/* Active Filter Chips Bar */}
+        {activeChips.length > 0 && (
+          <div className="active-chips-container">
+            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>Active Filters:</span>
+            {activeChips.map((chip, idx) => (
+              <span key={idx} className="active-chip" onClick={chip.reset}>
+                {chip.label} <X size={12} />
+              </span>
+            ))}
+            <button
+              onClick={handleResetFilters}
+              style={{ background: 'none', border: 'none', color: '#fca5a5', fontSize: '0.75rem', cursor: 'pointer', marginLeft: 'auto', textDecoration: 'underline' }}
+            >
+              Clear All
+            </button>
+          </div>
+        )}
+
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
           <span>
             Showing <strong style={{ color: 'var(--accent-cyan)' }}>{filteredAndSortedIncidents.length}</strong> of {incidents.length} AI Incidents
           </span>
         </div>
 
-        {/* Grid of Incidents */}
+        {/* Grid of Incidents with Left Border Severity Accents */}
         <div className="grid-cards">
           {filteredAndSortedIncidents.map((inc) => (
-            <div key={inc.incident_id} className="incident-card" onClick={() => onSelectIncident(inc)}>
+            <div key={inc.incident_id} className={`incident-card card-${inc.severity}`} onClick={() => onSelectIncident(inc)}>
               <div className="card-header">
                 <span className={`badge badge-${inc.severity}`}>{inc.severity}</span>
                 <span className={`badge badge-${inc.verification_status}`}>{inc.verification_status}</span>
@@ -319,7 +383,7 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
                   Src: {(inc.source_type || 'google_news_rss').replace(/_/g, ' ')}
                 </span>
                 {inc.financial_damage_usd ? inc.financial_damage_usd > 0 ? (
-                  <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.2)', color: '#34d399', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
+                  <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.2)', color: '#34d399', display: 'inline-flex', alignItems: 'center', gap: '0.2rem', fontWeight: 700 }}>
                     <DollarSign size={12} /> {formatFinancialDamage(inc.financial_damage_usd)}
                   </span>
                 ) : null : null}
@@ -350,7 +414,9 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
                     <span>• {inc.affected_parties[0]}</span>
                   )}
                 </div>
-                <span className="details-link">Details →</span>
+                <span className="details-link" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
+                  Details <ChevronRight size={14} />
+                </span>
               </div>
             </div>
           ))}

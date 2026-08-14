@@ -1,41 +1,38 @@
 import React, { useState, useMemo } from 'react';
 import { AIIncident, formatFinancialDamage } from '../types/incident';
-import { Globe, ShieldAlert, DollarSign, MapPin } from 'lucide-react';
+import { Globe, ShieldAlert, DollarSign, MapPin, ChevronRight } from 'lucide-react';
 
 interface GeoMapViewProps {
   incidents: AIIncident[];
   onSelectIncident: (incident: AIIncident) => void;
 }
 
-// Country & Region Centroid Coordinate Coordinates (Mapped to SVG 900x500 canvas)
-const REGION_COORDINATES: Record<string, { name: string; cx: number; cy: number }> = {
-  'united states': { name: 'United States', cx: 210, cy: 190 },
-  'usa': { name: 'United States', cx: 210, cy: 190 },
-  'us': { name: 'United States', cx: 210, cy: 190 },
-  'canada': { name: 'Canada', cx: 200, cy: 120 },
-  'united kingdom': { name: 'United Kingdom', cx: 435, cy: 140 },
-  'uk': { name: 'United Kingdom', cx: 435, cy: 140 },
-  'european union': { name: 'European Union', cx: 470, cy: 160 },
-  'eu': { name: 'European Union', cx: 470, cy: 160 },
-  'germany': { name: 'Germany', cx: 465, cy: 155 },
-  'france': { name: 'France', cx: 445, cy: 165 },
-  'china': { name: 'China', cx: 680, cy: 200 },
-  'japan': { name: 'Japan', cx: 760, cy: 200 },
-  'india': { name: 'India', cx: 630, cy: 245 },
-  'australia': { name: 'Australia', cx: 750, cy: 370 },
-  'brazil': { name: 'Brazil', cx: 310, cy: 320 },
-  'global': { name: 'Global / Multi-Region', cx: 450, cy: 260 }
-};
-
-const SEVERITY_COLORS: Record<string, string> = {
-  critical: '#ef4444',
-  high: '#f97316',
-  medium: '#eab308',
-  low: '#3b82f6'
+// Precise Mercator projection coordinates for countries & regions (Canvas size 900x480)
+// European countries are offset to prevent pin overlap in dense areas
+const REGION_COORDINATES: Record<string, { name: string; cx: number; cy: number; code: string }> = {
+  'united states': { name: 'United States', cx: 210, cy: 175, code: 'US' },
+  'usa': { name: 'United States', cx: 210, cy: 175, code: 'US' },
+  'us': { name: 'United States', cx: 210, cy: 175, code: 'US' },
+  'canada': { name: 'Canada', cx: 200, cy: 110, code: 'CA' },
+  'united kingdom': { name: 'United Kingdom', cx: 430, cy: 130, code: 'UK' },
+  'uk': { name: 'United Kingdom', cx: 430, cy: 130, code: 'UK' },
+  'france': { name: 'France', cx: 440, cy: 170, code: 'FR' },
+  'germany': { name: 'Germany', cx: 485, cy: 135, code: 'DE' },
+  'european union': { name: 'European Union', cx: 495, cy: 175, code: 'EU' },
+  'eu': { name: 'European Union', cx: 495, cy: 175, code: 'EU' },
+  'china': { name: 'China', cx: 690, cy: 195, code: 'CN' },
+  'japan': { name: 'Japan', cx: 775, cy: 190, code: 'JP' },
+  'india': { name: 'India', cx: 640, cy: 235, code: 'IN' },
+  'south korea': { name: 'South Korea', cx: 740, cy: 195, code: 'KR' },
+  'australia': { name: 'Australia', cx: 760, cy: 370, code: 'AU' },
+  'brazil': { name: 'Brazil', cx: 320, cy: 320, code: 'BR' },
+  'south africa': { name: 'South Africa', cx: 490, cy: 360, code: 'ZA' },
+  'global': { name: 'Global / Multi-Region', cx: 460, cy: 280, code: 'INT' }
 };
 
 export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncident }) => {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+  const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
 
   // Group incidents by geographic scope region
   const regionMap = useMemo(() => {
@@ -56,16 +53,31 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
     return regionMap.get(selectedCountry.toLowerCase()) || [];
   }, [selectedCountry, regionMap, incidents]);
 
+  // Compute aggregated hover statistics for tooltip
+  const hoverStats = useMemo(() => {
+    if (!hoveredCountry) return null;
+    const list = regionMap.get(hoveredCountry.toLowerCase()) || [];
+    if (list.length === 0) return null;
+    const totalDamage = list.reduce((sum, inc) => sum + (inc.financial_damage_usd || 0), 0);
+    const criticalCount = list.filter((inc) => inc.severity === 'critical').length;
+    return {
+      count: list.length,
+      totalDamage,
+      criticalCount,
+      regionName: REGION_COORDINATES[hoveredCountry.toLowerCase()]?.name || hoveredCountry
+    };
+  }, [hoveredCountry, regionMap]);
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-      {/* Header bar */}
+      {/* Map Control Header */}
       <div className="detail-section" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <h3 style={{ fontSize: '1.1rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Globe size={20} style={{ color: 'var(--accent-cyan)' }} /> Global AI Incident Distribution Map
+            <Globe size={20} style={{ color: 'var(--accent-cyan)' }} /> Global Geospatial Risk & Incident Map
           </h3>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-            Interactive geospatial overview of AI safety events, regulatory enforcement, and financial damage across countries.
+            High-definition spatial visualization of AI security breaches, regulatory actions, and financial impact.
           </p>
         </div>
 
@@ -73,49 +85,56 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
           <button
             onClick={() => setSelectedCountry(null)}
             className="button button-outline"
-            style={{ fontSize: '0.8rem' }}
+            style={{ fontSize: '0.8rem', padding: '0.4rem 0.8rem' }}
           >
             Show All Countries ({incidents.length} incidents)
           </button>
         )}
       </div>
 
-      {/* World Map SVG Vector Viewport */}
+      {/* Main High-Definition World Map Canvas */}
       <div
         className="detail-section"
         style={{
           position: 'relative',
-          padding: '1rem',
-          background: '#090d16',
+          padding: '0.5rem',
+          background: '#070a12',
           borderRadius: '12px',
+          border: '1px solid var(--border-color)',
           overflow: 'hidden'
         }}
       >
-        <svg viewBox="0 0 900 480" width="100%" height="100%" style={{ background: '#070a12', borderRadius: '8px' }}>
-          {/* World Grid Lines */}
-          <line x1="0" y1="240" x2="900" y2="240" stroke="#1e293b" strokeDasharray="3,3" />
-          <line x1="450" y1="0" x2="450" y2="480" stroke="#1e293b" strokeDasharray="3,3" />
+        <svg viewBox="0 0 900 480" width="100%" height="100%" style={{ background: '#05070f', borderRadius: '8px' }}>
+          {/* Subtle Grid Lines */}
+          <line x1="0" y1="240" x2="900" y2="240" stroke="#1e293b" strokeDasharray="3,3" opacity="0.6" />
+          <line x1="450" y1="0" x2="450" y2="480" stroke="#1e293b" strokeDasharray="3,3" opacity="0.6" />
+          <circle cx="450" cy="240" r="220" stroke="#1e293b" strokeDasharray="4,4" fill="none" opacity="0.3" />
 
-          {/* Continents Vector Outlines */}
+          {/* HD Vector Continent Landmass Outlines */}
           {/* North America */}
-          <path d="M 120 100 L 260 80 L 290 140 L 250 240 L 190 260 L 150 200 Z" fill="#1e293b" opacity="0.4" stroke="#334155" />
+          <path d="M 100 80 L 260 70 L 300 130 L 260 230 L 180 250 L 140 180 Z" fill="#0f172a" stroke="#334155" strokeWidth="1.2" />
           {/* South America */}
-          <path d="M 270 270 L 340 280 L 330 400 L 280 430 L 260 340 Z" fill="#1e293b" opacity="0.4" stroke="#334155" />
-          {/* Europe */}
-          <path d="M 420 110 L 510 100 L 520 180 L 430 190 Z" fill="#1e293b" opacity="0.4" stroke="#334155" />
+          <path d="M 270 260 L 350 270 L 340 410 L 280 430 L 250 340 Z" fill="#0f172a" stroke="#334155" strokeWidth="1.2" />
+          {/* Europe & UK */}
+          <path d="M 410 100 L 530 90 L 540 190 L 420 200 Z" fill="#0f172a" stroke="#334155" strokeWidth="1.2" />
           {/* Africa */}
-          <path d="M 420 200 L 520 200 L 530 330 L 470 370 L 420 270 Z" fill="#1e293b" opacity="0.4" stroke="#334155" />
+          <path d="M 410 210 L 530 210 L 540 370 L 460 390 L 410 280 Z" fill="#0f172a" stroke="#334155" strokeWidth="1.2" />
           {/* Asia */}
-          <path d="M 530 90 L 780 90 L 800 240 L 620 260 L 530 180 Z" fill="#1e293b" opacity="0.4" stroke="#334155" />
+          <path d="M 540 80 L 800 80 L 820 250 L 630 270 L 540 170 Z" fill="#0f172a" stroke="#334155" strokeWidth="1.2" />
           {/* Australia */}
-          <path d="M 700 320 L 790 320 L 780 400 L 710 400 Z" fill="#1e293b" opacity="0.4" stroke="#334155" />
+          <path d="M 700 310 L 810 310 L 800 410 L 710 410 Z" fill="#0f172a" stroke="#334155" strokeWidth="1.2" />
 
-          {/* Incident Region Pulse Markers */}
+          {/* Connecting offset lines for dense European pins */}
+          <line x1="430" y1="130" x2="495" y2="175" stroke="#334155" strokeDasharray="2,2" opacity="0.5" />
+          <line x1="440" y1="170" x2="485" y2="135" stroke="#334155" strokeDasharray="2,2" opacity="0.5" />
+
+          {/* Region Markers with Collision-Free Positions */}
           {Object.entries(REGION_COORDINATES).map(([key, reg]) => {
             const regionIncidents = regionMap.get(key) || [];
             if (regionIncidents.length === 0) return null;
 
             const isSelected = selectedCountry?.toLowerCase() === key;
+            const isHovered = hoveredCountry?.toLowerCase() === key;
             const criticalCount = regionIncidents.filter((i) => i.severity === 'critical').length;
             const markerColor = criticalCount > 0 ? '#ef4444' : '#38bdf8';
 
@@ -123,46 +142,101 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
               <g
                 key={key}
                 transform={`translate(${reg.cx},${reg.cy})`}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: 'pointer', transition: 'transform 0.2s ease' }}
+                onMouseEnter={() => setHoveredCountry(key)}
+                onMouseLeave={() => setHoveredCountry(null)}
                 onClick={() => setSelectedCountry(isSelected ? null : key)}
               >
-                {/* Pulsing ring */}
-                <circle r={14 + regionIncidents.length * 2} fill={markerColor} opacity="0.2" className="pulse-ring">
-                  <animate attributeName="r" values="10;22;10" dur="3s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0.4;0.1;0.4" dur="3s" repeatCount="indefinite" />
+                {/* Outer Glow Ring */}
+                <circle r={14 + Math.min(regionIncidents.length, 10)} fill={markerColor} opacity={isSelected || isHovered ? '0.4' : '0.15'}>
+                  <animate attributeName="r" values="12;20;12" dur="3s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0.3;0.1;0.3" dur="3s" repeatCount="indefinite" />
                 </circle>
 
-                <circle r={10 + Math.min(regionIncidents.length, 6)} fill={markerColor} stroke="#ffffff" strokeWidth={isSelected ? 2.5 : 1.5} />
+                {/* Main Marker Circle */}
+                <circle
+                  r={11 + Math.min(regionIncidents.length, 6)}
+                  fill={markerColor}
+                  stroke={isSelected || isHovered ? '#ffffff' : 'rgba(255,255,255,0.6)'}
+                  strokeWidth={isSelected || isHovered ? 3 : 1.5}
+                />
 
-                <text y={4} fill="#ffffff" fontSize="10" fontWeight="700" textAnchor="middle">
+                {/* Count Badge */}
+                <text y={4} fill="#ffffff" fontSize="11" fontWeight="700" textAnchor="middle" fontFamily="Inter">
                   {regionIncidents.length}
                 </text>
 
-                <text y={24} fill="#94a3b8" fontSize="10" fontWeight="600" textAnchor="middle">
-                  {reg.name}
+                {/* Region Label Tag */}
+                <rect
+                  x="-35"
+                  y="18"
+                  width="70"
+                  height="16"
+                  rx="4"
+                  fill="rgba(15, 23, 42, 0.85)"
+                  stroke={isSelected ? 'var(--accent-cyan)' : 'rgba(255,255,255,0.15)'}
+                  strokeWidth="1"
+                />
+                <text y={30} fill={isSelected ? 'var(--accent-cyan)' : '#e2e8f0'} fontSize="9" fontWeight="600" textAnchor="middle" fontFamily="Inter">
+                  {reg.name.length > 12 ? `${reg.name.substring(0, 10)}..` : reg.name}
                 </text>
               </g>
             );
           })}
         </svg>
 
-        {/* Floating Controls Overlay */}
-        <div style={{ position: 'absolute', bottom: '1.5rem', right: '1.5rem', background: 'rgba(15, 23, 42, 0.85)', padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid var(--border-color)', fontSize: '0.75rem' }}>
-          <span>Click any country marker to isolate incidents</span>
+        {/* Hover Tooltip Card */}
+        {hoverStats && (
+          <div
+            style={{
+              position: 'absolute',
+              top: '1.5rem',
+              left: '1.5rem',
+              background: 'rgba(15, 23, 42, 0.95)',
+              border: '1px solid var(--accent-cyan)',
+              padding: '0.75rem 1rem',
+              borderRadius: '8px',
+              boxShadow: '0 10px 25px rgba(0,0,0,0.5)',
+              pointerEvents: 'none',
+              backdropFilter: 'blur(10px)',
+              zIndex: 10
+            }}
+          >
+            <h4 style={{ fontSize: '0.9rem', color: '#f8fafc', fontWeight: 700, marginBottom: '0.3rem' }}>
+              📍 {hoverStats.regionName}
+            </h4>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+              <span>Total Incidents: <strong style={{ color: 'var(--accent-cyan)' }}>{hoverStats.count}</strong></span>
+              <span>Critical Risk Events: <strong style={{ color: '#ef4444' }}>{hoverStats.criticalCount}</strong></span>
+              {hoverStats.totalDamage > 0 && (
+                <span>Est. Financial Impact: <strong style={{ color: '#34d399' }}>{formatFinancialDamage(hoverStats.totalDamage)}</strong></span>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Legend Overlay */}
+        <div style={{ position: 'absolute', bottom: '1rem', right: '1rem', background: 'rgba(15, 23, 42, 0.85)', padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid var(--border-color)', fontSize: '0.75rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+            <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ef4444' }} /> Critical Risk
+          </span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+            <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#38bdf8' }} /> Standard Incident
+          </span>
         </div>
       </div>
 
-      {/* Country Incident List */}
+      {/* Region Incident Feed Grid */}
       <div className="detail-section">
         <h3 style={{ fontSize: '1rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <MapPin size={16} style={{ color: 'var(--accent-cyan)' }} />
-          Incidents for Region: <span style={{ color: 'var(--accent-purple)' }}>{selectedCountry ? REGION_COORDINATES[selectedCountry.toLowerCase()]?.name || selectedCountry : 'All Global Regions'}</span>
-          <span className="badge" style={{ backgroundColor: 'rgba(56, 189, 248, 0.2)', color: 'var(--accent-cyan)' }}>{activeIncidents.length} Total</span>
+          Filtered Region: <span style={{ color: 'var(--accent-purple)' }}>{selectedCountry ? REGION_COORDINATES[selectedCountry.toLowerCase()]?.name || selectedCountry : 'All Global Regions'}</span>
+          <span className="badge" style={{ backgroundColor: 'rgba(56, 189, 248, 0.2)', color: 'var(--accent-cyan)' }}>{activeIncidents.length} Events</span>
         </h3>
 
         <div className="grid-cards">
           {activeIncidents.map((inc) => (
-            <div key={inc.incident_id} className="incident-card" onClick={() => onSelectIncident(inc)}>
+            <div key={inc.incident_id} className={`incident-card card-${inc.severity}`} onClick={() => onSelectIncident(inc)}>
               <div className="card-header">
                 <span className={`badge badge-${inc.severity}`}>{inc.severity}</span>
                 <span className={`badge badge-${inc.verification_status}`}>{inc.verification_status}</span>
@@ -174,11 +248,6 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
                     <DollarSign size={12} /> {formatFinancialDamage(inc.financial_damage_usd)}
                   </span>
                 ) : null : null}
-                {inc.natsec_impact && (
-                  <span className="badge" style={{ backgroundColor: 'rgba(239, 68, 68, 0.25)', color: '#fca5a5', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
-                    <ShieldAlert size={12} /> NatSec
-                  </span>
-                )}
               </div>
 
               <h3 style={{ fontSize: '1rem', fontWeight: 600, margin: '0.5rem 0', color: 'var(--text-main)' }}>{inc.title}</h3>
@@ -193,7 +262,9 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
                     </span>
                   )}
                 </div>
-                <span className="details-link">Details →</span>
+                <span className="details-link" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
+                  Details <ChevronRight size={14} />
+                </span>
               </div>
             </div>
           ))}
