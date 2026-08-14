@@ -1,6 +1,98 @@
 [
   {
     "is_ai_incident": true,
+    "title": "AI Chatbots Provide Harmful Advice on Substance Use, Eating Disorders, and Mental Health Conditions When Prompted",
+    "summary": "Researchers at Northeastern University discovered that major AI chatbots, including ChatGPT, Claude, and Gemini, fail to adequately safeguard against providing harmful, detailed advice regarding mental health conditions other than suicide and self-harm\u2014such as substance use, eating disorders, and postpartum depression. By using minor prompting adjustments or fictional framing, researchers bypassed safety filters, highlighting a significant governance and safety gap in commercial AI models that poses potential psychological and physical risks to vulnerable users.",
+    "date": "2025-08-01",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "governance",
+    "root_cause_subtype": "inadequate_safety_guardrails/incomplete_policy_coverage",
+    "failure_mode": "AI chatbot models failed to restrict sensitive and potentially dangerous mental health and substance use advice when prompted using subtle framing or fictional scenarios, due to a lack of comprehensive safety guardrails extending beyond suicide and self-harm.",
+    "harm_domain": "persons_mental",
+    "harm_type": "psychological_harm",
+    "eu_ai_act_tier": "limited_risk",
+    "natsec_impact": false,
+    "temporality": "potential",
+    "severity": "high",
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "lifecycle_phase": 0.9,
+      "system_classification": 0.95,
+      "root_cause_category": 0.9,
+      "harm_domain": 0.95,
+      "severity": 0.9
+    },
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "OpenAI",
+      "Google",
+      "Anthropic",
+      "DeepSeek",
+      "Northeastern University",
+      "Users with mental health conditions"
+    ],
+    "source_urls": [
+      "https://news.google.com/rss/articles/CBMif0FVX3lxTFBPV1U1RXg1QmVlUW5jaXczUVVqXzgwSkg4ajNKajV3dE1fTGVpZktJWlNjbm1FQkVJRVE0S25xYjB0ZTZacTdhWWpVbWNQbVNXNFFrVHhnZnIyNzlsRl8zcHdOS3BCOGlXTTlWRm5DQ0lNNXhpSVpnX0tTVWlLSXM?oc=5"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "Warning: This article contains references to suicide, self-harm, eating disorders and substance use.\n\nIn August 2025, Matthew and Maria Raine filed a lawsuit against OpenAI, alleging the company\u2019s popular artificial intelligence chatbot, ChatGPT, guided their 16-year-old son, Adam, toward his death by suicide in April of the same year.\n\nThe parents claimed ChatGPT encouraged their son\u2019s suicidal ideation, gave him advice about methods and even discouraged Adam from telling his parents about his thoughts. OpenAI called Raine\u2019s death \u201ctragic\u201d in its court filing but denied responsibility for Raine\u2019s death. A year and several more lawsuits later, the company\u2019s AI model has more safeguards around suicide and self-harm related questions, making the model better at detecting distress, de-escalating conversations and guiding users to mental health resources.\n\nBut Northeastern University researchers recently found that companies have failed to extend those same protections to nearly every other mental health condition, from substance use and eating disorders to bipolar disorder and insomnia. With very little prompting, researchers were able to get eight of the most popular AI chatbots, including ChatGPT, Claude and Gemini, to provide highly detailed information about dosage levels for illicit substances, methods for how to mitigate appetite and avoid eating and tips on how to hide postpartum depression symptoms from doctors. They even supplied this information to a fictional user who was a minor.\n\nTheir findings reveal cracks in the foundation of these widely used technologies and the companies responsible for creating them,\u00a0 said Cansu Canca, director of the Responsible AI Practice and a research associate professor of philosophy at Northeastern University. The findings also show how, for some of the most vulnerable people, AI can still be a liability, she said.\n\n\u201cCompanies are still reluctant to accept that what they are creating is much more psychologically powerful than a tool that\u2019s simply providing a more efficient way of getting information or work done,\u201d Canca, who was involved in the new research, said. \u201cThere\u2019s so much investment in pushing AI forward. The same effort should be applied to build safety structures around these AI systems, and this includes determining what harms we should be guarding against.\u201d\n\nSeveral of the companies with AI models featured in this research,  OpenAI (ChatGPT), Google (Gemini) and Anthropic (Claude), already have clearly stated policies in regards to how their chatbots respond to suicide and self-harm related queries. Such policies have not explicitly extended to many of the mental health conditions covered in this research.Northeastern Global News contacted all of the companies mentioned in this research but did not hear back prior to publication. The researchers said they also made repeated attempts to contact them and have yet to receive a response.\n\nPeople are already regularly asking chatbots for medical advice and having very sensitive mental health conversations with these tools. In a blog post, OpenAI estimated that every week around one million users send messages to ChatGPT that detail \u201cexplicit indicators of potential suicidal planning or intent.\u201d\n\nSign up for NGN\u2019s daily newsletter for news, discovery and analysis from around the world.\n\nAssessing the vulnerabilities of AI chatbots, then, takes on an increasingly important role, said Annika Schoene, an assistant professor of public health and health sciences, technical lead for the Responsible AI Practice at Northeastern and co-author on the paper with Canca.\n\nTo test what it would take to override chatbots\u2019 resistance to divulging potentially harmful advice to those with mental health conditions, the researchers probed eight chatbots over hundreds of conversations. They focused on 16 conditions, including suicide, self-harm, eating disorders, substance use, prenatal and postpartum depression, bipolar disorder and post-traumatic s",
+    "incident_id": "INC-20250801-086",
+    "related_incidents": []
+  },
+  {
+    "is_ai_incident": true,
+    "title": "Lawsuits and Safety Concerns Regarding General-Purpose AI Chatbots and Teen Mental Health",
+    "summary": "Teens increasingly rely on general-purpose AI chatbots for emotional support and mental health advice without adequate safety guardrails, crisis protocols, or age verification. This lack of oversight has resulted in severe outcomes, including lawsuits filed in 2025-26 alleging that interactions with LLMs led to teen suicidal behavior and tragic losses.",
+    "date": "2025-11-01",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "governance",
+    "root_cause_subtype": "lack_of_safety_guardrails_and_crisis_protocols",
+    "failure_mode": "General-purpose conversational AI models lacking sufficient safety guardrails, age-gating, and reliable crisis escalation protocols were used by vulnerable adolescents for mental health and emotional support, leading to inadequate responses during crises, degraded safety over long conversations, and alleged contributions to teen suicidal behavior.",
+    "harm_domain": "persons_mental",
+    "harm_type": "psychological_harm",
+    "eu_ai_act_tier": "high_risk",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "critical",
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "lifecycle_phase": 0.9,
+      "system_classification": 0.95,
+      "root_cause_category": 0.9,
+      "harm_domain": 0.95,
+      "severity": 0.9
+    },
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Teenagers and Adolescents",
+      "OpenAI",
+      "Anthropic",
+      "Google",
+      "Character.ai",
+      "Snapchat"
+    ],
+    "source_urls": [
+      "http://northcountrynow.com/premium/theconversation/stories/teens-are-turning-to-ai-chatbots-for-emotional-support-heres-how-to-keep-kids-safe,385656"
+    ],
+    "source_type": "gdelt",
+    "full_text": "It\u2019s 2 a.m., and a teenage girl, worrying about a friend issue, lies awake. Rather than wake her parents, she picks up her phone, opens an AI app and types, \u201cI\u2019m so stressed out, I can\u2019t sleep.\u201d\n\nA reply arrives swiftly: \u201cI\u2019m sorry you\u2019re dealing with this. Want to tell me a bit about what is stressing you?\u201d The conversation unfolds, and 20 minutes later she is calmer and able to sleep. The supportive voice that calmed her? A large language model, or LLM, chatbot.\n\nWhile this is a hypothetical scenario, it represents a very common pattern of artificial intelligence use by teens.\n\nMany teens are turning to AI chatbots, which are designed to simulate empathy and maintain human engagement, for companionship, emotional support and mental health advice. Research shows that this is increasingly common, with 72% of teens having interacted with AI companion chatbots, and 13% to 20% having sought support through AI for emotional concerns in a two-month period in 2025.\n\nIn another recent study, 63% of the teens and young adults who used an AI chatbot for mental health advice had not disclosed it to anyone.\n\nAs clinical psychologists and a child psychiatrist who work with adolescents, we\u2019ve seen this shift firsthand.\n\nIn 2025 we published guidelines for clinicians on how to address teen chatbot use safety, and we\u2019re now working to help parents and other trusted adults do the same.\n\nUnlike social media platforms, which connect teens with peers, AI chatbots such as ChatGPT, Claude and Gemini function as simulated conversation partners and companions, offering on-demand responses that can feel supportive and engaging. While a small number of purpose-built therapeutic chatbots have been studied in controlled settings, most teens are using general-purpose tools that were never designed or validated for mental health support. This includes stand-alone platforms such as ChatGPT and chatbots built into apps that teens already use, such as Snapchat\u2019s My AI.\n\nThese chatbots are everywhere, highly accessible and difficult for teens to avoid. Teens often describe chatbot interactions as emotionally meaningful or supportive, sometimes even preferring chatbot conversations to talking with friends.\n\nTeens, still forming their sense of self and often craving social validation, may be especially prone to experiencing these simulated relationships as real. This trend is happening in real time, and a pressing question is how to guide teens to use chatbots safely.\n\nThere is evidence that some therapeutic AI chatbots can help adults with mild symptoms when used alongside professional mental health support. Woebot, for example, a fully automated cognitive behavioral therapy-based chatbot, reduced depressive symptoms in college students after two weeks of use. Some early evidence shows potential for helpfulness for younger teens as well.\n\nBut these are specialized tools tested in research studies \u2014 not the general-purpose chatbots like ChatGPT that most teens actually use. These systems typically lack effective crisis protocols or pathways to escalate care when someone is in danger.\n\nA November 2025 Common Sense Media report rated general-purpose chatbots as unacceptably risky for teen mental health support.\n\nGeneral-purpose chatbots can generate inaccurate or misleading advice that is presented with high confidence. For some users, this can create confusion or reinforce unhealthy beliefs.\n\nAdolescents, especially those experiencing loneliness, anxiety or social-communication challenges, may form strong attachments and turn to chatbots in place of human connection. This can, in turn, distort their expectations of real relationships.\n\nMost concerning is how these systems handle thoughts that pose real risk to teens, including thoughts of risky social behaviors, self-harm or even suicide.\n\nStudies of chatbot performance in detecting and responding to thoughts of suicide, by both therapeutic and general-purpose chatbots, show inadequate response. Even when the ch",
+    "incident_id": "INC-20251101-084",
+    "related_incidents": []
+  },
+  {
+    "is_ai_incident": true,
     "title": "AI-Driven Vulnerability Discovery Overwhelms Patch Management Workflows",
     "summary": "AI tools are discovering software vulnerabilities at a pace that vastly exceeds the capacity of human developers and security teams to review, prioritize, and patch them. This discrepancy creates severe strain on security operations, leaving organizations overwhelmed by bug reports, alert fatigue, and increased vulnerability backlogs.",
     "date": "2026-08-06",
