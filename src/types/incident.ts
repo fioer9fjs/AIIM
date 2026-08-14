@@ -65,6 +65,14 @@ export type HarmType =
 
 export type EUAIActTier = 'prohibited' | 'high_risk' | 'limited_risk' | 'minimal_risk';
 
+export type NISTAIRMFFunction = 'GOVERN' | 'MAP' | 'MEASURE' | 'MANAGE';
+
+export type ISO42001Category =
+  | 'Internal_Governance'
+  | 'Data_&_Resources'
+  | 'System_Impact'
+  | 'Operational_Security';
+
 export interface ConfidenceScores {
   verification_status: number;
   lifecycle_phase: number;
@@ -102,6 +110,10 @@ export interface AIIncident {
   harm_type?: HarmType;
   eu_ai_act_tier?: EUAIActTier;
   natsec_impact?: boolean;
+
+  // Enterprise Compliance Frameworks
+  nist_ai_rmf_function?: NISTAIRMFFunction;
+  iso_42001_category?: ISO42001Category;
 
   confidence_scores: ConfidenceScores;
   geographic_scope: string[];

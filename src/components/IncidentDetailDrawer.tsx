@@ -137,6 +137,14 @@ export const IncidentDetailDrawer: React.FC<IncidentDetailDrawerProps> = ({
                 <p style={{ fontWeight: 500 }}>{incident.system_classification?.replace(/_/g, ' ')}</p>
               </div>
               <div>
+                <span style={{ color: 'var(--text-muted)' }}>NIST AI RMF 1.0 Function:</span>
+                <p style={{ fontWeight: 600, color: 'var(--accent-cyan)' }}>{incident.nist_ai_rmf_function || (incident as any).taxonomy?.nist_ai_rmf_function || 'MAP'}</p>
+              </div>
+              <div>
+                <span style={{ color: 'var(--text-muted)' }}>ISO/IEC 42001 Category:</span>
+                <p style={{ fontWeight: 600, color: 'var(--accent-purple)' }}>{(incident.iso_42001_category || (incident as any).taxonomy?.iso_42001_category || 'System_Impact').replace(/_/g, ' ')}</p>
+              </div>
+              <div>
                 <span style={{ color: 'var(--text-muted)' }}>Intent:</span>
                 <p style={{ fontWeight: 500 }}>{incident.intent?.replace(/_/g, ' ') || 'N/A'}</p>
               </div>

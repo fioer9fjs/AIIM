@@ -61,6 +61,8 @@ Return ONLY a valid JSON object matching this exact schema:
   "harm_type": "discrimination_bias" | "privacy_breach" | "physical_safety" | "misinformation" | "economic_labor" | "copyright_ip" | "psychological_harm" | "national_security",
   "financial_damage_usd": 15000000, // Numeric total USD financial impact (fines, settlements, losses). For fatal harm or loss of human life, apply standard VSL (Value of a Statistical Life) benchmark of $12,500,000 USD per fatality.
   "eu_ai_act_tier": "prohibited" | "high_risk" | "limited_risk" | "minimal_risk",
+  "nist_ai_rmf_function": "GOVERN" | "MAP" | "MEASURE" | "MANAGE",
+  "iso_42001_category": "Internal_Governance" | "Data_&_Resources" | "System_Impact" | "Operational_Security",
   "natsec_impact": true/false,
   "temporality": "actual" | "potential" | "latent",
   "severity": "critical" | "high" | "medium" | "low",

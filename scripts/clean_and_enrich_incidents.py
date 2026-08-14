@@ -88,6 +88,41 @@ def calculate_similarity(inc1: Dict[str, Any], inc2: Dict[str, Any]) -> float:
     
     return (title_ratio * 0.5) + (jaccard_summary * 0.35) + party_overlap
 
+def assign_compliance_frameworks(inc: Dict[str, Any]):
+    """Assigns NIST AI RMF 1.0 Function and ISO/IEC 42001 Category based on incident metadata."""
+    title = (inc.get("title") or "").lower()
+    summary = (inc.get("summary") or "").lower()
+    rc = (inc.get("root_cause_category") or "").lower()
+    sys_cls = (inc.get("system_classification") or "").lower()
+    harm_type = (inc.get("harm_type") or "").lower()
+    purpose = (inc.get("primary_purpose") or "").lower()
+    
+    # NIST AI RMF Function: GOVERN | MAP | MEASURE | MANAGE
+    if "governance" in rc or "policy" in summary or "legal" in summary or "court" in title or "fcc" in title or "sec" in title:
+        nist = "GOVERN"
+    elif "cyber" in summary or "hack" in summary or "agent" in sys_cls or "autonomous" in sys_cls or "breach" in summary:
+        nist = "MANAGE"
+    elif "model" in rc or "data" in rc or "bias" in harm_type or "hallucination" in summary or "test" in summary:
+        nist = "MEASURE"
+    else:
+        nist = "MAP"
+        
+    # ISO/IEC 42001 Category: Internal_Governance | Data_&_Resources | System_Impact | Operational_Security
+    if "cyber" in summary or "hack" in summary or "breach" in summary or "vulnerability" in summary or "exploit" in summary:
+        iso = "Operational_Security"
+    elif "privacy" in harm_type or "copyright" in harm_type or "data" in rc or "secret" in summary or "trade" in summary:
+        iso = "Data_&_Resources"
+    elif "governance" in rc or "court" in title or "lawsuit" in summary or "dismissal" in summary or "hr" in purpose:
+        iso = "Internal_Governance"
+    else:
+        iso = "System_Impact"
+
+    inc["nist_ai_rmf_function"] = nist
+    inc["iso_42001_category"] = iso
+    if isinstance(inc.get("taxonomy"), dict):
+        inc["taxonomy"]["nist_ai_rmf_function"] = nist
+        inc["taxonomy"]["iso_42001_category"] = iso
+
 def enrich_financial_damage(inc: Dict[str, Any], client: genai.Client) -> int:
     """Queries Gemini 3.6 Flash to extract or estimate financial_damage_usd for an incident."""
     title = inc.get("title", "")
@@ -194,7 +229,11 @@ def main():
 
     print(f"\nDeduplication complete: Reduced dataset from {len(incidents)} to {len(unique_incidents)} unique incidents (Removed {len(removed_ids)} duplicate records).")
 
-    # 2. FINANCIAL DAMAGE ENRICHMENT WITH GEMINI
+    # 2. FINANCIAL DAMAGE & COMPLIANCE FRAMEWORK ENRICHMENT
+    print("\n---> ASSIGNING ENTERPRISE COMPLIANCE TAXONOMIES (NIST AI RMF & ISO 42001)...")
+    for inc in unique_incidents:
+        assign_compliance_frameworks(inc)
+
     api_key = os.environ.get("GEMINI_API_KEY", "")
     if HAS_GENAI and api_key:
         print("\n---> ENRICHING FINANCIAL DAMAGE METRICS VIA GEMINI 3.6 FLASH...")
