@@ -13,15 +13,16 @@ export const supabase = isSupabaseConfigured
   : null;
 
 /**
- * Fetches all incidents live from Supabase PostgreSQL database,
- * converting stored JSONB taxonomy metadata back into the AIIncident model.
+ * Fetches all incidents live from Supabase PostgreSQL database.
+ * SECURITY & PERFORMANCE FIX: Explicitly selects lightweight UI columns,
+ * leaving raw article full_text protected inside PostgreSQL.
  */
 export async function fetchIncidentsFromSupabase(): Promise<AIIncident[]> {
   if (!supabase) return [];
 
   const { data, error } = await supabase
     .from('incidents')
-    .select('*')
+    .select('incident_id, title, summary, date, verification_status, severity, source_type, financial_damage_usd, taxonomy, confidence_scores, geographic_scope, affected_parties, source_urls, related_incidents')
     .order('date', { ascending: false });
 
   if (error || !data) {
@@ -33,7 +34,6 @@ export async function fetchIncidentsFromSupabase(): Promise<AIIncident[]> {
     incident_id: row.incident_id,
     title: row.title,
     summary: row.summary,
-    full_text: row.full_text || undefined,
     date: row.date,
     verification_status: row.verification_status || 'confirmed',
     severity: row.severity || 'medium',
@@ -77,7 +77,7 @@ export async function fetchEdgesFromSupabase(): Promise<GraphEdge[]> {
 
   const { data, error } = await supabase
     .from('edges')
-    .select('*');
+    .select('edge_id, source_id, target_id, relation_type, description, confidence');
 
   if (error || !data) {
     console.error('Error fetching Knowledge Graph edges from Supabase:', error);

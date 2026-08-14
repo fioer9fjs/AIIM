@@ -67,7 +67,7 @@ ALTER TABLE daily_source_stats ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Allow public read access to incidents" ON incidents
     FOR SELECT USING (true);
 
-CREATE POLICY "Allow public read access to edges" ON incidents
+CREATE POLICY "Allow public read access to edges" ON edges
     FOR SELECT USING (true);
 
 CREATE POLICY "Allow public read access to daily_source_stats" ON daily_source_stats
@@ -81,12 +81,3 @@ CREATE POLICY "Allow service role full access to edges" ON edges
 
 CREATE POLICY "Allow service role full access to daily_source_stats" ON daily_source_stats
     FOR ALL USING (true);
-
--- 6. Create Performance Indexes for Fast Searching & Sorting
-CREATE INDEX IF NOT EXISTS idx_incidents_date ON incidents(date DESC);
-CREATE INDEX IF NOT EXISTS idx_incidents_severity ON incidents(severity);
-CREATE INDEX IF NOT EXISTS idx_incidents_source_type ON incidents(source_type);
-CREATE INDEX IF NOT EXISTS idx_incidents_financial_damage ON incidents(financial_damage_usd DESC);
-CREATE INDEX IF NOT EXISTS idx_incidents_taxonomy_gin ON incidents USING GIN (taxonomy);
-CREATE INDEX IF NOT EXISTS idx_edges_source ON edges(source_id);
-CREATE INDEX IF NOT EXISTS idx_edges_target ON edges(target_id);
