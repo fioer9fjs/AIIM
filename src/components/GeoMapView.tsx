@@ -43,7 +43,7 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
     incidents.forEach((inc) => {
       const scopes = inc.geographic_scope && inc.geographic_scope.length > 0 ? inc.geographic_scope : ['Global'];
       scopes.forEach((scope) => {
-        const key = scope.toLowerCase().strip ? scope.toLowerCase().trim() : scope.toLowerCase();
+        const key = scope.trim().toLowerCase();
         if (!map.has(key)) map.set(key, []);
         map.get(key)!.push(inc);
       });
