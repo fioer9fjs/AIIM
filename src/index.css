@@ -389,13 +389,13 @@ body {
   color: var(--accent-cyan);
 }
 
-/* Detail Drawer Panel */
+/* Detail Drawer Panel (Higher z-index than Leaflet map panes) */
 .drawer-backdrop {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
-  z-index: 50;
+  z-index: 99999;
   animation: fadeIn 0.2s ease;
 }
 
@@ -408,8 +408,8 @@ body {
   max-width: 600px;
   background-color: var(--bg-secondary);
   border-left: 1px solid var(--border-color);
-  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
-  z-index: 51;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
+  z-index: 100000;
   display: flex;
   flex-direction: column;
   animation: slideLeft 0.25s cubic-bezier(0.16, 1, 0.3, 1);

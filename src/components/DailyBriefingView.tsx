@@ -7,6 +7,13 @@ interface DailyBriefingViewProps {
   onSelectIncident: (incident: AIIncident) => void;
 }
 
+const SEVERITY_RANK: Record<string, number> = {
+  critical: 4,
+  high: 3,
+  medium: 2,
+  low: 1
+};
+
 export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents, onSelectIncident }) => {
   // Extract unique dates sorted descending
   const availableDates = useMemo(() => {
@@ -35,9 +42,10 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
     }
   };
 
-  // Incidents for selected date
+  // Incidents for selected date, SORTED BY CRITICALITY DESCENDING
   const dailyIncidents = useMemo(() => {
-    return incidents.filter((inc) => inc.date === selectedDate);
+    const list = incidents.filter((inc) => inc.date === selectedDate);
+    return list.sort((a, b) => (SEVERITY_RANK[b.severity] || 0) - (SEVERITY_RANK[a.severity] || 0));
   }, [incidents, selectedDate]);
 
   // Daily statistics
@@ -57,15 +65,15 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
     return Array.from(set).slice(0, 5);
   }, [dailyIncidents]);
 
-  // Copy Executive Briefing to Clipboard
+  // Copy Executive Briefing to Clipboard (with damage in parentheses)
   const handleCopyBriefing = () => {
     const summaryText = `DAILY AI INCIDENT INTELLIGENCE BRIEFING (${selectedDate})\n` +
       `Total Incidents Tracked: ${dailyIncidents.length}\n` +
       `Critical Severity Events: ${criticalCount}\n` +
       `Estimated Financial Impact: ${formatFinancialDamage(totalDamageUSD)} USD\n` +
       `Impacted Entities: ${topEntities.join(', ') || 'N/A'}\n\n` +
-      `KEY RISK DRIVERS & EVENTS:\n` +
-      dailyIncidents.map((inc, i) => `${i + 1}. [${inc.severity.toUpperCase()}] ${inc.title}: ${inc.summary}`).join('\n\n');
+      `KEY RISK DRIVERS & EVENTS (SORTED BY CRITICALITY):\n` +
+      dailyIncidents.map((inc, i) => `${i + 1}. [${inc.severity.toUpperCase()}] ${inc.title}: ${inc.summary} (Est. Financial Impact: ${formatFinancialDamage(inc.financial_damage_usd)})`).join('\n\n');
 
     navigator.clipboard.writeText(summaryText);
     setCopied(true);
@@ -81,7 +89,7 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
           <div>
             <h3 style={{ fontSize: '1.1rem', fontWeight: 600 }}>Daily Executive AI Risk Briefing</h3>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-              Synthesized intelligence briefing formatted for optimal human readability and executive reporting.
+              Synthesized intelligence briefing sorted by criticality with embedded financial impact estimations.
             </p>
           </div>
         </div>
@@ -135,10 +143,10 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
         </div>
       </div>
 
-      {/* 2-COLUMN EDITORIAL LAYOUT (OPTIMAL READING MEASURE ~65-75 CHARS) */}
+      {/* 2-COLUMN EDITORIAL LAYOUT */}
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 340px', gap: '1.5rem', alignItems: 'start' }}>
         
-        {/* LEFT COLUMN: EDITORIAL NARRATIVE (CONSTRAINED FOR PERFECT HUMAN READABILITY) */}
+        {/* LEFT COLUMN: EDITORIAL NARRATIVE (SORTED BY CRITICALITY & WITH DAMAGE IN PARENTHESES) */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           
           {/* Main Briefing Article Panel */}
@@ -164,39 +172,38 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
               </p>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', maxWidth: '68ch', fontSize: '1.025rem', color: '#e2e8f0', lineHeight: 1.75 }}>
-                {/* Paragraph 1: Executive Overview */}
                 <p>
-                  On <strong>{selectedDate}</strong>, the Global AI Incident Monitor tracked <strong>{dailyIncidents.length} AI safety and regulatory events</strong> across international monitoring channels.
-                  {totalDamageUSD > 0 && ` Cumulative estimated financial losses, regulatory fines, and legal liabilities for the day amounted to approximately ${formatFinancialDamage(totalDamageUSD)} USD.`}
+                  On <strong>{selectedDate}</strong>, the Global AI Incident Monitor tracked <strong>{dailyIncidents.length} AI safety and regulatory events</strong> across international channels.
+                  {totalDamageUSD > 0 && ` Total cumulative estimated financial impact for the day reached ${formatFinancialDamage(totalDamageUSD)} USD.`}
                 </p>
 
-                {/* Paragraph 2: Risk Breakdown Box */}
+                {/* Risk Breakdown Box (Sorted by Criticality & Damage in Parentheses) */}
                 <div style={{ background: 'rgba(0,0,0,0.3)', padding: '1.25rem', borderRadius: '8px', border: '1px solid var(--border-color)', margin: '0.5rem 0' }}>
                   <h4 style={{ fontSize: '0.85rem', color: 'var(--accent-cyan)', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                    <TrendingUp size={15} /> Key Risk Drivers & Causal Mechanisms
+                    <TrendingUp size={15} /> Key Risk Drivers (Sorted by Criticality)
                   </h4>
-                  <ul style={{ paddingLeft: '1.25rem', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem', fontSize: '0.95rem' }}>
+                  <ul style={{ paddingLeft: '1.25rem', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.95rem' }}>
                     {dailyIncidents.map((inc) => (
                       <li key={inc.incident_id} style={{ lineHeight: 1.6 }}>
+                        <span className={`badge badge-${inc.severity}`} style={{ marginRight: '0.4rem', fontSize: '0.65rem' }}>{inc.severity}</span>
                         <strong style={{ color: 'var(--text-main)' }}>{inc.title}:</strong>{' '}
-                        <span style={{ color: 'var(--text-muted)' }}>{inc.failure_mode || inc.summary}</span>
+                        <span style={{ color: 'var(--text-muted)' }}>{inc.failure_mode || inc.summary}</span>{' '}
+                        <strong style={{ color: '#34d399', fontSize: '0.875rem' }}>
+                          (Est. Financial Impact: {formatFinancialDamage(inc.financial_damage_usd)})
+                        </strong>
                       </li>
                     ))}
                   </ul>
                 </div>
-
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
-                  * All metrics dynamically aggregated from validated multi-source ingestion channels including Google News RSS, GDELT 2.0 BigQuery, ArXiv AI Safety, and the AI Incident Database.
-                </p>
               </div>
             )}
           </article>
 
-          {/* Detailed Events Feed Grid */}
+          {/* Detailed Events Feed Grid (Sorted by Criticality & Damage in Parentheses) */}
           <div className="detail-section">
             <h3 style={{ fontSize: '1rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <AlertCircle size={16} style={{ color: 'var(--accent-cyan)' }} />
-              Detailed Incident Feed for {selectedDate} ({dailyIncidents.length})
+              Detailed Incident Feed for {selectedDate} ({dailyIncidents.length} Events, Sorted by Criticality)
             </h3>
 
             {dailyIncidents.length === 0 ? (
@@ -221,15 +228,15 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
                           <DollarSign size={12} /> {formatFinancialDamage(inc.financial_damage_usd)}
                         </span>
                       ) : null : null}
-                      {inc.natsec_impact && (
-                        <span className="badge" style={{ backgroundColor: 'rgba(239, 68, 68, 0.25)', color: '#fca5a5', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
-                          <ShieldAlert size={12} /> NatSec
-                        </span>
-                      )}
                     </div>
 
                     <h3 style={{ fontSize: '1rem', fontWeight: 600, margin: '0.4rem 0', color: 'var(--text-main)' }}>{inc.title}</h3>
-                    <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: '0.4rem 0' }}>{inc.summary}</p>
+                    <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: '0.4rem 0' }}>
+                      {inc.summary}{' '}
+                      <strong style={{ color: '#34d399' }}>
+                        (Est. Financial Impact: {formatFinancialDamage(inc.financial_damage_usd)})
+                      </strong>
+                    </p>
 
                     <div className="card-footer" style={{ marginTop: '0.5rem', paddingTop: '0.5rem' }}>
                       <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>📅 {inc.date}</span>
@@ -242,9 +249,8 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
           </div>
         </div>
 
-        {/* RIGHT SIDEBAR: KEY METRICS & KPI SUMMARY (COMPACT & SCANNABLE) */}
+        {/* RIGHT SIDEBAR: KEY METRICS & KPI SUMMARY */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', position: 'sticky', top: '5rem' }}>
-          
           <div className="detail-section">
             <h4 style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               Daily Incident Count
