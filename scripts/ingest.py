@@ -175,7 +175,22 @@ def process_article_with_gemini(article: Dict[str, str], api_key: str) -> Option
         
     return None
 
-def fetch_google_news(query: str, max_items: int = 4) -> List[Dict[str, Any]]:
+def unwrap_google_news_link(url: str) -> str:
+    if "news.google.com" not in url:
+        return url
+    try:
+        from googlenewsdecoder import new_decoderv1
+        res = new_decoderv1(url)
+        if isinstance(res, dict) and res.get("status") and res.get("decoded_url"):
+            decoded = res["decoded_url"]
+            if "news.google.com" not in decoded:
+                return decoded
+    except Exception:
+        pass
+    return url
+
+def fetch_google_news(query: str, max_items: int = 12) -> List[Dict[str, Any]]:
+    """Fetches articles from Google News RSS feed for a given query."""
     encoded_query = urllib.parse.quote(query)
     rss_url = f"https://news.google.com/rss/search?q={encoded_query}&hl=en-US&gl=US&ceid=US:en"
     articles = []
@@ -186,8 +201,10 @@ def fetch_google_news(query: str, max_items: int = 4) -> List[Dict[str, Any]]:
             root = ET.fromstring(xml_data)
             
             for item in root.findall('./channel/item')[:max_items]:
-                title = item.find('title').text if item.find('title') is not None else ""
-                link = item.find('link').text if item.find('link') is not None else ""
+                raw_title = item.find('title').text if item.find('title') is not None else ""
+                title = re.sub(r' - [^-]+$', '', raw_title) if raw_title else ""
+                raw_link = item.find('link').text if item.find('link') is not None else ""
+                link = unwrap_google_news_link(raw_link)
                 pub_date = item.find('pubDate').text if item.find('pubDate') is not None else ""
                 description = item.find('description').text if item.find('description') is not None else ""
                 
