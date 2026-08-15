@@ -167,29 +167,34 @@ def stage2_binary_gatekeeper(title: str, text: str, api_key: str) -> Dict[str, A
 
     for model_name in candidate_models:
         if HAS_GENAI:
-            try:
-                from google.genai import types
-                client = genai.Client(api_key=api_key)
-                response = client.models.generate_content(
-                    model=model_name,
-                    contents=prompt,
-                    config=types.GenerateContentConfig(response_mime_type="application/json")
-                )
-                if response and response.text:
-                    text_clean = response.text.strip()
-                    if text_clean.startswith("```json"):
-                        text_clean = text_clean[7:]
-                    if text_clean.endswith("```"):
-                        text_clean = text_clean[:-3]
-                    data = json.loads(text_clean.strip())
-                    _WORKING_MODEL_NAME = model_name
-                    return {
-                        "is_ai_incident": bool(data.get("is_ai_incident", False)),
-                        "confidence": float(data.get("confidence", 0.9)),
-                        "rejection_reason": str(data.get("rejection_reason", ""))
-                    }
-            except Exception:
-                continue
+            for attempt in range(3):
+                try:
+                    from google.genai import types
+                    client = genai.Client(api_key=api_key)
+                    response = client.models.generate_content(
+                        model=model_name,
+                        contents=prompt,
+                        config=types.GenerateContentConfig(response_mime_type="application/json")
+                    )
+                    if response and response.text:
+                        text_clean = response.text.strip()
+                        if text_clean.startswith("```json"):
+                            text_clean = text_clean[7:]
+                        if text_clean.endswith("```"):
+                            text_clean = text_clean[:-3]
+                        data = json.loads(text_clean.strip())
+                        _WORKING_MODEL_NAME = model_name
+                        return {
+                            "is_ai_incident": bool(data.get("is_ai_incident", False)),
+                            "confidence": float(data.get("confidence", 0.9)),
+                            "rejection_reason": str(data.get("rejection_reason", ""))
+                        }
+                except Exception as err:
+                    err_str = str(err)
+                    if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str or "Quota" in err_str:
+                        time.sleep(3 * (attempt + 1))
+                        continue
+                    break
 
     return {"is_ai_incident": False, "confidence": 0.0, "rejection_reason": "LLM Gatekeeper execution error"}
 
@@ -208,25 +213,31 @@ def stage3_extract_taxonomy(title: str, text: str, api_key: str) -> Optional[Dic
 
     for model_name in candidate_models:
         if HAS_GENAI:
-            try:
-                from google.genai import types
-                client = genai.Client(api_key=api_key)
-                response = client.models.generate_content(
-                    model=model_name,
-                    contents=prompt,
-                    config=types.GenerateContentConfig(response_mime_type="application/json")
-                )
-                if response and response.text:
-                    text_clean = response.text.strip()
-                    if text_clean.startswith("```json"):
-                        text_clean = text_clean[7:]
-                    if text_clean.endswith("```"):
-                        text_clean = text_clean[:-3]
-                    data = json.loads(text_clean.strip())
-                    _WORKING_MODEL_NAME = model_name
-                    return data
-            except Exception:
-                continue
+            for attempt in range(3):
+                try:
+                    from google.genai import types
+                    client = genai.Client(api_key=api_key)
+                    response = client.models.generate_content(
+                        model=model_name,
+                        contents=prompt,
+                        config=types.GenerateContentConfig(response_mime_type="application/json")
+                    )
+                    if response and response.text:
+                        text_clean = response.text.strip()
+                        if text_clean.startswith("```json"):
+                            text_clean = text_clean[7:]
+                        if text_clean.endswith("```"):
+                            text_clean = text_clean[:-3]
+                        data = json.loads(text_clean.strip())
+                        _WORKING_MODEL_NAME = model_name
+                        return data
+                except Exception as err:
+                    err_str = str(err)
+                    if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str or "Quota" in err_str:
+                        time.sleep(3 * (attempt + 1))
+                        continue
+                    break
+
 
     return None
 

@@ -100,6 +100,8 @@ def main():
 
         print(f"\nProcessing [{i}/{len(gdelt_items)}]: {url[:70]}...")
         enriched = process_article_3stage_pipeline(article_dict, api_key)
+        time.sleep(1.2)
+
 
         if enriched:
             # Generate unique ID
