@@ -6,10 +6,15 @@ Production 3-Stage Architecture:
   Stage 3: LLM Deep Taxonomy & Financial Damage Extractor
 """
 
+import sys
 import os
 import json
 import time
 import re
+
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -242,8 +247,11 @@ def process_article_3stage_pipeline(article: Dict[str, str], api_key: str) -> Op
 
     # STAGE 3: DEEP TAXONOMY & FINANCIAL DAMAGE EXTRACTION
     data = stage3_extract_taxonomy(real_title, real_text, api_key)
-    if not data:
+    if isinstance(data, list) and len(data) > 0 and isinstance(data[0], dict):
+        data = data[0]
+    if not data or not isinstance(data, dict):
         return None
+
 
     # AUTOMATIC FINANCIAL ENRICHMENT & IMPACT SCOPE VALIDATOR
     assign_compliance_frameworks(data)

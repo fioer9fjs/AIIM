@@ -80,7 +80,10 @@ def calculate_similarity(inc1: Dict[str, Any], inc2: Dict[str, Any]) -> float:
 
 def assign_compliance_frameworks(inc: Dict[str, Any]):
     """Assigns NIST AI RMF 1.0 Function and ISO/IEC 42001 Category based on incident metadata."""
+    if not isinstance(inc, dict):
+        return
     title = (inc.get("title") or "").lower()
+
     summary = (inc.get("summary") or "").lower()
     rc = (inc.get("root_cause_category") or "").lower()
     sys_cls = (inc.get("system_classification") or "").lower()
