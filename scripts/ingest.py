@@ -322,13 +322,15 @@ def fetch_google_news(query: str, max_items: int = 12) -> List[Dict[str, Any]]:
         pass
     return articles
 
-def fetch_gdelt_bigquery(max_items: int = 25) -> List[Dict[str, Any]]:
+def fetch_gdelt_bigquery(max_items: int = 50) -> List[Dict[str, Any]]:
     """
-    ADVANCED GDELT GKG HARVESTER VIA BIGQUERY:
+    ADVANCED GDELT GKG CLUSTERED HARVESTER VIA BIGQUERY:
       - Uses _PARTITIONTIME windowing for partition pruning
-      - Filters CAST(SPLIT(V2Tone, ',')[OFFSET(0)] AS FLOAT64) < -0.5 for negative sentiment
+      - Filters DocumentIdentifier with 2D AI + Incident regex
+      - Excludes aviation terms ('flight', 'plane', 'pilot', 'airline') to eliminate Copilot false positives
+      - Applies V2Tone < -3.0 strong negative sentiment threshold
+      - Clusters syndicated reports via REGEXP_EXTRACT url_slug & GROUP BY
       - Includes dry-run cost control safety check (< 50 GB scan)
-      - Captures AllNames entity metadata
     """
     if not HAS_BIGQUERY:
         return []
@@ -339,18 +341,45 @@ def fetch_gdelt_bigquery(max_items: int = 25) -> List[Dict[str, Any]]:
         client = bigquery.Client(project=project_id) if project_id else bigquery.Client()
         
         sql = f"""
+        WITH filtered_articles AS (
+            SELECT 
+                DATE,
+                DocumentIdentifier AS url,
+                SourceCommonName AS source,
+                CAST(SPLIT(V2Tone, ',')[OFFSET(0)] AS FLOAT64) AS tone,
+                REGEXP_EXTRACT(LOWER(DocumentIdentifier), r'/([^/]+)[/]?$') AS url_slug
+            FROM 
+                `gdelt-bq.gdeltv2.gkg_partitioned`
+            WHERE 
+                _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 2 DAY)
+                
+                -- AI Term Filter (Brand names & LLM models)
+                AND REGEXP_CONTAINS(LOWER(DocumentIdentifier), r'\\b(ai|artificial-intelligence|genai|generative-ai|machine-learning|chatgpt|openai|gpt|llm|deepmind|anthropic|claude|copilot|gemini|mistral|huggingface|hugging-face|xai|midjourney|stable-diffusion|sora|perplexity|grok)\\b')
+                
+                -- Incident Focus Filter
+                AND REGEXP_CONTAINS(LOWER(DocumentIdentifier), r'\\b(incident|failure|outage|glitch|breach|hack|flaw|vulnerability|hallucination|deepfake|bias|jailbreak|lawsuit|fraud|fine|ban|probe|investigation|violation|copyright|penalty|leak|exploit|scam|malware|error|crash|bug|malfunction|misinformation|disinformation|plagiarism|propaganda)\\b')
+                
+                -- Aviation Exclusion (Eliminates Copilot aircraft false positives)
+                AND NOT REGEXP_CONTAINS(LOWER(DocumentIdentifier), r'\\b(flight|plane|aircraft|aviation|airline|airlines|pilot|jet)\\b')
+                
+                -- Negative Tone Threshold (< -3.0)
+                AND CAST(SPLIT(V2Tone, ',')[OFFSET(0)] AS FLOAT64) < -3.0
+        )
         SELECT 
-            DocumentIdentifier as link,
-            SourceCommonName as domain,
-            CAST(SPLIT(V2Tone, ',')[OFFSET(0)] AS FLOAT64) as tone,
-            V2Themes as themes,
-            AllNames as names,
-            DATE(_PARTITIONDATE) as date
-        FROM `gdelt-bq.gdeltv2.gkg_partitioned`
-        WHERE _PARTITIONDATE >= DATE_SUB(CURRENT_DATE(), INTERVAL 3 DAY)
-          AND REGEXP_CONTAINS(LOWER(V2Themes), r'(artificial_intelligence|machine_learning|autonomous_vehicles|robotics)')
-          AND REGEXP_CONTAINS(LOWER(V2Themes), r'(cyber_attack|crime_hacking|security_breach|privacy|bias|lawsuit|investigation|accident|fatality|system_failure)')
-          AND CAST(SPLIT(V2Tone, ',')[OFFSET(0)] AS FLOAT64) < -0.5
+            MIN(DATE) AS first_published,
+            ANY_VALUE(url) AS example_url,
+            COUNT(1) AS number_of_reports,
+            ARRAY_AGG(DISTINCT source LIMIT 5) AS reported_by_samples,
+            ROUND(AVG(tone), 2) AS avg_tone
+        FROM 
+            filtered_articles
+        WHERE 
+            url_slug IS NOT NULL
+        GROUP BY 
+            url_slug
+        ORDER BY 
+            number_of_reports DESC, 
+            first_published DESC
         LIMIT {max_items};
         """
         
@@ -364,16 +393,22 @@ def fetch_gdelt_bigquery(max_items: int = 25) -> List[Dict[str, Any]]:
 
         query_job = client.query(sql)
         for row in query_job.result():
+            pub_date_str = str(row.first_published)
+            if len(pub_date_str) == 8:
+                pub_date_str = f"{pub_date_str[:4]}-{pub_date_str[4:6]}-{pub_date_str[6:]}"
+            elif len(pub_date_str) == 14:
+                pub_date_str = f"{pub_date_str[:4]}-{pub_date_str[4:6]}-{pub_date_str[6:8]}"
+
             articles.append({
-                "title": f"GDELT Event from {row.domain}",
-                "link": row.link,
-                "pub_date": str(row.date),
-                "pub_date_clean": str(row.date),
-                "description": f"GDELT GKG Event ({row.domain}) | Tone: {row.tone}",
+                "title": f"GDELT Event ({row.number_of_reports} reports): {row.example_url.split('/')[-1].replace('-', ' ')}",
+                "link": row.example_url,
+                "pub_date": pub_date_str,
+                "pub_date_clean": pub_date_str,
+                "description": f"GDELT Clustered Event ({row.number_of_reports} reports across {', '.join(row.reported_by_samples)}) | Avg Tone: {row.avg_tone}",
                 "source_type": "gdelt",
-                "gdelt_names": str(row.names)[:500] if row.names else ""
+                "number_of_reports": row.number_of_reports
             })
-        print(f"--> Advanced GDELT BigQuery Harvester fetched {len(articles)} candidate articles.")
+        print(f"--> Advanced Clustered GDELT BigQuery Harvester fetched {len(articles)} incident clusters.")
     except Exception as e:
         print(f"BigQuery GDELT Harvester note: {e}")
     return articles
