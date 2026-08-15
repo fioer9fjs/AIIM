@@ -42,15 +42,21 @@ try:
 except ImportError:
     HAS_BIGQUERY = False
 
-PREFERRED_MODELS = [
-    "gemini-3.6-flash",
-    "gemini-3.5-flash",
-    "gemini-3.5-flash-lite",
-    "gemini-2.5-flash-lite",
+PREFERRED_MODELS_STAGE2 = [
+    "gemma-2-27b-it",
+    "gemma-2-9b-it",
     "gemini-flash-latest"
 ]
 
-_WORKING_MODEL_NAME = None
+PREFERRED_MODELS_STAGE3 = [
+    "gemini-flash-latest",
+    "gemma-2-27b-it",
+    "gemma-2-9b-it"
+]
+
+_WORKING_MODEL_STAGE2 = None
+_WORKING_MODEL_STAGE3 = None
+
 
 # STAGE 2 PROMPT: SINGLE-FOCUS BINARY GATEKEEPER
 GATEKEEPER_PROMPT = """
@@ -153,17 +159,17 @@ def fetch_full_text_and_title(url: str) -> Dict[str, str]:
     return {"title": "", "full_text": ""}
 
 def stage2_binary_gatekeeper(title: str, text: str, api_key: str) -> Dict[str, Any]:
-    """STAGE 2: Dedicated single-focus LLM Gatekeeper for Incident vs False Positive Rejection."""
-    global _WORKING_MODEL_NAME
+    """STAGE 2: Dedicated single-focus LLM Gatekeeper for Incident vs False Positive Rejection (Gemma Primary)."""
+    global _WORKING_MODEL_STAGE2
     if not api_key:
         return {"is_ai_incident": False, "confidence": 0.0, "rejection_reason": "No Gemini API Key provided"}
 
     prompt = f"{GATEKEEPER_PROMPT}\n\nARTICLE TITLE: {title}\n\nARTICLE TEXT:\n{text[:6000]}"
     
-    candidate_models = list(PREFERRED_MODELS)
-    if _WORKING_MODEL_NAME and _WORKING_MODEL_NAME in candidate_models:
-        candidate_models.remove(_WORKING_MODEL_NAME)
-        candidate_models.insert(0, _WORKING_MODEL_NAME)
+    candidate_models = list(PREFERRED_MODELS_STAGE2)
+    if _WORKING_MODEL_STAGE2 and _WORKING_MODEL_STAGE2 in candidate_models:
+        candidate_models.remove(_WORKING_MODEL_STAGE2)
+        candidate_models.insert(0, _WORKING_MODEL_STAGE2)
 
     for model_name in candidate_models:
         if HAS_GENAI:
@@ -183,7 +189,7 @@ def stage2_binary_gatekeeper(title: str, text: str, api_key: str) -> Dict[str, A
                         if text_clean.endswith("```"):
                             text_clean = text_clean[:-3]
                         data = json.loads(text_clean.strip())
-                        _WORKING_MODEL_NAME = model_name
+                        _WORKING_MODEL_STAGE2 = model_name
                         return {
                             "is_ai_incident": bool(data.get("is_ai_incident", False)),
                             "confidence": float(data.get("confidence", 0.9)),
@@ -192,24 +198,24 @@ def stage2_binary_gatekeeper(title: str, text: str, api_key: str) -> Dict[str, A
                 except Exception as err:
                     err_str = str(err)
                     if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str or "Quota" in err_str:
-                        time.sleep(3 * (attempt + 1))
+                        time.sleep(2 * (attempt + 1))
                         continue
                     break
 
     return {"is_ai_incident": False, "confidence": 0.0, "rejection_reason": "LLM Gatekeeper execution error"}
 
 def stage3_extract_taxonomy(title: str, text: str, api_key: str) -> Optional[Dict[str, Any]]:
-    """STAGE 3: Deep Taxonomy and Financial Damage Extractor (Invoked ONLY if Stage 2 Passed)."""
-    global _WORKING_MODEL_NAME
+    """STAGE 3: Deep Taxonomy and Financial Damage Extractor (Gemini Primary, Gemma Fallback)."""
+    global _WORKING_MODEL_STAGE3
     if not api_key:
         return None
 
     prompt = f"{TAXONOMY_PROMPT}\n\nARTICLE TITLE: {title}\n\nARTICLE FULL TEXT:\n{text[:12000]}"
     
-    candidate_models = list(PREFERRED_MODELS)
-    if _WORKING_MODEL_NAME and _WORKING_MODEL_NAME in candidate_models:
-        candidate_models.remove(_WORKING_MODEL_NAME)
-        candidate_models.insert(0, _WORKING_MODEL_NAME)
+    candidate_models = list(PREFERRED_MODELS_STAGE3)
+    if _WORKING_MODEL_STAGE3 and _WORKING_MODEL_STAGE3 in candidate_models:
+        candidate_models.remove(_WORKING_MODEL_STAGE3)
+        candidate_models.insert(0, _WORKING_MODEL_STAGE3)
 
     for model_name in candidate_models:
         if HAS_GENAI:
@@ -229,17 +235,17 @@ def stage3_extract_taxonomy(title: str, text: str, api_key: str) -> Optional[Dic
                         if text_clean.endswith("```"):
                             text_clean = text_clean[:-3]
                         data = json.loads(text_clean.strip())
-                        _WORKING_MODEL_NAME = model_name
+                        _WORKING_MODEL_STAGE3 = model_name
                         return data
                 except Exception as err:
                     err_str = str(err)
                     if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str or "Quota" in err_str:
-                        time.sleep(3 * (attempt + 1))
+                        time.sleep(2 * (attempt + 1))
                         continue
                     break
 
-
     return None
+
 
 def process_article_3stage_pipeline(article: Dict[str, str], api_key: str) -> Optional[Dict[str, Any]]:
     """Executes the full 3-Stage Ingestion Pipeline on a candidate article."""
