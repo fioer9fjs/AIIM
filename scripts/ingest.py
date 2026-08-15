@@ -96,7 +96,7 @@ Return ONLY a valid JSON object matching this exact schema:
   "failure_mode": "Brief narrative connecting cause to consequence based on full text details",
   "harm_domain": "persons_physical" | "persons_mental" | "persons_rights" | "property" | "environment" | "systemic_integrity" | "societal",
   "harm_type": "discrimination_bias" | "privacy_breach" | "physical_safety" | "misinformation" | "economic_labor" | "copyright_ip" | "psychological_harm" | "national_security",
-  "impact_scope": "discrete_incident" | "cumulative_macro_trend", // "discrete_incident" for single events; "cumulative_macro_trend" for industry/annual threat reports
+  "impact_scope": "discrete_incident" | "cumulative_macro_trend", // MUST use "cumulative_macro_trend" if article describes aggregated statistics/totals over a period (e.g. TRM Labs H1 report, Chainalysis annual total, Interpol global losses, multi-hack theft totals); use "discrete_incident" ONLY for single specific events
   "financial_damage_usd": 15000000,
   "eu_ai_act_tier": "prohibited" | "high_risk" | "limited_risk" | "minimal_risk",
   "nist_ai_rmf_function": "GOVERN" | "MAP" | "MEASURE" | "MANAGE",

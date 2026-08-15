@@ -111,12 +111,25 @@ def assign_compliance_frameworks(inc: Dict[str, Any]):
         inc["taxonomy"]["nist_ai_rmf_function"] = nist
         inc["taxonomy"]["iso_42001_category"] = iso
 
+MACRO_KEYWORDS = [
+    "annual report", "chainalysis", "interpol", "global losses", "across industry", "industry report",
+    "trm labs", "certik", "first half of", "second half of", "half of 20", "stole during", "stolen during",
+    "stole in 20", "stolen in 20", "total losses", "total theft", "multiple incidents", "incidents causing",
+    "insiden peretasan", "pencurian aset", "66% of global", "global digital asset"
+]
+
 def assign_impact_scope(inc: Dict[str, Any]):
     """Assigns impact_scope ('discrete_incident' | 'cumulative_macro_trend')."""
     usd = inc.get("financial_damage_usd", 0) or 0
     text_corpus = f"{inc.get('title', '')} {inc.get('summary', '')} {inc.get('full_text', '')}".lower()
     
-    if usd >= 5_000_000_000 or any(k in text_corpus for k in ["annual report", "chainalysis", "interpol", "global losses", "across industry", "industry report"]):
+    llm_scope = inc.get("impact_scope") or (inc.get("taxonomy", {}).get("impact_scope") if isinstance(inc.get("taxonomy"), dict) else None)
+    
+    if llm_scope == "cumulative_macro_trend":
+        scope = "cumulative_macro_trend"
+    elif usd >= 500_000_000 and any(k in text_corpus for k in MACRO_KEYWORDS):
+        scope = "cumulative_macro_trend"
+    elif any(k in text_corpus for k in MACRO_KEYWORDS):
         scope = "cumulative_macro_trend"
     else:
         scope = "discrete_incident"
