@@ -107,8 +107,9 @@ export interface AIIncident {
   // Data Origin Telemetry
   source_type?: SourceType;
 
-  // Estimated Financial Damage (USD)
+  // Estimated Financial Damage (USD) & Valuation Methodology
   financial_damage_usd?: number;
+  valuation_methodology?: 'explicit_confirmed' | 'vsl_benchmark' | 'statutory_formula' | 'regulatory_turnover' | 'cyber_breach_report' | 'empirical_estimate';
 
   // MIT & AIID Extensions
   intent?: IncidentIntent;

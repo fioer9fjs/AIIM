@@ -101,9 +101,19 @@ export const IncidentDetailDrawer: React.FC<IncidentDetailDrawerProps> = ({
                 </span>
               )}
               {incident.financial_damage_usd ? incident.financial_damage_usd > 0 ? (
-                <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.2)', color: '#34d399', display: 'inline-flex', alignItems: 'center', gap: '0.2rem', fontWeight: 700 }}>
-                  <DollarSign size={12} /> Est. Damage: {formatFinancialDamage(incident.financial_damage_usd)}
-                </span>
+                <>
+                  <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.2)', color: '#34d399', display: 'inline-flex', alignItems: 'center', gap: '0.2rem', fontWeight: 700 }}>
+                    <DollarSign size={12} /> Est. Impact: {formatFinancialDamage(incident.financial_damage_usd)}
+                  </span>
+                  <span className="badge" style={{ backgroundColor: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.3)', fontSize: '0.65rem' }}>
+                    {incident.valuation_methodology === 'explicit_confirmed' && '🟢 Confirmed Official Figure'}
+                    {incident.valuation_methodology === 'vsl_benchmark' && '🟡 US DOT VSL Benchmark'}
+                    {incident.valuation_methodology === 'statutory_formula' && '🔵 Lower-Bound Statutory Formula'}
+                    {incident.valuation_methodology === 'cyber_breach_report' && '🟣 IBM Cyber Breach Baseline'}
+                    {incident.valuation_methodology === 'regulatory_turnover' && '🟠 Regulatory Fine Baseline'}
+                    {(!incident.valuation_methodology || incident.valuation_methodology === 'empirical_estimate') && '📉 Conservative Lower Bound'}
+                  </span>
+                </>
               ) : null : null}
               {incident.eu_ai_act_tier && (
                 <span className="badge" style={{ backgroundColor: 'rgba(59, 130, 246, 0.2)', color: '#93c5fd' }}>

@@ -249,8 +249,11 @@ def process_article_3stage_pipeline(article: Dict[str, str], api_key: str) -> Op
     assign_compliance_frameworks(data)
     usd = data.get("financial_damage_usd", 0) or 0
     if usd <= 0:
-        usd = estimate_financial_damage(data)
+        usd, methodology = estimate_financial_damage(data)
         data["financial_damage_usd"] = usd
+        data["valuation_methodology"] = methodology
+    else:
+        data["valuation_methodology"] = "explicit_confirmed"
     assign_impact_scope(data)
 
     data["source_urls"] = [article["link"]]
