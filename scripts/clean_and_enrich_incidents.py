@@ -211,13 +211,32 @@ def main():
     url, key = get_supabase_credentials()
     db_incidents = fetch_supabase_incidents(url, key) if (url and key) else []
 
-    if db_incidents:
-        print(f"Loaded {len(db_incidents)} records from Supabase PostgreSQL.")
-        incidents = db_incidents
-    elif os.path.exists(incidents_path):
+    incidents = []
+    if os.path.exists(incidents_path):
         with open(incidents_path, "r", encoding="utf-8") as f:
             incidents = json.load(f)
         print(f"Loaded {len(incidents)} records from local incidents.json.")
+        
+        # Also merge any Supabase records that might not be in local JSON
+        existing_urls = set()
+        for inc in incidents:
+            for u in inc.get("source_urls", []) or []:
+                existing_urls.add(u.strip().lower())
+            if inc.get("example_url"):
+                existing_urls.add(inc["example_url"].strip().lower())
+        
+        added_from_db = 0
+        for inc in db_incidents:
+            u = (inc.get("example_url") or "").strip().lower()
+            if u and u not in existing_urls:
+                incidents.append(inc)
+                existing_urls.add(u)
+                added_from_db += 1
+        if added_from_db > 0:
+            print(f"Merged {added_from_db} additional records from Supabase PostgreSQL.")
+    elif db_incidents:
+        print(f"Loaded {len(db_incidents)} records from Supabase PostgreSQL.")
+        incidents = db_incidents
     else:
         print("No incidents dataset found.")
         return

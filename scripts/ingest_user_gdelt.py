@@ -9,10 +9,12 @@ import sys
 import os
 import json
 import re
+import time
 from datetime import datetime
 from dotenv import load_dotenv
 
 load_dotenv()
+
 from scripts.ingest import process_article_3stage_pipeline
 from scripts.clean_and_enrich_incidents import main as run_dedup_and_sync
 
@@ -33,12 +35,27 @@ def title_from_url(url: str) -> str:
     """Extracts human readable title from URL slug."""
     if not url:
         return "AI Incident Report"
-    slug = url.split('/')[-1] or url.split('/')[-2]
+    parts = [p.strip() for p in url.split('/') if p.strip()]
+    if not parts:
+        return "AI Incident Report"
+    slug = parts[-1]
+    # If the last segment is purely numerical (e.g. article ID /73312279), take the preceding segment
+    if (slug.isdigit() or re.match(r'^\d+$', slug)) and len(parts) > 1:
+        slug = parts[-2]
     # Strip extensions or parameters
     slug = re.sub(r'\.(html|htm|php|aspx|axd)$', '', slug, flags=re.IGNORECASE)
     slug = re.sub(r'[\?#].*$', '', slug)
     words = [w.capitalize() for w in re.split(r'[-_]', slug) if len(w) > 1 and not w.isdigit()]
     return " ".join(words) if words else "AI Incident Report"
+
+import warnings
+warnings.filterwarnings("ignore", message=".*XMLParsedAsHTMLWarning.*")
+warnings.filterwarnings("ignore", message=".*automatic function calling.*")
+try:
+    from bs4 import XMLParsedAsHTMLWarning
+    warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
+except ImportError:
+    pass
 
 def main():
     api_key = os.environ.get("GEMINI_API_KEY")
@@ -54,8 +71,9 @@ def main():
         gdelt_items = json.load(f)
 
     print("================================================================================")
-    print(f"INGESTING {len(gdelt_items)} GDELT BIGQUERY CANDIDATES INTO 3-STAGE PIPELINE")
+    print(f"INGESTING ALL {len(gdelt_items)} GDELT BIGQUERY CANDIDATES INTO 3-STAGE PIPELINE")
     print("================================================================================")
+
 
     # Load existing incidents dataset
     existing_incidents = []
@@ -95,6 +113,7 @@ def main():
             "link": url,
             "pub_date_clean": pub_date_clean,
             "description": description_text,
+            "reported_by_samples": item.get("reported_by_samples", []),
             "source_type": "gdelt_bigquery"
         }
 

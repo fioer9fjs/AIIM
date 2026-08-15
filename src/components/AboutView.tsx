@@ -34,7 +34,7 @@ export const AboutView: React.FC = () => {
                 In alignment with international frameworks, an <em>AI Incident</em> is formally defined as:
               </p>
               <blockquote style={{ background: 'rgba(0,0,0,0.3)', borderLeft: '3px solid var(--accent-cyan)', padding: '0.85rem 1.25rem', borderRadius: '4px', color: 'var(--text-main)', fontStyle: 'italic' }}>
-                "An event where the development, deployment, or operation of an artificial intelligence system directly causes, or significantly contributes to, real-world physical harm, property damage, mental harm, financial losses, fundamental rights violations, critical infrastructure compromise, or unsanctioned autonomous agent behavior."
+                "An event where the development, deployment, or operation of an artificial intelligence system directly causes, or significantly contributes to, real-world physical harm, property damage, mental harm, financial losses, fundamental rights violations, critical infrastructure compromise, public or diplomatic embarrassment arising from AI hallucinations, or unsanctioned autonomous agent behavior."
               </blockquote>
             </div>
           </section>

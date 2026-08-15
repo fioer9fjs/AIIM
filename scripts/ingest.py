@@ -18,8 +18,18 @@ if hasattr(sys.stdout, 'reconfigure'):
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
+import warnings
 from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
+
+warnings.filterwarnings("ignore", message=".*XMLParsedAsHTMLWarning.*")
+warnings.filterwarnings("ignore", message=".*automatic function calling.*")
+try:
+    from bs4 import XMLParsedAsHTMLWarning
+    warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
+except ImportError:
+    pass
+
 from scripts.clean_and_enrich_incidents import estimate_financial_damage, assign_compliance_frameworks, assign_impact_scope
 
 try:
@@ -43,16 +53,17 @@ except ImportError:
     HAS_BIGQUERY = False
 
 PREFERRED_MODELS_STAGE2 = [
-    "gemma-2-27b-it",
-    "gemma-2-9b-it",
+    "gemma-4-31b-it",
+    "gemma-4-26b-a4b-it",
     "gemini-flash-latest"
 ]
 
 PREFERRED_MODELS_STAGE3 = [
     "gemini-flash-latest",
-    "gemma-2-27b-it",
-    "gemma-2-9b-it"
+    "gemma-4-31b-it",
+    "gemma-4-26b-a4b-it"
 ]
+
 
 _WORKING_MODEL_STAGE2 = None
 _WORKING_MODEL_STAGE3 = None
@@ -65,11 +76,15 @@ Your ONLY TASK is to decide if the given news article describes a REAL-WORLD AI 
 
 DEFINITIONS:
 1. AN "AI INCIDENT" (is_ai_incident = true) MUST BE:
-   - A real-world operational event where an AI system/model/agent caused physical harm, property damage, mental harm, financial fraud/theft, privacy/biometric breach, cyberattack/sandbox escape, algorithmic discrimination in hiring/loans, or unauthorized autonomous actions.
-   - A formal regulatory enforcement action or government ban against a specific AI deployment due to safety failures.
+   - A real-world operational event where an AI system/model/agent caused physical harm, property damage, mental harm, financial fraud/theft, privacy/biometric breach, cyberattack/sandbox escape, algorithmic discrimination in hiring/loans, unauthorized autonomous actions, OR public/diplomatic embarrassment, governmental/institutional blunders, and significant official misinformation caused by AI hallucinations or system failures.
+   - A formal regulatory enforcement action, government ban, or public high-profile apology regarding an AI deployment due to safety/hallucination failures.
 
 2. STRICT EXCLUSIONS (MUST RETURN is_ai_incident = false):
    - Securities class actions, shareholder lawsuits, or investor losses arising solely from stock price drops, quarterly earnings, or alleged management overstatement of AI revenue/Copilot adoption (e.g. Levi & Korsinsky, Robbins Geller, Pomerantz).
+   - Pure civil contract, labor, wage, or unpaid work disputes regarding AI training or voice model creation (e.g. contractor/artist suing over unpaid voice cloning work).
+   - Pure corporate copyright, patent, trademark, or trade secret litigation between companies without an operational AI failure/harm (e.g. Apple vs OpenAI trade secret lawsuit, copyright licensing settlements).
+   - Constitutional legal challenges or lawsuits filed by companies against state regulations/laws before an operational incident occurs (e.g. xAI suing a state over deepfake legislation).
+   - Non-AI entities where "AI" refers to Air India (airline) or other acronyms.
    - Routine commercial product announcements, model releases, software updates, or corporate PR marketing.
    - Speculative debate or academic papers discussing future artificial general intelligence (AGI) without a real-world event.
 
@@ -83,7 +98,7 @@ or
 {
   "is_ai_incident": false,
   "confidence": 0.98,
-  "rejection_reason": "Securities class action regarding stock price drop; no operational AI system failure or direct harm."
+  "rejection_reason": "Pure corporate trade secret lawsuit; no operational AI system failure or direct harm."
 }
 """
 
@@ -91,6 +106,10 @@ or
 TAXONOMY_PROMPT = """
 You are an expert AI Safety & Regulatory Incident Analyst.
 The provided article HAS BEEN CONFIRMED as a real-world AI incident. Extract structured taxonomy metadata.
+
+FINANCIAL DAMAGE EVALUATION GUARDRAILS:
+- If the article describes a DISCRETE INCIDENT (e.g. specific lawsuit demand, court judgment, direct theft, fine): set financial_damage_usd to the explicit confirmed value.
+- If the article describes an AGGREGATE INDUSTRY TREND (e.g. global annual crypto fraud statistics, Interpol industry reports): set impact_scope to "cumulative_macro_trend". DO NOT attribute the multi-billion global industry statistic as the single incident damage; set financial_damage_usd to a conservative single-incident estimate (e.g. 2500000) so macro totals do not skew single-event metrics.
 
 Return ONLY a valid JSON object matching this exact schema:
 {
@@ -107,8 +126,8 @@ Return ONLY a valid JSON object matching this exact schema:
   "failure_mode": "Brief narrative connecting cause to consequence based on full text details",
   "harm_domain": "persons_physical" | "persons_mental" | "persons_rights" | "property" | "environment" | "systemic_integrity" | "societal",
   "harm_type": "discrimination_bias" | "privacy_breach" | "physical_safety" | "misinformation" | "economic_labor" | "copyright_ip" | "psychological_harm" | "national_security",
-  "impact_scope": "discrete_incident" | "cumulative_macro_trend", // MUST use "cumulative_macro_trend" if article describes aggregated statistics/totals over a period (e.g. TRM Labs H1 report, Chainalysis annual total, Interpol global losses, multi-hack theft totals); use "discrete_incident" ONLY for single specific events
-  "financial_damage_usd": 15000000,
+  "impact_scope": "discrete_incident" | "cumulative_macro_trend",
+  "financial_damage_usd": 2500000,
   "eu_ai_act_tier": "prohibited" | "high_risk" | "limited_risk" | "minimal_risk",
   "nist_ai_rmf_function": "GOVERN" | "MAP" | "MEASURE" | "MANAGE",
   "iso_42001_category": "Internal_Governance" | "Data_&_Resources" | "System_Impact" | "Operational_Security",
@@ -124,22 +143,19 @@ Return ONLY a valid JSON object matching this exact schema:
 }
 """
 
-def fetch_full_text_and_title(url: str) -> Dict[str, str]:
-    """Scrapes full text body and HTML title from an article URL."""
-    if not url or not HAS_SCRAPER:
-        return {"title": "", "full_text": ""}
-        
-    real_url = url
+def _raw_scrape_url(target_url: str) -> Dict[str, str]:
+    """Helper to scrape title and full text paragraphs from a single URL."""
     try:
-        if "news.google.com" in url:
-            decoded = gnewsdecoder(url)
-            if isinstance(decoded, dict) and decoded.get("status") and decoded.get("decoded_url"):
-                real_url = decoded.get("decoded_url")
-    except Exception:
-        pass
-        
-    try:
-        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+        real_url = target_url
+        if "news.google.com" in target_url and HAS_SCRAPER:
+            try:
+                decoded = gnewsdecoder(target_url)
+                if isinstance(decoded, dict) and decoded.get("status") and decoded.get("decoded_url"):
+                    real_url = decoded.get("decoded_url")
+            except Exception:
+                pass
+
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'}
         resp = requests.get(real_url, headers=headers, timeout=10)
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
@@ -149,13 +165,77 @@ def fetch_full_text_and_title(url: str) -> Dict[str, str]:
                 tag.extract()
             paragraphs = [p.get_text().strip() for p in soup.find_all('p') if len(p.get_text().strip()) > 35]
             full_text = "\n\n".join(paragraphs)
-            return {
-                "title": html_title,
-                "full_text": full_text if len(full_text) > 100 else ""
-            }
+            if len(full_text) > 150:
+                return {"title": html_title, "full_text": full_text}
     except Exception:
         pass
+    return {"title": "", "full_text": ""}
+
+def fetch_full_text_and_title(url: str, reported_by_samples: Optional[List[str]] = None, search_title: str = "") -> Dict[str, str]:
+    """Scrapes full text body and title from URL with Multi-Domain & Search Fallback Scraper."""
+    if not url or not HAS_SCRAPER:
+        return {"title": "", "full_text": ""}
         
+    # 1. Primary scrape
+    res = _raw_scrape_url(url)
+    if res["full_text"]:
+        return res
+        
+    # 2. GDELT Multi-Domain Sample Fallback
+    if reported_by_samples:
+        parsed_example = urllib.parse.urlparse(url)
+        path = parsed_example.path
+        if path and len(path) > 5:
+            for domain in reported_by_samples:
+                domain_clean = domain.strip()
+                if not domain_clean:
+                    continue
+                if not domain_clean.startswith("http"):
+                    alt_url = f"https://www.{domain_clean}{path}"
+                else:
+                    alt_url = domain_clean
+                res_alt = _raw_scrape_url(alt_url)
+                if res_alt["full_text"]:
+                    return res_alt
+
+    # 3. Google News RSS Web Search Fallback
+    query_title = search_title
+    if not query_title or query_title == "AI Incident Report":
+        parts = [p.strip() for p in url.split('/') if p.strip()]
+        if parts:
+            slug = parts[-1]
+            if slug.isdigit() and len(parts) > 1:
+                slug = parts[-2]
+            query_title = " ".join([w.capitalize() for w in re.split(r'[-_]', slug) if len(w) > 1 and not w.isdigit()])
+            
+    if query_title:
+        try:
+            words = [w for w in re.split(r'\s+', query_title) if len(w) > 2 and w.lower() not in ['and', 'the', 'for', 'over', 'with', 'from', 'report']]
+            short_query = " ".join(words[:7]) if words else query_title
+            query_encoded = urllib.parse.quote(short_query)
+            rss_url = f"https://news.google.com/rss/search?q={query_encoded}&hl=en-US&gl=US&ceid=US:en"
+            req = urllib.request.Request(rss_url, headers={'User-Agent': 'Mozilla/5.0'})
+            with urllib.request.urlopen(req, timeout=8) as response:
+                xml_data = response.read().decode('utf-8', errors='ignore')
+                soup = BeautifulSoup(xml_data, 'html.parser')
+                items = soup.find_all('item')
+                for item in items[:5]:
+                    title_elem = item.find('title')
+                    item_title = title_elem.get_text() if title_elem else ""
+                    raw_link = ""
+                    if item.find('link'):
+                        raw_link = item.find('link').next_sibling or item.find('link').text
+                    if not raw_link and item.find('guid'):
+                        raw_link = item.find('guid').text
+                    if raw_link:
+                        res_search = _raw_scrape_url(raw_link)
+                        if res_search["full_text"]:
+                            if not res_search["title"]:
+                                res_search["title"] = item_title
+                            return res_search
+        except Exception:
+            pass
+            
     return {"title": "", "full_text": ""}
 
 def stage2_binary_gatekeeper(title: str, text: str, api_key: str) -> Dict[str, Any]:
@@ -246,10 +326,11 @@ def stage3_extract_taxonomy(title: str, text: str, api_key: str) -> Optional[Dic
 
     return None
 
-
-def process_article_3stage_pipeline(article: Dict[str, str], api_key: str) -> Optional[Dict[str, Any]]:
+def process_article_3stage_pipeline(article: Dict[str, Any], api_key: str) -> Optional[Dict[str, Any]]:
     """Executes the full 3-Stage Ingestion Pipeline on a candidate article."""
-    scraped = fetch_full_text_and_title(article['link'])
+    reported_samples = article.get("reported_by_samples", [])
+    search_title = article.get("title", "")
+    scraped = fetch_full_text_and_title(article['link'], reported_by_samples=reported_samples, search_title=search_title)
     real_title = scraped["title"] or article.get("title", "")
     real_text = scraped["full_text"] or article.get("description", "")
     

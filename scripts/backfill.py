@@ -49,7 +49,7 @@ SYSTEM_PROMPT = """
 You are an expert AI Safety & Regulatory Incident Analyst.
 Analyze the following FULL-TEXT news article about an AI-related event and extract structured taxonomy metadata.
 
-An "AI Incident" is an event/circumstance where the development, deployment, use, malfunction, or misuse of an AI system leads to actual harm, potential harm, security breach, bias, hallucination impact, or significant deviation from safe operation.
+An "AI Incident" is an event/circumstance where the development, deployment, use, malfunction, or misuse of an AI system leads to actual harm, potential harm, security breach, bias, hallucination impact (including high-profile public/diplomatic embarrassment or institutional misinformation), or significant deviation from safe operation.
 
 Return ONLY a valid JSON object matching this exact schema:
 {
