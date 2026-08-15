@@ -15,6 +15,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
+from scripts.clean_and_enrich_incidents import estimate_financial_damage, assign_compliance_frameworks, assign_impact_scope
 
 try:
     import requests
@@ -244,13 +245,13 @@ def process_article_3stage_pipeline(article: Dict[str, str], api_key: str) -> Op
     if not data:
         return None
 
-    # IMPACT SCOPE AUTOMATIC VALIDATOR (Discrete Event vs Macro Industry Trend)
+    # AUTOMATIC FINANCIAL ENRICHMENT & IMPACT SCOPE VALIDATOR
+    assign_compliance_frameworks(data)
     usd = data.get("financial_damage_usd", 0) or 0
-    text_corpus = f"{real_title} {real_text}".lower()
-    if usd >= 5_000_000_000 or any(k in text_corpus for k in ["annual report", "chainalysis", "interpol", "global losses", "across industry", "industry report"]):
-        data["impact_scope"] = "cumulative_macro_trend"
-    elif not data.get("impact_scope"):
-        data["impact_scope"] = "discrete_incident"
+    if usd <= 0:
+        usd = estimate_financial_damage(data)
+        data["financial_damage_usd"] = usd
+    assign_impact_scope(data)
 
     data["source_urls"] = [article["link"]]
     data["source_type"] = article.get("source_type", "google_news_rss")
