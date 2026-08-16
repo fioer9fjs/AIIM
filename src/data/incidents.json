@@ -42,7 +42,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T09:42:28.084066+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20260815-037",
@@ -85,7 +90,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:29:22.694648+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 850000
+    "financial_damage_usd": 850000,
+    "eu_risk_tier": "minimal_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "rights_and_freedoms",
+    "harm_type": "unclassified",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20260815-039",
@@ -128,7 +138,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T09:16:25.53824+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 5000000
+    "financial_damage_usd": 5000000,
+    "eu_risk_tier": "limited_risk",
+    "system_classification": "general_purpose_model",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20260815-002",
@@ -171,7 +186,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T09:16:25.53824+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 850000
+    "financial_damage_usd": 850000,
+    "eu_risk_tier": "minimal_risk",
+    "system_classification": "general_purpose_model",
+    "harm_domain": "rights_and_freedoms",
+    "harm_type": "unclassified",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20260814-047",
@@ -213,7 +233,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T09:42:28.084066+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 360
+    "financial_damage_usd": 360,
+    "eu_risk_tier": "limited_risk",
+    "system_classification": "general_purpose_model",
+    "harm_domain": "rights_and_freedoms",
+    "harm_type": "misinformation",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20260814-037",
@@ -256,7 +281,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T09:42:28.084066+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 50000
+    "financial_damage_usd": 50000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20260814-001",
@@ -303,7 +333,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T09:16:25.53824+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20260814-056",
@@ -346,7 +381,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 1200000
+    "financial_damage_usd": 1200000,
+    "eu_risk_tier": "limited_risk",
+    "system_classification": "biometric_identification",
+    "harm_domain": "rights_and_freedoms",
+    "harm_type": "privacy_surveillance",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20260814-060",
@@ -390,7 +430,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 12500000
+    "financial_damage_usd": 12500000,
+    "eu_risk_tier": "prohibited_risk",
+    "system_classification": "general_purpose_model",
+    "harm_domain": "rights_and_freedoms",
+    "harm_type": "privacy_surveillance",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20260814-043",
@@ -437,7 +482,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:29:22.694648+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20260814-035",
@@ -479,7 +529,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T09:16:25.53824+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 100000
+    "financial_damage_usd": 100000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20260814-045",
@@ -523,7 +578,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T09:16:25.53824+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "high_risk_regulated",
+    "harm_domain": "rights_and_freedoms",
+    "harm_type": "bias_discrimination",
+    "primary_purpose": "unclassified"
   },
   {
     "incident_id": "INC-20260813-035",
@@ -566,7 +626,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:29:22.694648+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 12500000
+    "financial_damage_usd": 12500000,
+    "eu_risk_tier": "prohibited_risk",
+    "system_classification": "general_purpose_model",
+    "harm_domain": "rights_and_freedoms",
+    "harm_type": "unclassified",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20260813-031",
@@ -609,7 +674,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:29:22.694648+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 280000
+    "financial_damage_usd": 280000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "high_risk_regulated",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "unclassified"
   },
   {
     "incident_id": "INC-20260813-030",
@@ -656,7 +726,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 500000
+    "financial_damage_usd": 500000,
+    "eu_risk_tier": "limited_risk",
+    "system_classification": "general_purpose_model",
+    "harm_domain": "property_financial",
+    "harm_type": "financial_fraud",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20260812-064",
@@ -704,7 +779,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "eu_risk_tier": "prohibited_risk",
+    "system_classification": "general_purpose_model",
+    "harm_domain": "rights_and_freedoms",
+    "harm_type": "privacy_surveillance",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20260812-062",
@@ -755,7 +835,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 5000000
+    "financial_damage_usd": 5000000,
+    "eu_risk_tier": "limited_risk",
+    "system_classification": "general_purpose_model",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20260813-024",
@@ -802,7 +887,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 4500000
+    "financial_damage_usd": 4500000,
+    "eu_risk_tier": "limited_risk",
+    "system_classification": "general_purpose_model",
+    "harm_domain": "rights_and_freedoms",
+    "harm_type": "unclassified",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20260812-049",
@@ -850,7 +940,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 1200000
+    "financial_damage_usd": 1200000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "biometric_identification",
+    "harm_domain": "property_financial",
+    "harm_type": "financial_fraud",
+    "primary_purpose": "biometric_auth"
   },
   {
     "incident_id": "INC-20260812-058",
@@ -899,7 +994,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 5000000
+    "financial_damage_usd": 5000000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20260811-068",
@@ -951,7 +1051,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 450000,
+    "eu_risk_tier": "limited_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20260813-029",
@@ -1015,7 +1120,12 @@
     ],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 12500000
+    "financial_damage_usd": 12500000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "general_purpose_model",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "primary_purpose": "healthcare"
   },
   {
     "incident_id": "INC-20260812-051",
@@ -1069,7 +1179,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 14000000000
+    "financial_damage_usd": 14000000000,
+    "eu_risk_tier": "limited_risk",
+    "system_classification": "general_purpose_model",
+    "harm_domain": "property_financial",
+    "harm_type": "financial_fraud",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20260810-029",
@@ -1112,7 +1227,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:29:22.694648+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20260810-070",
@@ -1162,7 +1282,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 643000000
+    "financial_damage_usd": 643000000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "dual_use_security",
+    "harm_domain": "property_financial",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20260810-033",
@@ -1205,7 +1330,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T09:16:25.53824+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20260807-056",
@@ -1290,7 +1420,12 @@
     ],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 4500000
+    "financial_damage_usd": 4500000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20260807-082",
@@ -1338,7 +1473,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 1200000
+    "financial_damage_usd": 1200000,
+    "eu_risk_tier": "limited_risk",
+    "system_classification": "general_purpose_model",
+    "harm_domain": "property_financial",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20260806-082",
@@ -1387,7 +1527,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "eu_risk_tier": "unclassified",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "rights_and_freedoms",
+    "harm_type": "privacy_surveillance",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20260804-033",
@@ -1432,7 +1577,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:29:22.694648+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20260804-058",
@@ -1477,7 +1627,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20260804-032",
@@ -1523,7 +1678,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T03:13:11.650711+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20260721-033",
@@ -1566,7 +1726,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T09:42:28.084066+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20260630-035",
@@ -1610,7 +1775,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T09:42:28.084066+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 6000000
+    "financial_damage_usd": 6000000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "dual_use_security",
+    "harm_domain": "rights_and_freedoms",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20260330-052",
@@ -1654,7 +1824,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 450000000
+    "financial_damage_usd": 450000000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "high_risk_regulated",
+    "harm_domain": "property_financial",
+    "harm_type": "misinformation",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20260101-045",
@@ -1698,7 +1873,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:29:22.694648+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "eu_risk_tier": "limited_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "property_financial",
+    "harm_type": "financial_fraud",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20260101-039",
@@ -1743,7 +1923,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:29:22.694648+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "eu_risk_tier": "limited_risk",
+    "system_classification": "general_purpose_model",
+    "harm_domain": "property_financial",
+    "harm_type": "financial_fraud",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20251101-084",
@@ -1794,7 +1979,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 12500000
+    "financial_damage_usd": 12500000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "general_purpose_model",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20250813-043",
@@ -1838,7 +2028,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T09:42:28.084066+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20250813-041",
@@ -1882,7 +2077,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T09:16:25.53824+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "cybersecurity",
+    "primary_purpose": "autonomous_operation"
   },
   {
     "incident_id": "INC-20250801-086",
@@ -1933,7 +2133,12 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 12500000
+    "financial_damage_usd": 12500000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "general_purpose_model",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20260813-014",
@@ -1998,7 +2203,12 @@
     ],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 12500000
+    "financial_damage_usd": 12500000,
+    "eu_risk_tier": "limited_risk",
+    "system_classification": "general_purpose_model",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "primary_purpose": "content_generation"
   },
   {
     "incident_id": "INC-20260813-023",
@@ -2049,7 +2259,12 @@
     ],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 450000,
+    "eu_risk_tier": "unclassified",
+    "system_classification": "unclassified",
+    "harm_domain": "unclassified",
+    "harm_type": "unclassified",
+    "primary_purpose": "unclassified"
   },
   {
     "incident_id": "INC-20260813-025",
@@ -2116,6 +2331,11 @@
     ],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "eu_risk_tier": "high_risk",
+    "system_classification": "autonomous_agent",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "physical_safety",
+    "primary_purpose": "autonomous_operation"
   }
 ]

@@ -61,13 +61,15 @@ except ImportError:
 PREFERRED_MODELS_STAGE2 = [
     "gemma-4-31b-it",
     "gemma-4-26b-a4b-it",
-    "gemini-flash-latest"
+    "gemini-3.6-flash",
+    "gemini-3.5-flash"
 ]
 
 PREFERRED_MODELS_STAGE3 = [
-    "gemini-flash-latest",
     "gemma-4-31b-it",
-    "gemma-4-26b-a4b-it"
+    "gemma-4-26b-a4b-it",
+    "gemini-3.6-flash",
+    "gemini-3.5-flash"
 ]
 
 
@@ -88,10 +90,6 @@ DEFINITIONS:
 2. STRICT EXCLUSIONS (MUST RETURN is_ai_incident = false):
    - Securities class actions, shareholder lawsuits, or investor losses arising solely from stock price drops, quarterly earnings, or alleged management overstatement of AI revenue/Copilot adoption (e.g. Levi & Korsinsky, Robbins Geller, Pomerantz).
    - Pure civil contract, labor, wage, or unpaid work disputes regarding AI training or voice model creation (e.g. contractor/artist suing over unpaid voice cloning work).
-   - Pure corporate copyright, patent, trademark, or trade secret litigation between companies without an operational AI failure/harm (e.g. Apple vs OpenAI trade secret lawsuit, copyright licensing settlements).
-   - Constitutional legal challenges or lawsuits filed by companies against state regulations/laws before an operational incident occurs (e.g. xAI suing a state over deepfake legislation).
-   - Non-AI entities where "AI" refers to Air India (airline) or other acronyms.
-   - Routine commercial product announcements, model releases, software updates, or corporate PR marketing.
    - Speculative debate or academic papers discussing future artificial general intelligence (AGI) without a real-world event.
 
 Return ONLY a valid JSON object:
@@ -112,6 +110,9 @@ or
 TAXONOMY_PROMPT = """
 You are an expert AI Safety & Regulatory Incident Analyst.
 The provided article HAS BEEN CONFIRMED as a real-world AI incident. Extract structured taxonomy metadata.
+
+CLASSIFICATION & ATTRIBUTION RULE:
+- If an attribute (system classification, harm domain, etc.) cannot be conclusively determined from the article text, do NOT assign fake default categories. Use "unclassified" or "undetermined".
 
 FINANCIAL DAMAGE EVALUATION GUARDRAILS:
 - If the article describes a DISCRETE INCIDENT (e.g. specific lawsuit demand, court judgment, direct theft, fine): set financial_damage_usd to the explicit confirmed value.
