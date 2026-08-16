@@ -108,18 +108,18 @@ export const AboutView: React.FC = () => {
             </div>
           </section>
 
-          {/* Section 4: Deduplication Engine */}
+          {/* Section 4: Multi-Source Correlation & Incident Deduplication */}
           <section className="detail-section">
             <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
               <GitMerge size={18} style={{ color: 'var(--accent-blue)' }} />
-              4. Deduplication & Cross-Date Data Integrity Engine
+              4. Multi-Source Event Correlation & Incident Deduplication
             </h3>
             <div style={{ fontSize: '0.95rem', color: 'var(--text-muted)', lineHeight: 1.75, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <p>
-                To prevent duplicate news reports from inflating incident counts, the platform employs a dual-stage <strong>Fuzzy SequenceMatcher & Word-Jaccard Deduplicator</strong>:
+                To prevent multiple media reports or syndicated news feeds from inflating incident statistics, the platform continuously correlates incoming intelligence across all monitored data sources.
               </p>
               <p style={{ background: 'rgba(0,0,0,0.2)', padding: '0.85rem', borderRadius: '6px', border: '1px solid var(--border-color)', fontSize: '0.85rem' }}>
-                When multiple articles describe the same underlying event across different dates, the pipeline automatically merges their source URLs into a single canonical record while preserving the earliest date and highest severity score.
+                When multiple articles describe the same underlying real-world AI incident—regardless of differing headlines, publication dates, or reporting outlets—the intelligence pipeline automatically merges them into a single canonical incident record. All verified publisher links are consolidated under this primary entry, ensuring clean data integrity, precise incident counts, and non-duplicated financial damage metrics.
               </p>
             </div>
           </section>
