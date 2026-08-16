@@ -48,6 +48,8 @@ export async function fetchIncidentsFromSupabase(): Promise<AIIncident[]> {
     temporality: row.taxonomy?.temporality || 'actual',
     
     // MIT & AIID Extended fields from JSONB
+    impact_scope: row.taxonomy?.impact_scope || (row as Record<string, any>).impact_scope || 'discrete_incident',
+    valuation_methodology: row.taxonomy?.valuation_methodology || (row as Record<string, any>).valuation_methodology,
     intent: row.taxonomy?.intent,
     primary_purpose: row.taxonomy?.primary_purpose,
     harm_type: row.taxonomy?.harm_type,
