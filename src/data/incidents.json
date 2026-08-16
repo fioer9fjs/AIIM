@@ -1951,8 +1951,10 @@
       "primary_purpose": null,
       "root_cause_subtype": null,
       "root_cause_category": null,
-      "financial_damage_usd": 12500000,
-      "system_classification": null
+      "financial_damage_usd": 2500000,
+      "system_classification": null,
+      "impact_scope": "cumulative_macro_trend",
+      "valuation_methodology": "empirical_estimate"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1979,12 +1981,14 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 12500000,
+    "financial_damage_usd": 2500000,
     "eu_risk_tier": "high_risk",
     "system_classification": "general_purpose_model",
     "harm_domain": "persons_physical",
     "harm_type": "physical_safety",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "cumulative_macro_trend",
+    "valuation_methodology": "empirical_estimate"
   },
   {
     "incident_id": "INC-20250813-043",

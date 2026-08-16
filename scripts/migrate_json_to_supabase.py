@@ -152,6 +152,8 @@ def run_migration():
                 "harm_type": inc.get("harm_type"),
                 "eu_ai_act_tier": inc.get("eu_ai_act_tier"),
                 "natsec_impact": inc.get("natsec_impact"),
+                "impact_scope": inc.get("impact_scope"),
+                "valuation_methodology": inc.get("valuation_methodology"),
                 "source_type": inc.get("source_type", "google_news_rss"),
                 "financial_damage_usd": inc.get("financial_damage_usd", 0)
             }
