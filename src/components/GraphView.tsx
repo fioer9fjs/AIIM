@@ -109,15 +109,15 @@ export const GraphView: React.FC<GraphViewProps> = ({ incidents, edges, onSelect
       physics: {
         enabled: physicsEnabled,
         barnesHut: {
-          gravitationalConstant: -3000,
-          centralGravity: 0.3,
-          springLength: 120,
-          springConstant: 0.04,
+          gravitationalConstant: -14000,
+          centralGravity: 0.05,
+          springLength: 220,
+          springConstant: 0.02,
           damping: 0.09,
-          avoidOverlap: 0.4
+          avoidOverlap: 0.8
         },
         stabilization: {
-          iterations: 150
+          iterations: 200
         }
       },
       interaction: {
@@ -131,6 +131,11 @@ export const GraphView: React.FC<GraphViewProps> = ({ incidents, edges, onSelect
 
     const network = new Network(containerRef.current, { nodes: nodesDataSet, edges: edgesDataSet }, options);
     networkRef.current = network;
+
+    // Auto-fit after stabilization
+    network.on('stabilizationIterationsDone', () => {
+      network.fit({ animation: { duration: 600, easingFunction: 'easeInOutQuad' } });
+    });
 
     // Node click handler with explicit params type
     network.on('click', (params: { nodes?: (string | number)[] }) => {
@@ -233,7 +238,7 @@ export const GraphView: React.FC<GraphViewProps> = ({ incidents, edges, onSelect
   };
 
   return (
-    <div className="graph-viewport" style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: '680px' }}>
+    <div className="graph-viewport" style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 160px)', minHeight: '680px', width: '100%' }}>
       {/* Controls Bar */}
       <div
         style={{
@@ -353,8 +358,8 @@ export const GraphView: React.FC<GraphViewProps> = ({ incidents, edges, onSelect
       </div>
 
       {/* Main Vis-Network Canvas Container */}
-      <div style={{ flex: 1, position: 'relative', overflow: 'hidden', background: '#070a12' }}>
-        <div ref={containerRef} style={{ width: '100%', height: '100%', minHeight: '580px' }} />
+      <div style={{ flex: 1, position: 'relative', overflow: 'hidden', background: '#070a12', width: '100%' }}>
+        <div ref={containerRef} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%' }} />
 
         {/* Legend */}
         <div
