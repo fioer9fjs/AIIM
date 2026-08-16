@@ -621,17 +621,61 @@ def fetch_gdelt_bigquery(max_items: int = 50) -> List[Dict[str, Any]]:
         print(f"BigQuery GDELT Harvester note: {e}")
     return articles
 
-def is_fuzzy_duplicate(inc1: Dict[str, Any], inc2: Dict[str, Any]) -> bool:
+def sanitize_incident_date(date_str: str, pub_date_clean: str = "") -> str:
+    """Enforces strict date boundary: rejects future dates and corrupt formatting."""
+    today_str = datetime.now().strftime("%Y-%m-%d")
+    if not date_str or not isinstance(date_str, str):
+        return pub_date_clean or today_str
+    try:
+        dt = datetime.strptime(date_str.strip()[:10], "%Y-%m-%d")
+        if dt.strftime("%Y-%m-%d") > today_str:
+            print(f"  [DATE GUARDRAIL CORRECTION] Future date '{date_str}' corrected to publication date '{pub_date_clean or today_str}'")
+            return pub_date_clean or today_str
+        return dt.strftime("%Y-%m-%d")
+    except Exception:
+        return pub_date_clean or today_str
+
+def extract_key_entities(text: str) -> set:
+    """Extracts significant proper nouns and key terms for entity cross-matching."""
+    words = re.findall(r'\b[A-Za-z0-9_-]{3,}\b', (text or "").lower())
+    stopwords = {'the', 'and', 'for', 'that', 'with', 'from', 'this', 'have', 'were', 'been', 'about', 'after', 'used', 'using', 'over', 'into', 'incidents', 'incident', 'report', 'news', 'over', 'says', 'said', 'will', 'been'}
+    return {w for w in words if w not in stopwords}
+
+def is_same_incident(inc1: Dict[str, Any], inc2: Dict[str, Any]) -> bool:
+    """
+    Evaluates whether two incident records represent the SAME real-world incident:
+    1. Exact URL match in source_urls.
+    2. High fuzzy title similarity (SequenceMatcher >= 0.48).
+    3. Key named entity intersection (e.g. 'arjun', 'huggingface', 'xai', or 4+ shared entity words).
+    """
     import difflib
+    
+    # 1. URL Overlap
+    u1 = set(inc1.get("source_urls") or [])
+    u2 = set(inc2.get("source_urls") or [])
+    if u1.intersection(u2):
+        return True
+
+    # 2. Title SequenceMatcher ratio
     t1 = inc1.get("title", "").lower()
     t2 = inc2.get("title", "").lower()
-    ratio = difflib.SequenceMatcher(None, t1, t2).ratio()
-    if ratio >= 0.55:
+    if difflib.SequenceMatcher(None, t1, t2).ratio() >= 0.48:
         return True
-    words1 = set(inc1.get("summary", "").lower().split())
-    words2 = set(inc2.get("summary", "").lower().split())
-    jaccard = len(words1.intersection(words2)) / float(max(len(words1.union(words2)), 1))
-    return jaccard >= 0.45
+
+    # 3. Entity Intersection
+    e1 = extract_key_entities(inc1.get("title", "") + " " + inc1.get("summary", ""))
+    e2 = extract_key_entities(inc2.get("title", "") + " " + inc2.get("summary", ""))
+    overlap = e1.intersection(e2)
+    
+    # Key named entity triggers
+    key_entities = {"arjun", "huggingface", "openclaw", "deepseek", "otter", "exploitgym"}
+    if overlap.intersection(key_entities):
+        return True
+        
+    if len(overlap) >= 4:
+        return True
+
+    return False
 
 def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
     if not new_incidents:
@@ -649,19 +693,45 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
             existing = []
             
     added_count = 0
+    merged_count = 0
+    
     for inc in new_incidents:
-        if not any(is_fuzzy_duplicate(inc, item) for item in existing):
+        # Sanitize date boundary
+        pub_clean = inc.get("pub_date_clean") or datetime.now().strftime("%Y-%m-%d")
+        inc["date"] = sanitize_incident_date(inc.get("date"), pub_clean)
+        
+        # Check against existing DB for merging or duplication
+        matched_existing = None
+        for item in existing:
+            if is_same_incident(inc, item):
+                matched_existing = item
+                break
+                
+        if matched_existing:
+            # AUTO-MERGE: Append new source_urls to existing canonical incident
+            new_urls = inc.get("source_urls") or []
+            existing_urls = matched_existing.get("source_urls") or []
+            merged_urls = existing_urls.copy()
+            for u in new_urls:
+                if u and u not in merged_urls:
+                    merged_urls.append(u)
+            matched_existing["source_urls"] = merged_urls
+            merged_count += 1
+            print(f"  [AUTO-MERGED INTO EXISTING INCIDENT] Merged into '{matched_existing.get('incident_id')}' ({matched_existing.get('title')[:45]}...)")
+        else:
+            # CREATE NEW INCIDENT
             if "incident_id" not in inc or not inc["incident_id"]:
                 date_prefix = (inc.get("date") or datetime.now().strftime("%Y%m%d")).replace("-", "")
                 seq_num = len(existing) + added_count + 1
                 inc["incident_id"] = f"INC-{date_prefix}-{seq_num:03d}"
             existing.insert(0, inc)
             added_count += 1
+            print(f"  [CREATED NEW INCIDENT RECORD] Allocated ID: {inc['incident_id']}")
             
-    if added_count > 0:
+    if added_count > 0 or merged_count > 0:
         with open(incidents_path, "w", encoding="utf-8") as f:
-            json.dump(existing, f, indent=2)
-        print(f"\nSaved {added_count} new incidents to local JSON dataset: {incidents_path}")
+            json.dump(existing, f, indent=2, ensure_ascii=False)
+        print(f"\nSaved updates ({added_count} new, {merged_count} merged) to local dataset: {incidents_path}")
 
 def run_ingestion():
     load_env_file()
