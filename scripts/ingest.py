@@ -27,6 +27,9 @@ warnings.filterwarnings("ignore", message=".*automatic function calling.*")
 try:
     from bs4 import XMLParsedAsHTMLWarning
     warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
+except ImportError:
+    pass
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
