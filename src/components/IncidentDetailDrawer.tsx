@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, ExternalLink, ShieldCheck, AlertTriangle, GitFork, ShieldAlert, Zap, Layers, DollarSign, ChevronLeft, ChevronRight } from 'lucide-react';
-import { AIIncident, GraphEdge, formatFinancialDamage } from '../types/incident';
+import { AIIncident, GraphEdge, formatFinancialDamage, sanitizeExternalUrl } from '../types/incident';
 
 interface IncidentDetailDrawerProps {
   incident: AIIncident | null;
@@ -256,7 +256,7 @@ export const IncidentDetailDrawer: React.FC<IncidentDetailDrawerProps> = ({
                 {incident.source_urls.map((url, idx) => (
                   <li key={idx}>
                     <a
-                      href={url}
+                      href={sanitizeExternalUrl(url)}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{

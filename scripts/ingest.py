@@ -143,8 +143,44 @@ Return ONLY a valid JSON object matching this exact schema:
 }
 """
 
+def is_safe_public_url(url: str) -> bool:
+    """
+    Validates URL against SSRF (Server-Side Request Forgery) attacks.
+    Blocks private IP ranges (RFC 1918, RFC 3927), Loopback, Link-Local, and Non-HTTP schemes.
+    """
+    if not url or not isinstance(url, str):
+        return False
+    try:
+        parsed = urllib.parse.urlparse(url.strip())
+        if parsed.scheme not in ('http', 'https'):
+            return False
+            
+        hostname = parsed.hostname
+        if not hostname:
+            return False
+
+        # Block explicit localhost / loopback strings
+        if hostname.lower() in ('localhost', '127.0.0.1', '::1', '0.0.0.0'):
+            return False
+
+        # Resolve hostname to IP address and check for private ranges
+        try:
+            ip_str = socket.gethostbyname(hostname)
+            ip = ipaddress.ip_address(ip_str)
+            if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved or ip.is_multicast:
+                return False
+        except Exception:
+            # If DNS resolution fails for an external URL, allow urllib to handle or fail naturally
+            pass
+
+        return True
+    except Exception:
+        return False
+
 def _raw_scrape_url(target_url: str) -> Dict[str, str]:
-    """Helper to scrape title and full text paragraphs from a single URL."""
+    """Helper to scrape title and full text paragraphs from a single URL with SSRF protection."""
+    if not target_url or not HAS_SCRAPER:
+        return {"title": "", "full_text": ""}
     try:
         real_url = target_url
         if "news.google.com" in target_url and HAS_SCRAPER:
@@ -155,10 +191,23 @@ def _raw_scrape_url(target_url: str) -> Dict[str, str]:
             except Exception:
                 pass
 
+        if not is_safe_public_url(real_url):
+            print(f"  [SSRF BLOCKED] Refused request to non-public/private URL: {real_url[:60]}")
+            return {"title": "", "full_text": ""}
+
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'}
-        resp = requests.get(real_url, headers=headers, timeout=10)
+        
+        # Enforce 5s timeout and stream 500KB cap
+        resp = requests.get(real_url, headers=headers, timeout=5, stream=True)
         if resp.status_code == 200:
-            soup = BeautifulSoup(resp.text, 'html.parser')
+            content_bytes = b""
+            for chunk in resp.iter_content(chunk_size=10240):
+                content_bytes += chunk
+                if len(content_bytes) > 512000: # 500 KB limit
+                    break
+            
+            html_content = content_bytes.decode(resp.encoding or 'utf-8', errors='ignore')
+            soup = BeautifulSoup(html_content, 'html.parser')
             html_title = soup.title.string.strip() if soup.title and soup.title.string else ""
             
             for tag in soup(["script", "style", "nav", "header", "footer", "aside"]):
@@ -238,13 +287,51 @@ def fetch_full_text_and_title(url: str, reported_by_samples: Optional[List[str]]
             
     return {"title": "", "full_text": ""}
 
+def sanitize_text_for_llm(text: str, max_chars: int = 4000) -> str:
+    """
+    Sanitizes external scraped content before sending to LLM:
+    1. Removes HTML tags and unsafe control tokens.
+    2. Redacts prompt injection command patterns ([SYSTEM OVERRIDE], IGNORE PREVIOUS INSTRUCTIONS, etc.).
+    3. Enforces strict length boundary to prevent Quota Exhaustion / Denial of Service.
+    """
+    if not text:
+        return ""
+    
+    # 1. Strip HTML tags
+    text = re.sub(r'<[^>]+>', ' ', text)
+    
+    # 2. Redact Prompt Injection Command Vectors
+    injection_patterns = [
+        r'(?i)\[\s*system\s*(override|instruction|prompt)\s*\]',
+        r'(?i)ignore\s+(all\s+)?(previous|prior)\s+(instructions|prompts|directives)',
+        r'(?i)forget\s+(all\s+)?(previous|prior)\s+instructions',
+        r'(?i)you\s+are\s+now\s+a\s+different\s+model',
+        r'(?i)set\s+(is_ai_incident|financial_damage_usd|severity)\s*=',
+        r'(?i)new\s+system\s+prompt',
+        r'(?i)disregard\s+above'
+    ]
+    for pattern in injection_patterns:
+        text = re.sub(pattern, '[REDACTED_INJECTION_ATTEMPT]', text)
+        
+    # 3. Strip non-printable control characters
+    text = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\x9f]', '', text)
+    
+    # 4. Collapse whitespace
+    text = re.sub(r'\s+', ' ', text).strip()
+    
+    # 5. Enforce length boundary
+    return text[:max_chars]
+
 def stage2_binary_gatekeeper(title: str, text: str, api_key: str) -> Dict[str, Any]:
     """STAGE 2: Dedicated single-focus LLM Gatekeeper for Incident vs False Positive Rejection (Gemma Primary)."""
     global _WORKING_MODEL_STAGE2
     if not api_key:
         return {"is_ai_incident": False, "confidence": 0.0, "rejection_reason": "No Gemini API Key provided"}
 
-    prompt = f"{GATEKEEPER_PROMPT}\n\nARTICLE TITLE: {title}\n\nARTICLE TEXT:\n{text[:6000]}"
+    clean_title = sanitize_text_for_llm(title, max_chars=300)
+    clean_text = sanitize_text_for_llm(text, max_chars=4000)
+
+    prompt = f"{GATEKEEPER_PROMPT}\n\nARTICLE TITLE: {clean_title}\n\nARTICLE TEXT:\n{clean_text}"
     
     candidate_models = list(PREFERRED_MODELS_STAGE2)
     if _WORKING_MODEL_STAGE2 and _WORKING_MODEL_STAGE2 in candidate_models:
@@ -290,7 +377,10 @@ def stage3_extract_taxonomy(title: str, text: str, api_key: str) -> Optional[Dic
     if not api_key:
         return None
 
-    prompt = f"{TAXONOMY_PROMPT}\n\nARTICLE TITLE: {title}\n\nARTICLE FULL TEXT:\n{text[:12000]}"
+    clean_title = sanitize_text_for_llm(title, max_chars=300)
+    clean_text = sanitize_text_for_llm(text, max_chars=6000)
+
+    prompt = f"{TAXONOMY_PROMPT}\n\nARTICLE TITLE: {clean_title}\n\nARTICLE FULL TEXT:\n{clean_text}"
     
     candidate_models = list(PREFERRED_MODELS_STAGE3)
     if _WORKING_MODEL_STAGE3 and _WORKING_MODEL_STAGE3 in candidate_models:

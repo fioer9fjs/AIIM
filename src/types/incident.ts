@@ -153,6 +153,15 @@ export function formatFinancialDamage(usd?: number): string {
   return `$${usd.toLocaleString()}`;
 }
 
+export function sanitizeExternalUrl(url: string): string {
+  if (!url || typeof url !== 'string') return '#';
+  const trimmed = url.trim();
+  if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+    return trimmed;
+  }
+  return '#';
+}
+
 export function computeFinancialImpactTotals(incidents: AIIncident[]): { discreteTotalUSD: number; macroBenchmarkUSD: number } {
   let discreteTotalUSD = 0;
   let macroBenchmarkUSD = 0;
