@@ -553,19 +553,25 @@ def fetch_gdelt_bigquery(max_items: int = 50) -> List[Dict[str, Any]]:
             FROM 
                 `gdelt-bq.gdeltv2.gkg_partitioned`
             WHERE 
-                _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 2 DAY)
+                _PARTITIONTIME >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 5 DAY)
                 
-                -- AI Term Filter (Brand names & LLM models)
-                AND REGEXP_CONTAINS(LOWER(DocumentIdentifier), r'\\b(ai|artificial-intelligence|genai|generative-ai|machine-learning|chatgpt|openai|gpt|llm|deepmind|anthropic|claude|copilot|gemini|mistral|huggingface|hugging-face|xai|midjourney|stable-diffusion|sora|perplexity|grok)\\b')
+                -- Multi-Field AI Target Filter (URL Slug OR Organizations)
+                AND (
+                    REGEXP_CONTAINS(LOWER(DocumentIdentifier), r'\\b(ai|artificial-intelligence|genai|generative-ai|machine-learning|chatgpt|openai|gpt|llm|deepmind|anthropic|claude|copilot|gemini|mistral|huggingface|hugging-face|xai|midjourney|stable-diffusion|sora|perplexity|grok)\\b')
+                    OR REGEXP_CONTAINS(LOWER(COALESCE(V2Organizations, '')), r'\\b(openai|anthropic|deepmind|hugging face|xai|midjourney|mistral|stability ai|cohere|perplexity)\\b')
+                )
                 
-                -- Incident Focus Filter
-                AND REGEXP_CONTAINS(LOWER(DocumentIdentifier), r'\\b(incident|failure|outage|glitch|breach|hack|flaw|vulnerability|hallucination|deepfake|bias|jailbreak|lawsuit|fraud|fine|ban|probe|investigation|violation|copyright|penalty|leak|exploit|scam|malware|error|crash|bug|malfunction|misinformation|disinformation|plagiarism|propaganda)\\b')
+                -- Multi-Field Incident Focus Filter (URL Slug OR Themes)
+                AND (
+                    REGEXP_CONTAINS(LOWER(DocumentIdentifier), r'\\b(incident|failure|outage|glitch|breach|hack|flaw|vulnerability|hallucination|deepfake|bias|jailbreak|lawsuit|fraud|fine|ban|probe|investigation|violation|copyright|penalty|leak|exploit|scam|malware|error|crash|bug|malfunction|misinformation|disinformation|plagiarism|propaganda)\\b')
+                    OR REGEXP_CONTAINS(LOWER(COALESCE(V2Themes, '')), r'\\b(cyber_attack|law_crime|security_services|technology_ai|intellectual_property|fraud|privacy|investigation)\\b')
+                )
                 
                 -- Aviation Exclusion (Eliminates Copilot aircraft false positives)
                 AND NOT REGEXP_CONTAINS(LOWER(DocumentIdentifier), r'\\b(flight|plane|aircraft|aviation|airline|airlines|pilot|jet)\\b')
                 
-                -- Negative Tone Threshold (< -3.0)
-                AND CAST(SPLIT(V2Tone, ',')[OFFSET(0)] AS FLOAT64) < -3.0
+                -- Moderate Negative / Critical Tone Threshold (< -1.0)
+                AND CAST(SPLIT(V2Tone, ',')[OFFSET(0)] AS FLOAT64) < -1.0
         )
         SELECT 
             MIN(DATE) AS first_published,
