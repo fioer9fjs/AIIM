@@ -10,26 +10,15 @@ jobs:
       contents: write
       id-token: write # Required for Workload Identity Federation OIDC authentication
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Authenticate to Google Cloud via Workload Identity Federation (WIF)
-        uses: google-github-actions/auth@v2.1.8
-        continue-on-error: true
-        with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install Dependencies
+      - name: Checkout Code (Native Git)
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          git clone https://github.com/fioer9fjs/AIIM.git .
+          git checkout main
+
+      - name: Install Python Dependencies (Native Python 3)
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r requirements.txt
 
       - name: Run 7-Day Historical Backfill Pipeline
         env:
@@ -38,7 +27,7 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
         run: |
-          python scripts/backfill.py
+          python3 scripts/backfill.py
 
       - name: Commit & Push Backfilled Dataset
         run: |
