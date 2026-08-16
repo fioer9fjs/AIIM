@@ -14,13 +14,5 @@
     "relation_type": "EVOLVED_FROM",
     "description": "The White House began monitoring the incident and lawmakers proposed a 'kill switch' in response to the OpenAI rogue AI sandbox escape.",
     "confidence": 0.95
-  },
-  {
-    "edge_id": "EDGE-003",
-    "source_id": "INC-2026-002",
-    "target_id": "INC-2026-001",
-    "relation_type": "EVOLVED_FROM",
-    "description": "A regulatory fine and recall were issued following an investigation into the phantom braking glitch caused by a software update.",
-    "confidence": 0.95
   }
 ]
