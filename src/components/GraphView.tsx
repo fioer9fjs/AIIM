@@ -1,6 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { AIIncident, GraphEdge } from '../types/incident';
-import { Filter, Search, RotateCcw } from 'lucide-react';
+import { Filter, Search, RotateCcw, Layers, Play, Pause, Maximize2 } from 'lucide-react';
+// Import vis-network and vis-data
+import { Network, Options, Node, Edge, DataSet } from 'vis-network/standalone';
 
 interface GraphViewProps {
   incidents: AIIncident[];
@@ -16,15 +18,14 @@ const SEVERITY_COLORS: Record<string, string> = {
 };
 
 export const GraphView: React.FC<GraphViewProps> = ({ incidents, edges, onSelectIncident }) => {
-  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const networkRef = useRef<Network | null>(null);
+
+  const [clusterCategory, setClusterCategory] = useState<string>('none');
   const [relationFilter, setRelationFilter] = useState<string>('all');
   const [severityFilter, setSeverityFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
-
-  // Filter edges based on relationFilter
-  const filteredEdges = useMemo(() => {
-    return edges.filter((e) => relationFilter === 'all' || e.relation_type === relationFilter);
-  }, [edges, relationFilter]);
+  const [physicsEnabled, setPhysicsEnabled] = useState<boolean>(true);
 
   // Filter incidents based on severity and search
   const filteredIncidents = useMemo(() => {
@@ -40,83 +41,265 @@ export const GraphView: React.FC<GraphViewProps> = ({ incidents, edges, onSelect
     });
   }, [incidents, severityFilter, searchQuery]);
 
-  const nodesWithPos = useMemo(() => {
-    return filteredIncidents.map((inc, index) => {
-      const angle = (index / (filteredIncidents.length || 1)) * 2 * Math.PI;
-      const radius = 220 + (index % 2) * 60;
-      const cx = 450 + radius * Math.cos(angle);
-      const cy = 300 + radius * Math.sin(angle);
-      return { ...inc, x: cx, y: cy };
+  // Filter edges based on relationFilter
+  const filteredEdges = useMemo(() => {
+    const validIds = new Set(filteredIncidents.map((i) => i.incident_id));
+    return edges.filter(
+      (e) => validIds.has(e.source_id) && validIds.has(e.target_id) && (relationFilter === 'all' || e.relation_type === relationFilter)
+    );
+  }, [edges, filteredIncidents, relationFilter]);
+
+  // Initialize and update Vis-Network Canvas
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    // Build Vis Nodes
+    const visNodes: Node[] = filteredIncidents.map((inc) => {
+      const color = SEVERITY_COLORS[inc.severity] || '#3b82f6';
+      const incAny = inc as any;
+      return {
+        id: inc.incident_id,
+        label: inc.title.length > 28 ? `${inc.title.substring(0, 25)}...` : inc.title,
+        title: `<b>${inc.incident_id}</b><br/>${inc.title}<br/><i>Severity: ${inc.severity.toUpperCase()}</i>`,
+        shape: 'dot',
+        size: inc.severity === 'critical' ? 22 : inc.severity === 'high' ? 18 : 14,
+        color: {
+          background: color,
+          border: '#ffffff',
+          highlight: { background: '#38bdf8', border: '#ffffff' },
+          hover: { background: '#38bdf8', border: '#ffffff' }
+        },
+        font: { color: '#f8fafc', face: 'Inter', size: 12, strokeWidth: 3, strokeColor: '#0f172a' },
+        shadow: { enabled: true, color: 'rgba(0,0,0,0.6)', size: 10, x: 2, y: 4 },
+        // Custom properties for clustering
+        eu_risk_tier: incAny.eu_risk_tier || 'unclassified',
+        harm_domain: incAny.harm_domain || 'undetermined',
+        primary_purpose: incAny.primary_purpose || 'other',
+        system_classification: incAny.system_classification || 'unclassified',
+        severity: inc.severity || 'medium'
+      };
     });
-  }, [filteredIncidents]);
 
-  const nodeMap = useMemo(() => new Map(nodesWithPos.map((n) => [n.incident_id, n])), [nodesWithPos]);
+    // Build Vis Edges
+    const visEdges: Edge[] = filteredEdges.map((e) => ({
+      id: e.edge_id,
+      from: e.source_id,
+      to: e.target_id,
+      label: e.relation_type.replace(/_/g, ' '),
+      arrows: { to: { enabled: true, scaleFactor: 0.8 } },
+      color: { color: '#3b82f6', opacity: 0.7, highlight: '#38bdf8' },
+      dashes: e.relation_type === 'lawsuit' || e.relation_type === 'regulatory_action',
+      font: { color: '#94a3b8', size: 10, align: 'middle', background: 'rgba(15, 23, 42, 0.8)' },
+      width: 2
+    }));
 
-  // Find connected incident IDs for selected node
-  const connectedNodeIds = useMemo(() => {
-    if (!selectedNodeId) return new Set<string>();
-    const set = new Set<string>([selectedNodeId]);
-    filteredEdges.forEach((e) => {
-      if (e.source_id === selectedNodeId) set.add(e.target_id);
-      if (e.target_id === selectedNodeId) set.add(e.source_id);
+    const nodesDataSet = new DataSet(visNodes);
+    const edgesDataSet = new DataSet(visEdges);
+
+    const options: Options = {
+      nodes: {
+        borderWidth: 2
+      },
+      edges: {
+        smooth: {
+          type: 'continuous',
+          roundness: 0.2
+        }
+      },
+      physics: {
+        enabled: physicsEnabled,
+        barnesHut: {
+          gravitationalConstant: -3000,
+          centralGravity: 0.3,
+          springLength: 120,
+          springConstant: 0.04,
+          damping: 0.09,
+          avoidOverlap: 0.4
+        },
+        stabilization: {
+          iterations: 150
+        }
+      },
+      interaction: {
+        dragNodes: true,
+        dragView: true,
+        zoomView: true,
+        hover: true,
+        tooltipDelay: 100
+      }
+    };
+
+    const network = new Network(containerRef.current, { nodes: nodesDataSet, edges: edgesDataSet }, options);
+    networkRef.current = network;
+
+    // Node click handler with explicit params type
+    network.on('click', (params: { nodes?: (string | number)[] }) => {
+      if (params.nodes && params.nodes.length > 0) {
+        const nodeId = String(params.nodes[0]);
+        // Check if clicked item is a cluster
+        if (network.isCluster(nodeId)) {
+          network.openCluster(nodeId);
+          return;
+        }
+        const targetInc = incidents.find((i) => i.incident_id === nodeId);
+        if (targetInc) {
+          onSelectIncident(targetInc);
+        }
+      }
     });
-    return set;
-  }, [selectedNodeId, filteredEdges]);
 
-  const handleResetGraphFilters = () => {
+    return () => {
+      network.destroy();
+      networkRef.current = null;
+    };
+  }, [filteredIncidents, filteredEdges, physicsEnabled, incidents, onSelectIncident]);
+
+  // Apply Categorical Clustering when clusterCategory changes
+  useEffect(() => {
+    const network = networkRef.current;
+    if (!network) return;
+
+    // First open all existing clusters
+    const clusterIds = Object.keys(network.body.nodes).filter((id) => network.isCluster(id));
+    clusterIds.forEach((cId) => network.openCluster(cId));
+
+    if (clusterCategory === 'none') return;
+
+    const propertyMap: Record<string, string> = {
+      eu_risk_tier: 'EU Risk Tier',
+      harm_domain: 'Harm Domain',
+      primary_purpose: 'Primary Purpose',
+      system_classification: 'System Type',
+      severity: 'Severity Level'
+    };
+
+    const clusterKey = clusterCategory;
+    const propertyLabel = propertyMap[clusterKey] || 'Cluster';
+
+    const uniqueValues = new Set<string>();
+    filteredIncidents.forEach((inc) => {
+      const val = (inc as any)[clusterKey] || 'Unclassified';
+      uniqueValues.add(val);
+    });
+
+    uniqueValues.forEach((val) => {
+      const clusterOptions = {
+        joinCondition: (childOptions: any) => {
+          return childOptions[clusterKey] === val;
+        },
+        processProperties: (clusterOptions: any, childNodes: any[]) => {
+          const count = childNodes.length;
+          let labelText = `${propertyLabel}:\n${val.replace(/_/g, ' ').toUpperCase()} (${count})`;
+          return {
+            title: `<b>${propertyLabel}: ${val}</b><br/>Contains ${count} incidents. Click to expand.`,
+            label: labelText,
+            color: {
+              background: '#1e293b',
+              border: '#38bdf8',
+              highlight: { background: '#0284c7', border: '#ffffff' }
+            },
+            shape: 'hexagon',
+            size: 25 + Math.min(count * 3, 25),
+            font: { color: '#f8fafc', size: 11, face: 'Inter', multi: 'html' }
+          };
+        },
+        clusterNodeProperties: {
+          id: `cluster_${clusterKey}_${val}`,
+          borderWidth: 3
+        }
+      };
+      network.cluster(clusterOptions);
+    });
+  }, [clusterCategory, filteredIncidents]);
+
+  const handleResetFilters = () => {
+    setClusterCategory('none');
     setRelationFilter('all');
     setSeverityFilter('all');
     setSearchQuery('');
-    setSelectedNodeId(null);
+    if (networkRef.current) {
+      networkRef.current.fit({ animation: { duration: 600, easingFunction: 'easeInOutQuad' } });
+    }
+  };
+
+  const handleFitView = () => {
+    if (networkRef.current) {
+      networkRef.current.fit({ animation: { duration: 600, easingFunction: 'easeInOutQuad' } });
+    }
+  };
+
+  const togglePhysics = () => {
+    setPhysicsEnabled((prev) => !prev);
   };
 
   return (
-    <div className="graph-viewport" style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: '650px' }}>
+    <div className="graph-viewport" style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: '680px' }}>
       {/* Controls Bar */}
       <div
         style={{
           padding: '1rem 1.5rem',
-          background: 'rgba(0,0,0,0.5)',
+          background: 'rgba(15, 23, 42, 0.95)',
           borderBottom: '1px solid var(--border-color)',
           display: 'flex',
           flexWrap: 'wrap',
           gap: '1rem',
           justifyContent: 'space-between',
-          alignItems: 'center'
+          alignItems: 'center',
+          backdropFilter: 'blur(10px)'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <Filter size={18} style={{ color: 'var(--accent-cyan)' }} />
+          <Filter size={20} style={{ color: 'var(--accent-cyan)' }} />
           <div>
-            <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-main)' }}>Knowledge Graph Filters</h3>
+            <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-main)', margin: 0 }}>
+              Interactive Causal Knowledge Graph
+            </h3>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-              Showing {nodesWithPos.length} Nodes & {filteredEdges.length} Causal Edges
+              Showing {filteredIncidents.length} Nodes & {filteredEdges.length} Causal Edges • Drag nodes freely or click to inspect
             </span>
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap', alignItems: 'center' }}>
           {/* Node Search */}
-          <div className="search-input-wrapper" style={{ width: '180px' }}>
+          <div className="search-input-wrapper" style={{ width: '170px' }}>
             <Search className="search-icon" size={13} />
             <input
               type="text"
               className="search-input"
               style={{ padding: '0.35rem 0.5rem 0.35rem 2rem', fontSize: '0.8rem' }}
-              placeholder="Search node..."
+              placeholder="Search node title..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
 
+          {/* Dynamic Category Clustering Dropdown */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+            <Layers size={14} style={{ color: 'var(--accent-cyan)' }} />
+            <select
+              className="filter-select"
+              style={{ width: '175px', padding: '0.35rem 0.5rem', fontSize: '0.8rem', borderColor: 'var(--accent-cyan)' }}
+              value={clusterCategory}
+              onChange={(e) => setClusterCategory(e.target.value)}
+            >
+              <option value="none">🌐 No Clustering (Flat)</option>
+              <option value="eu_risk_tier">🏛️ Cluster by EU AI Act Tier</option>
+              <option value="harm_domain">⚠️ Cluster by Harm Domain</option>
+              <option value="primary_purpose">🎯 Cluster by Primary Purpose</option>
+              <option value="system_classification">🤖 Cluster by System Type</option>
+              <option value="severity">🔥 Cluster by Severity</option>
+            </select>
+          </div>
+
           {/* Relation Type Filter */}
           <select
             className="filter-select"
-            style={{ width: '150px', padding: '0.35rem 0.5rem', fontSize: '0.8rem' }}
+            style={{ width: '145px', padding: '0.35rem 0.5rem', fontSize: '0.8rem' }}
             value={relationFilter}
             onChange={(e) => setRelationFilter(e.target.value)}
           >
-            <option value="all">All Relation Edges</option>
+            <option value="all">All Edge Types</option>
             <option value="lawsuit">Lawsuit / Litigation</option>
             <option value="regulatory_action">Regulatory Action</option>
             <option value="patch">Patch / Fix</option>
@@ -126,7 +309,7 @@ export const GraphView: React.FC<GraphViewProps> = ({ incidents, edges, onSelect
           {/* Severity Filter */}
           <select
             className="filter-select"
-            style={{ width: '140px', padding: '0.35rem 0.5rem', fontSize: '0.8rem' }}
+            style={{ width: '130px', padding: '0.35rem 0.5rem', fontSize: '0.8rem' }}
             value={severityFilter}
             onChange={(e) => setSeverityFilter(e.target.value)}
           >
@@ -137,9 +320,30 @@ export const GraphView: React.FC<GraphViewProps> = ({ incidents, edges, onSelect
             <option value="low">Low</option>
           </select>
 
+          {/* Physics Toggle Button */}
+          <button
+            onClick={togglePhysics}
+            className="button button-outline"
+            style={{ padding: '0.35rem 0.6rem', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}
+            title={physicsEnabled ? 'Freeze Physics Simulation' : 'Enable Physics Simulation'}
+          >
+            {physicsEnabled ? <Pause size={13} style={{ color: '#ef4444' }} /> : <Play size={13} style={{ color: '#10b981' }} />}
+            {physicsEnabled ? 'Pause Physics' : 'Live Physics'}
+          </button>
+
+          {/* Fit View Button */}
+          <button
+            onClick={handleFitView}
+            className="button button-outline"
+            style={{ padding: '0.35rem 0.6rem', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}
+            title="Recenter & Fit View"
+          >
+            <Maximize2 size={13} /> Fit
+          </button>
+
           {/* Reset button */}
           <button
-            onClick={handleResetGraphFilters}
+            onClick={handleResetFilters}
             className="button button-outline"
             style={{ padding: '0.35rem 0.6rem', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}
           >
@@ -148,97 +352,9 @@ export const GraphView: React.FC<GraphViewProps> = ({ incidents, edges, onSelect
         </div>
       </div>
 
-      {/* Main SVG Graph Canvas */}
-      <div style={{ flex: 1, position: 'relative', overflow: 'hidden', background: '#090d16' }}>
-        <svg width="100%" height="100%" viewBox="0 0 900 600">
-          <defs>
-            <marker
-              id="arrow"
-              viewBox="0 0 10 10"
-              refX="18"
-              refY="5"
-              markerWidth="6"
-              markerHeight="6"
-              orient="auto-start-reverse"
-            >
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" />
-            </marker>
-          </defs>
-
-          {/* Edges */}
-          {filteredEdges.map((edge) => {
-            const source = nodeMap.get(edge.source_id);
-            const target = nodeMap.get(edge.target_id);
-
-            if (!source || !target) return null;
-
-            const isHighlighted =
-              selectedNodeId === null || (connectedNodeIds.has(source.incident_id) && connectedNodeIds.has(target.incident_id));
-
-            return (
-              <g key={edge.edge_id} opacity={isHighlighted ? 0.9 : 0.15}>
-                <line
-                  x1={source.x}
-                  y1={source.y}
-                  x2={target.x}
-                  y2={target.y}
-                  stroke={isHighlighted ? '#3b82f6' : '#334155'}
-                  strokeWidth={isHighlighted ? '2.5' : '1'}
-                  strokeDasharray={edge.relation_type === 'lawsuit' ? '4,4' : undefined}
-                  markerEnd="url(#arrow)"
-                />
-                <text
-                  x={(source.x + target.x) / 2}
-                  y={(source.y + target.y) / 2 - 8}
-                  fill={isHighlighted ? '#94a3b8' : '#475569'}
-                  fontSize="10"
-                  textAnchor="middle"
-                  fontFamily="Inter"
-                >
-                  {edge.relation_type.replace(/_/g, ' ')}
-                </text>
-              </g>
-            );
-          })}
-
-          {/* Nodes */}
-          {nodesWithPos.map((node) => {
-            const isSelected = selectedNodeId === node.incident_id;
-            const isConnected = connectedNodeIds.has(node.incident_id);
-            const nodeOpacity = selectedNodeId === null || isConnected ? 1 : 0.25;
-
-            return (
-              <g
-                key={node.incident_id}
-                transform={`translate(${node.x},${node.y})`}
-                style={{ cursor: 'pointer', transition: 'all 0.2s ease' }}
-                opacity={nodeOpacity}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedNodeId(node.incident_id);
-                  onSelectIncident(node);
-                }}
-              >
-                <circle
-                  r={isSelected ? 16 : 12}
-                  fill={SEVERITY_COLORS[node.severity] || '#3b82f6'}
-                  stroke={isSelected ? '#ffffff' : 'rgba(255,255,255,0.4)'}
-                  strokeWidth={isSelected ? 3 : 1.5}
-                />
-                <text
-                  y={24}
-                  fill="#f8fafc"
-                  fontSize="11"
-                  fontWeight={isSelected ? 700 : 500}
-                  textAnchor="middle"
-                  fontFamily="Inter"
-                >
-                  {node.title.length > 25 ? `${node.title.substring(0, 22)}...` : node.title}
-                </text>
-              </g>
-            );
-          })}
-        </svg>
+      {/* Main Vis-Network Canvas Container */}
+      <div style={{ flex: 1, position: 'relative', overflow: 'hidden', background: '#070a12' }}>
+        <div ref={containerRef} style={{ width: '100%', height: '100%', minHeight: '580px' }} />
 
         {/* Legend */}
         <div
@@ -246,27 +362,31 @@ export const GraphView: React.FC<GraphViewProps> = ({ incidents, edges, onSelect
             position: 'absolute',
             bottom: '1rem',
             left: '1rem',
-            background: 'rgba(15, 23, 42, 0.85)',
+            background: 'rgba(15, 23, 42, 0.9)',
             border: '1px solid var(--border-color)',
             padding: '0.75rem 1rem',
             borderRadius: '8px',
             display: 'flex',
-            gap: '1rem',
+            gap: '1.25rem',
             fontSize: '0.75rem',
-            backdropFilter: 'blur(8px)'
+            backdropFilter: 'blur(8px)',
+            pointerEvents: 'none'
           }}
         >
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#cbd5e1' }}>
             <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#ef4444' }} /> Critical
           </span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#cbd5e1' }}>
             <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#f97316' }} /> High
           </span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#cbd5e1' }}>
             <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#eab308' }} /> Medium
           </span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#cbd5e1' }}>
             <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#3b82f6' }} /> Low
+          </span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#cbd5e1', borderLeft: '1px solid #334155', paddingLeft: '1rem' }}>
+            <span style={{ width: 12, height: 12, background: '#1e293b', border: '2px solid #38bdf8' }} /> Category Cluster (Click to open)
           </span>
         </div>
       </div>
