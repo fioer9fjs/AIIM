@@ -12,7 +12,7 @@
     "@supabase/supabase-js": "^2.45.0",
     "@types/leaflet": "^1.9.22",
     "leaflet": "^1.9.4",
-    "lucide-react": "^0.344.0",
+    "lucide-react": "^0.450.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "recharts": "^2.12.2"
@@ -20,8 +20,8 @@
   "devDependencies": {
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
-    "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-react": "^4.3.3",
     "typescript": "^5.2.2",
-    "vite": "^5.1.6"
+    "vite": "^5.4.11"
   }
 }
