@@ -5,16 +5,37 @@ export const AboutView: React.FC = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
       {/* Top Header Banner */}
-      <div className="detail-section" style={{ background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.9) 100%)', borderLeft: '4px solid var(--accent-blue)', padding: '2rem', borderRadius: '12px' }}>
+      <div className="detail-section" style={{ background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.95) 100%)', borderLeft: '4px solid var(--accent-blue)', padding: '2rem', borderRadius: '12px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
           <Info size={26} style={{ color: 'var(--accent-cyan)' }} />
           <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-main)' }}>
             About & Methodology — Global AI Incident Monitor
           </h2>
         </div>
-        <p style={{ fontSize: '1.025rem', color: '#e2e8f0', lineHeight: 1.7, maxWidth: '75ch' }}>
-          The <strong>Global AI Incident Monitor (AIIM)</strong> is a specialized analytics platform providing real-time multi-source intelligence on AI Incidents, systemic risks, security breaches, legal actions, and regulatory enforcement.
+        
+        <p style={{ fontSize: '1.025rem', color: '#e2e8f0', lineHeight: 1.7, maxWidth: '85ch', marginBottom: '1rem' }}>
+          The <strong>Global AI Incident Monitor (AIIM)</strong> is a specialized, fully autonomous analytics platform providing real-time multi-source intelligence on AI Incidents, systemic risks, security breaches, legal actions, and regulatory enforcement.
         </p>
+
+        {/* 🤖 FULL AUTONOMOUS AI OPERATION DISCLOSURE */}
+        <div style={{ background: 'rgba(56, 189, 248, 0.08)', border: '1px solid rgba(56, 189, 248, 0.25)', padding: '1rem 1.25rem', borderRadius: '8px', marginBottom: '1rem' }}>
+          <h4 style={{ fontSize: '0.9rem', color: 'var(--accent-cyan)', marginBottom: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+            🤖 Fully Autonomous AI Operation & Zero Human Intervention Disclosure
+          </h4>
+          <p style={{ fontSize: '0.85rem', color: '#cbd5e1', lineHeight: 1.6, margin: 0 }}>
+            This entire platform is operated, curated, and maintained <strong>100% autonomously by AI algorithms and automated pipelines</strong>. The end-to-end data ingestion, multi-source harvesting, gatekeeper filtering, deduplication, financial valuation, taxonomy classification, and site updates occur without any manual human intervention. By design, no human editor manually creates, alters, or redacts individual incident entries—errors or systemic misclassifications are addressed exclusively through algorithmic pipeline and prompt engineering, never through manual data overrides.
+          </p>
+        </div>
+
+        {/* ⚖️ LEGAL DISCLAIMER */}
+        <div style={{ background: 'rgba(239, 68, 68, 0.08)', border: '1px solid rgba(239, 68, 68, 0.25)', padding: '0.85rem 1.25rem', borderRadius: '8px' }}>
+          <h4 style={{ fontSize: '0.85rem', color: '#fca5a5', marginBottom: '0.3rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+            ⚖️ Legal Disclaimer — Non-Binding Research Data
+          </h4>
+          <p style={{ fontSize: '0.825rem', color: '#cbd5e1', lineHeight: 1.5, margin: 0 }}>
+            All intelligence, financial damage estimates, EU AI Act classifications, and risk metrics presented on this platform are generated via automated algorithmic processing of open-source information. All data is strictly non-binding and provided solely for research, educational, and risk-monitoring purposes.
+          </p>
+        </div>
       </div>
 
       {/* Main 2-Column Methodology Content */}
