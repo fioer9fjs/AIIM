@@ -20,15 +20,24 @@ const SEVERITY_RANK: Record<string, number> = {
 export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents, dateRange, onSelectIncident }) => {
   const [copied, setCopied] = useState<boolean>(false);
   const [briefingSort, setBriefingSort] = useState<'criticality' | 'damage'>('criticality');
+  const [showDiscrete, setShowDiscrete] = useState<boolean>(true);
+  const [showMacro, setShowMacro] = useState<boolean>(true);
 
-  // Incidents for active filter window, DEDUPLICATED AND SORTED BY USER SELECTION
+  // Incidents for active filter window, DEDUPLICATED AND FILTERED BY SCOPE & SORT SELECTION
   const dailyIncidents = useMemo(() => {
     const dedupped = deduplicateIncidents(incidents);
+    const filtered = dedupped.filter((inc) => {
+      const isMacro = inc.impact_scope === 'cumulative_macro_trend' || (inc.financial_damage_usd || 0) >= 5_000_000_000;
+      if (isMacro && !showMacro) return false;
+      if (!isMacro && !showDiscrete) return false;
+      return true;
+    });
+
     if (briefingSort === 'damage') {
-      return dedupped.sort((a, b) => (b.financial_damage_usd || 0) - (a.financial_damage_usd || 0));
+      return filtered.sort((a, b) => (b.financial_damage_usd || 0) - (a.financial_damage_usd || 0));
     }
-    return dedupped.sort((a, b) => (SEVERITY_RANK[b.severity] || 0) - (SEVERITY_RANK[a.severity] || 0));
-  }, [incidents, briefingSort]);
+    return filtered.sort((a, b) => (SEVERITY_RANK[b.severity] || 0) - (SEVERITY_RANK[a.severity] || 0));
+  }, [incidents, briefingSort, showDiscrete, showMacro]);
 
   // Statistics
   const criticalCount = useMemo(() => {
@@ -143,11 +152,79 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
                 </h3>
               </div>
               
-              {/* Sort Switcher Widget for Daily Briefing */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', background: 'rgba(0,0,0,0.4)', padding: '0.2rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
-                <ArrowUpDown size={12} style={{ color: 'var(--text-muted)', marginLeft: '0.2rem' }} />
-                <button
-                  onClick={() => setBriefingSort('criticality')}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                {/* Event Scope Filter Controls (Discrete vs Macro) */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', background: 'rgba(0,0,0,0.4)', padding: '0.2rem 0.4rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                  <span style={{ fontSize: '0.725rem', color: 'var(--text-muted)', fontWeight: 600, paddingRight: '0.2rem' }}>Scope:</span>
+                  
+                  <label
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.25rem',
+                      fontSize: '0.725rem',
+                      fontWeight: 600,
+                      color: showDiscrete ? '#34d399' : 'var(--text-muted)',
+                      background: showDiscrete ? 'rgba(52, 211, 153, 0.15)' : 'transparent',
+                      padding: '0.2rem 0.45rem',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                      border: showDiscrete ? '1px solid rgba(52, 211, 153, 0.3)' : '1px solid transparent',
+                      userSelect: 'none',
+                      transition: 'all 0.15s ease'
+                    }}
+                    title="Toggle Discrete Single Events"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={showDiscrete}
+                      onChange={(e) => {
+                        const checked = e.target.checked;
+                        if (!checked && !showMacro) return;
+                        setShowDiscrete(checked);
+                      }}
+                      style={{ accentColor: '#34d399', width: '12px', height: '12px', cursor: 'pointer' }}
+                    />
+                    Discrete
+                  </label>
+
+                  <label
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.25rem',
+                      fontSize: '0.725rem',
+                      fontWeight: 600,
+                      color: showMacro ? '#c084fc' : 'var(--text-muted)',
+                      background: showMacro ? 'rgba(168, 85, 247, 0.15)' : 'transparent',
+                      padding: '0.2rem 0.45rem',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                      border: showMacro ? '1px solid rgba(168, 85, 247, 0.3)' : '1px solid transparent',
+                      userSelect: 'none',
+                      transition: 'all 0.15s ease'
+                    }}
+                    title="Toggle Industry Macro Trend Reports"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={showMacro}
+                      onChange={(e) => {
+                        const checked = e.target.checked;
+                        if (!checked && !showDiscrete) return;
+                        setShowMacro(checked);
+                      }}
+                      style={{ accentColor: '#a855f7', width: '12px', height: '12px', cursor: 'pointer' }}
+                    />
+                    Macro
+                  </label>
+                </div>
+
+                {/* Sort Switcher Widget for Daily Briefing */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', background: 'rgba(0,0,0,0.4)', padding: '0.2rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                  <ArrowUpDown size={12} style={{ color: 'var(--text-muted)', marginLeft: '0.2rem' }} />
+                  <button
+                    onClick={() => setBriefingSort('criticality')}
                   style={{
                     border: 'none',
                     background: briefingSort === 'criticality' ? 'var(--accent-purple)' : 'transparent',
@@ -180,6 +257,7 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
                 </button>
               </div>
             </div>
+          </div>
 
             {dailyIncidents.length === 0 ? (
               <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
