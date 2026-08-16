@@ -21,7 +21,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 2500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -47,7 +48,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "systemic_integrity",
     "harm_type": "cybersecurity",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260815-037",
@@ -71,7 +73,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 850000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -95,7 +98,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "rights_and_freedoms",
     "harm_type": "unclassified",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260815-039",
@@ -119,7 +123,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 5000000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 1.0,
@@ -143,7 +148,8 @@
     "system_classification": "general_purpose_model",
     "harm_domain": "persons_physical",
     "harm_type": "physical_safety",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260815-002",
@@ -167,7 +173,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 850000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -191,7 +198,8 @@
     "system_classification": "general_purpose_model",
     "harm_domain": "rights_and_freedoms",
     "harm_type": "unclassified",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260814-047",
@@ -215,7 +223,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 360,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -238,7 +247,8 @@
     "system_classification": "general_purpose_model",
     "harm_domain": "rights_and_freedoms",
     "harm_type": "misinformation",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260814-037",
@@ -262,7 +272,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 50000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -286,7 +297,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "systemic_integrity",
     "harm_type": "cybersecurity",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260814-001",
@@ -310,7 +322,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 2500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "cumulative_macro_trend"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -338,7 +351,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "systemic_integrity",
     "harm_type": "cybersecurity",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "cumulative_macro_trend"
   },
   {
     "incident_id": "INC-20260814-056",
@@ -362,7 +376,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 1200000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -386,7 +401,8 @@
     "system_classification": "biometric_identification",
     "harm_domain": "rights_and_freedoms",
     "harm_type": "privacy_surveillance",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260814-060",
@@ -410,7 +426,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 12500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -435,7 +452,8 @@
     "system_classification": "general_purpose_model",
     "harm_domain": "rights_and_freedoms",
     "harm_type": "privacy_surveillance",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260814-043",
@@ -459,7 +477,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 2500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "cumulative_macro_trend"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -487,7 +506,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "systemic_integrity",
     "harm_type": "cybersecurity",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "cumulative_macro_trend"
   },
   {
     "incident_id": "INC-20260814-035",
@@ -511,7 +531,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 100000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -534,7 +555,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "systemic_integrity",
     "harm_type": "cybersecurity",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260814-045",
@@ -558,7 +580,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 2500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "cumulative_macro_trend"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -583,7 +606,8 @@
     "system_classification": "high_risk_regulated",
     "harm_domain": "rights_and_freedoms",
     "harm_type": "bias_discrimination",
-    "primary_purpose": "unclassified"
+    "primary_purpose": "unclassified",
+    "impact_scope": "cumulative_macro_trend"
   },
   {
     "incident_id": "INC-20260813-035",
@@ -607,7 +631,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 12500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -631,7 +656,8 @@
     "system_classification": "general_purpose_model",
     "harm_domain": "rights_and_freedoms",
     "harm_type": "unclassified",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260813-031",
@@ -655,7 +681,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 280000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -679,7 +706,8 @@
     "system_classification": "high_risk_regulated",
     "harm_domain": "systemic_integrity",
     "harm_type": "cybersecurity",
-    "primary_purpose": "unclassified"
+    "primary_purpose": "unclassified",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260813-030",
@@ -703,7 +731,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -731,7 +760,8 @@
     "system_classification": "general_purpose_model",
     "harm_domain": "property_financial",
     "harm_type": "financial_fraud",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260812-064",
@@ -755,7 +785,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 2500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -784,7 +815,8 @@
     "system_classification": "general_purpose_model",
     "harm_domain": "rights_and_freedoms",
     "harm_type": "privacy_surveillance",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260812-062",
@@ -808,7 +840,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 5000000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -840,7 +873,8 @@
     "system_classification": "general_purpose_model",
     "harm_domain": "persons_physical",
     "harm_type": "physical_safety",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260813-024",
@@ -864,7 +898,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 4500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -892,7 +927,8 @@
     "system_classification": "general_purpose_model",
     "harm_domain": "rights_and_freedoms",
     "harm_type": "unclassified",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260812-049",
@@ -916,7 +952,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 1200000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -945,7 +982,8 @@
     "system_classification": "biometric_identification",
     "harm_domain": "property_financial",
     "harm_type": "financial_fraud",
-    "primary_purpose": "biometric_auth"
+    "primary_purpose": "biometric_auth",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260812-058",
@@ -969,7 +1007,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 5000000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -999,7 +1038,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "systemic_integrity",
     "harm_type": "cybersecurity",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260811-068",
@@ -1023,7 +1063,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 450000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1056,7 +1097,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "systemic_integrity",
     "harm_type": "cybersecurity",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260813-029",
@@ -1080,7 +1122,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 12500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1125,7 +1168,8 @@
     "system_classification": "general_purpose_model",
     "harm_domain": "persons_physical",
     "harm_type": "physical_safety",
-    "primary_purpose": "healthcare"
+    "primary_purpose": "healthcare",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260812-051",
@@ -1148,8 +1192,10 @@
       "primary_purpose": null,
       "root_cause_subtype": null,
       "root_cause_category": null,
-      "financial_damage_usd": 14000000000,
-      "system_classification": null
+      "financial_damage_usd": 2500000,
+      "system_classification": null,
+      "impact_scope": "cumulative_macro_trend",
+      "valuation_methodology": "empirical_estimate"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -1179,12 +1225,14 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 14000000000,
+    "financial_damage_usd": 2500000,
     "eu_risk_tier": "limited_risk",
     "system_classification": "general_purpose_model",
     "harm_domain": "property_financial",
     "harm_type": "financial_fraud",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "cumulative_macro_trend",
+    "valuation_methodology": "empirical_estimate"
   },
   {
     "incident_id": "INC-20260810-029",
@@ -1208,7 +1256,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 2500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1232,7 +1281,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "systemic_integrity",
     "harm_type": "cybersecurity",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260810-070",
@@ -1255,8 +1305,10 @@
       "primary_purpose": null,
       "root_cause_subtype": null,
       "root_cause_category": null,
-      "financial_damage_usd": 643000000,
-      "system_classification": null
+      "financial_damage_usd": 2500000,
+      "system_classification": null,
+      "impact_scope": "cumulative_macro_trend",
+      "valuation_methodology": "empirical_estimate"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1282,12 +1334,14 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 643000000,
+    "financial_damage_usd": 2500000,
     "eu_risk_tier": "high_risk",
     "system_classification": "dual_use_security",
     "harm_domain": "property_financial",
     "harm_type": "cybersecurity",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "cumulative_macro_trend",
+    "valuation_methodology": "empirical_estimate"
   },
   {
     "incident_id": "INC-20260810-033",
@@ -1311,7 +1365,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 2500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1335,7 +1390,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "systemic_integrity",
     "harm_type": "cybersecurity",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260807-056",
@@ -1359,7 +1415,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 4500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1425,7 +1482,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "systemic_integrity",
     "harm_type": "cybersecurity",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260807-082",
@@ -1449,7 +1507,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 1200000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1478,7 +1537,8 @@
     "system_classification": "general_purpose_model",
     "harm_domain": "property_financial",
     "harm_type": "cybersecurity",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260806-082",
@@ -1502,7 +1562,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 2500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1532,7 +1593,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "rights_and_freedoms",
     "harm_type": "privacy_surveillance",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260804-033",
@@ -1556,7 +1618,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 2500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1582,7 +1645,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "systemic_integrity",
     "harm_type": "cybersecurity",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260804-058",
@@ -1606,7 +1670,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 2500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1632,7 +1697,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "systemic_integrity",
     "harm_type": "cybersecurity",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260804-032",
@@ -1656,7 +1722,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 2500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1683,7 +1750,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "systemic_integrity",
     "harm_type": "cybersecurity",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260721-033",
@@ -1707,7 +1775,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 2500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1731,7 +1800,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "systemic_integrity",
     "harm_type": "cybersecurity",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260630-035",
@@ -1755,7 +1825,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 6000000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "cumulative_macro_trend"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1780,7 +1851,8 @@
     "system_classification": "dual_use_security",
     "harm_domain": "rights_and_freedoms",
     "harm_type": "cybersecurity",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "cumulative_macro_trend"
   },
   {
     "incident_id": "INC-20260330-052",
@@ -1804,7 +1876,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 450000000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1829,7 +1902,8 @@
     "system_classification": "high_risk_regulated",
     "harm_domain": "property_financial",
     "harm_type": "misinformation",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260101-045",
@@ -1853,7 +1927,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 2500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "cumulative_macro_trend"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -1878,7 +1953,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "property_financial",
     "harm_type": "financial_fraud",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "cumulative_macro_trend"
   },
   {
     "incident_id": "INC-20260101-039",
@@ -1902,7 +1978,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 2500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "cumulative_macro_trend"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -1928,7 +2005,8 @@
     "system_classification": "general_purpose_model",
     "harm_domain": "property_financial",
     "harm_type": "financial_fraud",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "cumulative_macro_trend"
   },
   {
     "incident_id": "INC-20251101-084",
@@ -2012,7 +2090,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 2500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -2037,7 +2116,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "systemic_integrity",
     "harm_type": "cybersecurity",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20250813-041",
@@ -2061,7 +2141,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 2500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -2086,7 +2167,8 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "systemic_integrity",
     "harm_type": "cybersecurity",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20250801-086",
@@ -2109,8 +2191,10 @@
       "primary_purpose": null,
       "root_cause_subtype": null,
       "root_cause_category": null,
-      "financial_damage_usd": 12500000,
-      "system_classification": null
+      "financial_damage_usd": 2500000,
+      "system_classification": null,
+      "impact_scope": "cumulative_macro_trend",
+      "valuation_methodology": "empirical_estimate"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -2137,12 +2221,14 @@
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 12500000,
+    "financial_damage_usd": 2500000,
     "eu_risk_tier": "high_risk",
     "system_classification": "general_purpose_model",
     "harm_domain": "persons_physical",
     "harm_type": "physical_safety",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "cumulative_macro_trend",
+    "valuation_methodology": "empirical_estimate"
   },
   {
     "incident_id": "INC-20260813-014",
@@ -2166,7 +2252,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 12500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -2212,7 +2299,8 @@
     "system_classification": "general_purpose_model",
     "harm_domain": "persons_physical",
     "harm_type": "physical_safety",
-    "primary_purpose": "content_generation"
+    "primary_purpose": "content_generation",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260813-023",
@@ -2236,7 +2324,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 450000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.8,
@@ -2268,7 +2357,8 @@
     "system_classification": "unclassified",
     "harm_domain": "unclassified",
     "harm_type": "unclassified",
-    "primary_purpose": "unclassified"
+    "primary_purpose": "unclassified",
+    "impact_scope": "discrete_incident"
   },
   {
     "incident_id": "INC-20260813-025",
@@ -2292,7 +2382,8 @@
       "root_cause_subtype": null,
       "root_cause_category": null,
       "financial_damage_usd": 2500000,
-      "system_classification": null
+      "system_classification": null,
+      "impact_scope": "discrete_incident"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -2340,6 +2431,7 @@
     "system_classification": "autonomous_agent",
     "harm_domain": "systemic_integrity",
     "harm_type": "physical_safety",
-    "primary_purpose": "autonomous_operation"
+    "primary_purpose": "autonomous_operation",
+    "impact_scope": "discrete_incident"
   }
 ]
