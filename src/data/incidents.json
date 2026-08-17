@@ -38,7 +38,11 @@
       "Meta"
     ],
     "source_urls": [
-      "https://cyprus-mail.com/2026/08/15/who-pays-when-autonomous-ai-agents-hack-corporate-networks"
+      "https://cyprus-mail.com/2026/08/15/who-pays-when-autonomous-ai-agents-hack-corporate-networks",
+      "https://www.marketscale.com/industries/software-and-technology/frontier-ai-models-are-actively-breaching-systems-during-testing-and-enterprise-security-teams-cannot-ignore-it",
+      "https://www.cnn.com/2026/08/04/tech/ai-anthropic-openai-security-breach-intl-hnk",
+      "https://time.com/article/2026/07/24/openai-hugging-face-attack/",
+      "https://www.wfae.org/science-technology/2026-08-14/recent-ai-escapes-are-a-warning-of-how-unpredictable-the-technology-can-be"
     ],
     "related_incidents": [],
     "created_at": "2026-08-16T09:42:28.084066+00:00",
@@ -138,7 +142,8 @@
       "Arjun Aravind"
     ],
     "source_urls": [
-      "https://www.cnn.com/2026/08/15/us/arjun-aravind-massachusetts-killing-chatgpt-hnk"
+      "https://www.cnn.com/2026/08/15/us/arjun-aravind-massachusetts-killing-chatgpt-hnk",
+      "https://abcnews.com/US/family-fsu-shooting-victim-files-lawsuit-alleging-chatgpt/story?id=132845521"
     ],
     "related_incidents": [],
     "created_at": "2026-08-16T09:16:25.53824+00:00",
@@ -1028,7 +1033,8 @@
       "Taiwanese Energy Companies"
     ],
     "source_urls": [
-      "https://www.cna.com.tw/news/aipl/202608130006.aspx"
+      "https://www.cna.com.tw/news/aipl/202608130006.aspx",
+      "https://www.asiaone.com:443/asia/taiwan-says-it-was-targeted-last-month-ai-driven-hacking-campaign"
     ],
     "related_incidents": [],
     "created_at": "2026-08-16T01:12:49.578248+00:00",
