@@ -774,10 +774,22 @@ def run_ingestion():
     save_to_incidents_json(new_incidents)
     
     try:
-        from migrate_json_to_supabase import run_migration
+        from migrate_json_to_supabase import run_migration, record_daily_source_stats
         run_migration()
+
+        # Log daily telemetry statistics regardless of whether new incidents were added
+        today_str = datetime.now().strftime("%Y-%m-%d")
+        record_daily_source_stats(
+            stat_date=today_str,
+            rss_count=len(gnews_articles),
+            gdelt_count=len(gdelt_bq_articles),
+            total_fetched=len(candidates),
+            passed_filter=len(new_incidents),
+            extracted_incidents=len(new_incidents)
+        )
+        print(f"Recorded daily ingestion telemetry stats into Supabase daily_source_stats for {today_str}.")
     except Exception as e:
-        print(f"Supabase sync note: {e}")
+        print(f"Supabase sync / telemetry note: {e}")
 
 def load_env_file():
     env_path = os.path.join(os.path.dirname(__file__), "..", ".env")

@@ -260,9 +260,14 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
           </div>
 
             {dailyIncidents.length === 0 ? (
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
-                No AI incidents recorded for {dateText}. All monitored systems operating within nominal baseline parameters.
-              </p>
+              <div style={{ background: 'rgba(56, 189, 248, 0.06)', border: '1px solid rgba(56, 189, 248, 0.25)', borderRadius: '10px', padding: '1.5rem', margin: '0.5rem 0' }}>
+                <h4 style={{ color: 'var(--accent-cyan)', fontSize: '1.05rem', fontWeight: 600, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <ShieldAlert size={18} /> Nominal Baseline Status — {dateText}
+                </h4>
+                <p style={{ color: '#e2e8f0', fontSize: '0.95rem', margin: 0, lineHeight: 1.6 }}>
+                  0 new AI incidents recorded for <strong>{dateText}</strong>. All candidate multi-source news feeds were harvested and evaluated. Any reported stories were either resolved to nominal baseline parameters or automatically deduplicated into pre-existing canonical incident records.
+                </p>
+              </div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', maxWidth: '68ch', fontSize: '1.025rem', color: '#e2e8f0', lineHeight: 1.75 }}>
                 <p>

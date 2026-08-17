@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface DateRangeSliderProps {
-  availableDates: string[]; // Sorted ascending e.g. ["2025-08-01", ..., "2026-08-14"]
+  availableDates: string[]; // Sorted ascending e.g. ["2025-08-01", ..., "2026-08-16"]
   selectedRange: [string, string]; // [startDate, endDate]
   onRangeChange: (range: [string, string]) => void;
 }
@@ -28,6 +29,21 @@ export const DateRangeSlider: React.FC<DateRangeSliderProps> = ({
     return idx !== -1 ? idx : maxIndex;
   }, [availableDates, selectedRange, maxIndex]);
 
+  const isSingleDay = selectedRange[0] === selectedRange[1];
+
+  // 1-Day Step Handlers
+  const stepPreviousDay = () => {
+    const prevIdx = Math.max(0, startIndex - 1);
+    const nextEndIdx = isSingleDay ? prevIdx : Math.max(prevIdx, endIndex);
+    onRangeChange([availableDates[prevIdx], availableDates[nextEndIdx]]);
+  };
+
+  const stepNextDay = () => {
+    const nextEndIdx = Math.min(maxIndex, endIndex + 1);
+    const nextStartIdx = isSingleDay ? nextEndIdx : Math.min(nextEndIdx, startIndex);
+    onRangeChange([availableDates[nextStartIdx], availableDates[nextEndIdx]]);
+  };
+
   // Calculate percentages for visual track bar
   const startPercent = (startIndex / maxIndex) * 100;
   const endPercent = (endIndex / maxIndex) * 100;
@@ -50,7 +66,6 @@ export const DateRangeSlider: React.FC<DateRangeSliderProps> = ({
   const handleStartDatePicker = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     if (!val) return;
-    // Find closest available date or use typed date
     if (val <= selectedRange[1]) {
       onRangeChange([val, selectedRange[1]]);
     }
@@ -86,58 +101,132 @@ export const DateRangeSlider: React.FC<DateRangeSliderProps> = ({
     onRangeChange([availableDates[0], availableDates[maxIndex]]);
   };
 
-  const isSingleDay = selectedRange[0] === selectedRange[1];
-
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', background: 'rgba(15, 23, 42, 0.9)', padding: '0.45rem 0.85rem', borderRadius: '8px', border: '1px solid var(--border-color)', minWidth: '320px', flexShrink: 0 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', background: 'rgba(15, 23, 42, 0.9)', padding: '0.45rem 0.85rem', borderRadius: '8px', border: '1px solid var(--border-color)', minWidth: '340px', flexShrink: 0 }}>
       
-      {/* TOP ROW: Explicit Date Picker Inputs + Presets */}
+      {/* TOP ROW: Explicit Date Picker Inputs with 1-Day Arrow Controls + Presets */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
         
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-          {/* Start Date Input Box */}
-          <input
-            type="date"
-            value={selectedRange[0]}
-            min={availableDates[0]}
-            max={selectedRange[1]}
-            onChange={handleStartDatePicker}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+          {/* Step 1 Day Backward Arrow */}
+          <button
+            onClick={stepPreviousDay}
+            disabled={startIndex === 0}
             style={{
-              background: 'rgba(0,0,0,0.4)',
               border: '1px solid var(--border-color)',
+              background: 'rgba(0,0,0,0.4)',
+              color: startIndex === 0 ? 'rgba(255,255,255,0.2)' : 'var(--accent-cyan)',
               borderRadius: '5px',
-              color: 'var(--accent-cyan)',
-              padding: '0.2rem 0.4rem',
-              fontSize: '0.775rem',
-              fontWeight: 600,
-              fontFamily: 'inherit',
-              colorScheme: 'dark',
-              cursor: 'pointer'
+              padding: '0.2rem 0.35rem',
+              cursor: startIndex === 0 ? 'not-allowed' : 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.15s ease'
             }}
-          />
+            title="Step 1 day backward (<)"
+          >
+            <ChevronLeft size={14} />
+          </button>
+
+          {/* Start Date Input Box with Strict YYYY-MM-DD Text Overlay */}
+          <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center' }}>
+            <span
+              style={{
+                background: 'rgba(0,0,0,0.5)',
+                border: '1px solid var(--border-color)',
+                borderRadius: '5px',
+                color: 'var(--accent-cyan)',
+                padding: '0.2rem 0.45rem',
+                fontSize: '0.775rem',
+                fontWeight: 600,
+                fontFamily: 'monospace',
+                letterSpacing: '0.03em',
+                pointerEvents: 'none',
+                userSelect: 'none'
+              }}
+            >
+              {selectedRange[0]}
+            </span>
+            <input
+              type="date"
+              value={selectedRange[0]}
+              min={availableDates[0]}
+              max={selectedRange[1]}
+              onChange={handleStartDatePicker}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                opacity: 0,
+                cursor: 'pointer',
+                colorScheme: 'dark'
+              }}
+            />
+          </div>
 
           <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)', fontWeight: 600 }}>to</span>
 
-          {/* End Date Input Box */}
-          <input
-            type="date"
-            value={selectedRange[1]}
-            min={selectedRange[0]}
-            max={availableDates[maxIndex]}
-            onChange={handleEndDatePicker}
+          {/* End Date Input Box with Strict YYYY-MM-DD Text Overlay */}
+          <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center' }}>
+            <span
+              style={{
+                background: 'rgba(0,0,0,0.5)',
+                border: '1px solid var(--border-color)',
+                borderRadius: '5px',
+                color: 'var(--accent-purple)',
+                padding: '0.2rem 0.45rem',
+                fontSize: '0.775rem',
+                fontWeight: 600,
+                fontFamily: 'monospace',
+                letterSpacing: '0.03em',
+                pointerEvents: 'none',
+                userSelect: 'none'
+              }}
+            >
+              {selectedRange[1]}
+            </span>
+            <input
+              type="date"
+              value={selectedRange[1]}
+              min={selectedRange[0]}
+              max={availableDates[maxIndex]}
+              onChange={handleEndDatePicker}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                opacity: 0,
+                cursor: 'pointer',
+                colorScheme: 'dark'
+              }}
+            />
+          </div>
+
+          {/* Step 1 Day Forward Arrow */}
+          <button
+            onClick={stepNextDay}
+            disabled={endIndex === maxIndex}
             style={{
-              background: 'rgba(0,0,0,0.4)',
               border: '1px solid var(--border-color)',
+              background: 'rgba(0,0,0,0.4)',
+              color: endIndex === maxIndex ? 'rgba(255,255,255,0.2)' : 'var(--accent-purple)',
               borderRadius: '5px',
-              color: 'var(--accent-purple)',
-              padding: '0.2rem 0.4rem',
-              fontSize: '0.775rem',
-              fontWeight: 600,
-              fontFamily: 'inherit',
-              colorScheme: 'dark',
-              cursor: 'pointer'
+              padding: '0.2rem 0.35rem',
+              cursor: endIndex === maxIndex ? 'not-allowed' : 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.15s ease'
             }}
-          />
+            title="Step 1 day forward (>)"
+          >
+            <ChevronRight size={14} />
+          </button>
         </div>
 
         {/* Quick Presets Buttons */}
@@ -146,9 +235,9 @@ export const DateRangeSlider: React.FC<DateRangeSliderProps> = ({
             onClick={setLatestDay}
             className="tab-button"
             style={{ padding: '0.15rem 0.4rem', fontSize: '0.7rem', height: 'auto', background: isSingleDay && selectedRange[0] === availableDates[maxIndex] ? 'rgba(56, 189, 248, 0.2)' : 'transparent' }}
-            title="Jump to latest day"
+            title="Jump to latest completed day (Yesterday)"
           >
-            Today
+            Yesterday
           </button>
           <button
             onClick={setLast7Days}

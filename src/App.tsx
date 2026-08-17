@@ -66,28 +66,50 @@ export const App: React.FC = () => {
   const [rawIncidents, setRawIncidents] = useState<AIIncident[]>(() => deduplicateIncidents(incidentsData as unknown as AIIncident[]));
   const [edges, setEdges] = useState<GraphEdge[]>(edgesData as unknown as GraphEdge[]);
 
-  // Unique sorted dates ascending e.g. ["2025-08-01", ..., "2026-08-14"]
+  const getYesterdayStr = (): string => {
+    const d = new Date();
+    d.setDate(d.getDate() - 1);
+    return d.toISOString().split('T')[0];
+  };
+
+  // Continuous sorted dates ascending from min incident date through yesterday (today - 1 day)
   const availableDates = useMemo(() => {
     const datesSet = new Set<string>();
     rawIncidents.forEach((inc) => {
       if (inc.date) datesSet.add(inc.date);
     });
-    return Array.from(datesSet).sort((a, b) => a.localeCompare(b));
+    const sortedRaw = Array.from(datesSet).sort((a, b) => a.localeCompare(b));
+    const minDateStr = sortedRaw[0] || '2025-08-01';
+    const yesterdayStr = getYesterdayStr();
+
+    const result: string[] = [];
+    const current = new Date(minDateStr + 'T00:00:00Z');
+    const end = new Date(yesterdayStr + 'T00:00:00Z');
+
+    if (current > end) {
+      return sortedRaw.length > 0 ? sortedRaw : [yesterdayStr];
+    }
+
+    while (current <= end) {
+      result.push(current.toISOString().split('T')[0]);
+      current.setUTCDate(current.getUTCDate() + 1);
+    }
+    return result;
   }, [rawIncidents]);
 
-  // Default dateRange to latest available single date [latestDate, latestDate]
+  // Default dateRange to yesterday (today - 1 day, since today's run has not yet occurred)
   const [selectedRange, setSelectedRange] = useState<[string, string]>(() => {
-    const latest = availableDates.length > 0 ? availableDates[availableDates.length - 1] : new Date().toISOString().split('T')[0];
-    return [latest, latest];
+    const yesterdayStr = getYesterdayStr();
+    return [yesterdayStr, yesterdayStr];
   });
 
   // Keep selectedRange valid if availableDates change on Supabase load
   useEffect(() => {
     if (availableDates.length > 0) {
-      const latest = availableDates[availableDates.length - 1];
-      // Only set if range is uninitialized
+      const yesterdayStr = getYesterdayStr();
+      const latestSelectable = availableDates.includes(yesterdayStr) ? yesterdayStr : availableDates[availableDates.length - 1];
       if (!selectedRange[0] || !selectedRange[1]) {
-        setSelectedRange([latest, latest]);
+        setSelectedRange([latestSelectable, latestSelectable]);
       }
     }
   }, [availableDates]);
@@ -99,12 +121,8 @@ export const App: React.FC = () => {
         if (dbIncidents.length > 0) {
           const dedupped = deduplicateIncidents(dbIncidents);
           setRawIncidents(dedupped);
-          // Set initial range to latest date from DB
-          const dates = Array.from(new Set(dedupped.map(i => i.date).filter(Boolean))).sort((a, b) => a.localeCompare(b));
-          if (dates.length > 0) {
-            const latest = dates[dates.length - 1];
-            setSelectedRange([latest, latest]);
-          }
+          const yesterdayStr = getYesterdayStr();
+          setSelectedRange([yesterdayStr, yesterdayStr]);
         }
         if (dbEdges.length > 0) {
           setEdges(dbEdges);
