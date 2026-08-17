@@ -2,8 +2,6 @@ import React, { useState, useMemo } from 'react';
 import { AIIncident, formatFinancialDamage, computeFinancialImpactTotals } from '../types/incident';
 import { FileText, ShieldAlert, DollarSign, TrendingUp, Copy, Check, ExternalLink, ArrowUpDown, Globe } from 'lucide-react';
 
-import { deduplicateIncidents } from '../App';
-
 interface DailyBriefingViewProps {
   incidents: AIIncident[];
   dateRange?: [string, string];
@@ -23,10 +21,9 @@ export const DailyBriefingView: React.FC<DailyBriefingViewProps> = ({ incidents,
   const [showDiscrete, setShowDiscrete] = useState<boolean>(true);
   const [showMacro, setShowMacro] = useState<boolean>(true);
 
-  // Incidents for active filter window, DEDUPLICATED AND FILTERED BY SCOPE & SORT SELECTION
+  // Incidents for active filter window, FILTERED BY SCOPE & SORT SELECTION
   const dailyIncidents = useMemo(() => {
-    const dedupped = deduplicateIncidents(incidents);
-    const filtered = dedupped.filter((inc) => {
+    const filtered = incidents.filter((inc) => {
       const isMacro = inc.impact_scope === 'cumulative_macro_trend' || (inc.financial_damage_usd || 0) >= 5_000_000_000;
       if (isMacro && !showMacro) return false;
       if (!isMacro && !showDiscrete) return false;
