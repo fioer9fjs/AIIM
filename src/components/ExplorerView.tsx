@@ -44,13 +44,25 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
   const [natsecFilter, setNatsecFilter] = useState<string>('all');
   const [sourceFilter, setSourceFilter] = useState<string>('all');
   const [countryFilter, setCountryFilter] = useState<string>('all');
+
+  // NEW FILTER STATES
+  const [lifecycleFilter, setLifecycleFilter] = useState<string>('all');
+  const [harmDomainFilter, setHarmDomainFilter] = useState<string>('all');
+  const [harmTypeFilter, setHarmTypeFilter] = useState<string>('all');
+  const [rootCauseFilter, setRootCauseFilter] = useState<string>('all');
+  const [impactFilter, setImpactFilter] = useState<string>('all');
+  const [financialFilter, setFinancialFilter] = useState<string>('all');
+  const [temporalityFilter, setTemporalityFilter] = useState<string>('all');
+
   const [sortBy, setSortBy] = useState<string>('date-desc');
 
   // Toggle View Mode: 'grid' vs 'table'
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
 
-  // Toggle for Advanced Taxonomy Accordion in Left Sidebar
-  const [showAdvancedFilters, setShowAdvancedFilters] = useState<boolean>(false);
+  // Accordion Toggles for Left Sidebar Filter Sections
+  const [showRegFilters, setShowRegFilters] = useState<boolean>(false);
+  const [showSystemFilters, setShowSystemFilters] = useState<boolean>(false);
+  const [showHarmFilters, setShowHarmFilters] = useState<boolean>(false);
 
   const uniqueCountries = useMemo(() => {
     const set = new Set<string>();
@@ -75,6 +87,13 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
     setNatsecFilter('all');
     setSourceFilter('all');
     setCountryFilter('all');
+    setLifecycleFilter('all');
+    setHarmDomainFilter('all');
+    setHarmTypeFilter('all');
+    setRootCauseFilter('all');
+    setImpactFilter('all');
+    setFinancialFilter('all');
+    setTemporalityFilter('all');
     setSortBy('date-desc');
   };
 
@@ -83,17 +102,25 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
     const chips: { label: string; reset: () => void }[] = [];
     if (search) chips.push({ label: `Search: "${search}"`, reset: () => setSearch('') });
     if (severityFilter !== 'all') chips.push({ label: `Severity: ${severityFilter}`, reset: () => setSeverityFilter('all') });
+    if (impactFilter !== 'all') chips.push({ label: `Scope: ${impactFilter.replace(/_/g, ' ')}`, reset: () => setImpactFilter('all') });
+    if (financialFilter !== 'all') chips.push({ label: `Financial Loss: ${financialFilter}`, reset: () => setFinancialFilter('all') });
     if (sourceFilter !== 'all') chips.push({ label: `Source: ${sourceFilter.replace(/_/g, ' ')}`, reset: () => setSourceFilter('all') });
     if (countryFilter !== 'all') chips.push({ label: `Country: ${countryFilter}`, reset: () => setCountryFilter('all') });
     if (euFilter !== 'all') chips.push({ label: `EU AI Act: ${euFilter.replace(/_/g, ' ')}`, reset: () => setEuFilter('all') });
     if (nistFilter !== 'all') chips.push({ label: `NIST Function: ${nistFilter}`, reset: () => setNistFilter('all') });
     if (isoFilter !== 'all') chips.push({ label: `ISO 42001: ${isoFilter.replace(/_/g, ' ')}`, reset: () => setIsoFilter('all') });
+    if (systemFilter !== 'all') chips.push({ label: `System: ${systemFilter.replace(/_/g, ' ')}`, reset: () => setSystemFilter('all') });
+    if (lifecycleFilter !== 'all') chips.push({ label: `Lifecycle: ${lifecycleFilter.replace(/_/g, ' ')}`, reset: () => setLifecycleFilter('all') });
     if (intentFilter !== 'all') chips.push({ label: `Intent: ${intentFilter.replace(/_/g, ' ')}`, reset: () => setIntentFilter('all') });
     if (purposeFilter !== 'all') chips.push({ label: `Purpose: ${purposeFilter.replace(/_/g, ' ')}`, reset: () => setPurposeFilter('all') });
+    if (harmDomainFilter !== 'all') chips.push({ label: `Harm Domain: ${harmDomainFilter.replace(/_/g, ' ')}`, reset: () => setHarmDomainFilter('all') });
+    if (harmTypeFilter !== 'all') chips.push({ label: `Harm Type: ${harmTypeFilter.replace(/_/g, ' ')}`, reset: () => setHarmTypeFilter('all') });
+    if (rootCauseFilter !== 'all') chips.push({ label: `Root Cause: ${rootCauseFilter.replace(/_/g, ' ')}`, reset: () => setRootCauseFilter('all') });
     if (natsecFilter !== 'all') chips.push({ label: `NatSec: ${natsecFilter}`, reset: () => setNatsecFilter('all') });
     if (statusFilter !== 'all') chips.push({ label: `Status: ${statusFilter}`, reset: () => setStatusFilter('all') });
+    if (temporalityFilter !== 'all') chips.push({ label: `Temporality: ${temporalityFilter}`, reset: () => setTemporalityFilter('all') });
     return chips;
-  }, [search, severityFilter, sourceFilter, countryFilter, euFilter, nistFilter, isoFilter, intentFilter, purposeFilter, natsecFilter, statusFilter]);
+  }, [search, severityFilter, impactFilter, financialFilter, sourceFilter, countryFilter, euFilter, nistFilter, isoFilter, systemFilter, lifecycleFilter, intentFilter, purposeFilter, harmDomainFilter, harmTypeFilter, rootCauseFilter, natsecFilter, statusFilter, temporalityFilter]);
 
   const filteredAndSortedIncidents = useMemo(() => {
     const list = incidents.filter((inc) => {
@@ -115,6 +142,20 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
       const matchesSource = sourceFilter === 'all' || (inc.source_type || 'google_news_rss') === sourceFilter;
       const matchesCountry = countryFilter === 'all' || (inc.geographic_scope && inc.geographic_scope.includes(countryFilter));
 
+      // NEW MATCHERS
+      const matchesLifecycle = lifecycleFilter === 'all' || inc.lifecycle_phase === lifecycleFilter;
+      const matchesHarmDomain = harmDomainFilter === 'all' || inc.harm_domain === harmDomainFilter;
+      const matchesHarmType = harmTypeFilter === 'all' || inc.harm_type === harmTypeFilter;
+      const matchesRootCause = rootCauseFilter === 'all' || inc.root_cause_category === rootCauseFilter;
+      const matchesImpact = impactFilter === 'all' || (inc.impact_scope || 'discrete_incident') === impactFilter;
+      const matchesTemporality = temporalityFilter === 'all' || inc.temporality === temporalityFilter;
+
+      const usd = inc.financial_damage_usd || 0;
+      let matchesFinancial = true;
+      if (financialFilter === 'with_loss') matchesFinancial = usd > 0;
+      else if (financialFilter === 'gt_1m') matchesFinancial = usd >= 1_000_000;
+      else if (financialFilter === 'gt_10m') matchesFinancial = usd >= 10_000_000;
+
       return (
         matchesSearch &&
         matchesSeverity &&
@@ -127,7 +168,14 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
         matchesPurpose &&
         matchesNatsec &&
         matchesSource &&
-        matchesCountry
+        matchesCountry &&
+        matchesLifecycle &&
+        matchesHarmDomain &&
+        matchesHarmType &&
+        matchesRootCause &&
+        matchesImpact &&
+        matchesTemporality &&
+        matchesFinancial
       );
     });
 
@@ -157,7 +205,7 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
       }
       return 0;
     });
-  }, [incidents, search, severityFilter, statusFilter, systemFilter, intentFilter, euFilter, nistFilter, isoFilter, purposeFilter, natsecFilter, sourceFilter, countryFilter, sortBy]);
+  }, [incidents, search, severityFilter, statusFilter, systemFilter, intentFilter, euFilter, nistFilter, isoFilter, purposeFilter, natsecFilter, sourceFilter, countryFilter, lifecycleFilter, harmDomainFilter, harmTypeFilter, rootCauseFilter, impactFilter, financialFilter, temporalityFilter, sortBy]);
 
   // CSV Export Handler
   const handleExportCSV = () => {
@@ -166,11 +214,20 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
       'Date',
       'Title',
       'Severity',
+      'Event Scope',
       'Financial Damage USD',
       'Country',
+      'System Classification',
+      'Lifecycle Phase',
+      'Primary Purpose',
+      'Intent',
+      'Harm Domain',
+      'Harm Type',
+      'Root Cause',
       'EU AI Act Tier',
       'NIST AI RMF Function',
       'ISO 42001 Category',
+      'NatSec Impact',
       'Verification Status',
       'Source URL'
     ];
@@ -180,11 +237,20 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
       `"${inc.date || ''}"`,
       `"${(inc.title || '').replace(/"/g, '""')}"`,
       `"${inc.severity || ''}"`,
+      `"${inc.impact_scope || 'discrete_incident'}"`,
       inc.financial_damage_usd || 0,
       `"${(inc.geographic_scope || []).join('; ')}"`,
+      `"${inc.system_classification || ''}"`,
+      `"${inc.lifecycle_phase || ''}"`,
+      `"${inc.primary_purpose || ''}"`,
+      `"${inc.intent || ''}"`,
+      `"${inc.harm_domain || ''}"`,
+      `"${inc.harm_type || ''}"`,
+      `"${inc.root_cause_category || ''}"`,
       `"${inc.eu_ai_act_tier || ''}"`,
       `"${inc.nist_ai_rmf_function || (inc as any).taxonomy?.nist_ai_rmf_function || ''}"`,
       `"${inc.iso_42001_category || (inc as any).taxonomy?.iso_42001_category || ''}"`,
+      `"${inc.natsec_impact ? 'Yes' : 'No'}"`,
       `"${inc.verification_status || ''}"`,
       `"${(inc.source_urls?.[0] || '').replace(/"/g, '""')}"`
     ]);
@@ -309,10 +375,70 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
           </select>
         </div>
 
-        {/* --- TIER 2: ADVANCED REGULATORY TAXONOMY ACCORDION --- */}
-        <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem' }}>
+        {/* Event Scope Filter */}
+        <div className="filter-group">
+          <label>Event Scope</label>
+          <select
+            className="filter-select"
+            value={impactFilter}
+            onChange={(e) => setImpactFilter(e.target.value)}
+          >
+            <option value="all">All Event Scopes</option>
+            <option value="discrete_incident">📌 Discrete Single Event</option>
+            <option value="cumulative_macro_trend">🌐 Cumulative Macro Trend</option>
+          </select>
+        </div>
+
+        {/* Financial Damage Filter */}
+        <div className="filter-group">
+          <label>Financial Loss ($ USD)</label>
+          <select
+            className="filter-select"
+            value={financialFilter}
+            onChange={(e) => setFinancialFilter(e.target.value)}
+          >
+            <option value="all">All Incidents</option>
+            <option value="with_loss">💰 With Financial Loss (&gt; $0)</option>
+            <option value="gt_1m">💵 Major Loss (&ge; $1M USD)</option>
+            <option value="gt_10m">💎 Critical Loss (&ge; $10M USD)</option>
+          </select>
+        </div>
+
+        {/* Source Origin Filter */}
+        <div className="filter-group">
+          <label>Data Provider / Source</label>
+          <select
+            className="filter-select"
+            value={sourceFilter}
+            onChange={(e) => setSourceFilter(e.target.value)}
+          >
+            <option value="all">All Data Sources</option>
+            <option value="google_news_rss">Google News RSS</option>
+            <option value="gdelt">GDELT 2.0 (BigQuery/API)</option>
+            <option value="arxiv">ArXiv AI Safety</option>
+            <option value="aiid">AI Incident Database</option>
+          </select>
+        </div>
+
+        {/* Country / Region Filter */}
+        <div className="filter-group">
+          <label>Geographic Scope / Country</label>
+          <select
+            className="filter-select"
+            value={countryFilter}
+            onChange={(e) => setCountryFilter(e.target.value)}
+          >
+            <option value="all">All Countries / Global</option>
+            {uniqueCountries.map((c) => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* --- SECTION 2: ADVANCED REGULATORY TAXONOMY ACCORDION --- */}
+        <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem', marginTop: '0.5rem' }}>
           <button
-            onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+            onClick={() => setShowRegFilters(!showRegFilters)}
             style={{
               width: '100%',
               background: 'transparent',
@@ -327,11 +453,11 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
               padding: '0.3rem 0'
             }}
           >
-            <span>Advanced Regulatory Taxonomy</span>
-            {showAdvancedFilters ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            <span>⚖️ Advanced Regulatory Taxonomy</span>
+            {showRegFilters ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
           </button>
 
-          {showAdvancedFilters && (
+          {showRegFilters && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', marginTop: '0.75rem' }}>
               {/* EU AI Act Tier */}
               <div className="filter-group">
@@ -381,40 +507,6 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
                 </select>
               </div>
 
-              {/* Intent */}
-              <div className="filter-group">
-                <label>Incident Intent</label>
-                <select
-                  className="filter-select"
-                  value={intentFilter}
-                  onChange={(e) => setIntentFilter(e.target.value)}
-                >
-                  <option value="all">All Intent Types</option>
-                  <option value="intentional_misuse">Intentional Misuse</option>
-                  <option value="unintentional_failure">Unintentional Failure</option>
-                </select>
-              </div>
-
-              {/* Primary Purpose */}
-              <div className="filter-group">
-                <label>Primary System Purpose</label>
-                <select
-                  className="filter-select"
-                  value={purposeFilter}
-                  onChange={(e) => setPurposeFilter(e.target.value)}
-                >
-                  <option value="all">All System Purposes</option>
-                  <option value="generative_content">Generative Content</option>
-                  <option value="autonomous_mobility">Autonomous Mobility</option>
-                  <option value="biometric_surveillance">Biometric Surveillance</option>
-                  <option value="financial_fintech">Financial & Fintech</option>
-                  <option value="healthcare_medical">Healthcare & Medical</option>
-                  <option value="recruitment_hr">Recruitment & HR</option>
-                  <option value="defense_national_security">Defense & NatSec</option>
-                  <option value="other">Other Domain</option>
-                </select>
-              </div>
-
               {/* NatSec Impact */}
               <div className="filter-group">
                 <label>NatSec Impact</label>
@@ -441,6 +533,203 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
                   <option value="confirmed">Confirmed</option>
                   <option value="alleged">Alleged</option>
                   <option value="disputed">Disputed</option>
+                </select>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* --- SECTION 3: MIT AI RISK & SYSTEM TAXONOMY ACCORDION --- */}
+        <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem', marginTop: '0.5rem' }}>
+          <button
+            onClick={() => setShowSystemFilters(!showSystemFilters)}
+            style={{
+              width: '100%',
+              background: 'transparent',
+              border: 'none',
+              color: 'var(--accent-purple)',
+              fontSize: '0.8rem',
+              fontWeight: 600,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              cursor: 'pointer',
+              padding: '0.3rem 0'
+            }}
+          >
+            <span>🔬 MIT AI Risk & System Taxonomy</span>
+            {showSystemFilters ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+          </button>
+
+          {showSystemFilters && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', marginTop: '0.75rem' }}>
+              {/* System Classification */}
+              <div className="filter-group">
+                <label>System Classification</label>
+                <select
+                  className="filter-select"
+                  value={systemFilter}
+                  onChange={(e) => setSystemFilter(e.target.value)}
+                >
+                  <option value="all">All System Types</option>
+                  <option value="high_risk_regulated">High Risk Regulated</option>
+                  <option value="general_purpose_model">General Purpose Model</option>
+                  <option value="autonomous_agent">Autonomous Agent</option>
+                  <option value="biometric_identification">Biometric Identification</option>
+                  <option value="critical_infrastructure_component">Critical Infrastructure</option>
+                  <option value="dual_use_security">Dual-Use Security</option>
+                  <option value="unclassified">Unclassified</option>
+                </select>
+              </div>
+
+              {/* AI Lifecycle Phase */}
+              <div className="filter-group">
+                <label>AI Lifecycle Phase</label>
+                <select
+                  className="filter-select"
+                  value={lifecycleFilter}
+                  onChange={(e) => setLifecycleFilter(e.target.value)}
+                >
+                  <option value="all">All Lifecycle Phases</option>
+                  <option value="design_and_training">Design & Training</option>
+                  <option value="testing_and_validation">Testing & Validation</option>
+                  <option value="deployment_and_integration">Deployment & Integration</option>
+                  <option value="operation_and_monitoring">Operation & Monitoring</option>
+                  <option value="decommissioning">Decommissioning</option>
+                </select>
+              </div>
+
+              {/* Primary Purpose */}
+              <div className="filter-group">
+                <label>Primary System Purpose</label>
+                <select
+                  className="filter-select"
+                  value={purposeFilter}
+                  onChange={(e) => setPurposeFilter(e.target.value)}
+                >
+                  <option value="all">All System Purposes</option>
+                  <option value="generative_content">Generative Content</option>
+                  <option value="autonomous_mobility">Autonomous Mobility</option>
+                  <option value="biometric_surveillance">Biometric Surveillance</option>
+                  <option value="financial_fintech">Financial & Fintech</option>
+                  <option value="healthcare_medical">Healthcare & Medical</option>
+                  <option value="recruitment_hr">Recruitment & HR</option>
+                  <option value="defense_national_security">Defense & NatSec</option>
+                  <option value="content_recommendation">Content Recommendation</option>
+                  <option value="other">Other Domain</option>
+                </select>
+              </div>
+
+              {/* Intent */}
+              <div className="filter-group">
+                <label>Incident Intent</label>
+                <select
+                  className="filter-select"
+                  value={intentFilter}
+                  onChange={(e) => setIntentFilter(e.target.value)}
+                >
+                  <option value="all">All Intent Types</option>
+                  <option value="intentional_misuse">Intentional Misuse</option>
+                  <option value="unintentional_failure">Unintentional Failure</option>
+                </select>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* --- SECTION 4: HARM & ROOT CAUSE ANALYSIS ACCORDION --- */}
+        <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem', marginTop: '0.5rem' }}>
+          <button
+            onClick={() => setShowHarmFilters(!showHarmFilters)}
+            style={{
+              width: '100%',
+              background: 'transparent',
+              border: 'none',
+              color: '#34d399',
+              fontSize: '0.8rem',
+              fontWeight: 600,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              cursor: 'pointer',
+              padding: '0.3rem 0'
+            }}
+          >
+            <span>⚠️ Harm & Root Cause Analysis</span>
+            {showHarmFilters ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+          </button>
+
+          {showHarmFilters && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', marginTop: '0.75rem' }}>
+              {/* Harm Domain */}
+              <div className="filter-group">
+                <label>Harm Domain</label>
+                <select
+                  className="filter-select"
+                  value={harmDomainFilter}
+                  onChange={(e) => setHarmDomainFilter(e.target.value)}
+                >
+                  <option value="all">All Harm Domains</option>
+                  <option value="persons_physical">Persons Physical</option>
+                  <option value="persons_mental">Persons Mental</option>
+                  <option value="persons_rights">Persons Rights</option>
+                  <option value="property">Property Damage</option>
+                  <option value="environment">Environmental Impact</option>
+                  <option value="systemic_integrity">Systemic Integrity</option>
+                  <option value="societal">Societal Impact</option>
+                </select>
+              </div>
+
+              {/* Harm Type */}
+              <div className="filter-group">
+                <label>Harm Type</label>
+                <select
+                  className="filter-select"
+                  value={harmTypeFilter}
+                  onChange={(e) => setHarmTypeFilter(e.target.value)}
+                >
+                  <option value="all">All Harm Types</option>
+                  <option value="discrimination_bias">Discrimination & Bias</option>
+                  <option value="privacy_breach">Privacy Breach</option>
+                  <option value="physical_safety">Physical Safety</option>
+                  <option value="misinformation">Misinformation & Disinformation</option>
+                  <option value="economic_labor">Economic & Labor</option>
+                  <option value="copyright_ip">Copyright & IP Infringement</option>
+                  <option value="psychological_harm">Psychological Harm</option>
+                  <option value="national_security">National Security</option>
+                </select>
+              </div>
+
+              {/* Root Cause Category */}
+              <div className="filter-group">
+                <label>Root Cause Category</label>
+                <select
+                  className="filter-select"
+                  value={rootCauseFilter}
+                  onChange={(e) => setRootCauseFilter(e.target.value)}
+                >
+                  <option value="all">All Root Causes</option>
+                  <option value="data">Data Failure</option>
+                  <option value="model">Model Architecture</option>
+                  <option value="human">Human Factors</option>
+                  <option value="governance">Governance Failure</option>
+                  <option value="external">External Threat / Attack</option>
+                  <option value="undetermined">Undetermined</option>
+                </select>
+              </div>
+
+              {/* Temporality */}
+              <div className="filter-group">
+                <label>Harm Temporality</label>
+                <select
+                  className="filter-select"
+                  value={temporalityFilter}
+                  onChange={(e) => setTemporalityFilter(e.target.value)}
+                >
+                  <option value="all">All Temporality Types</option>
+                  <option value="actual">Actual Harm Realized</option>
+                  <option value="potential">Potential Risk Identified</option>
+                  <option value="latent">Latent Systemic Vulnerability</option>
                 </select>
               </div>
             </div>
