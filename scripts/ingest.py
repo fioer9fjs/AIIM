@@ -639,46 +639,119 @@ def sanitize_incident_date(date_str: str, pub_date_clean: str = "") -> str:
 def extract_key_entities(text: str) -> set:
     """Extracts significant proper nouns and key terms for entity cross-matching."""
     words = re.findall(r'\b[A-Za-z0-9_-]{3,}\b', (text or "").lower())
-    stopwords = {'the', 'and', 'for', 'that', 'with', 'from', 'this', 'have', 'were', 'been', 'about', 'after', 'used', 'using', 'over', 'into', 'incidents', 'incident', 'report', 'news', 'over', 'says', 'said', 'will', 'been'}
+    stopwords = {'the', 'and', 'for', 'that', 'with', 'from', 'this', 'have', 'were', 'been', 'about', 'after', 'used', 'using', 'over', 'into', 'incidents', 'incident', 'report', 'news', 'says', 'said', 'will'}
     return {w for w in words if w not in stopwords}
 
-def is_same_incident(inc1: Dict[str, Any], inc2: Dict[str, Any]) -> bool:
+def stage4_semantic_dedup(inc1: Dict[str, Any], inc2: Dict[str, Any], api_key: str) -> bool:
     """
-    Evaluates whether two incident records represent the SAME real-world incident:
-    1. Exact URL match in source_urls.
-    2. High fuzzy title similarity (SequenceMatcher >= 0.48).
-    3. Key named entity intersection (e.g. 'arjun', 'huggingface', 'xai', or 4+ shared entity words).
+    Calls Gemma/Gemini LLM to dynamically evaluate whether two incident reports
+    represent the EXACT SAME real-world event based on their full metadata.
     """
-    import difflib
-    
-    # 1. URL Overlap
-    u1 = set(inc1.get("source_urls") or [])
-    u2 = set(inc2.get("source_urls") or [])
-    if u1.intersection(u2):
-        return True
+    if not api_key:
+        return False
 
-    # 2. Title SequenceMatcher ratio
-    t1 = inc1.get("title", "").lower()
-    t2 = inc2.get("title", "").lower()
-    if difflib.SequenceMatcher(None, t1, t2).ratio() >= 0.48:
-        return True
+    prompt = f"""You are a senior AI Safety & Risk Incident Auditor.
+Compare the following TWO AI incident reports and determine if they describe the EXACT SAME real-world incident or event.
 
-    # 3. Entity Intersection
-    e1 = extract_key_entities(inc1.get("title", "") + " " + inc1.get("summary", ""))
-    e2 = extract_key_entities(inc2.get("title", "") + " " + inc2.get("summary", ""))
-    overlap = e1.intersection(e2)
-    
-    # Key named entity triggers
-    key_entities = {"arjun", "huggingface", "openclaw", "deepseek", "otter", "exploitgym"}
-    if overlap.intersection(key_entities):
-        return True
-        
-    if len(overlap) >= 4:
-        return True
+REPORT A:
+Title: {inc1.get('title', '')}
+Summary: {inc1.get('summary', '')}
+Affected Parties: {inc1.get('affected_parties', [])}
+Geographic Scope: {inc1.get('geographic_scope', [])}
+
+REPORT B:
+Title: {inc2.get('title', '')}
+Summary: {inc2.get('summary', '')}
+Affected Parties: {inc2.get('affected_parties', [])}
+Geographic Scope: {inc2.get('geographic_scope', [])}
+
+Instructions:
+1. Return true ONLY if Report A and Report B describe the exact same underlying real-world incident (same perpetrators/victims/organizations, same specific event).
+2. If Report A and Report B are different lawsuits, different crimes, or different security breaches—even if they involve the same company (e.g. OpenAI) or similar concepts (e.g. murder/lawsuit)—return false.
+
+Respond strictly in valid JSON format:
+{{
+  "is_same_incident": true or false,
+  "reasoning": "Short 1-sentence explanation of why they are or are not the same real-world incident."
+}}"""
+
+    candidate_models = list(PREFERRED_MODELS_STAGE3)
+    global _WORKING_MODEL_STAGE3
+    if _WORKING_MODEL_STAGE3 and _WORKING_MODEL_STAGE3 in candidate_models:
+        candidate_models.remove(_WORKING_MODEL_STAGE3)
+        candidate_models.insert(0, _WORKING_MODEL_STAGE3)
+
+    for model_name in candidate_models:
+        if HAS_GENAI:
+            for attempt in range(2):
+                try:
+                    from google.genai import types
+                    client = genai.Client(api_key=api_key)
+                    response = client.models.generate_content(
+                        model=model_name,
+                        contents=prompt,
+                        config=types.GenerateContentConfig(response_mime_type="application/json")
+                    )
+                    if response and response.text:
+                        text_clean = response.text.strip()
+                        if text_clean.startswith("```json"):
+                            text_clean = text_clean[7:]
+                        if text_clean.endswith("```"):
+                            text_clean = text_clean[:-3]
+                        data = json.loads(text_clean.strip())
+                        is_same = bool(data.get("is_same_incident", False))
+                        reasoning = data.get("reasoning", "")
+                        print(f"    [LLM SEMANTIC DEDUP EVALUATION ({model_name})] Verdict: {is_same} | Reason: {reasoning}")
+                        return is_same
+                except Exception as err:
+                    err_str = str(err)
+                    if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str or "Quota" in err_str:
+                        time.sleep(2 * (attempt + 1))
+                        continue
+                    break
 
     return False
 
-def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
+def is_same_incident(inc1: Dict[str, Any], inc2: Dict[str, Any], api_key: str = "") -> bool:
+    """
+    Evaluates whether two incident records represent the SAME real-world incident:
+    1. Exact URL match in source_urls (0 LLM calls).
+    2. Quick rejection if titles have very low similarity and zero entity overlap (0 LLM calls).
+    3. LLM Semantic Deduplication via Gemma/Gemini for candidate matches.
+    """
+    import difflib
+    
+    # 1. Exact URL Overlap
+    u1 = set(inc1.get("source_urls") or [])
+    u2 = set(inc2.get("source_urls") or [])
+    if u1 and u2 and u1.intersection(u2):
+        return True
+
+    # 2. Title & Entity Pre-Filter
+    t1 = inc1.get("title", "").lower()
+    t2 = inc2.get("title", "").lower()
+    ratio = difflib.SequenceMatcher(None, t1, t2).ratio()
+    if ratio >= 0.92:
+        return True
+
+    e1 = extract_key_entities(t1 + " " + inc1.get("summary", ""))
+    e2 = extract_key_entities(t2 + " " + inc2.get("summary", ""))
+    overlap = e1.intersection(e2)
+    
+    generic_words = {"chatgpt", "openai", "incident", "breach", "lawsuit", "victim", "killing", "murder", "security", "report", "court", "system", "model", "ai", "artificial", "intelligence"}
+    specific_overlap = {w for w in overlap if w not in generic_words}
+
+    # Quick Rejection if ratio is low AND no specific entity overlap
+    if ratio < 0.45 and not specific_overlap:
+        return False
+
+    # 3. LLM Semantic Deduplication Evaluation (Gemma/Gemini)
+    if api_key and (ratio >= 0.65 or len(specific_overlap) >= 2 or "arjun" in specific_overlap or "huggingface" in specific_overlap):
+        return stage4_semantic_dedup(inc1, inc2, api_key)
+
+    return False
+
+def save_to_incidents_json(new_incidents: List[Dict[str, Any]], api_key: str = ""):
     if not new_incidents:
         return
         
@@ -704,7 +777,7 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]]):
         # Check against existing DB for merging or duplication
         matched_existing = None
         for item in existing:
-            if is_same_incident(inc, item):
+            if is_same_incident(inc, item, api_key=api_key):
                 matched_existing = item
                 break
                 
@@ -771,7 +844,7 @@ def run_ingestion():
     print(f"\nIngestion Complete: {len(new_incidents)} validated incidents passed all 3 stages.")
 
     # SAVE LOCAL JSON & SYNC SUPABASE
-    save_to_incidents_json(new_incidents)
+    save_to_incidents_json(new_incidents, api_key=api_key)
     
     try:
         from migrate_json_to_supabase import run_migration, record_daily_source_stats
