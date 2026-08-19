@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, ExternalLink, ShieldCheck, AlertTriangle, GitFork, ShieldAlert, Zap, Layers, DollarSign, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, ExternalLink, AlertTriangle, ShieldAlert, DollarSign, ChevronLeft, ChevronRight } from 'lucide-react';
 import { AIIncident, GraphEdge, formatFinancialDamage, sanitizeExternalUrl } from '../types/incident';
 
 interface IncidentDetailDrawerProps {

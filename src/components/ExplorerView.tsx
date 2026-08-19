@@ -11,7 +11,6 @@ import {
   ChevronUp,
   X,
   ChevronRight,
-  Download,
   FileSpreadsheet,
   FileCode,
   LayoutGrid,

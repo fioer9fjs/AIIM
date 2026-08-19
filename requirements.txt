@@ -1,8 +1,9 @@
-google-genai>=0.1.1
-google-cloud-bigquery>=3.25.0
-beautifulsoup4>=4.12.3
-requests>=2.32.0
-googlenewsdecoder>=0.1.4
-selectolax>=0.3.21
-pydantic>=2.8.0
-python-dotenv>=1.0.1
+# Production Python Dependencies for Global AI Incident Monitor Ingestion Pipeline
+google-genai==2.18.1
+google-cloud-bigquery==3.43.0
+beautifulsoup4==4.13.3
+requests==2.34.2
+googlenewsdecoder==0.1.7
+selectolax==0.4.11
+pydantic==2.13.4
+python-dotenv==1.0.1

@@ -80,11 +80,6 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({ incidents, onSelec
     }));
   }, [systemCounts]);
 
-  // Total Financial Damage USD Sum
-  const totalFinancialDamageUSD = useMemo(() => {
-    return incidents.reduce((sum, inc) => sum + (inc.financial_damage_usd || 0), 0);
-  }, [incidents]);
-
   // Drill-Down Filtered List
   const drillDownIncidents = useMemo(() => {
     if (selectedFilter.type === 'all') return incidents;

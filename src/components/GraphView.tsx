@@ -192,7 +192,7 @@ export const GraphView: React.FC<GraphViewProps> = ({ incidents, edges, onSelect
         joinCondition: (childOptions: any) => {
           return childOptions[clusterKey] === val;
         },
-        processProperties: (clusterOptions: any, childNodes: any[]) => {
+        processProperties: (_clusterOptions: any, childNodes: any[]) => {
           const count = childNodes.length;
           let labelText = `${propertyLabel}:\n${val.replace(/_/g, ' ').toUpperCase()} (${count})`;
           return {
