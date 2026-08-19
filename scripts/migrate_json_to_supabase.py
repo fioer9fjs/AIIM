@@ -12,23 +12,6 @@ import urllib.parse
 import urllib.error
 from typing import List, Dict, Any
 
-import base64
-
-def decode_jwt_role(token: str) -> str:
-    """Safely decodes JWT payload to inspect the role without external libraries."""
-    try:
-        parts = token.strip().split(".")
-        if len(parts) == 3:
-            payload_b64 = parts[1]
-            padding = 4 - (len(payload_b64) % 4)
-            if padding != 4:
-                payload_b64 += "=" * padding
-            payload = json.loads(base64.urlsafe_b64decode(payload_b64).decode("utf-8"))
-            return payload.get("role", "unknown")
-    except Exception:
-        pass
-    return "unknown"
-
 def load_env_file():
     env_path = os.path.join(os.path.dirname(__file__), "..", ".env")
     if os.path.exists(env_path):
@@ -42,25 +25,15 @@ def load_env_file():
 def get_supabase_credentials():
     load_env_file()
     url = os.environ.get("SUPABASE_URL", "")
-    secret_key = os.environ.get("SUPABASE_SECRET_KEY", "") or os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
-    publishable_key = os.environ.get("SUPABASE_PUBLISHABLE_KEY", "") or os.environ.get("SUPABASE_ANON_KEY", "") or os.environ.get("SUPABASE_KEY", "")
+    key = os.environ.get("SUPABASE_SECRET_KEY", "")
     
-    # Preferred: Secret / service_role key for writes and migrations
-    key = secret_key or publishable_key
-    
-    if key:
-        if key.startswith("sb_secret_"):
-            # Clean modern secret key
-            pass
-        elif key.startswith("sb_publishable_"):
-            print("--> [SECURITY NOTE] Using modern Publishable Key for Supabase. For full admin migrations, set SUPABASE_SECRET_KEY.")
-        else:
-            # Fallback legacy check
-            role = decode_jwt_role(key)
-            if role == "anon" and not secret_key:
-                print("--> [SECURITY NOTE] Using legacy 'anon' key for Supabase. For production migrations, set SUPABASE_SECRET_KEY.")
-            elif role == "anon" and secret_key:
-                print("--> [SECURITY WARNING] Secret key in .env has legacy role 'anon'.")
+    if not url or not key:
+        print("--> [SECURITY NOTE] SUPABASE_URL or SUPABASE_SECRET_KEY missing from environment.")
+        return url, ""
+        
+    if not key.startswith("sb_secret_"):
+        print(f"--> [SECURITY ERROR] Invalid key format: SUPABASE_SECRET_KEY must start with 'sb_secret_'.")
+        return url, ""
             
     return url, key
 
