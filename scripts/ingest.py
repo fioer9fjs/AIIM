@@ -59,15 +59,17 @@ except ImportError:
     HAS_BIGQUERY = False
 
 PREFERRED_MODELS_STAGE2 = [
-    "gemma-4-31b-it",
-    "gemma-4-26b-a4b-it",
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite",
     "gemini-3.6-flash",
-    "gemini-3.5-flash"
+    "gemma-4-31b-it",
+    "gemma-4-26b-a4b-it"
 ]
 
 PREFERRED_MODELS_STAGE3 = [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite",
     "gemini-3.6-flash",
-    "gemini-3.5-flash",
     "gemma-4-31b-it",
     "gemma-4-26b-a4b-it"
 ]
@@ -644,8 +646,9 @@ def extract_key_entities(text: str) -> set:
 
 def stage4_semantic_dedup(inc1: Dict[str, Any], inc2: Dict[str, Any], api_key: str) -> bool:
     """
-    Calls Gemma/Gemini LLM to dynamically evaluate whether two incident reports
-    represent the EXACT SAME real-world event based on their full metadata.
+    100% Generic LLM Semantic Deduplicator (Gemma / Gemini):
+    Evaluates whether two incident reports describe the EXACT SAME real-world event
+    based on semantic context, entity relationships, and factual descriptions.
     """
     if not api_key:
         return False
@@ -656,22 +659,25 @@ Compare the following TWO AI incident reports and determine if they describe the
 REPORT A:
 Title: {inc1.get('title', '')}
 Summary: {inc1.get('summary', '')}
+Date: {inc1.get('date', '')}
 Affected Parties: {inc1.get('affected_parties', [])}
 Geographic Scope: {inc1.get('geographic_scope', [])}
 
 REPORT B:
 Title: {inc2.get('title', '')}
 Summary: {inc2.get('summary', '')}
+Date: {inc2.get('date', '')}
 Affected Parties: {inc2.get('affected_parties', [])}
 Geographic Scope: {inc2.get('geographic_scope', [])}
 
 Instructions:
-1. Return true ONLY if Report A and Report B describe the exact same underlying real-world incident (same perpetrators/victims/organizations, same specific event).
-2. If Report A and Report B are different lawsuits, different crimes, or different security breaches—even if they involve the same company (e.g. OpenAI) or similar concepts (e.g. murder/lawsuit)—return false.
+1. Return is_same_incident: true ONLY if Report A and Report B describe the exact same underlying real-world incident (same perpetrators/victims/organizations, same specific event, even if worded differently or published on different dates).
+2. If Report A and Report B describe different lawsuits, different crimes, or different security breaches—even if they involve the same company (e.g. OpenAI) or similar general themes—return is_same_incident: false.
 
 Respond strictly in valid JSON format:
 {{
   "is_same_incident": true or false,
+  "confidence": 0.95,
   "reasoning": "Short 1-sentence explanation of why they are or are not the same real-world incident."
 }}"""
 
@@ -683,7 +689,7 @@ Respond strictly in valid JSON format:
 
     for model_name in candidate_models:
         if HAS_GENAI:
-            for attempt in range(2):
+            for attempt in range(3):
                 try:
                     from google.genai import types
                     client = genai.Client(api_key=api_key)
@@ -701,7 +707,8 @@ Respond strictly in valid JSON format:
                         data = json.loads(text_clean.strip())
                         is_same = bool(data.get("is_same_incident", False))
                         reasoning = data.get("reasoning", "")
-                        print(f"    [LLM SEMANTIC DEDUP EVALUATION ({model_name})] Verdict: {is_same} | Reason: {reasoning}")
+                        print(f"    [STAGE 4 LLM DEDUP ({model_name})] Match: {is_same} | Reason: {reasoning}")
+                        _WORKING_MODEL_STAGE3 = model_name
                         return is_same
                 except Exception as err:
                     err_str = str(err)
@@ -712,44 +719,93 @@ Respond strictly in valid JSON format:
 
     return False
 
+def is_candidate_pair(inc1: Dict[str, Any], inc2: Dict[str, Any]) -> bool:
+    """
+    Generic candidate pre-screening (0 LLM cost):
+    Returns True if two reports share specific organizations, actors, or multiple content keywords.
+    """
+    # 1. Check affected parties / organization overlap
+    p1 = {p.lower().strip() for p in (inc1.get("affected_parties") or [])}
+    p2 = {p.lower().strip() for p in (inc2.get("affected_parties") or [])}
+    generic_parties = {"unknown", "public", "general public", "users", "consumers"}
+    if (p1 - generic_parties) & (p2 - generic_parties):
+        return True
+
+    # 2. Check significant vocabulary / keyword overlap
+    e1 = extract_key_entities(inc1.get("title", "") + " " + (inc1.get("summary", "") or ""))
+    e2 = extract_key_entities(inc2.get("title", "") + " " + (inc2.get("summary", "") or ""))
+    generic_stopwords = {
+        'the', 'and', 'for', 'that', 'with', 'from', 'this', 'have', 'were', 'been',
+        'about', 'after', 'used', 'using', 'over', 'into', 'incidents', 'incident',
+        'report', 'news', 'says', 'said', 'will', 'also', 'their', 'which', 'other',
+        'more', 'some', 'such', 'when', 'what', 'where', 'how', 'than', 'them', 'these',
+        'ai', 'system', 'model', 'models', 'artificial', 'intelligence', 'data',
+        'user', 'users', 'company', 'first', 'resulting', 'tools', 'tool', 'agent', 'agents'
+    }
+    content_overlap = (e1 & e2) - generic_stopwords
+    if len(content_overlap) >= 2:
+        return True
+
+    return False
+
 def is_same_incident(inc1: Dict[str, Any], inc2: Dict[str, Any], api_key: str = "") -> bool:
     """
-    Evaluates whether two incident records represent the SAME real-world incident:
+    100% Generic Incident Deduplication:
     1. Exact URL match in source_urls (0 LLM calls).
-    2. Quick rejection if titles have very low similarity and zero entity overlap (0 LLM calls).
-    3. LLM Semantic Deduplication via Gemma/Gemini for candidate matches.
+    2. Generic Candidate Filter (shared actors or multiple content terms).
+    3. Pure LLM Semantic Deduplication for all candidate comparisons (Stage 4).
+    Zero hardcoded incident names, zero arbitrary percentage thresholds.
     """
-    import difflib
-    
-    # 1. Exact URL Overlap
+    # 1. Exact URL Overlap Check
     u1 = set(inc1.get("source_urls") or [])
     u2 = set(inc2.get("source_urls") or [])
     if u1 and u2 and u1.intersection(u2):
         return True
 
-    # 2. Title & Entity Pre-Filter
-    t1 = inc1.get("title", "").lower()
-    t2 = inc2.get("title", "").lower()
-    ratio = difflib.SequenceMatcher(None, t1, t2).ratio()
-    if ratio >= 0.92:
-        return True
-
-    e1 = extract_key_entities(t1 + " " + inc1.get("summary", ""))
-    e2 = extract_key_entities(t2 + " " + inc2.get("summary", ""))
-    overlap = e1.intersection(e2)
-    
-    generic_words = {"chatgpt", "openai", "incident", "breach", "lawsuit", "victim", "killing", "murder", "security", "report", "court", "system", "model", "ai", "artificial", "intelligence"}
-    specific_overlap = {w for w in overlap if w not in generic_words}
-
-    # Quick Rejection if ratio is low AND no specific entity overlap
-    if ratio < 0.45 and not specific_overlap:
+    if not api_key:
         return False
 
-    # 3. LLM Semantic Deduplication Evaluation (Gemma/Gemini)
-    if api_key and (ratio >= 0.65 or len(specific_overlap) >= 2 or "arjun" in specific_overlap or "huggingface" in specific_overlap):
-        return stage4_semantic_dedup(inc1, inc2, api_key)
+    # 2. Generic Candidate Filter
+    if not is_candidate_pair(inc1, inc2):
+        return False
 
-    return False
+    # 3. Stage 4 LLM Semantic Deduplication Evaluation
+    return stage4_semantic_dedup(inc1, inc2, api_key)
+
+def consolidate_dataset(incidents: List[Dict[str, Any]], api_key: str = "") -> List[Dict[str, Any]]:
+    """
+    100% Generic dataset consolidation pass:
+    Iterates through all incident records and merges duplicates based on pure LLM evaluation.
+    """
+    canonical_list: List[Dict[str, Any]] = []
+    
+    for inc in incidents:
+        matched = None
+        for existing in canonical_list:
+            if is_same_incident(inc, existing, api_key=api_key):
+                matched = existing
+                break
+                
+        if matched:
+            # Merge source URLs
+            urls1 = matched.get("source_urls") or []
+            urls2 = inc.get("source_urls") or []
+            matched["source_urls"] = list(set(urls1 + urls2))
+            
+            # Preserve max confirmed financial damage
+            dam1 = matched.get("financial_damage_usd") or 0
+            dam2 = inc.get("financial_damage_usd") or 0
+            matched["financial_damage_usd"] = max(dam1, dam2)
+            
+            # Preserve more detailed summary and full text
+            if len(inc.get("summary", "")) > len(matched.get("summary", "")):
+                matched["summary"] = inc.get("summary")
+            if len(inc.get("full_text", "") or "") > len(matched.get("full_text", "") or ""):
+                matched["full_text"] = inc.get("full_text")
+        else:
+            canonical_list.append(inc)
+            
+    return canonical_list
 
 def save_to_incidents_json(new_incidents: List[Dict[str, Any]], api_key: str = ""):
     if not new_incidents:
@@ -766,46 +822,23 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]], api_key: str = "
         except Exception:
             existing = []
             
-    added_count = 0
-    merged_count = 0
-    
     for inc in new_incidents:
-        # Sanitize date boundary
         pub_clean = inc.get("pub_date_clean") or datetime.now().strftime("%Y-%m-%d")
         inc["date"] = sanitize_incident_date(inc.get("date"), pub_clean)
         
-        # Check against existing DB for merging or duplication
-        matched_existing = None
-        for item in existing:
-            if is_same_incident(inc, item, api_key=api_key):
-                matched_existing = item
-                break
-                
-        if matched_existing:
-            # AUTO-MERGE: Append new source_urls to existing canonical incident
-            new_urls = inc.get("source_urls") or []
-            existing_urls = matched_existing.get("source_urls") or []
-            merged_urls = existing_urls.copy()
-            for u in new_urls:
-                if u and u not in merged_urls:
-                    merged_urls.append(u)
-            matched_existing["source_urls"] = merged_urls
-            merged_count += 1
-            print(f"  [AUTO-MERGED INTO EXISTING INCIDENT] Merged into '{matched_existing.get('incident_id')}' ({matched_existing.get('title')[:45]}...)")
-        else:
-            # CREATE NEW INCIDENT
-            if "incident_id" not in inc or not inc["incident_id"]:
-                date_prefix = (inc.get("date") or datetime.now().strftime("%Y%m%d")).replace("-", "")
-                seq_num = len(existing) + added_count + 1
-                inc["incident_id"] = f"INC-{date_prefix}-{seq_num:03d}"
-            existing.insert(0, inc)
-            added_count += 1
-            print(f"  [CREATED NEW INCIDENT RECORD] Allocated ID: {inc['incident_id']}")
+        if "incident_id" not in inc or not inc["incident_id"]:
+            date_prefix = (inc.get("date") or datetime.now().strftime("%Y%m%d")).replace("-", "")
+            seq_num = len(existing) + 1
+            inc["incident_id"] = f"INC-{date_prefix}-{seq_num:03d}"
             
-    if added_count > 0 or merged_count > 0:
-        with open(incidents_path, "w", encoding="utf-8") as f:
-            json.dump(existing, f, indent=2, ensure_ascii=False)
-        print(f"\nSaved updates ({added_count} new, {merged_count} merged) to local dataset: {incidents_path}")
+        existing.insert(0, inc)
+
+    # Consolidate and deduplicate entire combined dataset via LLM
+    consolidated = consolidate_dataset(existing, api_key=api_key)
+    
+    with open(incidents_path, "w", encoding="utf-8") as f:
+        json.dump(consolidated, f, indent=2, ensure_ascii=False)
+    print(f"\nSaved {len(consolidated)} clean consolidated incidents to local dataset: {incidents_path}")
 
 def run_ingestion():
     load_env_file()

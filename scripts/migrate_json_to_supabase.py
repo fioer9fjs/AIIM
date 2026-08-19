@@ -108,6 +108,59 @@ def record_daily_source_stats(
     }]
     post_to_supabase_table(url, key, "daily_source_stats", record, "stat_date")
 
+try:
+    from scripts.ingest import consolidate_dataset
+except ImportError:
+    from ingest import consolidate_dataset
+
+def sync_supabase_records(url: str, key: str, table_name: str, records: List[Dict[str, Any]], primary_key: str) -> bool:
+    if not url or not key or not records:
+        print(f"Skipping {table_name}: Missing Supabase credentials or empty records.")
+        return False
+        
+    # 1. Upsert all canonical records
+    ok = post_to_supabase_table(url, key, table_name, records, primary_key)
+    if not ok:
+        return False
+        
+    # 2. Fetch existing IDs from Supabase and delete any obsolete merged duplicates
+    try:
+        valid_ids = {r[primary_key] for r in records if r.get(primary_key)}
+        get_req = urllib.request.Request(
+            f"{url.rstrip('/')}/rest/v1/{table_name}?select={primary_key}",
+            headers={
+                "apikey": key,
+                "Authorization": f"Bearer {key}"
+            },
+            method="GET"
+        )
+        with urllib.request.urlopen(get_req) as resp:
+            if resp.status == 200:
+                remote_rows = json.loads(resp.read().decode("utf-8"))
+                remote_ids = {row[primary_key] for row in remote_rows if primary_key in row}
+                obsolete_ids = remote_ids - valid_ids
+                if obsolete_ids:
+                    print(f"--> Cleaning {len(obsolete_ids)} obsolete merged duplicates from Supabase table '{table_name}'...")
+                    for obs_id in obsolete_ids:
+                        del_req = urllib.request.Request(
+                            f"{url.rstrip('/')}/rest/v1/{table_name}?{primary_key}=eq.{urllib.parse.quote(obs_id)}",
+                            headers={
+                                "apikey": key,
+                                "Authorization": f"Bearer {key}"
+                            },
+                            method="DELETE"
+                        )
+                        try:
+                            with urllib.request.urlopen(del_req):
+                                pass
+                        except Exception:
+                            pass
+                    print(f"--> Supabase table '{table_name}' is now strictly in sync with canonical dataset!")
+    except Exception as e:
+        print(f"Note on Supabase sync cleanup: {e}")
+        
+    return True
+
 def run_migration():
     print("=" * 80)
     print("MIGRATING LOCAL JSON DATASET TO SUPABASE POSTGRESQL DATABASE")
@@ -115,29 +168,32 @@ def run_migration():
     
     url, key = get_supabase_credentials()
     if not url or not key:
-        print("\n[NOTE] SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY environment variables not set.")
-        print("Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY to execute migration to live Supabase cloud.\n")
+        print("\n[NOTE] SUPABASE_URL and SUPABASE_SECRET_KEY environment variables not set.")
+        print("Set SUPABASE_URL and SUPABASE_SECRET_KEY to execute migration to live Supabase cloud.\n")
         return
         
     base_dir = os.path.join(os.path.dirname(__file__), "..", "src", "data")
     incidents_file = os.path.join(base_dir, "incidents.json")
     edges_file = os.path.join(base_dir, "edges.json")
     
-    seen_incident_ids = set()
     valid_incident_ids = set()
     supabase_incidents = []
     
     if os.path.exists(incidents_file):
         with open(incidents_file, "r", encoding="utf-8") as f:
-            incidents_data = json.load(f)
+            raw_data = json.load(f)
+
+        seen_incident_ids = set()
+        api_key = os.environ.get("GEMINI_API_KEY", "")
+        # Run global deduplication consolidation pass via pure LLM
+        incidents_data = consolidate_dataset(raw_data, api_key=api_key)
+        with open(incidents_file, "w", encoding="utf-8") as f:
+            json.dump(incidents_data, f, indent=2, ensure_ascii=False)
             
-        idx_counter = 1
         for inc in incidents_data:
             iid = inc.get("incident_id")
             if not iid or iid in seen_incident_ids:
-                date_prefix = str(inc.get("date", "20260814")).replace("-", "")[:8]
-                iid = f"INC-{date_prefix}-{idx_counter:03d}"
-                idx_counter += 1
+                continue
                 
             seen_incident_ids.add(iid)
             valid_incident_ids.add(iid)
@@ -187,7 +243,7 @@ def run_migration():
             supabase_incidents.append(row)
             
         print(f"Prepared {len(supabase_incidents)} unique incident records. Uploading to 'incidents' table...")
-        post_to_supabase_table(url, key, "incidents", supabase_incidents, "incident_id")
+        sync_supabase_records(url, key, "incidents", supabase_incidents, "incident_id")
 
     if os.path.exists(edges_file):
         with open(edges_file, "r", encoding="utf-8") as f:
@@ -219,7 +275,7 @@ def run_migration():
                 supabase_edges.append(row)
             
         print(f"Prepared {len(supabase_edges)} valid graph edge records. Uploading to 'edges' table...")
-        post_to_supabase_table(url, key, "edges", supabase_edges, "edge_id")
+        sync_supabase_records(url, key, "edges", supabase_edges, "edge_id")
         
     print("\n" + "=" * 80)
     print("MIGRATION FINISHED!")
