@@ -66,10 +66,10 @@ PREFERRED_MODELS_STAGE2 = [
 ]
 
 PREFERRED_MODELS_STAGE3 = [
-    "gemma-4-31b-it",
-    "gemma-4-26b-a4b-it",
     "gemini-3.6-flash",
-    "gemini-3.5-flash"
+    "gemini-3.5-flash",
+    "gemma-4-31b-it",
+    "gemma-4-26b-a4b-it"
 ]
 
 
