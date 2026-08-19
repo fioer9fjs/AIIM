@@ -1,15 +1,15 @@
 import { createClient } from '@supabase/supabase-js';
 import { AIIncident, GraphEdge } from '../types/incident';
 
-// Read Vercel / Vite environment variables
+// Read Vercel / Vite environment variables (Modern Publishable Key with Legacy fallback)
 const metaEnv = (import.meta as unknown as { env?: Record<string, string> }).env || {};
-const supabaseUrl = metaEnv.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = metaEnv.VITE_SUPABASE_ANON_KEY || '';
+const supabaseUrl = metaEnv.VITE_SUPABASE_URL || metaEnv.SUPABASE_URL || '';
+const supabaseKey = metaEnv.VITE_SUPABASE_PUBLISHABLE_KEY || metaEnv.VITE_SUPABASE_ANON_KEY || metaEnv.SUPABASE_PUBLISHABLE_KEY || metaEnv.SUPABASE_ANON_KEY || '';
 
-export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
+export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseKey);
 
 export const supabase = isSupabaseConfigured
-  ? createClient(supabaseUrl, supabaseAnonKey)
+  ? createClient(supabaseUrl, supabaseKey)
   : null;
 
 /**
