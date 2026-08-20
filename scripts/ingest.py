@@ -58,6 +58,19 @@ try:
 except ImportError:
     HAS_BIGQUERY = False
 
+def _load_harvest_keywords() -> Dict[str, Any]:
+    """Loads modular harvesting keywords from config/harvest_keywords.json."""
+    config_path = os.path.join(os.path.dirname(__file__), "..", "config", "harvest_keywords.json")
+    if os.path.exists(config_path):
+        try:
+            with open(config_path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"[WARN] Failed to load harvest_keywords.json: {e}")
+    return {"rss": {"subjects": ["AI", "Artificial Intelligence", "LLM"], "incidents": ["incident", "breach", "malfunction"]}, "gdelt": {"url_entities": ["ai", "llm"], "organizations": ["openai"], "incident_keywords": ["incident"], "gdelt_themes": ["cyber_attack"], "exclude_url_terms": ["flight"]}}
+
+_KW = _load_harvest_keywords()
+
 PREFERRED_MODELS_STAGE2 = [
     "gemini-3.1-flash-lite",
     "gemini-3.5-flash-lite",
@@ -545,6 +558,13 @@ def fetch_gdelt_bigquery(max_items: int = 50) -> List[Dict[str, Any]]:
         project_id = os.environ.get("GCP_PROJECT_ID") or os.environ.get("GCP_PROJECT")
         client = bigquery.Client(project=project_id) if project_id else bigquery.Client()
         
+        gdelt_kw = _KW.get("gdelt", {})
+        gdelt_entities = "|".join(gdelt_kw.get("url_entities", []))
+        gdelt_orgs = "|".join(gdelt_kw.get("organizations", []))
+        gdelt_incidents = "|".join(gdelt_kw.get("incident_keywords", []))
+        gdelt_themes = "|".join(gdelt_kw.get("gdelt_themes", []))
+        gdelt_excludes = "|".join(gdelt_kw.get("exclude_url_terms", []))
+
         sql = f"""
         WITH filtered_articles AS (
             SELECT 
@@ -560,18 +580,18 @@ def fetch_gdelt_bigquery(max_items: int = 50) -> List[Dict[str, Any]]:
                 
                 -- Multi-Field AI Target Filter (URL Slug OR Organizations)
                 AND (
-                    REGEXP_CONTAINS(LOWER(DocumentIdentifier), r'\\b(ai|artificial-intelligence|genai|generative-ai|machine-learning|chatgpt|openai|gpt|llm|deepmind|anthropic|claude|copilot|gemini|mistral|huggingface|hugging-face|xai|midjourney|stable-diffusion|sora|perplexity|grok)\\b')
-                    OR REGEXP_CONTAINS(LOWER(COALESCE(V2Organizations, '')), r'\\b(openai|anthropic|deepmind|hugging face|xai|midjourney|mistral|stability ai|cohere|perplexity)\\b')
+                    REGEXP_CONTAINS(LOWER(DocumentIdentifier), r'\\b({gdelt_entities})\\b')
+                    OR REGEXP_CONTAINS(LOWER(COALESCE(V2Organizations, '')), r'\\b({gdelt_orgs})\\b')
                 )
                 
                 -- Multi-Field Incident Focus Filter (URL Slug OR Themes)
                 AND (
-                    REGEXP_CONTAINS(LOWER(DocumentIdentifier), r'\\b(incident|failure|outage|glitch|breach|hack|flaw|vulnerability|hallucination|deepfake|bias|jailbreak|lawsuit|fraud|fine|ban|probe|investigation|violation|copyright|penalty|leak|exploit|scam|malware|error|crash|bug|malfunction|misinformation|disinformation|plagiarism|propaganda)\\b')
-                    OR REGEXP_CONTAINS(LOWER(COALESCE(V2Themes, '')), r'\\b(cyber_attack|law_crime|security_services|technology_ai|intellectual_property|fraud|privacy|investigation)\\b')
+                    REGEXP_CONTAINS(LOWER(DocumentIdentifier), r'\\b({gdelt_incidents})\\b')
+                    OR REGEXP_CONTAINS(LOWER(COALESCE(V2Themes, '')), r'\\b({gdelt_themes})\\b')
                 )
                 
-                -- Aviation Exclusion (Eliminates Copilot aircraft false positives)
-                AND NOT REGEXP_CONTAINS(LOWER(DocumentIdentifier), r'\\b(flight|plane|aircraft|aviation|airline|airlines|pilot|jet)\\b')
+                -- False Positive Exclusion
+                AND NOT REGEXP_CONTAINS(LOWER(DocumentIdentifier), r'\\b({gdelt_excludes})\\b')
                 
                 -- Moderate Negative / Critical Tone Threshold (< -1.0)
                 AND CAST(SPLIT(V2Tone, ',')[OFFSET(0)] AS FLOAT64) < -1.0
@@ -836,7 +856,11 @@ def run_ingestion():
     print("\n---> STAGE 1: HARVESTING CANDIDATES (Google News + GDELT BigQuery)...")
     candidates = []
     
-    query = '("AI" OR "Artificial Intelligence" OR "LLM" OR "ChatGPT" OR "Claude") AND ("incident" OR "breach" OR "malfunction" OR "lawsuit" OR "investigation" OR "vulnerability")'
+    rss_kw = _KW.get("rss", {})
+    rss_subjects = " OR ".join(f'"{s}"' for s in rss_kw.get("subjects", []))
+    rss_incidents = " OR ".join(f'"{i}"' for i in rss_kw.get("incidents", []))
+    query = f"({rss_subjects}) AND ({rss_incidents})" if rss_subjects and rss_incidents else '("AI" OR "Artificial Intelligence") AND ("incident" OR "breach")'
+
     gnews_articles = fetch_google_news(query, max_items=12)
     candidates.extend(gnews_articles)
     print(f"Harvested {len(gnews_articles)} Google News candidate articles.")
