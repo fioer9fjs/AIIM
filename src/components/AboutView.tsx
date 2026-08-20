@@ -113,7 +113,7 @@ export const AboutView: React.FC = () => {
             </h3>
             <div style={{ fontSize: '0.95rem', color: 'var(--text-muted)', lineHeight: 1.75, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <p>
-                To quantify economic risk, Gemini 3.6 Flash evaluates the full text of each incident according to three financial assessment tiers:
+                To quantify economic risk, an automated large language model evaluates the full text of each incident according to three financial assessment tiers:
               </p>
               <ul style={{ paddingLeft: '1.25rem', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 <li>
@@ -168,7 +168,7 @@ export const AboutView: React.FC = () => {
                 <div style={{ background: 'rgba(234, 179, 8, 0.1)', borderLeft: '4px solid #eab308', padding: '0.85rem 1rem', borderRadius: '6px' }}>
                   <h4 style={{ color: '#eab308', fontSize: '0.9rem', marginBottom: '0.25rem' }}>🟡 MEDIUM RISK</h4>
                   <p style={{ fontSize: '0.825rem', color: 'var(--text-main)', margin: 0 }}>
-                    Localized autonomous system malfunctions (e.g. unprompted agent behavior, gym/booking hacks, algorithmic discrimination in recruitment/loans), moderate financial losses (&lt; $100K USD), or disputed safety disclosures.
+                    Localized autonomous system malfunctions (e.g. unprompted agent behavior, unauthorized automated transactions, algorithmic discrimination in recruitment/loans), moderate financial losses (&lt; $100K USD), or disputed safety disclosures.
                   </p>
                 </div>
                 <div style={{ background: 'rgba(59, 130, 246, 0.1)', borderLeft: '4px solid var(--accent-blue)', padding: '0.85rem 1rem', borderRadius: '6px' }}>

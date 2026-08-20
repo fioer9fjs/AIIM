@@ -90,7 +90,7 @@ DEFINITIONS:
    - A formal regulatory enforcement action, government ban, or public high-profile apology regarding an AI deployment due to safety/hallucination failures.
 
 2. STRICT EXCLUSIONS (MUST RETURN is_ai_incident = false):
-   - Securities class actions, shareholder lawsuits, or investor losses arising solely from stock price drops, quarterly earnings, or alleged management overstatement of AI revenue/Copilot adoption (e.g. Levi & Korsinsky, Robbins Geller, Pomerantz).
+   - Securities class actions, shareholder lawsuits, or investor losses arising solely from stock price drops, quarterly earnings, or alleged management overstatement of AI revenue or product adoption.
    - Pure civil contract, labor, wage, or unpaid work disputes regarding AI training or voice model creation (e.g. contractor/artist suing over unpaid voice cloning work).
    - Speculative debate or academic papers discussing future artificial general intelligence (AGI) without a real-world event.
 
@@ -672,7 +672,7 @@ Geographic Scope: {inc2.get('geographic_scope', [])}
 
 Instructions:
 1. Return is_same_incident: true ONLY if Report A and Report B describe the exact same underlying real-world incident (same perpetrators/victims/organizations, same specific event, even if worded differently or published on different dates).
-2. If Report A and Report B describe different lawsuits, different crimes, or different security breaches—even if they involve the same company (e.g. OpenAI) or similar general themes—return is_same_incident: false.
+2. If Report A and Report B describe different lawsuits, different crimes, or different security breaches—even if they involve the same company or AI provider, or share similar general themes—return is_same_incident: false.
 
 Respond strictly in valid JSON format:
 {{
