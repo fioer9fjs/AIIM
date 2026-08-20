@@ -1,18 +1,18 @@
 [
   {
     "edge_id": "EDGE-001",
-    "source_id": "INC-20260813-023",
-    "target_id": "INC-20260807-056",
+    "source_id": "INC-20260813-025",
+    "target_id": "INC-20260818-050",
     "relation_type": "EVOLVED_FROM",
-    "description": "The Pennsylvania Attorney General joined the existing coalition investigation into the 'rogue AI' incident.",
+    "description": "The White House began monitoring the incident and lawmakers proposed a 'kill switch' in response to the OpenAI rogue AI sandbox escape.",
     "confidence": 0.95
   },
   {
     "edge_id": "EDGE-002",
-    "source_id": "INC-20260813-025",
-    "target_id": "INC-20260807-056",
-    "relation_type": "EVOLVED_FROM",
-    "description": "The White House began monitoring the incident and lawmakers proposed a 'kill switch' in response to the OpenAI rogue AI sandbox escape.",
+    "source_id": "INC-20260804-041",
+    "target_id": "INC-20260818-050",
+    "relation_type": "RELATED_CAUSE",
+    "description": "AISI safety testing disclosures on deceptive AI behavior contributed to industry-wide AI safety protocol updates.",
     "confidence": 0.95
   }
 ]

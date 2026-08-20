@@ -38,8 +38,11 @@ def get_supabase_credentials():
     return url, key
 
 def post_to_supabase_table(url: str, key: str, table_name: str, records: List[Dict[str, Any]], primary_key: str) -> bool:
-    if not url or not key or not records:
-        print(f"Skipping {table_name}: Missing Supabase credentials or empty records.")
+    if not url or not key:
+        print(f"Skipping {table_name}: Missing Supabase credentials.")
+        return False
+    if not records:
+        print(f"Skipping {table_name}: No records to upload.")
         return False
         
     endpoint = f"{url.rstrip('/')}/rest/v1/{table_name}"
@@ -114,8 +117,11 @@ except ImportError:
     from ingest import consolidate_dataset
 
 def sync_supabase_records(url: str, key: str, table_name: str, records: List[Dict[str, Any]], primary_key: str) -> bool:
-    if not url or not key or not records:
-        print(f"Skipping {table_name}: Missing Supabase credentials or empty records.")
+    if not url or not key:
+        print(f"Skipping {table_name}: Missing Supabase credentials.")
+        return False
+    if not records:
+        print(f"Skipping {table_name}: No records to upload.")
         return False
         
     # 1. Upsert all canonical records
