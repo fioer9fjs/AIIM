@@ -58,8 +58,18 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
 
   const activeIncidents = useMemo(() => {
     if (!selectedCountry) return incidents;
-    return regionMap.get(selectedCountry.toLowerCase()) || [];
-  }, [selectedCountry, regionMap, incidents]);
+    const normalizedSelected = selectedCountry.trim().toLowerCase();
+    const regionObj = REGION_COORDINATES[normalizedSelected];
+    const targetName = regionObj ? regionObj.name.toLowerCase() : normalizedSelected;
+
+    return incidents.filter((inc) => {
+      const scopes = inc.geographic_scope && inc.geographic_scope.length > 0 ? inc.geographic_scope : ['Global'];
+      return scopes.some((s) => {
+        const lower = s.trim().toLowerCase();
+        return lower === normalizedSelected || lower === targetName || lower.includes(normalizedSelected) || lower.includes(targetName);
+      });
+    });
+  }, [selectedCountry, incidents]);
 
   // Initialize Leaflet Map instance with CartoDB Dark Matter tile layer
   useEffect(() => {
@@ -230,7 +240,7 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
                 </span>
                 {inc.financial_damage_usd ? inc.financial_damage_usd > 0 ? (
                   <span className="badge" style={{ backgroundColor: 'rgba(16, 185, 129, 0.2)', color: '#34d399', display: 'inline-flex', alignItems: 'center', gap: '0.2rem', fontWeight: 700 }}>
-                    <DollarSign size={12} /> {formatFinancialDamage(inc.financial_damage_usd)}
+                    <DollarSign size={12} /> {formatFinancialDamage(inc.financial_damage_usd).replace(/^\$/, '')}
                   </span>
                 ) : null : null}
                 {inc.natsec_impact && (
