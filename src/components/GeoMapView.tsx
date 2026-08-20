@@ -35,6 +35,26 @@ const REGION_COORDINATES: Record<string, { name: string; lat: number; lng: numbe
   'global': { name: 'Global / Multi-Region', lat: 20.0, lng: 0.0 }
 };
 
+function normalizeGeographicScope(scope: any): string[] {
+  if (!scope) return ['Global'];
+  if (Array.isArray(scope)) {
+    return scope.map((s) => String(s).trim()).filter(Boolean);
+  }
+  if (typeof scope === 'string') {
+    const trimmed = scope.trim();
+    if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
+      try {
+        const parsed = JSON.parse(trimmed);
+        if (Array.isArray(parsed)) return parsed.map((s) => String(s).trim()).filter(Boolean);
+      } catch {
+        // Fallback to comma split
+      }
+    }
+    return trimmed.split(',').map((s) => s.trim()).filter(Boolean);
+  }
+  return ['Global'];
+}
+
 export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncident }) => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
@@ -46,9 +66,9 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
   const regionMap = useMemo(() => {
     const map = new Map<string, AIIncident[]>();
     incidents.forEach((inc) => {
-      const scopes = inc.geographic_scope && inc.geographic_scope.length > 0 ? inc.geographic_scope : ['Global'];
+      const scopes = normalizeGeographicScope(inc.geographic_scope);
       scopes.forEach((scope) => {
-        const key = scope.trim().toLowerCase();
+        const key = scope.toLowerCase();
         if (!map.has(key)) map.set(key, []);
         map.get(key)!.push(inc);
       });
@@ -63,10 +83,10 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
     const targetName = regionObj ? regionObj.name.toLowerCase() : normalizedSelected;
 
     return incidents.filter((inc) => {
-      const scopes = inc.geographic_scope && inc.geographic_scope.length > 0 ? inc.geographic_scope : ['Global'];
+      const scopes = normalizeGeographicScope(inc.geographic_scope);
       return scopes.some((s) => {
-        const lower = s.trim().toLowerCase();
-        return lower === normalizedSelected || lower === targetName || lower.includes(normalizedSelected) || lower.includes(targetName);
+        const lower = s.toLowerCase();
+        return lower === normalizedSelected || lower === targetName;
       });
     });
   }, [selectedCountry, incidents]);
@@ -230,8 +250,8 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
         </h3>
 
         <div className="grid-cards">
-          {activeIncidents.map((inc) => (
-            <div key={inc.incident_id} className={`incident-card card-${inc.severity}`} onClick={() => onSelectIncident(inc)}>
+          {activeIncidents.map((inc, idx) => (
+            <div key={`${inc.incident_id}-${idx}`} className={`incident-card card-${inc.severity}`} onClick={() => onSelectIncident(inc)}>
               <div className="card-header">
                 <span className={`badge badge-${inc.severity}`}>{inc.severity}</span>
                 <span className={`badge badge-${inc.verification_status}`}>{inc.verification_status}</span>
