@@ -1,23 +1,23 @@
 [
   {
-    "title": "Proliferation of AI-Generated Deepfake Late-Night Talk Show Hosts",
-    "summary": "AI-generated deepfakes of late-night television hosts are being spread on social media to disseminate misinformation and generate ad revenue. These deceptive clips exploit public familiarity with host personas to influence political discourse, creating a significant challenge for platform moderation and public trust.",
-    "date": "2025-01-01",
+    "title": "Proliferation of AI-Generated Deepfake Monologues of Late-Night Talk Show Hosts",
+    "summary": "AI-generated deepfakes of late-night talk show hosts like Jimmy Kimmel are being used to spread disinformation by leveraging the hosts' established credibility and habitual political commentary. These videos, which are relatively easy to produce due to the hosts' stationary filming style and abundant training data, are being deployed to influence public opinion and drive ad revenue, posing significant challenges to platform moderation efforts.",
+    "date": "2026-08-30",
     "verification_status": "confirmed",
-    "lifecycle_phase": "deployment_and_integration",
+    "lifecycle_phase": "operation_and_monitoring",
     "system_classification": "general_purpose_model",
     "intent": "intentional_misuse",
     "primary_purpose": "generative_content",
     "root_cause_category": "human",
     "root_cause_subtype": "adversarial_attack",
-    "failure_mode": "Malicious actors use generative AI to clone the likeness and voice of public figures, embedding synthetic content into established social media formats to bypass user skepticism and manipulate public opinion.",
+    "failure_mode": "Malicious actors use generative AI to synthesize the likeness and voice of public figures, exploiting the high-trust context of political talk shows to bypass audience skepticism and disseminate misleading content.",
     "harm_domain": "societal",
     "harm_type": "misinformation",
     "impact_scope": "cumulative_macro_trend",
     "financial_damage_usd": 2500000,
     "eu_ai_act_tier": "limited_risk",
     "nist_ai_rmf_function": "MAP",
-    "iso_42001_category": "Operational_Security",
+    "iso_42001_category": "System_Impact",
     "natsec_impact": true,
     "temporality": "actual",
     "severity": "medium",
@@ -26,21 +26,22 @@
     ],
     "affected_parties": [
       "Jimmy Kimmel",
-      "ABC",
       "Jon Stewart",
-      "Social Media Users"
+      "Social Media Users",
+      "ABC",
+      "Social Media Platforms"
     ],
     "confidence_scores": {
       "verification_status": 1.0,
       "severity": 0.85
     },
-    "valuation_methodology": "explicit_confirmed",
+    "valuation_methodology": "empirical_estimate",
     "source_urls": [
       "https://www.wboi.org/npr-news/2026-08-30/are-you-sure-that-kimmel-clip-was-real-late-night-ai-deepfakes-are-spreading-online"
     ],
     "source_type": "gdelt",
     "full_text": "Jimmy Kimmel is currently out on summer break from his late-night talk show on ABC. But the casual fan might be forgiven for thinking the host hasn't left the building. Social media videos appear to show him commenting on everything from President Trump falling asleep in the middle of a meeting, to the president's attacks on Michigan Senate candidate Abdul El-Sayed.\n\nFake videos showing Kimmel and other late-night TV talk show hosts are mushrooming on social media. These videos, made using generative AI, are in some ways easier to create than deepfakes of other types of celebrity — and could potentially be more disruptive.\n\nJed Rosenzweig, the founder and editor of the online publication LateNighter.com, has been investigating the rise of these deepfakes. He said late-night TV talk show hosts are especially vulnerable to having their likenesses transformed into video simulations on social media because of the ease with which audiences accept the context in which they are presented.\n\n\"Jimmy Kimmel really does go on television and talk about politics all the time, and these clips really do get posted on social media every day,\" Rosenzweig said. \"So if you see a Kimmel thumbnail tied to something Trump did yesterday, there's a built-in context and trust there that gives [it] a kind of camouflage. It just has to look like one more Jimmy Kimmel clip in a feed that's already filled with Jimmy Kimmel clips.\"\n\nRosenzweig said there are telltale signs that these monologues are not authentic.\n\n\"The gestures are odd. The writing doesn't really sound like a live monologue. And after about 10 seconds, Kimmel disappears and the cloned voice just runs over news footage,\" he said.\n\nYet some of these videos rack up hundreds of thousands of views and elicit comments that suggest at least some people think the content is real. One viewer commented on a YouTube video: \"Thank you Jimmy for speaking the truth.\"\n\nRosenzweig said while other hosts like Jon Stewart are also victims of these AI simulations, the Jimmy Kimmel Live! deepfakes are of particular concern because of the host's especially contentious relationship with the Trump administration.\n\nPresident Trump has repeatedly called for Kimmel to be fired. Rosenzweig said the fake videos, many of which make fun of or criticize Trump, could strengthen his administration's resolve at a time when the Federal Communications Commission and ABC are in a legal battle over free speech rights. \"ABC are being scrutinized on a nightly basis for what Jimmy Kimmel is saying,\" Rosenzweig said.\n\nABC did not respond to NPR's request for comment.\n\nThese AI-generated talk show hosts as a genre in some ways pose a bigger threat than other kinds of celebrity deepfakes, such as of singers and actors: They are usually easier to create because these hosts typically just stand or sit in one place and talk to the camera, and there are plentiful high-quality audio recordings of their speaking voices available online to clone.\n\n\"In many cases, I can take a single image from a late show host and just animate it,\" said Dartmouth College computer science professor Hany Farid, who specializes in analyzing deepfakes. \"Here's a voice, fifteen seconds. Here's a script. Go.\"\n\nAlso, Farid said, late-night TV is where many Americans get their news and validate their opinions.\n\n\"The deepfakes we are seeing, it's essentially disinformation campaigns that now seem to be coming out of the [voices] of those very people that we're used to listening to,\" Farid said. \"So they're quite effective.\"\n\nEven though the audience is in decline, roughly a quarter of Americans still watch late-night talk shows regularly. According to a 2025 survey from the Associated Press-NORC Center for Public Affairs Research, the majority of these viewers are Democrats, and more of them are watching clips online than the full shows on regular linear TV. Farid and Rosenzweig both said this may explain why it's harder to find AI deepfake monologues from right-lea",
-    "incident_id": "INC-20250101-051"
+    "incident_id": "INC-20260830-051"
   },
   {
     "title": "OpenAI AI Agents Escape Sandbox and Compromise External Systems",
