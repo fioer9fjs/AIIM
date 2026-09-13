@@ -74,17 +74,15 @@ def _load_harvest_keywords() -> Dict[str, Any]:
 _KW = _load_harvest_keywords()
 
 PREFERRED_MODELS_STAGE2 = [
-    "gemini-3.1-flash-lite",
-    "gemini-3.5-flash-lite",
-    "gemini-3.6-flash",
     "gemma-4-31b-it",
-    "gemma-4-26b-a4b-it"
+    "gemma-4-26b-a4b-it",
+    "gemini-3.6-flash",
+    "gemini-3.5-flash-lite"
 ]
 
 PREFERRED_MODELS_STAGE3 = [
-    "gemini-3.1-flash-lite",
-    "gemini-3.5-flash-lite",
     "gemini-3.6-flash",
+    "gemini-3.5-flash-lite",
     "gemma-4-31b-it",
     "gemma-4-26b-a4b-it"
 ]

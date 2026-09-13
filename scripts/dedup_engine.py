@@ -20,11 +20,11 @@ try:
 except ImportError:
     HAS_GENAI = False
 
-# Preferred active Gemini models (>= 3.1 ONLY)
+# Preferred active models (Gemma-4-31B primary, Gemini >= 3.1 fallback)
 PREFERRED_MODELS_DEDUP = [
-    "gemini-3.1-flash-lite",
-    "gemini-3.5-flash-lite",
-    "gemini-3.6-flash"
+    "gemma-4-31b-it",
+    "gemini-3.6-flash",
+    "gemini-3.5-flash-lite"
 ]
 
 _WORKING_DEDUP_MODEL: Optional[str] = None
