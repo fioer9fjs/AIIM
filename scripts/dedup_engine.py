@@ -38,7 +38,7 @@ def normalize_url(url: str) -> str:
     Normalizes a URL by lowercasing hostname, stripping trailing slashes,
     removing tracking/utm parameters, and standardizing http to https.
     """
-    if not url:
+    if not url or not url.strip():
         return ""
     
     url = url.strip()

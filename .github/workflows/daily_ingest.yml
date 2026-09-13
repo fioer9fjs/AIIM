@@ -40,6 +40,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Run Automated Test Suite
+        run: |
+          python -m unittest discover -s tests -p "test_*.py" -v
+
       - name: Run Ingestion & Extraction Pipeline
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
