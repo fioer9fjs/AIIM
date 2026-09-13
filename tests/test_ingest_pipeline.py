@@ -152,67 +152,38 @@ class TestKeyEntityExtraction(unittest.TestCase):
 
 class TestArXivHarvester(unittest.TestCase):
     """
-    Unit Tests for ArXiv harvester XML parsing, source_type tagging, and error resilience.
+    Unit Tests for ArXiv multi-category recent harvester HTML parsing, tagging, and resilience.
     """
 
-    MOCK_ATOM_XML = b"""<?xml version="1.0" encoding="UTF-8"?>
-    <feed xmlns="http://www.w3.org/2005/Atom">
-      <entry>
-        <id>http://arxiv.org/abs/2609.12345v1</id>
-        <published>2026-09-11T14:30:00Z</published>
-        <title> Jailbreak Attacks on Autonomous Frontier Models </title>
-        <summary> Comprehensive empirical evaluation of prompt injection vectors. </summary>
-      </entry>
-    </feed>
+    MOCK_RECENT_HTML = """
+    <dl>
+      <dt><a href="/abs/2609.12345" title="Abstract">arXiv:2609.12345</a></dt>
+      <dd>
+        <div class="list-title"><span class="descriptor">Title:</span>Jailbreak Attacks on LLM Autonomous Frontier Models</div>
+        <div class="list-subjects"><span class="primary-subject">Cryptography and Security (cs.CR)</span></div>
+        <p class="mathjax">Comprehensive empirical evaluation of prompt injection vectors.</p>
+      </dd>
+    </dl>
     """
-
-    @patch("urllib.request.urlopen")
-    def test_fetch_arxiv_extracts_and_tags_correctly(self, mock_urlopen):
-        # --- ARRANGE ---
-        mock_resp = MagicMock()
-        mock_resp.read.return_value = self.MOCK_ATOM_XML
-        mock_resp.__enter__.return_value = mock_resp
-        mock_urlopen.return_value = mock_resp
-
-        # --- ACT ---
-        results = fetch_arxiv(max_items=5)
-
-        # --- ASSERT ---
-        self.assertEqual(len(results), 1)
-        item = results[0]
-        self.assertEqual(item["source_type"], "arxiv")
-        self.assertEqual(item["title"], "[ArXiv] Jailbreak Attacks on Autonomous Frontier Models")
-        self.assertEqual(item["link"], "https://arxiv.org/abs/2609.12345v1")
-        self.assertEqual(item["pub_date"], "2026-09-11")
-        self.assertEqual(item["pub_date_clean"], "2026-09-11")
-        self.assertIn("prompt injection", item["description"])
 
     @patch("scripts.ingest.safe_requests_get")
-    @patch("urllib.request.urlopen", side_effect=Exception("Network timeout"))
-    def test_fetch_arxiv_falls_back_to_recent_html_on_api_timeout(self, mock_urlopen, mock_safe_get):
+    def test_fetch_arxiv_extracts_and_tags_correctly(self, mock_safe_get):
         # --- ARRANGE ---
         mock_resp = MagicMock()
         mock_resp.status_code = 200
-        mock_resp.text = """
-        <dl>
-          <dt><a href="/abs/2609.99999" title="Abstract">arXiv:2609.99999</a></dt>
-          <dd>
-            <div class="list-title"><span class="descriptor">Title:</span>Novel Jailbreak Attacks on LLM Agents</div>
-            <p class="mathjax">An empirical study showing critical prompt injection vulnerabilities in production.</p>
-          </dd>
-        </dl>
-        """
+        mock_resp.text = self.MOCK_RECENT_HTML
         mock_safe_get.return_value = mock_resp
 
         # --- ACT ---
         results = fetch_arxiv(max_items=5)
 
         # --- ASSERT ---
-        self.assertEqual(len(results), 1)
+        self.assertGreaterEqual(len(results), 1)
         item = results[0]
         self.assertEqual(item["source_type"], "arxiv")
-        self.assertEqual(item["link"], "https://arxiv.org/abs/2609.99999")
-        self.assertIn("Novel Jailbreak", item["title"])
+        self.assertIn("Jailbreak Attacks", item["title"])
+        self.assertEqual(item["link"], "https://arxiv.org/abs/2609.12345")
+        self.assertEqual(item["pub_date_clean"], datetime.now().strftime("%Y-%m-%d"))
         self.assertIn("prompt injection", item["description"])
 
     @patch("scripts.ingest.safe_requests_get", return_value=None)

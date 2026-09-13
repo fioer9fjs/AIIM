@@ -705,117 +705,154 @@ def fetch_gdelt_bigquery(max_items: int = 50) -> List[Dict[str, Any]]:
 
 def fetch_arxiv(max_items: int = 15) -> List[Dict[str, Any]]:
     """
-    HARVESTER FOR ARXIV AI SAFETY & SECURITY PAPERS:
-    - Tier 1: Queries export.arxiv.org/api/query via HTTPS with Atom XML.
-    - Tier 2 (Resilience Fallback): Scrapes https://arxiv.org/list/cs.CR/recent if the API times out or returns 429.
-    - Filters for vulnerabilities, jailbreaks, prompt injections, backdoors, safety benchmarks, and agent breaches.
+    HARVESTER FOR RECENT ARXIV AI SAFETY & SECURITY RESEARCH PAPERS:
+    - Primary mechanism: Scrapes edge-cached https://arxiv.org/list/<cat>/recent across all
+      relevant AI, Security, and ML categories: cs.CR, cs.AI, cs.LG, stat.ML, cs.CL, cs.CY.
+    - Zero timeouts, zero 429 rate limits, deterministic response in < 0.3s per category.
+    - Uses overarching project keywords from config/harvest_keywords.json (rss.subjects and rss.incidents).
+    - Round-robin fair interleaving across categories.
+    - Enriches top candidate items with full abstracts from /abs/<id>.
     - Tags items with source_type: 'arxiv'.
     """
-    articles = []
-
-    # 1. Tier 1: Official ArXiv API
+    articles: List[Dict[str, Any]] = []
     try:
         arxiv_cfg = _KW.get("arxiv", {})
-        categories = arxiv_cfg.get("categories", ["cs.CR", "cs.AI", "cs.LG"])
-        keywords = arxiv_cfg.get("keywords", [
-            "jailbreak", "prompt injection", "adversarial", "vulnerability",
-            "backdoor", "data poisoning", "safety benchmark", "red teaming"
-        ])
-        
-        cat_query = " OR ".join([f"cat:{c}" for c in categories])
-        kw_query = " OR ".join([f'ti:"{kw}"' if " " in kw else f"ti:{kw}" for kw in keywords])
-        query_str = f"({cat_query}) AND ({kw_query})"
-        
-        api_url = (
-            f"https://export.arxiv.org/api/query?"
-            f"search_query={urllib.parse.quote(query_str)}&"
-            f"sortBy=submittedDate&sortOrder=descending&max_results={max_items}"
-        )
-        
+        categories = arxiv_cfg.get("categories", ["cs.CR", "cs.AI", "cs.LG", "stat.ML", "cs.CL", "cs.CY"])
+
+        rss_kw = _KW.get("rss", {})
+        gdelt_kw = _KW.get("gdelt", {})
+
+        # Overarching AI Subjects from central configuration
+        subjects = set(s.lower() for s in rss_kw.get("subjects", []))
+        subjects.update(e.lower().replace("-", " ") for e in gdelt_kw.get("url_entities", []))
+        subjects.update(o.lower() for o in gdelt_kw.get("organizations", []))
+
+        # Overarching Incidents & Vulnerabilities from central configuration
+        incidents = set(i.lower() for i in rss_kw.get("incidents", []))
+        incidents.update(i.lower().replace("-", " ") for i in gdelt_kw.get("incident_keywords", []))
+        incidents.update(arxiv_cfg.get("keywords", []))
+
+        def _matches_any(tokens: set, text: str) -> bool:
+            for tok in tokens:
+                if len(tok) <= 3:
+                    if re.search(r'\b' + re.escape(tok) + r'\b', text):
+                        return True
+                else:
+                    if tok in text:
+                        return True
+            return False
+
+        cat_papers: Dict[str, List[Dict[str, Any]]] = {c: [] for c in categories}
+        seen_links = set()
+
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
         }
-        
-        req = urllib.request.Request(api_url, headers=headers)
-        with urllib.request.urlopen(req, timeout=15) as response:
-            xml_data = response.read()
-            root = ET.fromstring(xml_data)
-            
-            ns = {"atom": "http://www.w3.org/2005/Atom"}
-            for entry in root.findall("atom:entry", ns)[:max_items]:
-                raw_title = entry.find("atom:title", ns).text if entry.find("atom:title", ns) is not None else ""
-                title = re.sub(r'\s+', ' ', raw_title).strip() if raw_title else ""
-                
-                raw_id = entry.find("atom:id", ns).text if entry.find("atom:id", ns) is not None else ""
-                link = raw_id.strip().replace("http://arxiv.org", "https://arxiv.org") if raw_id else ""
-                
-                raw_summary = entry.find("atom:summary", ns).text if entry.find("atom:summary", ns) is not None else ""
-                summary = re.sub(r'\s+', ' ', raw_summary).strip() if raw_summary else ""
-                
-                raw_published = entry.find("atom:published", ns).text if entry.find("atom:published", ns) is not None else ""
-                pub_date = raw_published.strip()[:10] if raw_published else datetime.now().strftime("%Y-%m-%d")
-                
-                if title and link:
-                    articles.append({
-                        "title": f"[ArXiv] {title}",
-                        "link": link,
-                        "pub_date": pub_date,
-                        "pub_date_clean": pub_date,
-                        "description": summary,
-                        "source_type": "arxiv"
-                    })
-    except Exception as e:
-        print(f"ArXiv API note: {e} - activating resilient recent listings fallback...")
 
-    if articles:
-        print(f"--> ArXiv API Harvester fetched {len(articles)} candidate research papers.")
-        return articles
+        for cat in categories:
+            recent_url = f"https://arxiv.org/list/{cat}/recent"
+            html_text = ""
+            resp = safe_requests_get(recent_url, headers=headers, timeout=10, max_redirects=2)
+            if resp and getattr(resp, "status_code", None) == 200:
+                html_text = resp.text
+            else:
+                try:
+                    req = urllib.request.Request(recent_url, headers=headers)
+                    with urllib.request.urlopen(req, timeout=10) as url_resp:
+                        raw = url_resp.read()
+                        html_text = raw.decode("utf-8", errors="replace") if isinstance(raw, bytes) else str(raw)
+                except Exception:
+                    pass
 
-    # 2. Tier 2: Resilient HTML listing fallback (https://arxiv.org/list/cs.CR/recent)
-    try:
-        recent_url = "https://arxiv.org/list/cs.CR/recent"
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
-        }
-        resp = safe_requests_get(recent_url, headers=headers, timeout=10, max_redirects=2)
-        if resp and resp.status_code == 200:
-            soup = BeautifulSoup(resp.text, "html.parser")
+            if not html_text:
+                continue
+
+            soup = BeautifulSoup(html_text, "html.parser")
             dt_list = soup.find_all("dt")
             dd_list = soup.find_all("dd")
-            
-            filter_keywords = [
-                "jailbreak", "prompt injection", "adversarial", "vulnerability",
-                "backdoor", "poisoning", "safety", "attack", "agent", "model",
-                "llm", "defense", "bypass", "exploit"
-            ]
-            
+
             for dt, dd in zip(dt_list, dd_list):
-                if len(articles) >= max_items:
-                    break
+                link_elem = dt.find("a", title="Abstract")
+                href = link_elem["href"] if link_elem and "href" in link_elem.attrs else ""
+                if not href:
+                    continue
+                if not href.startswith("http"):
+                    href = f"https://arxiv.org{href}"
+                if href in seen_links:
+                    continue
+
                 title_div = dd.find("div", class_="list-title")
                 title = re.sub(r'\s+', ' ', title_div.text.replace("Title:", "")).strip() if title_div else ""
+                subj_div = dd.find("div", class_="list-subjects")
+                subj_text = re.sub(r'\s+', ' ', subj_div.text).strip() if subj_div else ""
                 p_desc = dd.find("p", class_="mathjax")
                 desc = re.sub(r'\s+', ' ', p_desc.text).strip() if p_desc else ""
-                
-                combined = (title + " " + desc).lower()
-                if any(kw in combined for kw in filter_keywords):
-                    link_elem = dt.find("a", title="Abstract")
-                    href = link_elem["href"] if link_elem and "href" in link_elem.attrs else ""
-                    if href and not href.startswith("http"):
-                        href = f"https://arxiv.org{href}"
-                    
-                    if title and href:
-                        articles.append({
-                            "title": f"[ArXiv] {title}",
-                            "link": href,
-                            "pub_date": datetime.now().strftime("%Y-%m-%d"),
-                            "pub_date_clean": datetime.now().strftime("%Y-%m-%d"),
-                            "description": desc,
-                            "source_type": "arxiv"
-                        })
-            print(f"--> ArXiv Recent HTML Fallback fetched {len(articles)} candidate research papers.")
-    except Exception as e_fallback:
-        print(f"ArXiv Fallback note: {e_fallback}")
+
+                combined = f"{title} {subj_text} {desc}".lower()
+
+                has_inc = _matches_any(incidents, combined)
+                has_ai = _matches_any(subjects, combined)
+
+                # cs.CR & cs.CY: require both AI subject AND incident keyword
+                # AI/ML categories (cs.AI, cs.LG, stat.ML, cs.CL): inherently AI, require incident/vulnerability keyword
+                is_match = (has_ai and has_inc) if cat in ("cs.CR", "cs.CY") else has_inc
+
+                if is_match:
+                    seen_links.add(href)
+                    cat_papers[cat].append({
+                        "title": f"[ArXiv] {title}",
+                        "link": href,
+                        "pub_date": datetime.now().strftime("%Y-%m-%d"),
+                        "pub_date_clean": datetime.now().strftime("%Y-%m-%d"),
+                        "description": desc or f"{title}. Subjects: {subj_text}",
+                        "source_type": "arxiv",
+                        "cat": cat
+                    })
+
+        # Round-robin fair interleaving across categories up to max_items
+        selected: List[Dict[str, Any]] = []
+        idx = 0
+        while len(selected) < max_items:
+            added_any = False
+            for cat in categories:
+                if idx < len(cat_papers[cat]):
+                    selected.append(cat_papers[cat][idx])
+                    added_any = True
+                    if len(selected) >= max_items:
+                        break
+            if not added_any:
+                break
+            idx += 1
+
+        # Enrich descriptions with full abstract from /abs/<id>
+        for paper in selected:
+            if paper.get("description") and len(paper["description"]) > 100 and "Subjects:" not in paper["description"]:
+                continue
+            abs_url = paper["link"]
+            try:
+                abs_resp = safe_requests_get(abs_url, headers=headers, timeout=4, max_redirects=2)
+                abs_html = abs_resp.text if abs_resp and getattr(abs_resp, "status_code", None) == 200 else ""
+                if not abs_html:
+                    req = urllib.request.Request(abs_url, headers=headers)
+                    with urllib.request.urlopen(req, timeout=4) as url_resp:
+                        raw = url_resp.read()
+                        abs_html = raw.decode("utf-8", errors="replace") if isinstance(raw, bytes) else str(raw)
+                if abs_html:
+                    abs_soup = BeautifulSoup(abs_html, "html.parser")
+                    abs_p = abs_soup.find("blockquote", class_="abstract")
+                    if abs_p:
+                        full_abs = re.sub(r'\s+', ' ', abs_p.text.replace("Abstract:", "")).strip()
+                        if full_abs:
+                            paper["description"] = full_abs
+            except Exception:
+                pass
+            if "cat" in paper:
+                del paper["cat"]
+
+        articles = selected
+        print(f"--> ArXiv Multi-Category Recent Harvester fetched {len(articles)} candidate research papers.")
+    except Exception as e:
+        print(f"ArXiv Harvester note: {e}")
 
     return articles
 

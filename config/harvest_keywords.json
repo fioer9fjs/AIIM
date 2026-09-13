@@ -43,7 +43,14 @@
       "Scale AI",
       "Boston Dynamics",
       "Aleph Alpha",
-      "Black Forest Labs"
+      "Black Forest Labs",
+      "machine learning",
+      "generative AI",
+      "genai",
+      "autonomous agent",
+      "AI agent",
+      "RAG",
+      "retrieval-augmented generation"
     ],
     "incidents": [
       "incident",
@@ -90,7 +97,13 @@
       "election interference",
       "manipulation",
       "surveillance",
-      "deepfake"
+      "deepfake",
+      "jailbreak",
+      "poisoning",
+      "backdoor",
+      "exploit",
+      "leak",
+      "adversarial"
     ]
   },
   "gdelt": {
@@ -306,7 +319,10 @@
     "categories": [
       "cs.CR",
       "cs.AI",
-      "cs.LG"
+      "cs.LG",
+      "stat.ML",
+      "cs.CL",
+      "cs.CY"
     ],
     "keywords": [
       "jailbreak",
