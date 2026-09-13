@@ -706,13 +706,14 @@ def fetch_gdelt_bigquery(max_items: int = 50) -> List[Dict[str, Any]]:
 def fetch_arxiv(max_items: int = 15) -> List[Dict[str, Any]]:
     """
     HARVESTER FOR ARXIV AI SAFETY & SECURITY PAPERS:
-    - Queries export.arxiv.org/api/query via HTTPS.
-    - Targets cs.CR (Cryptography & Security), cs.AI (Artificial Intelligence), cs.LG (Machine Learning).
-    - Uses configured keywords: jailbreak, prompt injection, adversarial, vulnerability, backdoor, poisoning, safety benchmark, red teaming.
-    - Extracts Atom XML feed entries: title, arxiv.org link, abstract, publication date.
+    - Tier 1: Queries export.arxiv.org/api/query via HTTPS with Atom XML.
+    - Tier 2 (Resilience Fallback): Scrapes https://arxiv.org/list/cs.CR/recent if the API times out or returns 429.
+    - Filters for vulnerabilities, jailbreaks, prompt injections, backdoors, safety benchmarks, and agent breaches.
     - Tags items with source_type: 'arxiv'.
     """
     articles = []
+
+    # 1. Tier 1: Official ArXiv API
     try:
         arxiv_cfg = _KW.get("arxiv", {})
         categories = arxiv_cfg.get("categories", ["cs.CR", "cs.AI", "cs.LG"])
@@ -732,11 +733,11 @@ def fetch_arxiv(max_items: int = 15) -> List[Dict[str, Any]]:
         )
         
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
         }
         
         req = urllib.request.Request(api_url, headers=headers)
-        with urllib.request.urlopen(req, timeout=12) as response:
+        with urllib.request.urlopen(req, timeout=15) as response:
             xml_data = response.read()
             root = ET.fromstring(xml_data)
             
@@ -763,9 +764,59 @@ def fetch_arxiv(max_items: int = 15) -> List[Dict[str, Any]]:
                         "description": summary,
                         "source_type": "arxiv"
                     })
-        print(f"--> ArXiv Harvester fetched {len(articles)} candidate research papers.")
     except Exception as e:
-        print(f"ArXiv Harvester note: {e}")
+        print(f"ArXiv API note: {e} - activating resilient recent listings fallback...")
+
+    if articles:
+        print(f"--> ArXiv API Harvester fetched {len(articles)} candidate research papers.")
+        return articles
+
+    # 2. Tier 2: Resilient HTML listing fallback (https://arxiv.org/list/cs.CR/recent)
+    try:
+        recent_url = "https://arxiv.org/list/cs.CR/recent"
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+        }
+        resp = safe_requests_get(recent_url, headers=headers, timeout=10, max_redirects=2)
+        if resp and resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, "html.parser")
+            dt_list = soup.find_all("dt")
+            dd_list = soup.find_all("dd")
+            
+            filter_keywords = [
+                "jailbreak", "prompt injection", "adversarial", "vulnerability",
+                "backdoor", "poisoning", "safety", "attack", "agent", "model",
+                "llm", "defense", "bypass", "exploit"
+            ]
+            
+            for dt, dd in zip(dt_list, dd_list):
+                if len(articles) >= max_items:
+                    break
+                title_div = dd.find("div", class_="list-title")
+                title = re.sub(r'\s+', ' ', title_div.text.replace("Title:", "")).strip() if title_div else ""
+                p_desc = dd.find("p", class_="mathjax")
+                desc = re.sub(r'\s+', ' ', p_desc.text).strip() if p_desc else ""
+                
+                combined = (title + " " + desc).lower()
+                if any(kw in combined for kw in filter_keywords):
+                    link_elem = dt.find("a", title="Abstract")
+                    href = link_elem["href"] if link_elem and "href" in link_elem.attrs else ""
+                    if href and not href.startswith("http"):
+                        href = f"https://arxiv.org{href}"
+                    
+                    if title and href:
+                        articles.append({
+                            "title": f"[ArXiv] {title}",
+                            "link": href,
+                            "pub_date": datetime.now().strftime("%Y-%m-%d"),
+                            "pub_date_clean": datetime.now().strftime("%Y-%m-%d"),
+                            "description": desc,
+                            "source_type": "arxiv"
+                        })
+            print(f"--> ArXiv Recent HTML Fallback fetched {len(articles)} candidate research papers.")
+    except Exception as e_fallback:
+        print(f"ArXiv Fallback note: {e_fallback}")
+
     return articles
 
 def fetch_aiid_rss(max_items: int = 15) -> List[Dict[str, Any]]:

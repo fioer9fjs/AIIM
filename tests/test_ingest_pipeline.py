@@ -187,8 +187,37 @@ class TestArXivHarvester(unittest.TestCase):
         self.assertEqual(item["pub_date_clean"], "2026-09-11")
         self.assertIn("prompt injection", item["description"])
 
+    @patch("scripts.ingest.safe_requests_get")
     @patch("urllib.request.urlopen", side_effect=Exception("Network timeout"))
-    def test_fetch_arxiv_handles_network_failure_cleanly(self, mock_urlopen):
+    def test_fetch_arxiv_falls_back_to_recent_html_on_api_timeout(self, mock_urlopen, mock_safe_get):
+        # --- ARRANGE ---
+        mock_resp = MagicMock()
+        mock_resp.status_code = 200
+        mock_resp.text = """
+        <dl>
+          <dt><a href="/abs/2609.99999" title="Abstract">arXiv:2609.99999</a></dt>
+          <dd>
+            <div class="list-title"><span class="descriptor">Title:</span>Novel Jailbreak Attacks on LLM Agents</div>
+            <p class="mathjax">An empirical study showing critical prompt injection vulnerabilities in production.</p>
+          </dd>
+        </dl>
+        """
+        mock_safe_get.return_value = mock_resp
+
+        # --- ACT ---
+        results = fetch_arxiv(max_items=5)
+
+        # --- ASSERT ---
+        self.assertEqual(len(results), 1)
+        item = results[0]
+        self.assertEqual(item["source_type"], "arxiv")
+        self.assertEqual(item["link"], "https://arxiv.org/abs/2609.99999")
+        self.assertIn("Novel Jailbreak", item["title"])
+        self.assertIn("prompt injection", item["description"])
+
+    @patch("scripts.ingest.safe_requests_get", return_value=None)
+    @patch("urllib.request.urlopen", side_effect=Exception("Network timeout"))
+    def test_fetch_arxiv_handles_total_network_failure_cleanly(self, mock_urlopen, mock_safe_get):
         # --- ARRANGE / ACT ---
         results = fetch_arxiv(max_items=5)
 
