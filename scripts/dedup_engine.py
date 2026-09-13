@@ -20,11 +20,12 @@ try:
 except ImportError:
     HAS_GENAI = False
 
-# Preferred active models (Gemma-4-31B primary, Gemini >= 3.1 fallback)
+# Preferred active models (Gemma-4-26B primary, Gemini >= 3.1 fallback)
 PREFERRED_MODELS_DEDUP = [
-    "gemma-4-31b-it",
+    "gemma-4-26b-a4b-it",
     "gemini-3.6-flash",
-    "gemini-3.5-flash-lite"
+    "gemini-3.5-flash-lite",
+    "gemma-4-31b-it"
 ]
 
 _WORKING_DEDUP_MODEL: Optional[str] = None
@@ -338,6 +339,8 @@ Respond strictly in valid JSON format:
                         if text_clean.endswith("```"):
                             text_clean = text_clean[:-3]
                         data = json.loads(text_clean.strip())
+                        if isinstance(data, list) and len(data) > 0 and isinstance(data[0], dict):
+                            data = data[0]
                         is_same = bool(data.get("is_same_incident", False))
                         confidence = float(data.get("confidence", 0.90))
                         reasoning = str(data.get("reasoning", ""))

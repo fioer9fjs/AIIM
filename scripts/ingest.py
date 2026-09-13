@@ -74,10 +74,10 @@ def _load_harvest_keywords() -> Dict[str, Any]:
 _KW = _load_harvest_keywords()
 
 PREFERRED_MODELS_STAGE2 = [
-    "gemma-4-31b-it",
     "gemma-4-26b-a4b-it",
     "gemini-3.6-flash",
-    "gemini-3.5-flash-lite"
+    "gemini-3.5-flash-lite",
+    "gemma-4-31b-it"
 ]
 
 PREFERRED_MODELS_STAGE3 = [
@@ -421,6 +421,8 @@ ARTICLE TEXT:
                         if text_clean.endswith("```"):
                             text_clean = text_clean[:-3]
                         data = json.loads(text_clean.strip())
+                        if isinstance(data, list) and len(data) > 0 and isinstance(data[0], dict):
+                            data = data[0]
                         _WORKING_MODEL_STAGE2 = model_name
                         return {
                             "is_ai_incident": bool(data.get("is_ai_incident", False)),
