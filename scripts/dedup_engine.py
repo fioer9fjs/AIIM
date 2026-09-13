@@ -368,7 +368,7 @@ class UnionFind:
         root_i = self.find(i)
         root_j = self.find(j)
         if root_i != root_j:
-            self.parent[root_b if (root_b := root_j) else root_a] = root_i
+            self.parent[root_j] = root_i
 
 def consolidate_dataset_hybrid(
     incidents: List[Dict[str, Any]],
