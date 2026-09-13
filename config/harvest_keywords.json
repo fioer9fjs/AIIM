@@ -301,5 +301,25 @@
       "pilot",
       "jet"
     ]
+  },
+  "arxiv": {
+    "categories": [
+      "cs.CR",
+      "cs.AI",
+      "cs.LG"
+    ],
+    "keywords": [
+      "jailbreak",
+      "prompt injection",
+      "adversarial attack",
+      "backdoor",
+      "data poisoning",
+      "safety benchmark",
+      "red teaming",
+      "model theft",
+      "autonomous agent escape",
+      "vulnerability"
+    ]
   }
 }
+

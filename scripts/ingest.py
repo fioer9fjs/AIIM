@@ -103,11 +103,12 @@ DEFINITIONS:
 1. AN "AI INCIDENT" (is_ai_incident = true) MUST BE:
    - A real-world operational event where an AI system/model/agent caused physical harm, property damage, mental harm, financial fraud/theft, privacy/biometric breach, cyberattack/sandbox escape, algorithmic discrimination in hiring/loans, unauthorized autonomous actions, OR public/diplomatic embarrassment, governmental/institutional blunders, and significant official misinformation caused by AI hallucinations or system failures.
    - A formal regulatory enforcement action, government ban, or public high-profile apology regarding an AI deployment due to safety/hallucination failures.
+   - A concrete AI security vulnerability, exploit, jailbreak, backdoor, data poisoning attack, or an empirical AI safety evaluation, red-teaming research, or benchmark study revealing safety, security, or alignment failures in real-world or foundation AI models (e.g. from scientific preprints or incident databases).
 
 2. STRICT EXCLUSIONS (MUST RETURN is_ai_incident = false):
    - Securities class actions, shareholder lawsuits, or investor losses arising solely from stock price drops, quarterly earnings, or alleged management overstatement of AI revenue or product adoption.
    - Pure civil contract, labor, wage, or unpaid work disputes regarding AI training or voice model creation (e.g. contractor/artist suing over unpaid voice cloning work).
-   - Speculative debate or academic papers discussing future artificial general intelligence (AGI) without a real-world event.
+   - Purely philosophical essays or speculative debate discussing hypothetical distant future artificial general intelligence (AGI) without empirical testing, benchmarks, vulnerabilities, or real-world events.
 
 Return ONLY a valid JSON object:
 {
@@ -534,9 +535,7 @@ def process_article_3stage_pipeline(article: Dict[str, Any], api_key: str) -> Op
         data["full_text"] = real_text[:4000]
         
     article_pub_date = article.get("pub_date_clean") or datetime.now().strftime("%Y-%m-%d")
-    extracted_date = data.get("date", "")
-    if not extracted_date or extracted_date.startswith("2023") or extracted_date.startswith("2024"):
-        data["date"] = article_pub_date
+    data["date"] = sanitize_incident_date(data.get("date", ""), pub_date_clean=article_pub_date)
         
     print(f"  [STAGE 3 PASSED & ENRICHED] '{data.get('title')[:50]}...'")
     return data
@@ -696,6 +695,126 @@ def fetch_gdelt_bigquery(max_items: int = 50) -> List[Dict[str, Any]]:
         print(f"--> Advanced Clustered GDELT BigQuery Harvester fetched {len(articles)} incident clusters.")
     except Exception as e:
         print(f"BigQuery GDELT Harvester note: {e}")
+    return articles
+
+def fetch_arxiv(max_items: int = 15) -> List[Dict[str, Any]]:
+    """
+    HARVESTER FOR ARXIV AI SAFETY & SECURITY PAPERS:
+    - Queries export.arxiv.org/api/query via HTTPS.
+    - Targets cs.CR (Cryptography & Security), cs.AI (Artificial Intelligence), cs.LG (Machine Learning).
+    - Uses configured keywords: jailbreak, prompt injection, adversarial, vulnerability, backdoor, poisoning, safety benchmark, red teaming.
+    - Extracts Atom XML feed entries: title, arxiv.org link, abstract, publication date.
+    - Tags items with source_type: 'arxiv'.
+    """
+    articles = []
+    try:
+        arxiv_cfg = _KW.get("arxiv", {})
+        categories = arxiv_cfg.get("categories", ["cs.CR", "cs.AI", "cs.LG"])
+        keywords = arxiv_cfg.get("keywords", [
+            "jailbreak", "prompt injection", "adversarial", "vulnerability",
+            "backdoor", "data poisoning", "safety benchmark", "red teaming"
+        ])
+        
+        cat_query = " OR ".join([f"cat:{c}" for c in categories])
+        kw_query = " OR ".join([f'ti:"{kw}"' if " " in kw else f"ti:{kw}" for kw in keywords])
+        query_str = f"({cat_query}) AND ({kw_query})"
+        
+        api_url = (
+            f"https://export.arxiv.org/api/query?"
+            f"search_query={urllib.parse.quote(query_str)}&"
+            f"sortBy=submittedDate&sortOrder=descending&max_results={max_items}"
+        )
+        
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        }
+        
+        req = urllib.request.Request(api_url, headers=headers)
+        with urllib.request.urlopen(req, timeout=12) as response:
+            xml_data = response.read()
+            root = ET.fromstring(xml_data)
+            
+            ns = {"atom": "http://www.w3.org/2005/Atom"}
+            for entry in root.findall("atom:entry", ns)[:max_items]:
+                raw_title = entry.find("atom:title", ns).text if entry.find("atom:title", ns) is not None else ""
+                title = re.sub(r'\s+', ' ', raw_title).strip() if raw_title else ""
+                
+                raw_id = entry.find("atom:id", ns).text if entry.find("atom:id", ns) is not None else ""
+                link = raw_id.strip().replace("http://arxiv.org", "https://arxiv.org") if raw_id else ""
+                
+                raw_summary = entry.find("atom:summary", ns).text if entry.find("atom:summary", ns) is not None else ""
+                summary = re.sub(r'\s+', ' ', raw_summary).strip() if raw_summary else ""
+                
+                raw_published = entry.find("atom:published", ns).text if entry.find("atom:published", ns) is not None else ""
+                pub_date = raw_published.strip()[:10] if raw_published else datetime.now().strftime("%Y-%m-%d")
+                
+                if title and link:
+                    articles.append({
+                        "title": f"[ArXiv] {title}",
+                        "link": link,
+                        "pub_date": pub_date,
+                        "pub_date_clean": pub_date,
+                        "description": summary,
+                        "source_type": "arxiv"
+                    })
+        print(f"--> ArXiv Harvester fetched {len(articles)} candidate research papers.")
+    except Exception as e:
+        print(f"ArXiv Harvester note: {e}")
+    return articles
+
+def fetch_aiid_rss(max_items: int = 15) -> List[Dict[str, Any]]:
+    """
+    HARVESTER FOR RECENT AI INCIDENT DATABASE (AIID) REPORTS:
+    - Fetches the official RSS 2.0 feed from https://incidentdatabase.ai/rss.xml.
+    - Extracts recent validated incident reports and news coverage.
+    - Tags items with source_type: 'aiid'.
+    """
+    articles = []
+    feed_url = "https://incidentdatabase.ai/rss.xml"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    }
+    try:
+        req = urllib.request.Request(feed_url, headers=headers)
+        with urllib.request.urlopen(req, timeout=10) as response:
+            xml_data = response.read()
+            root = ET.fromstring(xml_data)
+            
+            for item in root.findall("./channel/item")[:max_items]:
+                raw_title = item.find("title").text if item.find("title") is not None else ""
+                title = re.sub(r'\s+', ' ', raw_title).strip() if raw_title else ""
+                
+                raw_link = item.find("link").text if item.find("link") is not None else ""
+                link = raw_link.strip() if raw_link else ""
+                
+                raw_pub_date = item.find("pubDate").text if item.find("pubDate") is not None else ""
+                pub_date_clean = datetime.now().strftime("%Y-%m-%d")
+                if raw_pub_date:
+                    try:
+                        dt = datetime.strptime(raw_pub_date[:16], "%a, %d %b %Y")
+                        pub_date_clean = dt.strftime("%Y-%m-%d")
+                    except Exception:
+                        try:
+                            dt = datetime.strptime(raw_pub_date[:11].strip(), "%d %b %Y")
+                            pub_date_clean = dt.strftime("%Y-%m-%d")
+                        except Exception:
+                            pass
+                            
+                raw_desc = item.find("description").text if item.find("description") is not None else ""
+                description = re.sub(r'<[^>]+>', '', raw_desc).strip() if raw_desc else ""
+                
+                if title and link:
+                    articles.append({
+                        "title": title,
+                        "link": link,
+                        "pub_date": raw_pub_date,
+                        "pub_date_clean": pub_date_clean,
+                        "description": description,
+                        "source_type": "aiid"
+                    })
+        print(f"--> AI Incident Database (AIID) Harvester fetched {len(articles)} candidate incident reports.")
+    except Exception as e:
+        print(f"AIID Harvester note: {e}")
     return articles
 
 def sanitize_incident_date(date_str: str, pub_date_clean: str = "") -> str:
@@ -907,7 +1026,7 @@ def run_ingestion():
     print("=" * 80)
 
     # STAGE 1: MULTI-SOURCE HARVESTING
-    print("\n---> STAGE 1: HARVESTING CANDIDATES (Google News + GDELT BigQuery)...")
+    print("\n---> STAGE 1: HARVESTING CANDIDATES (Google News + GDELT BigQuery + ArXiv + AIID)...")
     candidates = []
     
     rss_kw = _KW.get("rss", {})
@@ -921,8 +1040,14 @@ def run_ingestion():
     
     gdelt_bq_articles = fetch_gdelt_bigquery(max_items=15)
     candidates.extend(gdelt_bq_articles)
+
+    arxiv_articles = fetch_arxiv(max_items=12)
+    candidates.extend(arxiv_articles)
+
+    aiid_articles = fetch_aiid_rss(max_items=12)
+    candidates.extend(aiid_articles)
     
-    print(f"Total Candidate Pool: {len(candidates)} articles.")
+    print(f"Total Candidate Pool: {len(candidates)} articles across 4 sources.")
 
     # STAGE 2 & 3: GATEKEEPER & TAXONOMY EXTRACTION
     print("\n---> STAGE 2 & STAGE 3: RUNNING LLM GATEKEEPER & TAXONOMY EXTRACTION...")
@@ -948,6 +1073,8 @@ def run_ingestion():
             stat_date=today_str,
             rss_count=len(gnews_articles),
             gdelt_count=len(gdelt_bq_articles),
+            arxiv_count=len(arxiv_articles),
+            aiid_count=len(aiid_articles),
             total_fetched=len(candidates),
             passed_filter=len(new_incidents),
             extracted_incidents=len(new_incidents)

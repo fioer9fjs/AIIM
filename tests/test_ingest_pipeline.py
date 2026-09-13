@@ -8,11 +8,14 @@ import unittest
 from datetime import datetime, timedelta
 import os
 import json
+from unittest.mock import patch, MagicMock
 
 from scripts.ingest import (
     sanitize_incident_date,
     extract_key_entities,
     _load_harvest_keywords,
+    fetch_arxiv,
+    fetch_aiid_rss,
 )
 
 
@@ -94,6 +97,10 @@ class TestHarvestKeywordsConfiguration(unittest.TestCase):
         self.assertIn("incident_keywords", keywords["gdelt"])
         self.assertIn("exclude_url_terms", keywords["gdelt"])
 
+        self.assertIn("arxiv", keywords)
+        self.assertIn("categories", keywords["arxiv"])
+        self.assertIn("keywords", keywords["arxiv"])
+
     def test_keywords_contain_no_empty_strings(self):
         # --- ARRANGE ---
         keywords = _load_harvest_keywords()
@@ -104,7 +111,9 @@ class TestHarvestKeywordsConfiguration(unittest.TestCase):
             ("rss", "incidents"),
             ("gdelt", "url_entities"),
             ("gdelt", "organizations"),
-            ("gdelt", "incident_keywords")
+            ("gdelt", "incident_keywords"),
+            ("arxiv", "categories"),
+            ("arxiv", "keywords")
         ]:
             items = keywords[section][sub]
             self.assertGreater(len(items), 0, f"{section}.{sub} must not be empty.")
@@ -139,6 +148,101 @@ class TestKeyEntityExtraction(unittest.TestCase):
         # --- ARRANGE / ACT / ASSERT ---
         self.assertEqual(extract_key_entities(""), set())
         self.assertEqual(extract_key_entities(None), set())
+
+
+class TestArXivHarvester(unittest.TestCase):
+    """
+    Unit Tests for ArXiv harvester XML parsing, source_type tagging, and error resilience.
+    """
+
+    MOCK_ATOM_XML = b"""<?xml version="1.0" encoding="UTF-8"?>
+    <feed xmlns="http://www.w3.org/2005/Atom">
+      <entry>
+        <id>http://arxiv.org/abs/2609.12345v1</id>
+        <published>2026-09-11T14:30:00Z</published>
+        <title> Jailbreak Attacks on Autonomous Frontier Models </title>
+        <summary> Comprehensive empirical evaluation of prompt injection vectors. </summary>
+      </entry>
+    </feed>
+    """
+
+    @patch("urllib.request.urlopen")
+    def test_fetch_arxiv_extracts_and_tags_correctly(self, mock_urlopen):
+        # --- ARRANGE ---
+        mock_resp = MagicMock()
+        mock_resp.read.return_value = self.MOCK_ATOM_XML
+        mock_resp.__enter__.return_value = mock_resp
+        mock_urlopen.return_value = mock_resp
+
+        # --- ACT ---
+        results = fetch_arxiv(max_items=5)
+
+        # --- ASSERT ---
+        self.assertEqual(len(results), 1)
+        item = results[0]
+        self.assertEqual(item["source_type"], "arxiv")
+        self.assertEqual(item["title"], "[ArXiv] Jailbreak Attacks on Autonomous Frontier Models")
+        self.assertEqual(item["link"], "https://arxiv.org/abs/2609.12345v1")
+        self.assertEqual(item["pub_date"], "2026-09-11")
+        self.assertEqual(item["pub_date_clean"], "2026-09-11")
+        self.assertIn("prompt injection", item["description"])
+
+    @patch("urllib.request.urlopen", side_effect=Exception("Network timeout"))
+    def test_fetch_arxiv_handles_network_failure_cleanly(self, mock_urlopen):
+        # --- ARRANGE / ACT ---
+        results = fetch_arxiv(max_items=5)
+
+        # --- ASSERT ---
+        self.assertEqual(results, [])
+
+
+class TestAIIDHarvester(unittest.TestCase):
+    """
+    Unit Tests for AI Incident Database (AIID) RSS parsing, tagging, and error resilience.
+    """
+
+    MOCK_RSS_XML = b"""<?xml version="1.0" encoding="UTF-8"?>
+    <rss version="2.0">
+      <channel>
+        <title>AI Incident Database</title>
+        <item>
+          <title>Autonomous Delivery Robot Collides With Pedestrian</title>
+          <link>https://example.com/news/delivery-robot-accident</link>
+          <pubDate>Thu, 10 Sep 2026 00:00:00 GMT</pubDate>
+          <description>&lt;p&gt;A self-driving delivery unit failed to yield at crosswalk.&lt;/p&gt;</description>
+        </item>
+      </channel>
+    </rss>
+    """
+
+    @patch("urllib.request.urlopen")
+    def test_fetch_aiid_rss_extracts_and_tags_correctly(self, mock_urlopen):
+        # --- ARRANGE ---
+        mock_resp = MagicMock()
+        mock_resp.read.return_value = self.MOCK_RSS_XML
+        mock_resp.__enter__.return_value = mock_resp
+        mock_urlopen.return_value = mock_resp
+
+        # --- ACT ---
+        results = fetch_aiid_rss(max_items=5)
+
+        # --- ASSERT ---
+        self.assertEqual(len(results), 1)
+        item = results[0]
+        self.assertEqual(item["source_type"], "aiid")
+        self.assertEqual(item["title"], "Autonomous Delivery Robot Collides With Pedestrian")
+        self.assertEqual(item["link"], "https://example.com/news/delivery-robot-accident")
+        self.assertEqual(item["pub_date_clean"], "2026-09-10")
+        self.assertIn("self-driving delivery unit", item["description"])
+        self.assertNotIn("<p>", item["description"])
+
+    @patch("urllib.request.urlopen", side_effect=Exception("Connection refused"))
+    def test_fetch_aiid_rss_handles_network_failure_cleanly(self, mock_urlopen):
+        # --- ARRANGE / ACT ---
+        results = fetch_aiid_rss(max_items=5)
+
+        # --- ASSERT ---
+        self.assertEqual(results, [])
 
 
 if __name__ == "__main__":
