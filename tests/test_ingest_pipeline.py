@@ -16,6 +16,7 @@ from scripts.ingest import (
     _load_harvest_keywords,
     fetch_arxiv,
     fetch_aiid_rss,
+    fetch_google_news_multilane,
 )
 
 
@@ -243,6 +244,46 @@ class TestAIIDHarvester(unittest.TestCase):
 
         # --- ASSERT ---
         self.assertEqual(results, [])
+
+
+class TestMultiLaneHarvester(unittest.TestCase):
+    """
+    Unit Tests for Multi-Lane Topic-Partitioned Harvester and Lane Keyword Completeness.
+    """
+
+    def test_all_subjects_and_incidents_covered_in_lanes(self):
+        kw = _load_harvest_keywords()
+        all_subjects = set(kw.get("rss", {}).get("subjects", []))
+        all_incidents = set(kw.get("rss", {}).get("incidents", []))
+        lanes = kw.get("rss", {}).get("lanes", {})
+
+        self.assertGreaterEqual(len(lanes), 5, "Must have at least 5 structured topic lanes.")
+
+        covered_subjects = set()
+        covered_incidents = set()
+        for lane_cfg in lanes.values():
+            covered_subjects.update(lane_cfg.get("subjects", []))
+            covered_incidents.update(lane_cfg.get("incidents", []))
+
+        # 100% Keyword Retention Check
+        missing_subjects = all_subjects - covered_subjects
+        missing_incidents = all_incidents - covered_incidents
+        self.assertEqual(missing_subjects, set(), f"Missing subjects from lanes: {missing_subjects}")
+        self.assertEqual(missing_incidents, set(), f"Missing incident terms from lanes: {missing_incidents}")
+
+    @patch("scripts.ingest.fetch_google_news")
+    def test_fetch_google_news_multilane_aggregates_and_deduplicates(self, mock_fetch_gnews):
+        # Mock sub-query responses with duplicate URLs
+        mock_fetch_gnews.return_value = [
+            {"title": "OpenAI Agent Data Leak", "link": "https://example.com/openai-leak", "pub_date_clean": "2026-09-25"},
+            {"title": "Anthropic Prompt Injection", "link": "https://example.com/anthropic-pi", "pub_date_clean": "2026-09-25"}
+        ]
+
+        results = fetch_google_news_multilane(max_per_lane=2, max_total_items=10)
+
+        self.assertGreaterEqual(len(results), 2)
+        urls = [r["link"] for r in results]
+        self.assertEqual(len(urls), len(set(urls)), "Multilane results must be strictly deduplicated by URL.")
 
 
 if __name__ == "__main__":

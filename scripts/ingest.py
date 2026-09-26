@@ -604,6 +604,65 @@ def fetch_google_news(query: str, max_items: int = 12) -> List[Dict[str, Any]]:
         pass
     return articles
 
+def fetch_google_news_multilane(max_per_lane: int = 6, max_total_items: int = 40) -> List[Dict[str, Any]]:
+    """
+    MULTI-LANE TOPIC-PARTITIONED GOOGLE NEWS RSS HARVESTER:
+    - Replaces monolithic 1500+ char queries with focused thematic lanes.
+    - Uses 100% of curated keywords from config/harvest_keywords.json without truncation.
+    - Dynamically chunks subjects & incident terms into compact sub-queries (<= 160 chars).
+    - Collects balanced candidates across all domains (LLMs, Agents, Biometrics, Mobility, Media, Social).
+    - Deduplicates cross-lane duplicates via URL and title hash in O(1).
+    """
+    lanes = _KW.get("rss", {}).get("lanes", {})
+    if not lanes:
+        # Fallback to standard subjects/incidents query if lanes not defined
+        rss_kw = _KW.get("rss", {})
+        rss_subjects = " OR ".join(f'"{s}"' for s in rss_kw.get("subjects", [])[:6])
+        rss_incidents = " OR ".join(f'"{i}"' for i in rss_kw.get("incidents", [])[:6])
+        fallback_query = f"({rss_subjects}) AND ({rss_incidents})"
+        return fetch_google_news(fallback_query, max_items=15)
+
+    collected_articles: List[Dict[str, Any]] = []
+    seen_urls = set()
+    seen_titles = set()
+
+    for lane_key, lane_cfg in lanes.items():
+        lane_name = lane_cfg.get("name", lane_key)
+        subjects = lane_cfg.get("subjects", [])
+        incidents = lane_cfg.get("incidents", [])
+        lane_articles: List[Dict[str, Any]] = []
+
+        s_chunks = [subjects[i:i+4] for i in range(0, len(subjects), 4)]
+        i_chunks = [incidents[i:i+4] for i in range(0, len(incidents), 4)]
+
+        for s_c in s_chunks:
+            if len(lane_articles) >= max_per_lane or len(collected_articles) >= max_total_items:
+                break
+            for i_c in i_chunks:
+                if len(lane_articles) >= max_per_lane or len(collected_articles) >= max_total_items:
+                    break
+                s_str = " OR ".join(f'"{s}"' for s in s_c)
+                i_str = " OR ".join(f'"{i}"' for i in i_c)
+                sub_query = f"({s_str}) AND ({i_str})"
+                
+                results = fetch_google_news(sub_query, max_items=3)
+                for a in results:
+                    u = a.get("link", "").strip()
+                    t = a.get("title", "").strip().lower()
+                    if u and u not in seen_urls and t and t not in seen_titles:
+                        seen_urls.add(u)
+                        seen_titles.add(t)
+                        a["harvest_lane"] = lane_key
+                        lane_articles.append(a)
+                        collected_articles.append(a)
+                        if len(lane_articles) >= max_per_lane or len(collected_articles) >= max_total_items:
+                            break
+
+        print(f"  [LANE HARVEST] {lane_name}: fetched {len(lane_articles)} unique candidates.")
+
+    print(f"--> Multi-Lane Google News Harvester gathered {len(collected_articles)} unique articles across {len(lanes)} lanes.")
+    return collected_articles
+
 def fetch_gdelt_bigquery(max_items: int = 50) -> List[Dict[str, Any]]:
     """
     ADVANCED GDELT GKG CLUSTERED HARVESTER VIA BIGQUERY:
@@ -1112,17 +1171,12 @@ def run_ingestion():
     print("=" * 80)
 
     # STAGE 1: MULTI-SOURCE HARVESTING
-    print("\n---> STAGE 1: HARVESTING CANDIDATES (Google News + GDELT BigQuery + ArXiv + AIID)...")
+    print("\n---> STAGE 1: HARVESTING CANDIDATES (Multi-Lane Google News + GDELT BigQuery + ArXiv + AIID)...")
     candidates = []
     
-    rss_kw = _KW.get("rss", {})
-    rss_subjects = " OR ".join(f'"{s}"' for s in rss_kw.get("subjects", []))
-    rss_incidents = " OR ".join(f'"{i}"' for i in rss_kw.get("incidents", []))
-    query = f"({rss_subjects}) AND ({rss_incidents})" if rss_subjects and rss_incidents else '("AI" OR "Artificial Intelligence") AND ("incident" OR "breach")'
-
-    gnews_articles = fetch_google_news(query, max_items=12)
+    gnews_articles = fetch_google_news_multilane(max_per_lane=6, max_total_items=40)
     candidates.extend(gnews_articles)
-    print(f"Harvested {len(gnews_articles)} Google News candidate articles.")
+    print(f"Harvested {len(gnews_articles)} Multi-Lane Google News candidate articles.")
     
     gdelt_bq_articles = fetch_gdelt_bigquery(max_items=15)
     candidates.extend(gdelt_bq_articles)

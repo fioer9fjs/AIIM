@@ -104,7 +104,39 @@
       "exploit",
       "leak",
       "adversarial"
-    ]
+    ],
+    "lanes": {
+      "frontier_llms_leaks": {
+        "name": "Frontier LLMs, Model Exploits & Data Leaks",
+        "subjects": ["ChatGPT", "OpenAI", "Claude", "Anthropic", "DeepSeek", "Qwen", "LLaMA", "Gemini", "Bard", "PaLM", "LLM", "large language model", "foundation model"],
+        "incidents": ["leak", "breach", "jailbreak", "prompt injection", "poisoning", "data poisoning", "model theft", "backdoor", "exploit", "adversarial", "hallucination"]
+      },
+      "autonomous_agents_cyber": {
+        "name": "Autonomous AI Agents, Crawlers & Infrastructure",
+        "subjects": ["autonomous agent", "AI agent", "AI crawler", "RAG", "retrieval-augmented generation", "NotebookLM", "Scale AI", "Cohere"],
+        "incidents": ["unauthorised", "escape", "sandbox", "vulnerability", "hack", "ransomware", "phishing", "spyware", "outage", "malfunction", "failure"]
+      },
+      "biometrics_police_surveillance": {
+        "name": "Biometrics, Computer Vision & Civil Rights",
+        "subjects": ["facial recognition", "face recognition", "Clearview", "Palantir", "computer vision"],
+        "incidents": ["wrongful arrest", "discrimination", "bias", "doxxing", "stalking", "harassment", "surveillance", "investigation", "lawsuit", "regulator"]
+      },
+      "autonomous_mobility_robotics": {
+        "name": "Autonomous Vehicles, Mobility & Physical Safety",
+        "subjects": ["self-driving", "autonomous vehicle", "Waymo", "Cruise", "Tesla FSD", "Tesla Autopilot", "Boston Dynamics"],
+        "incidents": ["incident", "crash", "malfunction", "failure", "recall", "safety failure", "investigation"]
+      },
+      "multimodal_media_deepfakes": {
+        "name": "Generative Media, Voice Cloning & Deepfakes",
+        "subjects": ["DALL-E", "Veo", "ElevenLabs", "Runway", "Suno", "Flux", "Whisper", "voice clone", "generative AI", "genai", "Black Forest Labs"],
+        "incidents": ["deepfake", "impersonation", "identity theft", "scam", "fraud", "infringement", "copyright", "NSFW", "election interference", "manipulation"]
+      },
+      "social_chatbots_harm_governance": {
+        "name": "Social AI, Child Safety, Mental Health & Legal Enforcement",
+        "subjects": ["Character.AI", "Replika", "chatbot", "Aleph Alpha", "neural network", "deep learning", "machine learning", "AI", "Artificial Intelligence"],
+        "incidents": ["child safety", "CSAM", "grooming", "self-harm", "whistleblower", "suspension", "class action", "settlement", "ruling", "verdict", "enforcement"]
+      }
+    }
   },
   "gdelt": {
     "url_entities": [
