@@ -134,11 +134,14 @@ FINANCIAL DAMAGE EVALUATION GUARDRAILS:
 - If the article describes a DISCRETE INCIDENT (e.g. specific lawsuit demand, court judgment, direct theft, fine): set financial_damage_usd to the explicit confirmed value.
 - If the article describes an AGGREGATE INDUSTRY TREND (e.g. global annual crypto fraud statistics, Interpol industry reports): set impact_scope to "cumulative_macro_trend". DO NOT attribute the multi-billion global industry statistic as the single incident damage; set financial_damage_usd to a conservative single-incident estimate (e.g. 2500000) so macro totals do not skew single-event metrics.
 
+DATE RULE:
+- alleged_incident_date: If the article explicitly mentions that the underlying incident occurred on a specific prior date (e.g. "occurred on June 18, 2026"), extract that date as "YYYY-MM-DD". If no specific prior date is mentioned, set to null.
+
 Return ONLY a valid JSON object matching this exact schema:
 {
   "title": "Concise factual incident title",
   "summary": "2-3 sentence executive summary of what happened, root causes, and impact",
-  "date": "YYYY-MM-DD",
+  "alleged_incident_date": "YYYY-MM-DD" or null,
   "verification_status": "alleged" | "confirmed" | "disputed",
   "lifecycle_phase": "design_and_training" | "testing_and_validation" | "deployment_and_integration" | "operation_and_monitoring" | "decommissioning",
   "system_classification": "high_risk_regulated" | "general_purpose_model" | "autonomous_agent" | "biometric_identification" | "critical_infrastructure_component" | "dual_use_security" | "unclassified",
@@ -541,7 +544,9 @@ def process_article_3stage_pipeline(article: Dict[str, Any], api_key: str) -> Op
         data["full_text"] = real_text[:4000]
         
     article_pub_date = article.get("pub_date_clean") or datetime.now().strftime("%Y-%m-%d")
-    data["date"] = sanitize_incident_date(data.get("date", ""), pub_date_clean=article_pub_date)
+    data["date"] = article_pub_date
+    if not data.get("alleged_incident_date"):
+        data.pop("alleged_incident_date", None)
         
     print(f"  [STAGE 3 PASSED & ENRICHED] '{data.get('title')[:50]}...'")
     return data
@@ -1063,18 +1068,13 @@ def is_same_incident(inc1: Dict[str, Any], inc2: Dict[str, Any], api_key: str = 
     return stage4_semantic_dedup(inc1, inc2, api_key)
 
 try:
-    from scripts.dedup_engine import consolidate_dataset_hybrid
+    from scripts.dedup_engine import consolidate_dataset_hybrid, consolidate_new_against_existing
 except ImportError:
-    from dedup_engine import consolidate_dataset_hybrid
+    from dedup_engine import consolidate_dataset_hybrid, consolidate_new_against_existing
 
 def consolidate_dataset(incidents: List[Dict[str, Any]], api_key: str = "") -> List[Dict[str, Any]]:
     """
-    100% Scalable 4-Step Hybrid Deduplication Pipeline:
-    Step 1: Exact Fingerprinting & URL Match (0 LLM Calls)
-    Step 2: Pure-Python TF-IDF Vector Cosine Similarity Pre-filtering (90%+ Reduction)
-    Step 3: Top-K Targeted LLM Semantic Verification (Gemini >= 3.1)
-    Step 4: Union-Find Transitive Clustering & Single Synthesis Merge Pass
-    Reduces nightly ingestion jobs from ~45 minutes to < 30 seconds!
+    100% Scalable 4-Step Hybrid Deduplication Pipeline for full dataset passes.
     """
     return consolidate_dataset_hybrid(incidents, api_key=api_key)
 
@@ -1092,20 +1092,9 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]], api_key: str = "
                 existing = json.load(f)
         except Exception:
             existing = []
-            
-    for inc in new_incidents:
-        pub_clean = inc.get("pub_date_clean") or datetime.now().strftime("%Y-%m-%d")
-        inc["date"] = sanitize_incident_date(inc.get("date"), pub_clean)
-        
-        if "incident_id" not in inc or not inc["incident_id"]:
-            date_prefix = (inc.get("date") or datetime.now().strftime("%Y%m%d")).replace("-", "")
-            seq_num = len(existing) + 1
-            inc["incident_id"] = f"INC-{date_prefix}-{seq_num:03d}"
-            
-        existing.insert(0, inc)
 
-    # Consolidate and deduplicate entire combined dataset via LLM
-    consolidated = consolidate_dataset(existing, api_key=api_key)
+    # Ultra-Fast O(K) Incremental Deduplication (merges new into existing canonical records or appends new)
+    consolidated = consolidate_new_against_existing(new_incidents, existing, api_key=api_key)
     
     with open(incidents_path, "w", encoding="utf-8") as f:
         json.dump(consolidated, f, indent=2, ensure_ascii=False)

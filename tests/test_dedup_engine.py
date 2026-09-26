@@ -16,6 +16,7 @@ from scripts.dedup_engine import (
     compute_tfidf_vectors,
     cosine_similarity_vectors,
     compute_candidate_pairs_tfidf,
+    consolidate_new_against_existing,
 )
 
 
@@ -356,6 +357,78 @@ class TestTFIDFVectorization(unittest.TestCase):
             any("INC-3" in p for p in pair_ids),
             "Unrelated INC-3 should not be paired with AI sandbox incidents."
         )
+
+
+class TestIncrementalConsolidation(unittest.TestCase):
+    """
+    Unit Tests for O(K) incremental deduplication & merging against canonical catalog.
+    """
+
+    def test_merges_exact_url_overlap_into_existing(self):
+        existing = [
+            {
+                "incident_id": "INC-20260924-001",
+                "title": "OpenAI AI Agent Unauthorised Access to Australian Government",
+                "date": "2026-09-24",
+                "summary": "AI Agent compromised Medicare Portal.",
+                "affected_parties": ["OpenAI", "Australian Government"],
+                "source_urls": ["https://www.abc.net.au/news/2026-09-24/openai-breach"],
+                "severity": "high",
+                "verification_status": "confirmed"
+            }
+        ]
+        new_incidents = [
+            {
+                "incident_id": "INC-20260925-999",
+                "title": "Medicare Portal Infiltration via OpenAI Agent",
+                "date": "2026-09-25",
+                "summary": "New report on the Medicare breach.",
+                "affected_parties": ["OpenAI", "Medicare"],
+                "source_urls": [
+                    "https://www.abc.net.au/news/2026-09-24/openai-breach?ref=twitter",
+                    "https://www.smh.com.au/technology/australia-medicare-breach"
+                ],
+                "severity": "critical",
+                "verification_status": "confirmed"
+            }
+        ]
+
+        result = consolidate_new_against_existing(new_incidents, existing, api_key="")
+
+        self.assertEqual(len(result), 1, "Should retain exactly 1 canonical incident.")
+        canonical = result[0]
+        self.assertEqual(canonical["incident_id"], "INC-20260924-001")
+        self.assertEqual(canonical["date"], "2026-09-24", "Canonical date must remain the first reported date.")
+        self.assertEqual(len(canonical["source_urls"]), 2, "Should merge new source URL.")
+        self.assertIn("https://www.smh.com.au/technology/australia-medicare-breach", canonical["source_urls"])
+
+    def test_appends_distinct_incident(self):
+        existing = [
+            {
+                "incident_id": "INC-20260924-001",
+                "title": "OpenAI AI Agent Unauthorised Access",
+                "date": "2026-09-24",
+                "summary": "AI Agent compromised Medicare Portal.",
+                "affected_parties": ["OpenAI"],
+                "source_urls": ["https://www.abc.net.au/news/2026-09-24/openai-breach"]
+            }
+        ]
+        new_incidents = [
+            {
+                "incident_id": "INC-20260925-002",
+                "title": "Autonomous Drone Navigation Failure in Berlin",
+                "date": "2026-09-25",
+                "summary": "Delivery drone crash landed due to GPS spoofing.",
+                "affected_parties": ["DHL"],
+                "source_urls": ["https://www.spiegel.de/drone-crash-berlin"]
+            }
+        ]
+
+        result = consolidate_new_against_existing(new_incidents, existing, api_key="")
+
+        self.assertEqual(len(result), 2)
+        self.assertEqual(result[0]["incident_id"], "INC-20260924-001")
+        self.assertEqual(result[1]["incident_id"], "INC-20260925-002")
 
 
 if __name__ == "__main__":

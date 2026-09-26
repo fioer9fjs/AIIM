@@ -127,7 +127,12 @@ export const IncidentDetailDrawer: React.FC<IncidentDetailDrawerProps> = ({
               )}
             </div>
             <h2 style={{ fontSize: '1.25rem', fontWeight: 700, lineHeight: 1.3 }}>{incident.title}</h2>
-            <span style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>Reported Date: {incident.date}</span>
+            <div style={{ display: 'flex', gap: '1rem', marginTop: '0.35rem', fontSize: '0.8rem', color: 'var(--text-dim)', flexWrap: 'wrap' }}>
+              <span>📅 <strong>First Reported / Published:</strong> {incident.date}</span>
+              {incident.alleged_incident_date && incident.alleged_incident_date !== incident.date && (
+                <span style={{ color: 'var(--accent-cyan)' }}>⏱️ <strong>Alleged Occurrence:</strong> {incident.alleged_incident_date}</span>
+              )}
+            </div>
           </div>
 
           <div className="detail-section">
@@ -187,6 +192,12 @@ export const IncidentDetailDrawer: React.FC<IncidentDetailDrawerProps> = ({
                 <span style={{ color: 'var(--text-muted)' }}>Subtype:</span>
                 <p style={{ fontWeight: 500 }}>{incident.root_cause_subtype || 'N/A'}</p>
               </div>
+              {incident.alleged_incident_date && (
+                <div>
+                  <span style={{ color: 'var(--text-muted)' }}>Alleged Incident Date:</span>
+                  <p style={{ fontWeight: 500, color: 'var(--accent-cyan)' }}>{incident.alleged_incident_date}</p>
+                </div>
+              )}
             </div>
           </div>
 

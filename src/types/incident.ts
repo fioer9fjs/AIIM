@@ -104,6 +104,9 @@ export interface AIIncident {
   // Impact Scope: Single Event vs Macro Industry Trend
   impact_scope?: ImpactScope;
 
+  // Alleged occurrence date when distinct from publication / first-reported date
+  alleged_incident_date?: string;
+
   // Data Origin Telemetry
   source_type?: SourceType;
 

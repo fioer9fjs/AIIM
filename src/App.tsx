@@ -96,7 +96,7 @@ export const App: React.FC = () => {
       <Header
         currentView={currentView}
         onViewChange={setCurrentView}
-        incidentCount={filteredIncidents.length}
+        incidentCount={rawIncidents.length}
         availableDates={availableDates}
         selectedRange={selectedRange}
         onRangeChange={setSelectedRange}
@@ -111,16 +111,16 @@ export const App: React.FC = () => {
           />
         )}
         {currentView === 'explorer' && (
-          <ExplorerView incidents={filteredIncidents} onSelectIncident={setSelectedIncident} />
+          <ExplorerView incidents={rawIncidents} onSelectIncident={setSelectedIncident} />
         )}
         {currentView === 'graph' && (
-          <GraphView incidents={filteredIncidents} edges={edges} onSelectIncident={setSelectedIncident} />
+          <GraphView incidents={rawIncidents} edges={edges} onSelectIncident={setSelectedIncident} />
         )}
         {currentView === 'map' && (
-          <GeoMapView incidents={filteredIncidents} onSelectIncident={setSelectedIncident} />
+          <GeoMapView incidents={rawIncidents} onSelectIncident={setSelectedIncident} />
         )}
         {currentView === 'analytics' && (
-          <AnalyticsView incidents={filteredIncidents} onSelectIncident={setSelectedIncident} />
+          <AnalyticsView incidents={rawIncidents} onSelectIncident={setSelectedIncident} />
         )}
         {currentView === 'about' && (
           <AboutView />

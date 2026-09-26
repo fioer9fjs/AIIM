@@ -190,11 +190,7 @@ def run_migration():
             raw_data = json.load(f)
 
         seen_incident_ids = set()
-        api_key = os.environ.get("GEMINI_API_KEY", "")
-        # Run global deduplication consolidation pass via pure LLM
-        incidents_data = consolidate_dataset(raw_data, api_key=api_key)
-        with open(incidents_file, "w", encoding="utf-8") as f:
-            json.dump(incidents_data, f, indent=2, ensure_ascii=False)
+        incidents_data = raw_data
             
         for inc in incidents_data:
             iid = inc.get("incident_id")
@@ -211,6 +207,7 @@ def run_migration():
                 date_val = "2026-08-14"
                 
             taxonomy_obj = {
+                "alleged_incident_date": inc.get("alleged_incident_date"),
                 "lifecycle_phase": inc.get("lifecycle_phase"),
                 "system_classification": inc.get("system_classification"),
                 "root_cause_category": inc.get("root_cause_category"),
