@@ -41,6 +41,11 @@ except ImportError:
     from clean_and_enrich_incidents import estimate_financial_damage, assign_compliance_frameworks, assign_impact_scope
 
 try:
+    from scripts.dynamic_keywords import get_top_dynamic_keywords_for_lane, learn_and_update_keywords
+except ImportError:
+    from dynamic_keywords import get_top_dynamic_keywords_for_lane, learn_and_update_keywords
+
+try:
     import requests
     from bs4 import BeautifulSoup
     from googlenewsdecoder import gnewsdecoder
@@ -632,8 +637,17 @@ def fetch_google_news_multilane(max_per_lane: int = 6, max_total_items: int = 40
         incidents = lane_cfg.get("incidents", [])
         lane_articles: List[Dict[str, Any]] = []
 
-        s_chunks = [subjects[i:i+4] for i in range(0, len(subjects), 4)]
-        i_chunks = [incidents[i:i+4] for i in range(0, len(incidents), 4)]
+        # Enrich lane with top learned dynamic trend keywords
+        try:
+            dynamic_kw = get_top_dynamic_keywords_for_lane(lane_key, max_items=2)
+            active_subjects = list(subjects) + [s for s in dynamic_kw.get("subjects", []) if s not in subjects]
+            active_incidents = list(incidents) + [i for i in dynamic_kw.get("incidents", []) if i not in incidents]
+        except Exception:
+            active_subjects = list(subjects)
+            active_incidents = list(incidents)
+
+        s_chunks = [active_subjects[i:i+4] for i in range(0, len(active_subjects), 4)]
+        i_chunks = [active_incidents[i:i+4] for i in range(0, len(active_incidents), 4)]
 
         for s_c in s_chunks:
             if len(lane_articles) >= max_per_lane or len(collected_articles) >= max_total_items:
@@ -662,6 +676,91 @@ def fetch_google_news_multilane(max_per_lane: int = 6, max_total_items: int = 40
 
     print(f"--> Multi-Lane Google News Harvester gathered {len(collected_articles)} unique articles across {len(lanes)} lanes.")
     return collected_articles
+
+def fetch_gemini_incident_scout(api_key: str, days_back: int = 3, max_items: int = 15) -> List[Dict[str, Any]]:
+    """
+    STAGE 1 DIRECT LLM INTELLIGENCE SCOUT:
+    Uses Gemini with Google Search Grounding to actively search the live web for all
+    real-world AI operational incidents, rogue agent exploits, safety breaches, and lawsuits
+    reported across the preceding 72-hour window.
+    """
+    if not api_key or not HAS_GENAI:
+        return []
+
+    today_str = datetime.now().strftime("%Y-%m-%d")
+    start_date = (datetime.now() - timedelta(days=days_back)).strftime("%Y-%m-%d")
+
+    prompt = f"""You are a global AI Safety and Security Intelligence Scout.
+Today is {today_str}.
+Search the live web for all REAL-WORLD AI OPERATIONAL INCIDENTS, safety failures, security breaches,
+rogue autonomous agent exploits, biometric false arrests, deepfake fraud campaigns, algorithmic discrimination lawsuits,
+and model vulnerabilities reported in the global news between {start_date} and {today_str}.
+
+Focus specifically on:
+1. Frontier LLM data leaks, rogue agent actions, sandbox escapes (OpenAI, Anthropic, Google, DeepSeek, Meta, etc.)
+2. Autonomous vehicle collisions, recalls, or traffic disruptions (Waymo, Cruise, Tesla FSD, etc.)
+3. Biometric / facial recognition wrongful arrests or civil rights lawsuits (Flock, Clearview, etc.)
+4. Critical infrastructure or government system penetrations by AI agents
+5. High-impact deepfake scams, voice cloning extortion, or election interference
+
+Return ONLY a valid JSON array of objects matching this exact structure:
+[
+  {{
+    "title": "Clear factual incident title",
+    "summary": "2-3 sentence summary of what happened, entities involved, and impact",
+    "link": "Direct news URL or source reference link",
+    "pub_date_clean": "YYYY-MM-DD"
+  }}
+]
+"""
+
+    candidate_models = list(PREFERRED_MODELS_STAGE3)
+    articles: List[Dict[str, Any]] = []
+
+    for model_name in candidate_models:
+        for attempt in range(2):
+            try:
+                from google.genai import types
+                client = genai.Client(api_key=api_key)
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        tools=[types.Tool(google_search=types.GoogleSearch())],
+                        response_mime_type="application/json"
+                    )
+                )
+                if response and response.text:
+                    text_clean = response.text.strip()
+                    if text_clean.startswith("```json"):
+                        text_clean = text_clean[7:]
+                    if text_clean.endswith("```"):
+                        text_clean = text_clean[:-3]
+                    data = json.loads(text_clean.strip())
+                    if isinstance(data, list):
+                        for item in data[:max_items]:
+                            if isinstance(item, dict) and item.get("title") and item.get("link"):
+                                pub = item.get("pub_date_clean") or today_str
+                                articles.append({
+                                    "title": item.get("title"),
+                                    "link": item.get("link"),
+                                    "pub_date": pub,
+                                    "pub_date_clean": pub,
+                                    "description": item.get("summary", ""),
+                                    "source_type": "gemini_grounded_scout"
+                                })
+                        print(f"--> Direct Gemini Grounded Search Scout discovered {len(articles)} candidate incident reports ({model_name}).")
+                        return articles
+            except Exception as err:
+                err_str = str(err)
+                if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str or "Quota" in err_str:
+                    time.sleep(2 * (attempt + 1))
+                    continue
+                break
+
+    if not articles:
+        print("Gemini Incident Scout note: Rate limited or unavailable, continuing with RSS/BigQuery harvesters.")
+    return articles
 
 def fetch_gdelt_bigquery(max_items: int = 50) -> List[Dict[str, Any]]:
     """
@@ -1171,13 +1270,16 @@ def run_ingestion():
     print("=" * 80)
 
     # STAGE 1: MULTI-SOURCE HARVESTING
-    print("\n---> STAGE 1: HARVESTING CANDIDATES (Multi-Lane Google News + GDELT BigQuery + ArXiv + AIID)...")
+    print("\n---> STAGE 1: HARVESTING CANDIDATES (Multi-Lane Google News + Gemini Grounded Scout + GDELT BigQuery + ArXiv + AIID)...")
     candidates = []
     
     gnews_articles = fetch_google_news_multilane(max_per_lane=6, max_total_items=40)
     candidates.extend(gnews_articles)
     print(f"Harvested {len(gnews_articles)} Multi-Lane Google News candidate articles.")
     
+    gemini_scout_articles = fetch_gemini_incident_scout(api_key, days_back=3, max_items=12)
+    candidates.extend(gemini_scout_articles)
+
     gdelt_bq_articles = fetch_gdelt_bigquery(max_items=15)
     candidates.extend(gdelt_bq_articles)
 
@@ -1187,7 +1289,7 @@ def run_ingestion():
     aiid_articles = fetch_aiid_rss(max_items=12)
     candidates.extend(aiid_articles)
     
-    print(f"Total Candidate Pool: {len(candidates)} articles across 4 sources.")
+    print(f"Total Candidate Pool: {len(candidates)} articles across 5 sources.")
 
     # STAGE 2 & 3: GATEKEEPER & TAXONOMY EXTRACTION
     print("\n---> STAGE 2 & STAGE 3: RUNNING LLM GATEKEEPER & TAXONOMY EXTRACTION...")
@@ -1200,9 +1302,15 @@ def run_ingestion():
 
     print(f"\nIngestion Complete: {len(new_incidents)} validated incidents passed all 3 stages.")
 
-    # SAVE LOCAL JSON & SYNC SUPABASE
+    # STAGE 4: SAVE LOCAL JSON & SYNC SUPABASE
     save_to_incidents_json(new_incidents, api_key=api_key)
     
+    # STAGE 5: POST-INGESTION ADAPTIVE KEYWORD EVOLUTION (ADKE)
+    try:
+        learn_and_update_keywords(new_incidents)
+    except Exception as e:
+        print(f"Adaptive Keyword Evolution note: {e}")
+
     try:
         from migrate_json_to_supabase import run_migration, record_daily_source_stats
         run_migration()
@@ -1211,7 +1319,7 @@ def run_ingestion():
         today_str = datetime.now().strftime("%Y-%m-%d")
         record_daily_source_stats(
             stat_date=today_str,
-            rss_count=len(gnews_articles),
+            rss_count=len(gnews_articles) + len(gemini_scout_articles),
             gdelt_count=len(gdelt_bq_articles),
             arxiv_count=len(arxiv_articles),
             aiid_count=len(aiid_articles),

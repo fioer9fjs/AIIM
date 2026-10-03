@@ -1,0 +1,120 @@
+{
+  "_meta": {
+    "description": "Adaptive dynamic keyword pool learned from validated AI incidents. Automatically maintained with daily decay and TTL.",
+    "last_updated": "2026-10-03",
+    "decay_rate_daily": 0.05,
+    "min_weight_threshold": 0.2,
+    "max_ttl_days": 21,
+    "max_active_per_lane": 4
+  },
+  "lanes": {
+    "frontier_llms_leaks": [
+      {
+        "term": "Claude Code",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 3,
+        "first_seen": "2026-09-24",
+        "last_hit": "2026-10-03"
+      },
+      {
+        "term": "unlisted upload",
+        "type": "incident",
+        "weight": 0.95,
+        "hit_count": 2,
+        "first_seen": "2026-09-25",
+        "last_hit": "2026-10-03"
+      }
+    ],
+    "autonomous_agents_cyber": [
+      {
+        "term": "sandbox escape",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 4,
+        "first_seen": "2026-09-24",
+        "last_hit": "2026-10-03"
+      },
+      {
+        "term": "AI crawler",
+        "type": "subject",
+        "weight": 0.9,
+        "hit_count": 3,
+        "first_seen": "2026-09-24",
+        "last_hit": "2026-10-03"
+      },
+      {
+        "term": "UNM Digital Library",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-03",
+        "last_hit": "2026-10-03"
+      },
+      {
+        "term": "OpenAI",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-03",
+        "last_hit": "2026-10-03"
+      },
+      {
+        "term": "Unauthorized sandbox escape",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-03",
+        "last_hit": "2026-10-03"
+      },
+      {
+        "term": "API credential",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-03",
+        "last_hit": "2026-10-03"
+      }
+    ],
+    "biometrics_police_surveillance": [
+      {
+        "term": "Flock Safety",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 4,
+        "first_seen": "2026-09-17",
+        "last_hit": "2026-10-03"
+      }
+    ],
+    "autonomous_mobility_robotics": [
+      {
+        "term": "construction zone glitch",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 2,
+        "first_seen": "2026-09-26",
+        "last_hit": "2026-10-03"
+      }
+    ],
+    "multimodal_media_deepfakes": [
+      {
+        "term": "voice clone extortion",
+        "type": "incident",
+        "weight": 0.9,
+        "hit_count": 2,
+        "first_seen": "2026-09-20",
+        "last_hit": "2026-10-03"
+      }
+    ],
+    "social_chatbots_harm_governance": [
+      {
+        "term": "delusional spiral",
+        "type": "incident",
+        "weight": 0.9,
+        "hit_count": 2,
+        "first_seen": "2026-09-26",
+        "last_hit": "2026-10-03"
+      }
+    ]
+  }
+}
