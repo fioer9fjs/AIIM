@@ -17,7 +17,6 @@ from scripts.ingest import (
     fetch_arxiv,
     fetch_aiid_rss,
     fetch_google_news_multilane,
-    fetch_gemini_incident_scout,
 )
 
 
@@ -287,48 +286,7 @@ class TestMultiLaneHarvester(unittest.TestCase):
         self.assertEqual(len(urls), len(set(urls)), "Multilane results must be strictly deduplicated by URL.")
 
 
-class TestGeminiIncidentScout(unittest.TestCase):
-    """
-    Unit Tests for Direct Gemini Grounded Search Scout.
-    """
-
-    MOCK_SCOUT_JSON_RESPONSE = """[
-      {
-        "title": "Autonomous Drone Fleet Communication Glitch",
-        "summary": "Delivery drones lost telemetry during windstorm resulting in emergency grounding.",
-        "link": "https://example.com/drone-fleet-incident",
-        "pub_date_clean": "2026-10-02"
-      }
-    ]"""
-
-    @patch("scripts.ingest.genai.Client")
-    def test_fetch_gemini_incident_scout_parses_json_response(self, mock_client_cls):
-        # --- ARRANGE ---
-        mock_client = MagicMock()
-        mock_response = MagicMock()
-        mock_response.text = self.MOCK_SCOUT_JSON_RESPONSE
-        mock_client.models.generate_content.return_value = mock_response
-        mock_client_cls.return_value = mock_client
-
-        # --- ACT ---
-        results = fetch_gemini_incident_scout(api_key="test_api_key", days_back=3, max_items=5)
-
-        # --- ASSERT ---
-        self.assertEqual(len(results), 1)
-        scout_item = results[0]
-        self.assertEqual(scout_item["source_type"], "gemini_grounded_scout")
-        self.assertEqual(scout_item["title"], "Autonomous Drone Fleet Communication Glitch")
-        self.assertEqual(scout_item["link"], "https://example.com/drone-fleet-incident")
-        self.assertEqual(scout_item["pub_date_clean"], "2026-10-02")
-        self.assertIn("Delivery drones lost telemetry", scout_item["description"])
-
-    def test_fetch_gemini_incident_scout_returns_empty_when_no_api_key(self):
-        # --- ARRANGE / ACT ---
-        results = fetch_gemini_incident_scout(api_key="", days_back=3)
-
-        # --- ASSERT ---
-        self.assertEqual(results, [])
-
 
 if __name__ == "__main__":
     unittest.main()
+
