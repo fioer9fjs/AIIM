@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Adaptive dynamic keyword pool learned from validated AI incidents. Automatically maintained with daily decay and TTL.",
-    "last_updated": "2026-10-03",
+    "last_updated": "2026-10-05",
     "decay_rate_daily": 0.05,
     "min_weight_threshold": 0.2,
     "max_ttl_days": 21,
@@ -10,9 +10,17 @@
   "lanes": {
     "frontier_llms_leaks": [
       {
-        "term": "Claude Code",
+        "term": "Anthropic",
         "type": "subject",
         "weight": 1.0,
+        "hit_count": 3,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "Claude Code",
+        "type": "subject",
+        "weight": 0.902,
         "hit_count": 3,
         "first_seen": "2026-09-24",
         "last_hit": "2026-10-03"
@@ -20,60 +28,116 @@
       {
         "term": "unlisted upload",
         "type": "incident",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-09-25",
         "last_hit": "2026-10-03"
+      },
+      {
+        "term": "During testing",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "exhibited autonomous",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "capabilities",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "skirting instructions",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "hacking",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
       }
     ],
     "autonomous_agents_cyber": [
       {
-        "term": "sandbox escape",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 4,
-        "first_seen": "2026-09-24",
-        "last_hit": "2026-10-03"
-      },
-      {
-        "term": "AI crawler",
-        "type": "subject",
-        "weight": 0.9,
-        "hit_count": 3,
-        "first_seen": "2026-09-24",
-        "last_hit": "2026-10-03"
-      },
-      {
-        "term": "UNM Digital Library",
-        "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-10-03",
-        "last_hit": "2026-10-03"
-      },
-      {
         "term": "OpenAI",
         "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
+        "weight": 1.0,
+        "hit_count": 10,
         "first_seen": "2026-10-03",
-        "last_hit": "2026-10-03"
+        "last_hit": "2026-10-05"
       },
       {
-        "term": "Unauthorized sandbox escape",
-        "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-10-03",
-        "last_hit": "2026-10-03"
+        "term": "Waymo",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 4,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
       },
       {
-        "term": "API credential",
+        "term": "Anthropic",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 3,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "attack payloads",
         "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-10-03",
-        "last_hit": "2026-10-03"
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "Passengers",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "autonomous driving",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "active construction",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "zone markers",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
       }
     ],
     "biometrics_police_surveillance": [
@@ -81,16 +145,72 @@
         "term": "Flock Safety",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 4,
+        "hit_count": 6,
         "first_seen": "2026-09-17",
-        "last_hit": "2026-10-03"
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "law enforcement",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 4,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "automated license plate",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 4,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "Brandon Upchurch",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 4,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "Toledo Police Department",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 4,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "Facial recognition software",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "false positive match",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "wrongful arrest",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
       }
     ],
     "autonomous_mobility_robotics": [
       {
         "term": "construction zone glitch",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.767,
         "hit_count": 2,
         "first_seen": "2026-09-26",
         "last_hit": "2026-10-03"
@@ -98,22 +218,134 @@
     ],
     "multimodal_media_deepfakes": [
       {
-        "term": "voice clone extortion",
+        "term": "Microsoft",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "Government Agencies",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "General Businesses",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "Malicious actors exploit",
         "type": "incident",
-        "weight": 0.9,
-        "hit_count": 2,
-        "first_seen": "2026-09-20",
-        "last_hit": "2026-10-03"
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "voice modulation",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "conduct sophisticated phishing",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "impersonation",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "bypassing standard security",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
       }
     ],
     "social_chatbots_harm_governance": [
       {
-        "term": "delusional spiral",
-        "type": "incident",
-        "weight": 0.9,
+        "term": "Google",
+        "type": "subject",
+        "weight": 1.0,
         "hit_count": 2,
-        "first_seen": "2026-09-26",
-        "last_hit": "2026-10-03"
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "CharacterAI",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "chatbots engaged",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "sometimes sexualized",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "harmful dialogue",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "fostering intense emotional",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "dependency and failing",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "prevent incitement",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
       }
     ]
   }
