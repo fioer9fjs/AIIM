@@ -13,25 +13,9 @@
         "term": "Anthropic",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 3,
+        "hit_count": 5,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-05"
-      },
-      {
-        "term": "Claude Code",
-        "type": "subject",
-        "weight": 0.902,
-        "hit_count": 3,
-        "first_seen": "2026-09-24",
-        "last_hit": "2026-10-03"
-      },
-      {
-        "term": "unlisted upload",
-        "type": "incident",
-        "weight": 0.857,
-        "hit_count": 2,
-        "first_seen": "2026-09-25",
-        "last_hit": "2026-10-03"
       },
       {
         "term": "During testing",
@@ -72,6 +56,22 @@
         "hit_count": 1,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-05"
+      },
+      {
+        "term": "Bad actors",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "state-sponsored groups attempted",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
       }
     ],
     "autonomous_agents_cyber": [
@@ -79,7 +79,7 @@
         "term": "OpenAI",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 10,
+        "hit_count": 19,
         "first_seen": "2026-10-03",
         "last_hit": "2026-10-05"
       },
@@ -87,13 +87,45 @@
         "term": "Waymo",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 4,
+        "hit_count": 7,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-05"
       },
       {
         "term": "Anthropic",
         "type": "subject",
+        "weight": 1.0,
+        "hit_count": 7,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "Passengers",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 4,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "autonomous driving",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 4,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "Hugging Face",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 3,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "state government web",
+        "type": "incident",
         "weight": 1.0,
         "hit_count": 3,
         "first_seen": "2026-10-05",
@@ -106,38 +138,6 @@
         "hit_count": 2,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-05"
-      },
-      {
-        "term": "Passengers",
-        "type": "subject",
-        "weight": 1.0,
-        "hit_count": 2,
-        "first_seen": "2026-10-05",
-        "last_hit": "2026-10-05"
-      },
-      {
-        "term": "autonomous driving",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 2,
-        "first_seen": "2026-10-05",
-        "last_hit": "2026-10-05"
-      },
-      {
-        "term": "active construction",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 2,
-        "first_seen": "2026-10-05",
-        "last_hit": "2026-10-05"
-      },
-      {
-        "term": "zone markers",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 2,
-        "first_seen": "2026-10-05",
-        "last_hit": "2026-10-05"
       }
     ],
     "biometrics_police_surveillance": [
@@ -145,7 +145,7 @@
         "term": "Flock Safety",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 6,
+        "hit_count": 8,
         "first_seen": "2026-09-17",
         "last_hit": "2026-10-05"
       },
@@ -153,7 +153,7 @@
         "term": "law enforcement",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 4,
+        "hit_count": 7,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-05"
       },
@@ -161,7 +161,7 @@
         "term": "automated license plate",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 4,
+        "hit_count": 5,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-05"
       },
@@ -169,13 +169,21 @@
         "term": "Brandon Upchurch",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 4,
+        "hit_count": 5,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-05"
       },
       {
         "term": "Toledo Police Department",
         "type": "subject",
+        "weight": 1.0,
+        "hit_count": 5,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-05"
+      },
+      {
+        "term": "wrongful arrest",
+        "type": "incident",
         "weight": 1.0,
         "hit_count": 4,
         "first_seen": "2026-10-05",
@@ -185,7 +193,7 @@
         "term": "Facial recognition software",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 2,
+        "hit_count": 3,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-05"
       },
@@ -193,15 +201,7 @@
         "term": "false positive match",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 2,
-        "first_seen": "2026-10-05",
-        "last_hit": "2026-10-05"
-      },
-      {
-        "term": "wrongful arrest",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 2,
+        "hit_count": 3,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-05"
       }
@@ -210,7 +210,7 @@
       {
         "term": "construction zone glitch",
         "type": "incident",
-        "weight": 0.767,
+        "weight": 0.692,
         "hit_count": 2,
         "first_seen": "2026-09-26",
         "last_hit": "2026-10-03"
@@ -287,7 +287,7 @@
         "term": "Google",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 2,
+        "hit_count": 3,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-05"
       },
@@ -295,7 +295,7 @@
         "term": "CharacterAI",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 2,
+        "hit_count": 3,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-05"
       },
@@ -316,34 +316,34 @@
         "last_hit": "2026-10-05"
       },
       {
-        "term": "harmful dialogue",
-        "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
+        "term": "Companion Chatbot Developers",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 2,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-05"
       },
       {
-        "term": "fostering intense emotional",
-        "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
+        "term": "Social Media Platforms",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 2,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-05"
       },
       {
-        "term": "dependency and failing",
+        "term": "Unregulated deployment",
         "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
+        "weight": 1.0,
+        "hit_count": 2,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-05"
       },
       {
-        "term": "prevent incitement",
+        "term": "companion chatbots",
         "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
+        "weight": 1.0,
+        "hit_count": 2,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-05"
       }
