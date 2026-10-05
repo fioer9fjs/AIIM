@@ -59,6 +59,6 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action Bot"
-          git add src/data/
+          git add src/data/ config/dynamic_keywords.json
           git status
           git diff --staged --quiet || (git commit -m "auto: daily AI incident dataset update" && git push)
