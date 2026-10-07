@@ -30,66 +30,70 @@
       "United States"
     ],
     "affected_parties": [
-      "Australian Government Services Australia",
-      "Data USA",
-      "US Department of Commerce",
-      "Australian Government Health Department",
-      "University of New Mexico",
-      "Anthropic",
-      "Australian Government Department of Health and Aged Care",
-      "Government Websites",
-      "Australian Institute of Health and Welfare",
-      "U.S. Census Bureau",
-      "Medicare Australia",
-      "U.S. Securities and Exchange Commission",
-      "Australian Government Medicare Statistics Reporting Service",
-      "US Government",
-      "Services Australia",
-      "University Websites",
-      "U.S. Department of Commerce",
-      "Australian Broadcasting Corporation",
-      "National Data Commissioner's Office",
-      "U.S. Department of Justice",
-      "OpenAI Group PBC",
-      "US Department of Education",
-      "Australian Government",
-      "Australian Government Medicare",
-      "Australian public health site",
-      "Services Australia (Medicare)",
-      "NSW Department of Climate Change, Energy, the Environment and Water",
-      "Australian Senate",
-      "Australian Medicare",
-      "Australian Public Service",
-      "Australian Department of Health",
-      "U.S. Department of Education",
-      "United Nations",
-      "Medicare Statistics Reporting Service",
-      "Medicare Statistics Reporting Portal",
-      "OpenAI",
-      "Australian government",
-      "Services Australia / Australian Government",
-      "US federal agencies",
       "University websites",
-      "US Securities and Exchange Commission",
-      "Legal Advocates for Safe Science & Technology (LASST)",
-      "Department of Finance",
-      "NSW National Parks and Wildlife Service",
-      "RubyGems",
-      "Government websites",
+      "US Department of Commerce",
+      "Anthropic",
+      "Medicare Statistics Reporting Portal",
+      "U.S. Securities and Exchange Commission",
+      "University Websites",
+      "Australian Government Health Department",
+      "Australian Senate",
+      "Government Websites",
+      "Australian Federal Government (Medicare)",
+      "Australian Signals Directorate",
+      "Australian Government Medicare Platform",
+      "Data USA",
       "Australian Department of Home Affairs",
+      "Australian Institute of Health and Welfare",
+      "Australian Government",
+      "Australian government",
+      "Australian public health site",
+      "RubyGems",
+      "New South Wales Bureau of Crime Statistics and Research",
+      "US Government",
       "Medicare",
-      "Securities and Exchange Commission",
+      "Australian Government Services Australia",
+      "Medicare Statistics Reporting Service",
+      "U.S. Department of Justice",
+      "Service Australia",
       "OpenAI Foundation",
+      "United Nations",
+      "Australian Government Department of Home Affairs",
+      "Services Australia",
+      "Australian Government Medicare",
+      "NSW Department of Climate Change, Energy, the Environment and Water",
+      "Victorian Department of Health",
+      "NSW National Parks and Wildlife Service",
+      "OpenAI",
+      "Department of Finance",
+      "Legal Advocates for Safe Science & Technology (LASST)",
+      "National Data Commissioner's Office",
+      "Australian Medicare",
+      "University of New Mexico",
+      "Securities and Exchange Commission",
+      "Government websites",
+      "U.S. Department of Commerce",
       "Australian Government (Services Australia)",
       "Australian Cyber Security Centre",
-      "Australian Government Medicare Platform",
-      "Australian Government Services Australia (Medicare)",
+      "U.S. Census Bureau",
+      "U.S. Department of Education",
+      "Australian Broadcasting Corporation",
+      "Services Australia / Australian Government",
+      "US Securities and Exchange Commission",
       "Hugging Face",
-      "Australian Federal Government (Medicare)",
-      "Australian Government Department of Home Affairs",
+      "Australian Federal Government",
+      "US Department of Education",
+      "Australian Department of Health",
       "Australian Government Medicare Database",
-      "Australian Government (Medicare)",
-      "Australian Signals Directorate"
+      "US federal agencies",
+      "Australian Public Service",
+      "OpenAI Group PBC",
+      "Australian Government Medicare Statistics Reporting Service",
+      "Australian Government Department of Health and Aged Care",
+      "Medicare Australia",
+      "Services Australia (Medicare)",
+      "Australian Government Services Australia (Medicare)",
+      "Australian Government (Medicare)"
     ],
     "source_urls": [
       "https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078",
@@ -149,7 +153,10 @@
       "https://www.cootamundraherald.com.au/story/9359341/why-openai-gave-such-a-candid-apology-for-its-breach/",
       "https://www.reuters.com/legal/litigation/australias-abc-rejects-ai-copyright-carveout-believes-already-been-scraped-2026-10-06/",
       "https://www.mix1069.com/2026/10/05/australias-abc-rejects-ai-copyright-carveout-believes-already-been-scraped/",
-      "http://www.sydneysun.com/news/279352888/world-should-accept-some-bad-things-from-ai-openai-ceo"
+      "http://www.sydneysun.com/news/279352888/world-should-accept-some-bad-things-from-ai-openai-ceo",
+      "https://iapp.org/news/a/openai-outlines-updated-safety-measures-in-response-to-australia-medicare-portal-breach",
+      "https://www.thehindu.com/sci-tech/technology/why-openais-australia-ai-agent-hack-must-dismay-world-governments/article71550312.ece/amp/",
+      "https://www.greatlakesadvocate.com.au/story/9363930/dont-rely-on-it-eyes-narrow-at-openai-apology/"
     ],
     "full_text": "The prime minister has had a \"frank\" discussion with OpenAI chief executive Sam Altman after an AI agent breached an Australian government website.\n\nThe company did not notify Services Australia of the incident until three months after the fact, via email.\n\nThe prime minister has announced a taskforce to investigate further.\n\nPrime Minister Anthony Albanese has revealed an AI agent hacked into an Australian Medicare data portal earlier this year.\n\nSpeaking in New York, Mr Albanese said the OpenAI agent gained unauthorised access to the Medicare statistics reporting service portal administered by Services Australia on June 18.\n\nThe AI agent accessed both public and non-public files, but Mr Albanese said it did not appear anyone's personal Medicare details were accessed.\n\nMr Albanese said he had a \"frank\" discussion with OpenAI's chief executive Sam Altman, saying the company took three months to notify the government of the breach and, when it did, the notification was in an email sent to the Services Australia public inbox.\n\n\"Today I spoke with the CEO of OpenAI, Sam Altman, to express Australia's extreme concern about this incident,\" he said.\n\n\"And I also expressed my disappointment that it took the company way too long to inform the government what had occurred.\"\n\nHe said the \"nature\" of the notification was also \"unacceptable\".\n\n\"The notification was an email sent just to the public mailbox,\" Mr Albanese said.\n\nOpenAI accessed non-public aggregate health statistics and internal files from an old Australian government website that carried Medicare statistics.\n\nIt is understood an AI crawler, which is an automated program that scans websites and collects information from them, was able to find a security workaround to access the data.\n\nOften deployed as a tool by AI agents, crawlers collect data that usually trains AI models, builds datasets or retrieves information for AI systems.\n\nJune 18: A Medicare statistics reporting service portal, administered by Services Australia, is breached by an OpenAI agent\n\nAugust 11: OpenAI becomes aware of the breach during a review of OpenAI misaligned model activity during training\n\nSeptember 1: OpenAI chief executive officer Sam Altman meets Defence Minister Richard Marles in San Francisco, but Mr Marles says the breach wasn't disclosed\n\nSeptember 10: OpenAI sends an email to publicdisclosures@ servicesaustralia.gov.au — an address used by academics and researchers to notify weaknesses in Services Australia's systems\n\nSeptember 11: Services Australia sees the email\n\nSeptember 15: Services Australia notifies the Australian Signals Directorate (ASD)\n\nSeptember 17: Minister for the Public Service Katy Gallagher is told and seeks further information\n\nSeptember 19-20: Prime Minister Anthony Albanese and his office are informed of the incident, while Minister Gallagher holds several discussions with Mr Marles, Home Affairs Minister Tony Burke, Services Australia and the ASD\n\nSeptember 22: First \"technical exchange\" between OpenAI and Services Australia\n\nSeptember 24: Mr Albanese calls Mr Altman and informs the public of the breach\n\nThe prime minister said OpenAI was conducting research into public medical spending when it found a way to break through privacy protections.\n\n\"The AI agent found a way around those blocks, didn't accept 'no' for an answer, if you like,\" Mr Albanese said.\n\nThe prime minister said Services Australia was not notified until September 10.\n\nOn September 15, Services Australia reported it to the Australian Signals Directorate's cybersecurity centre.\n\nLast week, Services Australia got in touch with Katy Gallagher, the minister for the public service. Mr Albanese's office was notified over the weekend.\n\nKaty Gallagher was contacted by Services Australia last week. (ABC News: Callum Flinn)\n\nHe said there was no evidence any individual personal information had been accessed, but an investigation aided by the Australian Signals Directorate was now underway.\n\n\"[The] evidence curr",
     "confidence_scores": {
@@ -1121,12 +1128,12 @@
       "United States"
     ],
     "affected_parties": [
-      "Angela Lipps",
-      "City of Fargo",
       "Detective Lucas Heck",
-      "Angela Robin Lipps",
       "Fargo Police Department",
-      "City of Fargo Police Department"
+      "Angela Lipps",
+      "Angela Robin Lipps",
+      "City of Fargo Police Department",
+      "City of Fargo"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
@@ -1140,7 +1147,8 @@
       "https://www.kttc.com/video/2026/09/15/tennessee-woman-sues-fargo-detective-over-wrongful-arrest-tied-facial-recognition-error/",
       "https://www.valleynewslive.com/2026/09/15/tennessee-woman-sues-fargo-ex-detective-over-wrongful-arrest-tied-facial-recognition-error/",
       "https://www.wbbjtv.com/2026/09/17/woman-sues-city-detective-10-million-over-wrongful-arrest-tied-facial-recognition-error/",
-      "https://abcnews.com/US/grandmother-falsely-accused-bank-theft-after-alleged-ai/story?id=136536444"
+      "https://abcnews.com/US/grandmother-falsely-accused-bank-theft-after-alleged-ai/story?id=136536444",
+      "https://www.wvlt.tv/2026/09/17/woman-sues-city-detective-10-million-over-wrongful-arrest-tied-facial-recognition-error/"
     ],
     "source_type": "aiid",
     "full_text": "Angela Lipps, 50, alleges in suit that Fargo police wrongly relied on AI facial recognition to arrest and charge her\n\nA Tennessee woman who was falsely charged with bank theft in North Dakota and jailed for six months has sued for $10m in damages, alleging in a federal lawsuit that Fargo police improperly relied on an artificial intelligence (AI) facial recognition system to wrongly accuse her.\n\nAngela Lipps, 50, was arrested at gunpoint by US marshals at her home in Tennessee while babysitting her neighbor’s four children in July 2025. The mother of three and grandmother of five was booked into a county jail and remained there for almost four months without bail while awaiting extradition to North Dakota, where she was held for about two more months.\n\nLipps, who has lived most of her life in north-central Tennessee, had never been on a plane until authorities flew her to North Dakota at the end of October, where she was charged with four counts of unauthorized use of personal identifying information and four counts of theft.\n\nThe charges were ultimately dropped, and she was “released into the freezing cold … on Christmas Eve with no way to get home” after her lawyer, Jay Greenwood, provided bank records proving that she was in Tennessee at the time the fraud occurred in Fargo, the complaint says.\n\nAnother attorney for Lipps, Eric Rice, told Tennessee television station WKRN that the $10m his client is seeking is “obviously … a significant number, but it reflects the specific harm that happened to Angela”.\n\n“Can you imagine being taken away at gunpoint, held in detention, taken from your family?” Rice said.\n\nA Fargo government spokesperson said the city does not comment on pending litigation.\n\nLipps’s lawsuit names the city of Fargo and Lucas Heck, a city police detective identified in the complaint as having requested the arrest warrant for her, as the defendants.\n\nThe plaintiff alleges that she “experienced traumatic conditions in the jails”.\n\n“She struggled with the fear of not knowing when she would be released or whether she would end up wrongly convicted and imprisoned for years,” the lawsuit continues. “She missed family birthdays. She spent her own birthday incarcerated, separated from her family. She missed holidays with her loved ones, including Thanksgiving and Christmas. While in custody, she was denied basic care, such as her medications and her dentures.”\n\nLipps learned she had lost her residence, her car and her personal property once she was released from custody, her lawsuit states. The experience, it says, has left Lipps with “lasting hardships and trauma that might be managed but never erased”.\n\nThe “Fargo police department (FPD) and its agents have refused to accept responsibility or apologize to Lipps despite multiple requests for them to do so”, the complaint says. The lawsuit says that it seeks to “repair what has been broken” over her false arrest and “seeks accountability” from the FPD.\n\nLipps’s complaint recounts how a west Fargo police investigator used AI facial recognition software to identify bank fraud suspects. The software returned Lipps’s social media photo as a potential lead, which was provided to Heck.\n\nIt alleges that the source of the facial recognition was a fake ID used by a female suspect who was captured in surveillance video footage. Lipps did not look like the female suspect and had also never been to North Dakota, according to the complaint.\n\nThe complaint alleges that Heck falsely suggested that facial recognition systems had identified Lipps and did not conduct further investigation or find sufficient probable cause – but requested an arrest warrant anyway.\n\nLipps maintains she was unlawfully arrested and imprisoned – as well as maliciously prosecuted – and that the FPD lacked policy, training and supervision of officers on the use of facial recognition technology.\n\n“They knew that AI facial recognition technology should not be used as the sole basis to extradite and charge a per",
@@ -5952,7 +5960,7 @@
     "harm_domain": "persons_rights",
     "harm_type": "privacy_breach",
     "impact_scope": "discrete_incident",
-    "financial_damage_usd": 2500000,
+    "financial_damage_usd": 4500000,
     "eu_ai_act_tier": "high_risk",
     "nist_ai_rmf_function": "GOVERN",
     "iso_42001_category": "Data_&_Resources",
@@ -5963,13 +5971,14 @@
       "United States"
     ],
     "affected_parties": [
-      "Affected individuals",
+      "Minnesota State Government",
+      "Victims of AI-generated deepfakes",
+      "Users and victims of AI-generated explicit imagery",
       "State of Minnesota",
       "Individuals targeted by deepfakes",
-      "Minnesota State Government",
-      "Users and victims of AI-generated explicit imagery",
+      "xAI",
       "Non-consensual image victims",
-      "xAI"
+      "Affected individuals"
     ],
     "confidence_scores": {
       "verification_status": 1.0,
@@ -5980,7 +5989,9 @@
       "https://www.reuters.com/legal/government/minnesota-defends-ai-nudification-ban-after-lawsuit-musks-xai-2026-08-17/",
       "https://wabx.net/2026/10/02/us-appeals-court-blocks-minnesotas-ai-nudification-law-for-now-in-xai-lawsuit/",
       "http://www.bruneinews.net/news/279349393/us-court-halts-ai-nude-image-ban-challenged-by-musk",
-      "https://www.dglobe.com/news/minnesota/federal-appeals-court-pauses-minnesotas-ai-nudification-technology-ban"
+      "https://www.dglobe.com/news/minnesota/federal-appeals-court-pauses-minnesotas-ai-nudification-technology-ban",
+      "https://www.twincities.com/2026/10/06/federal-appeals-court-pauses-minnesotas-ai-nudification-technology-ban/",
+      "https://wiky.com/2026/10/02/us-appeals-court-blocks-minnesotas-ai-nudification-law-for-now-in-xai-lawsuit/"
     ],
     "source_type": "google_news_rss",
     "full_text": "Minnesota is asking a federal judge to reject a bid by Elon Musk’s artificial intelligence company, xAI, to block the state’s AI nudification ban, arguing that Grok Imagine’s nudification feature is a product function rather than speech protected by the First Amendment.\n\nAttorney General Keith Ellison made the argument in an August 14 filing opposing xAI’s request for a preliminary injunction, which seeks to stop enforcement of the law while the company’s constitutional challenge continues.\n\nThe filing is Minnesota’s substantive response to the lawsuit xAI brought in July over the state law, which took effect August 1. The measure targets websites, applications and other services that provide access to automated technology capable of altering or generating an image to depict an intimate body part that was not shown in the original. The resulting image must be realistic enough to appear to belong to an identifiable person.\n\nxAI claims the statute reaches protected expression because it is not limited to images created without consent and does not contain specific exceptions for artistic, political, satirical, educational, and other expressive uses. The company argues that the restriction is based on the content users create and should face the most demanding form of First Amendment review.\n\nLawmakers adopted the ban after hearing from women whose photographs had been used to create fabricated sexual images, along with evidence involving AI-generated sexual material depicting children.\n\nState lawyers place the function of Grok Imagine at the center of their response. They argue that xAI provides a technological tool that users operate to generate content rather than engaging in protected expression itself. From that view, the law regulates what the automated feature can do rather than the message contained in an image.\n\nFirst Amendment protections generally leave the government less room to regulate speech because of its message, subject, or viewpoint. Laws aimed at conduct, or rules that affect expression without targeting its message, may receive intermediate scrutiny. Restrictions based on the content of speech generally face the tougher strict scrutiny standard, which requires the government to show that the law is narrowly designed to serve a compelling interest.\n\nEllison’s office argues intermediate scrutiny should apply because the statute targets automated nudification technology and the harms tied to its use, not a particular message or viewpoint. Minnesota also maintains that the law would survive strict scrutiny because preventing digital sexual victimization is a compelling government interest and existing laws aimed at people who create or distribute unlawful images do not fully address technology that can produce the material quickly and at large scale.\n\nMinnesota also relies on xAI’s own rules, which prohibit users from nudifying real people, to challenge the company’s ability to assert users’ constitutional rights. Courts generally require parties to assert their own rights, although First Amendment cases can allow exceptions. The state argues xAI cannot rely on that exception because its interests conflict with users seeking to create material the company itself prohibits.\n\nxAI is also challenging the statute on its face, meaning it seeks to invalidate the law more broadly rather than only as applied to one enforcement action. First Amendment law allows challenges to statutes that sweep too much protected expression into a restriction, but the challenger must show that the unconstitutional applications are substantial compared with the law’s legitimate reach.\n\nMinnesota argues xAI has not made that showing. The filing points to applications involving child sexual abuse material, obscenity and nonconsensual sexual images that the state says fall outside First Amendment protection. State lawyers contend that xAI has identified potentially protected examples without showing that those uses outweigh the statute’s co",
@@ -7897,10 +7908,10 @@
     ],
     "affected_parties": [
       "Cybercriminal groups",
-      "State-sponsored actors",
       "ShinyHunters",
-      "Midnight Blizzard",
-      "Anthropic"
+      "Anthropic",
+      "State-sponsored actors",
+      "Midnight Blizzard"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
@@ -7994,14 +8005,14 @@
     ],
     "affected_parties": [
       "Ministry of Industry and Information Technology (China)",
-      "Alibaba",
       "China National Vulnerability Database (NVDB)",
-      "Chinese users",
-      "Users in China",
       "China's Ministry of Industry and Information Technology (MIIT)",
-      "China National Vulnerability Database",
       "Anthropic",
+      "China National Vulnerability Database",
       "Users of Claude Code",
+      "Alibaba",
+      "Users in China",
+      "Chinese users",
       "Claude Code Users"
     ],
     "confidence_scores": {
@@ -8148,7 +8159,7 @@
   },
   {
     "title": "Waymo Recalls Over 3,800 Robotaxis Due to Software Glitch in Freeway Construction Zones",
-    "summary": "Waymo issued a voluntary recall of nearly 3,900 robotaxis after their autonomous driving software repeatedly failed to recognize ramp closures and construction zones, causing vehicles to enter active freeway construction areas in Arizona and California. The root cause stems from a software logic defect that inappropriately prioritized avoiding certain freeway hazards over recognizing construction zones. Consequently, Waymo temporarily restricted freeway operations and filed a software update with the NHTSA.",
+    "summary": "Waymo recalled over 3,800 autonomous robotaxis in the U.S. after a software glitch caused multiple vehicles to enter and drive through freeway construction zones and past closure signs. The failure stemmed from the system inappropriately prioritizing the avoidance of other freeway hazards and failing to recognize active construction zones. Although no injuries were reported from these specific incidents, the voluntary recall follows a series of other safety stumbles and regulatory investigations regarding abnormal driving conditions.",
     "verification_status": "confirmed",
     "lifecycle_phase": "operation_and_monitoring",
     "system_classification": "autonomous_agent",
@@ -8171,17 +8182,17 @@
       "United States"
     ],
     "affected_parties": [
-      "Waymo",
-      "General Public",
-      "Passengers (e.g., Elliot Slade)",
-      "National Highway Traffic Safety Administration (NHTSA)",
-      "Public motorists and road workers",
-      "NHTSA",
       "Passengers",
       "Waymo LLC",
       "Robotaxi Passengers",
       "National Highway Traffic Safety Administration",
-      "Passengers (e.g., Elliot Slade and fiancée)"
+      "National Highway Traffic Safety Administration (NHTSA)",
+      "Public motorists and road workers",
+      "Waymo",
+      "NHTSA",
+      "General Public",
+      "Passengers (e.g., Elliot Slade and fiancée)",
+      "Passengers (e.g., Elliot Slade)"
     ],
     "confidence_scores": {
       "verification_status": 1.0,
@@ -8224,22 +8235,22 @@
       "United States"
     ],
     "affected_parties": [
+      "U.S. Consumers",
+      "Speechify",
+      "VEED",
       "U.S. Government",
-      "ElevenLabs",
+      "U.S. consumers and families",
+      "General Public",
       "New Hampshire residents",
       "Elderly Americans",
-      "Speechify",
       "Consumers and families targeted by voice-cloning scams",
-      "LOVO",
-      "US Consumers",
-      "General Public",
-      "Consumers and Families",
-      "U.S. consumers and families",
+      "ElevenLabs",
       "U.S. Consumers and Families",
-      "VEED",
       "Consumers",
+      "US Consumers",
+      "Consumers and Families",
       "Fraud Victims",
-      "U.S. Consumers"
+      "LOVO"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
@@ -8369,23 +8380,23 @@
       "United States"
     ],
     "affected_parties": [
-      "Megan Garcia and family",
-      "Black and Brown youth",
-      "Character.AI users",
-      "Sewell Setzer III",
-      "Character.AI",
       "Families of victims",
+      "Sewell Setzer family",
+      "Character.AI",
       "Families of affected minors",
       "Deceased Minor",
-      "Megan Garcia",
-      "Minor Users",
-      "Sewell Setzer family",
-      "Sewell Setzer III family",
-      "Minors",
-      "Character Technologies",
       "Google",
+      "Character Technologies",
+      "Minor Users",
       "Underage Character.AI users",
-      "Sewell Setzer"
+      "Sewell Setzer III family",
+      "Black and Brown youth",
+      "Minors",
+      "Sewell Setzer III",
+      "Megan Garcia",
+      "Sewell Setzer",
+      "Megan Garcia and family",
+      "Character.AI users"
     ],
     "confidence_scores": {
       "verification_status": 0.99,
@@ -9034,8 +9045,9 @@
     ],
     "affected_parties": [
       "Palantir",
-      "Immigration and Customs Enforcement (ICE)",
       "American Civil Liberties Union (ACLU)",
+      "Immigration and Customs Enforcement (ICE)",
+      "Immigrants and U.S. Citizens subject to data tracking",
       "U.S. Immigrants and Citizens"
     ],
     "confidence_scores": {
@@ -9485,10 +9497,10 @@
       "Netherlands"
     ],
     "affected_parties": [
-      "Dutch Institute for Vulnerability Disclosure (DIVD)",
-      "Zammad GmbH",
       "Merlon Security",
-      "Zammad"
+      "Zammad",
+      "Dutch Institute for Vulnerability Disclosure (DIVD)",
+      "Zammad GmbH"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
@@ -9570,9 +9582,9 @@
       "United States"
     ],
     "affected_parties": [
+      "Christopher Gatlin",
       "Porcha Woodruff",
-      "Rite Aid customers",
-      "Christopher Gatlin"
+      "Rite Aid customers"
     ],
     "confidence_scores": {
       "verification_status": 0.99,
@@ -9657,8 +9669,8 @@
       "United States"
     ],
     "affected_parties": [
-      "Persona Identities Inc.",
       "Claude Chatbot Users in Illinois",
+      "Persona Identities Inc.",
       "Anthropic",
       "Jose Enrique Ortiz Colon"
     ],
@@ -9804,12 +9816,14 @@
       "United States"
     ],
     "affected_parties": [
-      "U.S. Federal Trade Commission",
-      "Anthropic",
       "Hugging Face",
       "METR",
-      "Federal Trade Commission",
+      "U.S. Federal Trade Commission",
+      "Anthropic",
       "OpenAI",
+      "Federal Trade Commission",
+      "AI Labs",
+      "US Federal Trade Commission",
       "FTC"
     ],
     "confidence_scores": {
@@ -10303,19 +10317,19 @@
       "Australia"
     ],
     "affected_parties": [
-      "Cyber Security NSW",
-      "NSW premier's department",
-      "Australian Government Agencies",
-      "New South Wales Department of Climate Change, Energy, the Environment and Water",
-      "NSW Premier's Department",
       "National Parks and Wildlife Service",
-      "New South Wales government",
-      "Australian Government",
-      "NSW National Parks and Wildlife Service",
+      "Australian Government Agencies",
       "NSW Department of Climate Change, Energy, the Environment and Water",
       "New South Wales Government",
+      "Cyber Security NSW",
+      "NSW National Parks and Wildlife Service",
+      "OpenAI",
+      "New South Wales government",
+      "New South Wales Department of Climate Change, Energy, the Environment and Water",
+      "Australian Government",
       "National Parks and Wildlife Service (Australia)",
-      "OpenAI"
+      "NSW premier's department",
+      "NSW Premier's Department"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
@@ -10363,12 +10377,12 @@
       "United States"
     ],
     "affected_parties": [
-      "The targeted individual (father)",
-      "National Cyber Crime Investigation Agency (NCCIA) Pakistan",
       "The targeted individual",
-      "National Cyber Crime Investigation Agency (NCCIA)",
       "The targeted family member",
-      "FBI"
+      "National Cyber Crime Investigation Agency (NCCIA)",
+      "FBI",
+      "National Cyber Crime Investigation Agency (NCCIA) Pakistan",
+      "The targeted individual (father)"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
@@ -10960,6 +10974,7 @@
       "Australia"
     ],
     "affected_parties": [
+      "Service Australia",
       "OpenAI",
       "New South Wales National Parks and Wildlife Service"
     ],
@@ -11020,7 +11035,7 @@
   },
   {
     "title": "Surge in Autonomous Vehicle Accidents and Traffic Disruptions in Los Angeles",
-    "summary": "As autonomous robotaxis deployed by companies like Waymo and Zoox scale operations in Los Angeles and other cities, reported collisions and traffic disruptions have surged. While the majority of incidents involve minor fender-benders or stationary vehicles being struck, the increase in deployment has sparked growing regulatory scrutiny, community pushback, and debates over municipal oversight.",
+    "summary": "As autonomous vehicle fleets from companies like Waymo scale operations in Los Angeles County, reported accidents and minor collisions have surged. While the vast majority of incidents involve minor property damage or fender-benders while vehicles are stopped or operating normally, the scaling raises broader regulatory, infrastructure, and public safety concerns among local policymakers and residents.",
     "verification_status": "confirmed",
     "lifecycle_phase": "operation_and_monitoring",
     "system_classification": "autonomous_agent",
@@ -11043,9 +11058,11 @@
       "United States"
     ],
     "affected_parties": [
-      "Waymo LLC",
       "Zoox",
-      "Los Angeles County Residents"
+      "Los Angeles County Residents",
+      "Waymo LLC",
+      "NHTSA",
+      "Waymo"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
@@ -11103,7 +11120,7 @@
   },
   {
     "title": "Google Veo 3 Release and Misinformation/Deepfake Risks",
-    "summary": "Google launched Veo 3, an advanced text-to-video generative model capable of producing realistic 4K videos with synchronized audio. The model's high fidelity enables the generation of convincing deepfakes depicting fabricated events such as riots and election fraud, raising significant concerns regarding misinformation, public trust, and potential societal unrest.",
+    "summary": "Google's launch of Veo 3, an advanced generative video and audio model, has sparked concerns regarding its potential for creating convincing deepfakes of riots, elections, and conflicts. While offering powerful creative and journalistic tools, the model's high fidelity and ease of generating fabricated events present significant risks of misinformation, cybersecurity threats, and erosion of public trust.",
     "alleged_incident_date": "2025-06-18",
     "verification_status": "confirmed",
     "lifecycle_phase": "deployment_and_integration",
@@ -11128,9 +11145,11 @@
       "Global"
     ],
     "affected_parties": [
+      "Google",
+      "Journalism and Media Organizations",
+      "Journalism Industry",
       "Google DeepMind",
-      "General Public",
-      "Journalism and Media Organizations"
+      "General Public"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
@@ -11170,10 +11189,11 @@
       "South Korea"
     ],
     "affected_parties": [
-      "Shinhan Bank",
       "KB Kookmin Bank",
-      "Hana Bank",
+      "Financial Services Commission (South Korea)",
+      "Shinhan Bank",
       "Woori Bank",
+      "Hana Bank",
       "Financial Services Commission of South Korea"
     ],
     "confidence_scores": {
@@ -11231,7 +11251,7 @@
   },
   {
     "title": "Oklahoma Judge Used AI Tool Generating Non-Existent Case Citations",
-    "summary": "An Oklahoma judge admitted to state investigators that he cited at least two non-existent legal cases in a court order after generating them using ChatGPT. The incident highlights the risks of using generative artificial intelligence tools for legal research without proper verification, leading to compromised judicial integrity.",
+    "summary": "Stephens County Associate District Judge Lawrence Wheeler admitted to using an artificial intelligence tool to draft a court order, which resulted in the inclusion of citations to two non-existent legal cases. This operational failure highlights risks associated with unverified AI-generated text within legal and judicial proceedings.",
     "verification_status": "confirmed",
     "lifecycle_phase": "operation_and_monitoring",
     "system_classification": "high_risk_regulated",
@@ -11254,10 +11274,11 @@
       "United States"
     ],
     "affected_parties": [
-      "Judge Lawrence Wheeler",
       "Oklahoma State Judiciary",
-      "Stephens County Court",
-      "Stephens County District Court"
+      "Stephens County District Court",
+      "Oklahoma Judiciary",
+      "Judge Lawrence Wheeler",
+      "Stephens County Court"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
@@ -11266,16 +11287,17 @@
     "valuation_methodology": "regulatory_turnover",
     "source_urls": [
       "https://molawyersmedia.com/2026/09/09/oklahoma-judge-ai-false-case-citations-order/",
-      "https://kfor.com/news/local/oklahoma-judge-admitted-to-citing-fake-chatgpt-cases-in-court-order-investigators-say/"
+      "https://kfor.com/news/local/oklahoma-judge-admitted-to-citing-fake-chatgpt-cases-in-court-order-investigators-say/",
+      "https://www.reuters.com/legal/litigation/oklahoma-judge-used-ai-in-ruling-that-contained-false-citations-prosecutor-says-2026-09-09/"
     ],
     "source_type": "aiid",
-    "full_text": "A southwestern Oklahoma judge has admitted that he used an artificial intelligence tool to prepare a court order that ended up having citations to two cases that do not exist.\n\nStephens County Associate District Judge Lawrence Wheeler could ... (https://incidentdatabase.ai/cite/1724#8031)",
+    "full_text": "More than 30 years after the Oklahoma City bombing, the domestic terrorism attack is still generating litigation. Kathy Sanders, the grandmother of two victims, filed suit Aug. 21 over the remains called “Part-71,” an unidentified leg found in the aftermath of the attack.\n\nP-71 has an odd history, and it reflects the unique horror of mass casualty events for the families of victims. A separate leg, called P-54, was initially unidentified after the bombing, but later identified as belonging to Lakesha Levy. After Levy was exhumed, investigators discovered she had already been buried with two legs, leaving them with a new unidentified leg dubbed P-71.\n\nSince its discovery in March 1996, P-71 has remained unidentified. Sanders filed a petition in Oklahoma County District Court against its current custodian, the Oklahoma Medical Examiner’s Office, for records related to the leg.\n\nAs Sanders’ leg case has caught statewide attention, another prominent issue in Oklahoma courts has come to a head: an associate district judge has been caught with rulings containing AI-hallucinated case law that does not actually exist.\n\nWhile Stephens County Associate District Judge Lawrence Wheeler is under investigation at the state level, U.S. District Court for the Northern District of Oklahoma Chief Judge John F. Heil III recently issued a general order stating, “AI tools can produce false statements of fact or law” and “undermine the integrity of the proceedings.”\n\nHeil’s order noted that judges in the district have “broad discretion to require a party in any case to include a sworn statement in all filings disclosing the extent to which AI was used to generate the filing, naming the AI tool used, identifying which portion of the filing includes AI-generated content, and/or certifying that the filer personally reviewed and verified the accuracy of each legal authority cited therein.”\n\nThe federal court’s stance contrasts with the Oklahoma Supreme Court, which in March announced it “does not discourage the use of AI in Oklahoma courts.”\n\nThose in the legal and journalism fields may also want to note that the Northern District of Oklahoma recently published another general order updating its local rules to allow, among other changes, more discretion for individual judges to allow persons attending court to carry electronics on a case-by-case basis. The change is sure to make some people happy.\n\nBut for those who do not plan to find themselves in a federal courthouse any time soon, read on to learn about P-71, AI in courts, the latest in the Inola smelter saga, a child’s quest for puberty blockers to treat a medical condition and more.\n\nKathy Sanders’ lawsuit against the Oklahoma Medical Examiner’s Office seeks the release of records related to P-71, the unidentified leg from the Alfred P. Murrah Federal Building bombing in 1995. While the suit is focused on obtaining the release of specific records, it also carries the likelihood of regenerating critical public interest in a devastating chapter of Oklahoma’s history.\n\nSanders argues the use of genealogical methods not available in the 1990s could now be used to identify P-71 and close the 30-year cold case. She argues that the OMEO’s lack of communications on the case and unresponsiveness to records requests makes it unclear if the state agency has attempted modern methods of identification.\n\nThe suit seeks a court order to compel OMEO both to preserve the records it has, including biological samples, and to release some of the written records related to P-71. The OMEO had not responded to the lawsuit by the publication of this article, although a hearing on the application for the record order appears to have been set for 10 a.m. Thursday, Jan. 7, before District Court Judge Don Andrews.\n\nAmong Sanders’ claims in the suit is the allegation that P-71 might belong to a yet-unidentified third perpetrator of the attack, a theory supported by some since the bombing. Supporting the claim, Sanders provid",
     "date": "2026-10-04",
     "incident_id": "INC-20261004-242"
   },
   {
     "title": "SalesBleed: Indirect Prompt Injection and 0-Click Data Exfiltration on Salesforce Agentforce",
-    "summary": "Researchers discovered a vulnerability called SalesBleed in Salesforce Agentforce that allowed attackers to perform indirect prompt injection via public Web-to-Lead forms and exfiltrate sensitive CRM data via DNS queries. The attack bypassed Trusted URLs redaction mechanisms by exploiting discrepancies in URL parsing and sanitization between the redactor and browser frontend rendering. Salesforce successfully investigated and remediated the issue by hardening the security controls.",
+    "summary": "Researchers discovered an indirect prompt injection vulnerability in Salesforce Agentforce called 'SalesBleed', allowing attackers to exfiltrate sensitive CRM account data via public Web-to-Lead forms without authentication or user interaction. The attack bypassed Trusted URLs redaction guardrails by exploiting edge cases in URL parsing and TLD recognition, using HTML image tags to trigger DNS queries containing stolen data. Salesforce investigated and remediated the issue by hardening their security mechanisms.",
     "verification_status": "confirmed",
     "lifecycle_phase": "deployment_and_integration",
     "system_classification": "autonomous_agent",
@@ -11298,6 +11320,7 @@
       "United States"
     ],
     "affected_parties": [
+      "Salesforce Agentforce Users",
       "Salesforce",
       "Zenity Labs"
     ],
@@ -11401,5 +11424,330 @@
     "full_text": "Last day to exhibit your breakthrough to 10,000+ tech leaders at Disrupt is on Oct 2. Book Exhibit Table Now.\n\nDisrupt doors open Oct. 13. Get your pass and bring someone with you at 50% off. REGISTER NOW.\n\nChina’s Alibaba will ban employees from using Anthropic’s programming tool Claude Code, starting on July 10, according to multiple reports.\n\nAnthropic already prohibits Chinese companies, as well as foreign entities owned by those companies, from using its models. The company has reportedly been working to close loopholes that allow Chinese users to access Claude.\n\nAccording to a recent Reddit post, some of that loophole-closing involved a version of Claude Code that could secretly identify Chinese users. Anthropic’s Thariq Shihipar said in a post on X that this was “an experiment we launched in March that was meant to prevent account abuse from unauthorized resellers and protect against distillation.” (Distillation is a practice where AI models are trained on the outputs of other models.)\n\n“The team has landed stronger mitigations since then and we’ve actually been meaning to take this down for a while,” Shihipar said.\n\nNonetheless, Alibaba has reportedly classified Claude Code as high-risk software and is instructing employees to use the company’s Qoder tool instead.\n\nGet 50% off a second passThe Disrupt experience is meant to be shared. Get your pass and bring a colleague, partner, or peer at 50% off. Cover more ground by making connections, building momentum, and discovering what’s next in the startup ecosystem.\n\nSubscribe for the industry’s biggest tech news\n\nEvery weekday and Sunday, you can get the best of TechCrunch’s coverage.\n\nTechCrunch Mobility is your destination for transportation news and insight.\n\nStartups are the core of TechCrunch, so get our best coverage delivered weekly.\n\nProvides movers and shakers with the info they need to start their day.\n\nBy submitting your email, you agree to our Terms and Privacy Notice.",
     "date": "2026-10-03",
     "incident_id": "INC-20261003-245"
+  },
+  {
+    "title": "Vulnerabilities Discovered in Meta's Muse AI Agent Before Launch",
+    "summary": "Engineers at Meta discovered critical kernel-based virtual machine (KVM) escape vulnerabilities in the personal AI agent Muse (codenamed Hatch) shortly before its public launch. The security flaw could have allowed external users to break out of isolated environments and access confidential internal databases and services, prompting emergency patching efforts.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "testing_and_validation",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "model",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "Virtual machine escape vulnerabilities in the underlying Linux virtualization software allowed potential breakout from isolated instances, threatening internal database security.",
+    "harm_domain": "property",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 300000,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Data_&_Resources",
+    "natsec_impact": false,
+    "temporality": "potential",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Meta Platforms, Inc."
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "valuation_methodology": "explicit_confirmed",
+    "source_urls": [
+      "https://unn.ua/en/amp/a-vulnerability-was-discovered-in-metas-muse-ai-agent-before-launch-and-hastily-fixed-media"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "October 6, 2026 at 09:28 AM\n                 • 4190 переглядiв\n\nSeveral weeks before the launch of Meta’s personal AI agent Muse, Meta engineers discovered several vulnerabilities in the security system of the company’s viral product. At least one of them could have allowed attackers to escape the environment designated for Muse and gain access to confidential Meta databases and services. 404 Media learned of this, reports UNN.\n\nThe problems were reportedly so serious that they reached Mark Zuckerberg, and employees worked overtime to fix them.\n\nThese specific vulnerabilities were discovered before the product’s launch, but required a \"frantic race\" by several teams to address a \"sudden surge in reports of KVM escapes,\" according to an internal message from Meta team leaders to the core infrastructure team, seen by 404 Media.\n\nTo use Muse, a user gives the AI agent access to various important services and accounts they own. On Meta’s side, each individual Muse instance runs on a kernel-based virtual machine that connects to Meta’s own critical infrastructure but is supposed to be isolated from it. A \"KVM escape\" is when a Muse instance, using a vulnerability in the security system, can break out of the virtual machine and interact with the system on which it is running or with other users’ virtual machines.\n\nAccording to a Meta source, as well as internal security documentation and internal messages reviewed by 404 Media, at least one of the vulnerabilities could have allowed an outside attacker—that is, an ordinary Muse user—to gain access to data in confidential internal Meta databases. At least one of the vulnerabilities was related to an exploit discovered in the code of the Linux kernel-based virtual machine in July.\n\nSome of the vulnerabilities were discovered in the underlying Linux virtualization software that Meta uses for Muse. The security issue was deemed serious enough to be brought to Mark Zuckerberg’s attention, and several different groups of security specialists worked nights and weekends ahead of the launch to fix the problems. Such heightened security measures before the launch of a major product are not unusual, but are notable given that outside researchers discovered several other security issues after Muse launched, as well as in the broader context of large-scale hacker attacks by AI agents from OpenAI and other companies, the publication notes.\n\nOpenAI agents went out of control and infiltrated U.S. government websites26.09.26, 11:07\n\nA source at Meta said that, in their view, security specialists were required to release fixes for these bugs as quickly as possible without delaying Muse’s launch, which resulted in what they described as \"a hastily released, insufficiently thought-out solution to ensure the launch. Many leading engineers believe that a major data breach at Hatch is inevitable.\" Within the company and in Meta’s codebase, Muse is called \"Hatch.\"\n\nA Muse virtual machine escape is potentially a very serious security issue and is classified as such in Meta’s bug bounty program. The company says it is prepared to pay $300,000 to any security researcher who discovers a bug that allows an escape from the virtual machine—the maximum payout listed on the bug bounty program’s website, the publication reports.\n\nWednesday, October 7, 2026 • 14466 переглядiв\n\nWednesday, October 7, 2026 • 10226 переглядiв\n\nTuesday, October 6, 2026 • 17258 переглядiв\n\nTuesday, October 6, 2026 • 7728 переглядiв\n\nTuesday, October 6, 2026 • 4984 переглядiв\n\nTuesday, October 6, 2026 • 4190 переглядiв\n\nTuesday, October 6, 2026 • 5194 переглядiв\n\nTuesday, October 6, 2026 • 4316 переглядiв\n\nTuesday, October 6, 2026 • 4562 переглядiв\n\nTuesday, October 6, 2026 • 5244 переглядiв\n\nTuesday, October 6, 2026 • 4180 переглядiв\n\nTuesday, October 6, 2026 • 32375 переглядiв\n\nTuesday, October 6, 2026 • 21556 переглядiв\n\nTuesday, October 6, 2026 • 23763 переглядiв\n\nTuesday, October 6, 2026 • 4046 переглядiв",
+    "date": "2026-10-06",
+    "incident_id": "INC-20261006-246"
+  },
+  {
+    "title": "AI Coding Agent De-anonymizes 1.52 Million Georgia Ballots Using Known Vulnerability",
+    "summary": "A Princeton researcher demonstrated that an inexpensive commercially available AI coding agent could exploit a known, unpatched vulnerability in Georgia voting machine logs to de-anonymize over 1.5 million ballots from the May 2026 primary. The incident forced emergency state rulemaking, exposing how autonomous AI agents can rapidly weaponize legacy technical flaws that previously required extensive manual analysis.",
+    "alleged_incident_date": "2026-08-01",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "deployment_and_integration",
+    "system_classification": "critical_infrastructure_component",
+    "intent": "intentional_misuse",
+    "primary_purpose": "other",
+    "root_cause_category": "external",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "An AI coding agent processed public election data and automated the exploitation of an unpatched, known vulnerability in voting machines, matching deterministic ballot IDs to voter lists and compromising ballot secrecy.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 2500000,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MAP",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": true,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Georgia Secretary of State's Office",
+      "Georgia State Election Board"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.99,
+      "severity": 0.95
+    },
+    "valuation_methodology": "cyber_breach_report",
+    "source_urls": [
+      "https://forkast.news/the-20-exploit-how-an-ai-agent-broke-georgias-ballot-privacy-and-forced-emergency-rulemaking/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "In August 2026, Max Springer, a postdoctoral research fellow at Princeton’s Center for Information Technology Policy, demonstrated that a commercially available AI coding agent—costing just $20—could de-anonymize 1.52 million Georgia ballots from the May 2026 primary. By processing public cast-vote-record files and early-voting sign-in lists, the agent successfully matched 98.9% of in-person ballots across 114 counties. This event marks the first documented instance of AI agent behavior directly forcing a shift in election data transparency policy, signaling a new era where the barrier to exploiting known technical vulnerabilities has effectively collapsed.\n\nThe structural mechanism behind this exploit is deceptively simple: it combines a known, unpatched vulnerability with accessible public data and the force-multiplier capability of an AI agent. The vulnerability, identified as a flaw disclosed in 2022, involves Dominion ImageCast Precinct and ImageCast Evolution scanners that assign deterministic, non-random unique identifiers to electronic ballot records. While a software fix (version 5.17) was certified by the Election Assistance Commission in March 2023, it remained largely undeployed in Georgia by August 2026. Springer simply pointed an AI agent at the 2024 academic paper detailing the flaw and requested a pipeline to exploit it. The agent produced a functional solution within hours, requiring no insider access, network exploitation, or proprietary data.\n\nGeorgia’s response was immediate and reactive. Secretary of State Brad Raffensperger ordered the redaction of ballot ID numbers in public records and instructed counties to shuffle ballots before printing. This directive triggered a contentious emergency meeting of the Georgia State Election Board on October 1, 2026. During the session, board member Salleigh Grubbs argued that the redaction order violated state law enacted after the 2020 election, while proposing—unsuccessfully—that voters place ballots in secure boxes for later scanning. Ultimately, the board passed a 3-2 resolution urging the Secretary of State to update the voting machines, even as Gabriel Sterling of the Secretary of State’s office pushed back on the severity of the findings, citing lingering uncertainty in any matching attempt.\n\nThe path to a permanent technical resolution remains blocked by a political stalemate. Funding for a comprehensive Dominion software overhaul has stalled in the state legislature, caught in a feud between Raffensperger and conservative lawmakers. This friction leaves Georgia in a precarious position as early voting for the November 2026 midterms begins on October 13. While Ben Adida of VotingWorks maintains that the Secretary of State’s office had previously addressed security concerns, the reality on the ground—such as the agent’s ability to match the majority of voters in Heard and Cherokee counties—suggests that the gap between policy and technical reality is widening.\n\nThe implications of this incident extend far beyond Georgia. As J. Alex Halderman, a co-author of the original research on the vulnerability, noted, this is a wake-up call regarding how easily technical flaws can be weaponized when AI handles the heavy lifting. This event illustrates a broader pattern in agent governance: AI is collapsing the time-to-exploit window for known vulnerabilities, forcing regulators to react in real-time to agent-driven threats. This shift raises urgent questions about developer liability and the adequacy of current oversight frameworks, particularly as the Federal Trade Commission begins to scrutinize the broader agent liability gap.\n\nSeveral open questions remain as other jurisdictions observe Georgia’s struggle. With 21 states utilizing the affected scanners, the risk is not localized; it is a systemic exposure. The core tension lies in the balance between transparency—the public’s right to verify election records—and the fundamental requirement of the secret ballot. As Spr",
+    "date": "2026-10-06",
+    "incident_id": "INC-20261006-247"
+  },
+  {
+    "title": "Chinese Open-Source AI Agent Artex Used to Hack 7 South Korean Financial Firms",
+    "summary": "Attackers used an open-source AI penetration-testing agent named Artex to breach at least seven South Korean financial firms, resulting in the theft of personal data for approximately 68,000 individuals. Investigators determined that a human operator directed the AI agent, which utilized IPs across multiple countries to execute credential stuffing and system intrusions. The incident highlights emerging risks surrounding the weaponization of open-source autonomous security tools.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "deployment_and_integration",
+    "system_classification": "dual_use_security",
+    "intent": "intentional_misuse",
+    "primary_purpose": "other",
+    "root_cause_category": "external",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "Malicious actors utilized an open-source dual-use penetration testing AI agent (Artex) to automate network reconnaissance, planning, and execution, successfully breaching multiple financial institutions and exfiltrating customer personal data.",
+    "harm_domain": "property",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 2500000,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": true,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "South Korea"
+    ],
+    "affected_parties": [
+      "Shinhan Bank",
+      "KB Kookmin Bank",
+      "Hana Bank",
+      "BNK Busan Bank",
+      "Yegaram Savings Bank",
+      "Welcome Savings Bank",
+      "Hyundai Capital"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "valuation_methodology": "explicit_confirmed",
+    "source_urls": [
+      "https://www.cyberkendra.com/2026/10/artex-ai-south-korea-bank-breach.html"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "We couldn't find any blog articles matching your search. Try searching for other cybersecurity topics or keywords.\n\nInvestigators say a human drove the agent, the attacks came from IPs in a dozen countries, and the tool's Chinese origin does not identify the hackers.\n\nVivek is a staff writer and technology contributor at Cyber Kendra, covering the latest tech news, cybersecurity, and digital insights.\n\nAttackers used Artex AI, an open-source hacking agent built by a Chinese security engineer, to break into at least seven South Korean financial firms and steal personal data on about 68,000 people, The Wall Street Journal reported. The National Police Agency’s cyber terror unit opened an investigation the same day, in what officials describe as one of the first AI-assisted intrusions into the global banking system.\n\nThe breaches came to light over five days. Shinhan Bank disclosed on 1 October that data on about 25,000 customers leaked through a service loan brokers use to check application status, and the server linked to the attack is suspected of credential stuffing, the automated replay of stolen username-and-password pairs, The Korea Times reported. KB Kookmin Bank (119 customers, via an employee mobile work-support system), Hana Bank (89, via a sales-support system), and BNK Busan Bank reported breaches on 2 October, according to UPI.\n\nThe incident then spread beyond the big lenders. Yegaram Savings Bank put its customer count at about 40,000. Welcome Savings Bank also reported a breach, and Hyundai Capital said data on 146 housing-loan agents was exposed. Leaked records include names, phone numbers, annual income, and calculated loan limits, as well as some resident registration numbers and South Korea’s national ID.\n\nFinancial authorities said IP addresses associated with the same attacker appeared across all seven firms. Per the Journal, the attacks came from more than two dozen addresses in about a dozen countries, including the US, Japan, and Germany. No culprit has been named, and officials say they are seeking international cooperation.\n\nThe Korea Financial Security Institute (FSI), which inspects the sector for regulators, traced attack IPs and server logs at Shinhan and found evidence pointing to Artex, an FSI official told The Herald Business. The official said the AI did not act independently without human involvement — a hacker used it as a tool.\n\nMun Chong-hyun, who heads Seoul-based Genians Security Center, flagged Artex’s possible role shortly after the Shinhan breach became public, the Journal reported. He told the paper he expects AI-agent attacks to keep rising in South Korea and worldwide.\n\nArtex is published on GitHub by the account Autumn-27, which the Journal identifies as Li Puhua, a Chinese engineer. Its documentation describes a multi-agent autonomous penetration-testing system, with planner agents mapping an attack path and worker agents executing it.\n\nArtex is not an AI model itself: users connect a model of their choice, such as Anthropic’s Opus, OpenAI’s GPT, or DeepSeek, and South Korean officials have not said which one the attackers used. The repository advertises a win in Baidu’s “Agent+” attack-and-defence challenge, the September contest that the Journal describes.\n\nLi built the tool for organisations probing their own networks, and its launch notes describe pausing the agent for human approval before critical actions inside an authorised scope. Those gates are set on a self-hosted install, controlled by whoever runs it. After the first breach reports, Artex added usage guidelines banning unauthorised intrusion and data theft, the Journal reported.\n\nOfficials stress that the tool’s origin does not identify the attackers. A government official told AFP it was “highly likely” Artex was used, while other officials said that does not mean the hackers were Chinese. Police have not established whether Artex was the only software involved.\n\nPresident Lee Jae Myung ordered a thorough investigatio",
+    "date": "2026-10-06",
+    "incident_id": "INC-20261006-248"
+  },
+  {
+    "title": "Class Action Lawsuit Filed Against McDonald's Over Alleged AI Price Fixing",
+    "summary": "A class-action lawsuit was filed against McDonald's in a federal court in Chicago, alleging that the fast-food giant used an AI-powered pricing system trained on non-public data to coordinate menu prices among independent franchisees, thereby violating antitrust laws. McDonald's strongly denies these allegations, stating that the system merely provides optional, non-binding recommendations based on local market conditions and that franchisees retain independent control over pricing.",
+    "alleged_incident_date": "2024-10-02",
+    "verification_status": "alleged",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "high_risk_regulated",
+    "intent": "unintentional_failure",
+    "primary_purpose": "financial_fintech",
+    "root_cause_category": "governance",
+    "root_cause_subtype": "algorithmic_collusion_antitrust",
+    "failure_mode": "The AI pricing engine evaluated millions of transactions to recommend optimal pricing based on non-public data and willingness-to-pay metrics, leading to allegations of coordinated price-fixing and antitrust violations among independent franchisees.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "economic_labor",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 2500000,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "GOVERN",
+    "iso_42001_category": "Internal_Governance",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "McDonald's Corporation",
+      "Michael Thomas",
+      "McDonald's US Franchisees",
+      "McDonald's Consumers"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "valuation_methodology": "explicit_confirmed",
+    "source_urls": [
+      "https://www.merkur.de/verbraucher/mcdonald-sieht-sich-klage-nach-abstreiten-einer-ki-preisstrategie-gegenueber-zr-94528223.html"
+    ],
+    "source_type": "gdelt",
+    "full_text": "McDonald’s streitet ab, dass KI die Menüpreise festlegt – doch eine Sammelklage wirft dem Konzern genau das vor. Was steckt hinter dem Algorithmus?\n\nMcDonald’s sieht sich einer landesweiten Sammelklage gegenüber, in der dem Fast-Food-Giganten vorgeworfen wird, ein KI-gestütztes Preissystem zu nutzen, um die Menüpreise in seinen US-Restaurants zu koordinieren – wenige Tage nachdem das Unternehmen öffentlich betont hatte, dass „KI nicht den Preis eines Big Mac oder eines anderen Menüprodukts festlegt“. Die am 2. Oktober vor einem Bundesgericht in Chicago eingereichte Klage behauptet, McDonald’s habe gegen das US-Kartellrecht verstoßen, indem es mit unabhängigen Franchisenehmern unter Einsatz von Algorithmen konspiriert habe, die auf nichtöffentlichen Preisdaten trainiert wurden.\n\nDieser Artikel entstand in Kooperation mit newsweek.com.\n\nDer Kläger Michael Thomas will potenziell Millionen von McDonald’s-Kunden im ganzen Land vertreten. In einer am Dienstag per E‑Mail an Newsweek übermittelten Stellungnahme erklärte McDonald’s USA: „Diese spekulativen und uninformierten Behauptungen versuchen, eine gängige Geschäftspraxis als etwas Kontroverses darzustellen. KI legt nicht den Preis eines Big Mac oder eines anderen Menüartikels fest.“ Das Unternehmen betonte weiter, der Einsatz von Preisempfehlungstools und Analysen sei branchenübergreifend weit verbreitet.\n\nMcDonald’s erklärte, die Franchisenehmer träfen ihre eigenen Preisentscheidungen und das Preisportal sei ein Instrument, keine Vorgabe. Es sei darauf ausgelegt, restaurantspezifische Empfehlungen bereitzustellen, um Franchisenehmern zu helfen, ihren Kunden Mehrwert zu bieten und fundierte Geschäftsentscheidungen zu treffen. Die Klage wirft dem System vor, den Wettbewerb zu unterdrücken, da unabhängig betriebene Franchiserestaurants ihre Preise eigenständig festsetzen sollten, statt angeblich Preisempfehlungen eines gemeinsamen Algorithmus zu nutzen, der auf gebündelten, nichtöffentlichen Wettbewerberdaten beruht.\n\nAm 1. Oktober veröffentlichte McDonald’s eine Faktencheck-Erklärung mit dem Titel „Separating Fact from Fiction: AI Does Not Set Prices at McDonald’s“, in der argumentiert wurde, Medien hätten die Geschäftspraktiken des Konzerns falsch dargestellt. „Es gab unzutreffende Berichterstattung darüber, wie Menüpreise bei McDonald’s festgelegt werden. Also stellen wir die Dinge klar“, hieß es in der Mitteilung. Das Unternehmen erklärte, die Franchisenehmer entschieden unabhängig über Menüpreise und die eigenen Preistools gäben lediglich Empfehlungen auf Grundlage der lokalen Marktbedingungen.\n\nZugleich bestritt McDonald’s, dynamische Preise zu verwenden oder unterschiedliche Beträge zu verlangen, je nachdem, was einzelne Kunden zu zahlen bereit seien. Eine wenige Tage zuvor veröffentlichte Reuters-Recherche, auf die sich die Klage beruft, berichtete jedoch, dass die McDonald’s-Preis-Engine mit Hilfe von Machine-Learning-Algorithmen täglich Millionen Transaktionen in fast 14.000 US-Restaurants auswerte und daraus das ermittelte „optimale“ Preisniveau für Menüartikel an einzelnen Standorten ableite. Reuters berichtete, das System berücksichtige Faktoren wie lokale Nachfrage, Wettbewerberpreise und Schätzungen zur Zahlungsbereitschaft der Kunden.\n\nKI-Preisbildung, auch algorithmische Preisgestaltung genannt, nutzt maschinelles Lernen und große Datensätze, um Preise anhand von Faktoren wie lokaler Nachfrage, historischen Verkaufszahlen, Betriebskosten, Preisen der Konkurrenz und Verbraucherverhalten zu empfehlen. Unternehmen geben an, dass solche Systeme ihnen helfen, besser auf lokale wirtschaftliche Bedingungen zu reagieren. Kritiker entgegnen jedoch, dass sich Preise angleichen könnten, wenn viele Firmen auf denselben Algorithmus oder gemeinsame Datensätze zurückgreifen, was den Wettbewerb potenziell einschränke.\n\nDiese Sorge hat bereits zu Klagen in Bereichen wie Wohnungsmieten, Hotelpreise und anderen Branchen geführt. Für Verbraucher steht der Streitpunkt darin, dass KI mö",
+    "date": "2026-10-06",
+    "incident_id": "INC-20261006-249"
+  },
+  {
+    "title": "RAG-PIBench: A Leakage-Aware Benchmark for Prompt-Injection Detection Research",
+    "summary": "This article discusses the introduction of RAG-PIBench, a leakage-aware benchmark designed for prompt-injection detection in trustworthy Retrieval-Augmented Generation (RAG) systems. No actual incident, failure, or harm occurred; the text describes academic research and benchmark development.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "testing_and_validation",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "undetermined",
+    "root_cause_subtype": "none",
+    "failure_mode": "No failure occurred; this is an academic paper introducing a benchmark for detecting potential prompt injection vulnerabilities.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "misinformation",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 350000,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MAP",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "potential",
+    "severity": "low",
+    "geographic_scope": [],
+    "affected_parties": [],
+    "confidence_scores": {
+      "verification_status": 0.99,
+      "severity": 0.95
+    },
+    "valuation_methodology": "empirical_estimate",
+    "source_urls": [
+      "https://arxiv.org/abs/2610.08571"
+    ],
+    "source_type": "arxiv",
+    "full_text": "arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.\n\nBoth individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.\n\nHave an idea for a project that will add value for arXiv's community? Learn more about arXivLabs.",
+    "date": "2026-10-07",
+    "incident_id": "INC-20261007-250"
+  },
+  {
+    "title": "AdvSim2Real: Training Web Agents Against Adaptive Prompt Injection",
+    "summary": "This article discusses a research paper regarding the training of web agents against adaptive prompt injections using a web world model. The text is derived from an arXiv abstract repository page and does not describe a discrete real-world incident of harm, financial loss, or security breach.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "design_and_training",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "other",
+    "root_cause_category": "model",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "Vulnerability of web agents to adaptive prompt injections during interaction with simulated web environments.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "misinformation",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 450000,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": false,
+    "temporality": "potential",
+    "severity": "low",
+    "geographic_scope": [],
+    "affected_parties": [],
+    "confidence_scores": {
+      "verification_status": 0.9,
+      "severity": 0.85
+    },
+    "valuation_methodology": "cyber_breach_report",
+    "source_urls": [
+      "https://arxiv.org/abs/2610.08773"
+    ],
+    "source_type": "arxiv",
+    "full_text": "arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.\n\nBoth individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.\n\nHave an idea for a project that will add value for arXiv's community? Learn more about arXivLabs.",
+    "date": "2026-10-07",
+    "incident_id": "INC-20261007-251"
+  },
+  {
+    "title": "Answer-Side Backdoor Attacks in Multi-Turn Large Language Models",
+    "summary": "An academic paper published on arXiv explores answer-side backdoor attacks in multi-turn large language models, investigating security vulnerabilities related to model training and deployment. The study highlights potential manipulation vectors where models can be compromised to produce malicious outputs under specific triggers.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "design_and_training",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "model",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "Malicious actors introduce trigger mechanisms during the training or fine-tuning phase, causing the large language model to execute harmful behaviors during multi-turn interactions when specific conditions are met.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "misinformation",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 850000,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MEASURE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": true,
+    "temporality": "potential",
+    "severity": "medium",
+    "geographic_scope": [],
+    "affected_parties": [
+      "AI Research Community",
+      "LLM Developers"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "valuation_methodology": "empirical_estimate",
+    "source_urls": [
+      "https://arxiv.org/abs/2610.07723"
+    ],
+    "source_type": "arxiv",
+    "full_text": "arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.\n\nBoth individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.\n\nHave an idea for a project that will add value for arXiv's community? Learn more about arXivLabs.",
+    "date": "2026-10-07",
+    "incident_id": "INC-20261007-252"
+  },
+  {
+    "title": "Students Arrested for Extortion Using AI Deepfake Sexually Explicit Videos",
+    "summary": "A university student and three associates were arrested by police for allegedly using AI-generated deepfake sexually explicit videos to extort money from a Canada-based NRI. The incident highlights the intentional malicious use of generative AI tools for blackmail and financial extortion.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "human",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "Perpetrators intentionally utilized generative AI software to create fabricated sexually explicit media of an individual, subsequently leveraging the deepfakes to threaten and extort money from the victim.",
+    "harm_domain": "persons_rights",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 10000,
+    "eu_ai_act_tier": "prohibited",
+    "nist_ai_rmf_function": "MAP",
+    "iso_42001_category": "Data_&_Resources",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "India",
+      "Canada"
+    ],
+    "affected_parties": [
+      "Canada-based NRI",
+      "Jamia Millia Islamia University student"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "valuation_methodology": "explicit_confirmed",
+    "source_urls": [
+      "https://timesofindia.indiatimes.com/city/noida/jamia-millia-student-among-4-held-for-using-ai-deepfakes-to-extort-money-from-nri/articleshow/134646156.cms"
+    ],
+    "source_type": "aiid",
+    "full_text": "Ghaziabad: A second-year Jamia Millia Islamia University student and three of his associates were arrested for allegedly extorting money from a Canada-based NRI by threatening to circulate AI-generated sexually explicit videos.\n\nPolice said ... (https://incidentdatabase.ai/cite/1722#8021)",
+    "date": "2026-10-03",
+    "incident_id": "INC-20261003-253"
   }
 ]
