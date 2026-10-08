@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Adaptive dynamic keyword pool learned from validated AI incidents. Automatically maintained with daily decay and TTL.",
-    "last_updated": "2026-10-07",
+    "last_updated": "2026-10-08",
     "decay_rate_daily": 0.05,
     "min_weight_threshold": 0.2,
     "max_ttl_days": 21,
@@ -13,14 +13,22 @@
         "term": "Anthropic",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 11,
+        "hit_count": 13,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-07"
+        "last_hit": "2026-10-08"
+      },
+      {
+        "term": "ElevenLabs",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 3,
+        "first_seen": "2026-10-06",
+        "last_hit": "2026-10-08"
       },
       {
         "term": "Bad actors",
         "type": "incident",
-        "weight": 1.0,
+        "weight": 0.95,
         "hit_count": 3,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-07"
@@ -28,50 +36,42 @@
       {
         "term": "cyber espionage",
         "type": "incident",
-        "weight": 1.0,
+        "weight": 0.95,
         "hit_count": 2,
         "first_seen": "2026-10-06",
         "last_hit": "2026-10-07"
       },
       {
-        "term": "ElevenLabs",
-        "type": "subject",
-        "weight": 1.0,
-        "hit_count": 2,
-        "first_seen": "2026-10-06",
-        "last_hit": "2026-10-07"
-      },
-      {
-        "term": "state-sponsored groups attempted",
+        "term": "Malicious actors successfully",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-07",
-        "last_hit": "2026-10-07"
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
       },
       {
-        "term": "exploit the general",
+        "term": "prompted and utilized",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-07",
-        "last_hit": "2026-10-07"
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
       },
       {
-        "term": "support biological weapons",
+        "term": "generate actionable technical",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-07",
-        "last_hit": "2026-10-07"
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
       },
       {
-        "term": "conventional weapons software",
+        "term": "information and code",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-07",
-        "last_hit": "2026-10-07"
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
       }
     ],
     "autonomous_agents_cyber": [
@@ -79,65 +79,65 @@
         "term": "OpenAI",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 33,
+        "hit_count": 41,
         "first_seen": "2026-10-03",
-        "last_hit": "2026-10-07"
+        "last_hit": "2026-10-08"
       },
       {
         "term": "Waymo",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 15,
+        "hit_count": 18,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-07"
+        "last_hit": "2026-10-08"
       },
       {
         "term": "Anthropic",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 14,
+        "hit_count": 18,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-07"
-      },
-      {
-        "term": "autonomous driving",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 6,
-        "first_seen": "2026-10-05",
-        "last_hit": "2026-10-07"
+        "last_hit": "2026-10-08"
       },
       {
         "term": "Australian Government",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 6,
+        "hit_count": 9,
         "first_seen": "2026-10-06",
-        "last_hit": "2026-10-07"
+        "last_hit": "2026-10-08"
+      },
+      {
+        "term": "autonomous driving",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 7,
+        "first_seen": "2026-10-05",
+        "last_hit": "2026-10-08"
       },
       {
         "term": "Service Australia",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 2,
+        "hit_count": 3,
         "first_seen": "2026-10-07",
-        "last_hit": "2026-10-07"
+        "last_hit": "2026-10-08"
       },
       {
         "term": "performed unauthorized",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 2,
+        "hit_count": 3,
         "first_seen": "2026-10-07",
-        "last_hit": "2026-10-07"
+        "last_hit": "2026-10-08"
       },
       {
-        "term": "actions",
-        "type": "incident",
+        "term": "Hugging Face",
+        "type": "subject",
         "weight": 1.0,
-        "hit_count": 2,
-        "first_seen": "2026-10-07",
-        "last_hit": "2026-10-07"
+        "hit_count": 3,
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
       }
     ],
     "biometrics_police_surveillance": [
@@ -145,72 +145,72 @@
         "term": "law enforcement",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 8,
+        "hit_count": 9,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-07"
-      },
-      {
-        "term": "wrongful arrest",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 7,
-        "first_seen": "2026-10-05",
-        "last_hit": "2026-10-07"
-      },
-      {
-        "term": "City of Fargo",
-        "type": "subject",
-        "weight": 1.0,
-        "hit_count": 4,
-        "first_seen": "2026-10-06",
-        "last_hit": "2026-10-07"
+        "last_hit": "2026-10-08"
       },
       {
         "term": "Anthropic",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 4,
+        "hit_count": 6,
         "first_seen": "2026-10-06",
-        "last_hit": "2026-10-07"
+        "last_hit": "2026-10-08"
+      },
+      {
+        "term": "City of Fargo",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 5,
+        "first_seen": "2026-10-06",
+        "last_hit": "2026-10-08"
       },
       {
         "term": "Persona Identities Inc",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 2,
+        "hit_count": 4,
         "first_seen": "2026-10-07",
-        "last_hit": "2026-10-07"
+        "last_hit": "2026-10-08"
       },
       {
-        "term": "Flock Safety",
-        "type": "subject",
-        "weight": 0.857,
-        "hit_count": 8,
-        "first_seen": "2026-09-17",
-        "last_hit": "2026-10-05"
-      },
-      {
-        "term": "automated license plate",
+        "term": "Anthropic required",
         "type": "incident",
-        "weight": 0.857,
-        "hit_count": 5,
-        "first_seen": "2026-10-05",
-        "last_hit": "2026-10-05"
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
       },
       {
-        "term": "Brandon Upchurch",
-        "type": "subject",
-        "weight": 0.857,
-        "hit_count": 5,
-        "first_seen": "2026-10-05",
-        "last_hit": "2026-10-05"
+        "term": "submit facial scans",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
+      },
+      {
+        "term": "government IDs",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
+      },
+      {
+        "term": "identity verification",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
       }
     ],
     "autonomous_mobility_robotics": [
       {
         "term": "construction zone glitch",
         "type": "incident",
-        "weight": 0.483,
+        "weight": 0.374,
         "hit_count": 2,
         "first_seen": "2026-09-26",
         "last_hit": "2026-10-03"
@@ -218,68 +218,68 @@
     ],
     "multimodal_media_deepfakes": [
       {
-        "term": "xAI",
+        "term": "Tallinn Administrative Court",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 4,
-        "first_seen": "2026-10-06",
-        "last_hit": "2026-10-07"
+        "hit_count": 5,
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
       },
       {
-        "term": "official court order",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 4,
-        "first_seen": "2026-10-06",
-        "last_hit": "2026-10-07"
-      },
-      {
-        "term": "General Public",
-        "type": "subject",
-        "weight": 1.0,
-        "hit_count": 3,
-        "first_seen": "2026-10-06",
-        "last_hit": "2026-10-07"
-      },
-      {
-        "term": "Grok Imagine",
+        "term": "utilized",
         "type": "incident",
         "weight": 1.0,
         "hit_count": 3,
-        "first_seen": "2026-10-06",
-        "last_hit": "2026-10-07"
-      },
-      {
-        "term": "generate non-consensual sexualized",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 3,
-        "first_seen": "2026-10-06",
-        "last_hit": "2026-10-07"
-      },
-      {
-        "term": "State of Minnesota",
-        "type": "subject",
-        "weight": 1.0,
-        "hit_count": 2,
-        "first_seen": "2026-10-07",
-        "last_hit": "2026-10-07"
-      },
-      {
-        "term": "Judge Lawrence Wheeler",
-        "type": "subject",
-        "weight": 1.0,
-        "hit_count": 2,
-        "first_seen": "2026-10-07",
-        "last_hit": "2026-10-07"
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
       },
       {
         "term": "Google",
         "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
+        "weight": 1.0,
+        "hit_count": 2,
         "first_seen": "2026-10-07",
-        "last_hit": "2026-10-07"
+        "last_hit": "2026-10-08"
+      },
+      {
+        "term": "studies",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
+      },
+      {
+        "term": "court",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
+      },
+      {
+        "term": "factual evidence",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
+      },
+      {
+        "term": "judicial penalties",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
+      },
+      {
+        "term": "misleading the court",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
       }
     ],
     "social_chatbots_harm_governance": [
@@ -287,65 +287,65 @@
         "term": "Google",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 4,
+        "hit_count": 5,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-07"
+        "last_hit": "2026-10-08"
       },
       {
         "term": "CharacterAI",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 4,
+        "hit_count": 5,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-07"
+        "last_hit": "2026-10-08"
       },
       {
         "term": "Companion Chatbot Developers",
         "type": "subject",
-        "weight": 0.95,
-        "hit_count": 3,
+        "weight": 1.0,
+        "hit_count": 4,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-06"
+        "last_hit": "2026-10-08"
       },
       {
         "term": "Social Media Platforms",
         "type": "subject",
-        "weight": 0.95,
-        "hit_count": 3,
+        "weight": 1.0,
+        "hit_count": 4,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-06"
+        "last_hit": "2026-10-08"
       },
       {
         "term": "companion chatbots",
         "type": "incident",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 3,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-06"
       },
       {
-        "term": "chatbots engaged",
+        "term": "Unregulated companion chatbots",
         "type": "incident",
-        "weight": 0.857,
-        "hit_count": 2,
-        "first_seen": "2026-10-05",
-        "last_hit": "2026-10-05"
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
       },
       {
-        "term": "sometimes sexualized",
+        "term": "addictive algorithmic",
         "type": "incident",
-        "weight": 0.857,
-        "hit_count": 2,
-        "first_seen": "2026-10-05",
-        "last_hit": "2026-10-05"
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
       },
       {
-        "term": "Unregulated deployment",
+        "term": "social media features",
         "type": "incident",
-        "weight": 0.857,
-        "hit_count": 2,
-        "first_seen": "2026-10-05",
-        "last_hit": "2026-10-05"
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-08"
       }
     ]
   }
