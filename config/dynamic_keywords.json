@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Adaptive dynamic keyword pool learned from validated AI incidents. Automatically maintained with daily decay and TTL.",
-    "last_updated": "2026-10-11",
+    "last_updated": "2026-10-12",
     "decay_rate_daily": 0.05,
     "min_weight_threshold": 0.2,
     "max_ttl_days": 21,
@@ -13,14 +13,22 @@
         "term": "Anthropic",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 17,
+        "hit_count": 19,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-11"
+        "last_hit": "2026-10-12"
+      },
+      {
+        "term": "ElevenLabs",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 5,
+        "first_seen": "2026-10-06",
+        "last_hit": "2026-10-12"
       },
       {
         "term": "general-purpose conversational",
         "type": "incident",
-        "weight": 1.0,
+        "weight": 0.95,
         "hit_count": 4,
         "first_seen": "2026-10-10",
         "last_hit": "2026-10-11"
@@ -28,23 +36,15 @@
       {
         "term": "aggregation",
         "type": "incident",
-        "weight": 1.0,
+        "weight": 0.95,
         "hit_count": 2,
         "first_seen": "2026-10-11",
         "last_hit": "2026-10-11"
       },
       {
-        "term": "ElevenLabs",
-        "type": "subject",
-        "weight": 0.95,
-        "hit_count": 4,
-        "first_seen": "2026-10-06",
-        "last_hit": "2026-10-10"
-      },
-      {
         "term": "Bad actors",
         "type": "incident",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 4,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-10"
@@ -52,26 +52,26 @@
       {
         "term": "Malicious actors successfully",
         "type": "incident",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-10-08",
         "last_hit": "2026-10-10"
       },
       {
-        "term": "Threat actors successfully",
+        "term": "Threat actors deliberately",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-11",
-        "last_hit": "2026-10-11"
+        "first_seen": "2026-10-12",
+        "last_hit": "2026-10-12"
       },
       {
-        "term": "tested safeguards",
+        "term": "bypassed model safeguards",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-11",
-        "last_hit": "2026-10-11"
+        "first_seen": "2026-10-12",
+        "last_hit": "2026-10-12"
       }
     ],
     "autonomous_agents_cyber": [
@@ -79,131 +79,131 @@
         "term": "OpenAI",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 52,
+        "hit_count": 56,
         "first_seen": "2026-10-03",
-        "last_hit": "2026-10-11"
+        "last_hit": "2026-10-12"
       },
       {
         "term": "Anthropic",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 30,
+        "hit_count": 35,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-11"
+        "last_hit": "2026-10-12"
       },
       {
         "term": "Waymo",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 25,
+        "hit_count": 27,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-11"
+        "last_hit": "2026-10-12"
       },
       {
         "term": "Australian Government",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 11,
+        "hit_count": 12,
         "first_seen": "2026-10-06",
-        "last_hit": "2026-10-11"
+        "last_hit": "2026-10-12"
       },
       {
         "term": "autonomous driving",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 11,
+        "hit_count": 12,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-11"
-      },
-      {
-        "term": "Hugging Face",
-        "type": "subject",
-        "weight": 1.0,
-        "hit_count": 6,
-        "first_seen": "2026-10-08",
-        "last_hit": "2026-10-11"
-      },
-      {
-        "term": "software failed",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 4,
-        "first_seen": "2026-10-10",
-        "last_hit": "2026-10-11"
+        "last_hit": "2026-10-12"
       },
       {
         "term": "Philadelphia Police Department",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 4,
+        "hit_count": 8,
         "first_seen": "2026-10-11",
-        "last_hit": "2026-10-11"
+        "last_hit": "2026-10-12"
+      },
+      {
+        "term": "Hugging Face",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 7,
+        "first_seen": "2026-10-08",
+        "last_hit": "2026-10-12"
+      },
+      {
+        "term": "software failed",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 6,
+        "first_seen": "2026-10-10",
+        "last_hit": "2026-10-12"
       }
     ],
     "biometrics_police_surveillance": [
       {
-        "term": "law enforcement",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 12,
-        "first_seen": "2026-10-05",
-        "last_hit": "2026-10-11"
-      },
-      {
         "term": "Anthropic",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 10,
+        "hit_count": 12,
         "first_seen": "2026-10-06",
-        "last_hit": "2026-10-11"
+        "last_hit": "2026-10-12"
       },
       {
         "term": "City of Fargo",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 7,
+        "hit_count": 10,
         "first_seen": "2026-10-06",
-        "last_hit": "2026-10-11"
+        "last_hit": "2026-10-12"
       },
       {
         "term": "Persona Identities Inc",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 6,
+        "hit_count": 8,
         "first_seen": "2026-10-07",
-        "last_hit": "2026-10-11"
+        "last_hit": "2026-10-12"
       },
       {
         "term": "wrongful arrest",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 4,
+        "hit_count": 7,
         "first_seen": "2026-10-10",
-        "last_hit": "2026-10-11"
-      },
-      {
-        "term": "Facial recognition software",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 3,
-        "first_seen": "2026-10-10",
-        "last_hit": "2026-10-11"
-      },
-      {
-        "term": "false positive match",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 3,
-        "first_seen": "2026-10-10",
-        "last_hit": "2026-10-11"
+        "last_hit": "2026-10-12"
       },
       {
         "term": "Anthropic implemented",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 3,
+        "hit_count": 4,
         "first_seen": "2026-10-10",
-        "last_hit": "2026-10-11"
+        "last_hit": "2026-10-12"
+      },
+      {
+        "term": "prolonged detention",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-12",
+        "last_hit": "2026-10-12"
+      },
+      {
+        "term": "innocent person",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-12",
+        "last_hit": "2026-10-12"
+      },
+      {
+        "term": "minority communities",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-12",
+        "last_hit": "2026-10-12"
       }
     ],
     "autonomous_mobility_robotics": [],
@@ -212,65 +212,65 @@
         "term": "Google",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 3,
+        "hit_count": 4,
         "first_seen": "2026-10-07",
-        "last_hit": "2026-10-11"
+        "last_hit": "2026-10-12"
       },
       {
-        "term": "ElevenLabs",
+        "term": "General Public",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-12",
+        "last_hit": "2026-10-12"
+      },
+      {
+        "term": "Voice Technology Providers",
         "type": "subject",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-11",
-        "last_hit": "2026-10-11"
+        "first_seen": "2026-10-12",
+        "last_hit": "2026-10-12"
       },
       {
-        "term": "LOVO",
-        "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-10-11",
-        "last_hit": "2026-10-11"
-      },
-      {
-        "term": "Speechify",
-        "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-10-11",
-        "last_hit": "2026-10-11"
-      },
-      {
-        "term": "VEED",
-        "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-10-11",
-        "last_hit": "2026-10-11"
-      },
-      {
-        "term": "US Consumers",
-        "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-10-11",
-        "last_hit": "2026-10-11"
-      },
-      {
-        "term": "Malicious actors abused",
+        "term": "General-purpose generative audio",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-11",
-        "last_hit": "2026-10-11"
+        "first_seen": "2026-10-12",
+        "last_hit": "2026-10-12"
       },
       {
-        "term": "accessible commercial voice-cloning",
+        "term": "was leveraged",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-11",
-        "last_hit": "2026-10-11"
+        "first_seen": "2026-10-12",
+        "last_hit": "2026-10-12"
+      },
+      {
+        "term": "malicious actors",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-12",
+        "last_hit": "2026-10-12"
+      },
+      {
+        "term": "create widespread deepfake",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-12",
+        "last_hit": "2026-10-12"
+      },
+      {
+        "term": "audio content due",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-12",
+        "last_hit": "2026-10-12"
       }
     ],
     "social_chatbots_harm_governance": [
@@ -278,62 +278,62 @@
         "term": "CharacterAI",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 12,
+        "hit_count": 14,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-11"
-      },
-      {
-        "term": "Google",
-        "type": "subject",
-        "weight": 1.0,
-        "hit_count": 7,
-        "first_seen": "2026-10-05",
-        "last_hit": "2026-10-11"
+        "last_hit": "2026-10-12"
       },
       {
         "term": "encouraging self-harm",
         "type": "incident",
         "weight": 1.0,
+        "hit_count": 7,
+        "first_seen": "2026-10-10",
+        "last_hit": "2026-10-12"
+      },
+      {
+        "term": "Minor",
+        "type": "subject",
+        "weight": 1.0,
         "hit_count": 5,
         "first_seen": "2026-10-10",
+        "last_hit": "2026-10-12"
+      },
+      {
+        "term": "companion generated hostile",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 3,
+        "first_seen": "2026-10-10",
+        "last_hit": "2026-10-12"
+      },
+      {
+        "term": "State of Kentucky",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-12",
+        "last_hit": "2026-10-12"
+      },
+      {
+        "term": "Google",
+        "type": "subject",
+        "weight": 0.95,
+        "hit_count": 7,
+        "first_seen": "2026-10-05",
         "last_hit": "2026-10-11"
       },
       {
         "term": "suicide due",
         "type": "incident",
-        "weight": 1.0,
+        "weight": 0.95,
         "hit_count": 2,
         "first_seen": "2026-10-11",
         "last_hit": "2026-10-11"
       },
       {
-        "term": "Minor",
-        "type": "subject",
-        "weight": 0.95,
-        "hit_count": 4,
-        "first_seen": "2026-10-10",
-        "last_hit": "2026-10-10"
-      },
-      {
         "term": "Kentucky Attorney General",
         "type": "subject",
-        "weight": 0.95,
-        "hit_count": 2,
-        "first_seen": "2026-10-10",
-        "last_hit": "2026-10-10"
-      },
-      {
-        "term": "safety",
-        "type": "incident",
-        "weight": 0.95,
-        "hit_count": 2,
-        "first_seen": "2026-10-10",
-        "last_hit": "2026-10-10"
-      },
-      {
-        "term": "companion generated hostile",
-        "type": "incident",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-10-10",
         "last_hit": "2026-10-10"
