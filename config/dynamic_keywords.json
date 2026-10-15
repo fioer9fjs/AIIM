@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Adaptive dynamic keyword pool learned from validated AI incidents. Automatically maintained with daily decay and TTL.",
-    "last_updated": "2026-10-14",
+    "last_updated": "2026-10-15",
     "decay_rate_daily": 0.05,
     "min_weight_threshold": 0.2,
     "max_ttl_days": 21,
@@ -13,63 +13,63 @@
         "term": "Anthropic",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 25,
+        "hit_count": 28,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-14"
+        "last_hit": "2026-10-15"
       },
       {
         "term": "general-purpose conversational",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 7,
+        "hit_count": 9,
         "first_seen": "2026-10-10",
-        "last_hit": "2026-10-14"
+        "last_hit": "2026-10-15"
       },
       {
         "term": "ElevenLabs",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 6,
+        "hit_count": 7,
         "first_seen": "2026-10-06",
-        "last_hit": "2026-10-14"
-      },
-      {
-        "term": "was deliberately",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 2,
-        "first_seen": "2026-10-14",
-        "last_hit": "2026-10-14"
+        "last_hit": "2026-10-15"
       },
       {
         "term": "OpenAI",
         "type": "subject",
-        "weight": 0.95,
-        "hit_count": 2,
+        "weight": 1.0,
+        "hit_count": 3,
         "first_seen": "2026-10-13",
-        "last_hit": "2026-10-13"
+        "last_hit": "2026-10-15"
       },
       {
         "term": "US Government Websites",
         "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
+        "weight": 1.0,
+        "hit_count": 2,
         "first_seen": "2026-10-14",
-        "last_hit": "2026-10-14"
-      },
-      {
-        "term": "driven",
-        "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-10-14",
-        "last_hit": "2026-10-14"
+        "last_hit": "2026-10-15"
       },
       {
         "term": "reinforcement learning rewards",
         "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-14",
+        "last_hit": "2026-10-15"
+      },
+      {
+        "term": "individual",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-15",
+        "last_hit": "2026-10-15"
+      },
+      {
+        "term": "was deliberately",
+        "type": "incident",
+        "weight": 0.95,
+        "hit_count": 2,
         "first_seen": "2026-10-14",
         "last_hit": "2026-10-14"
       }
@@ -79,65 +79,65 @@
         "term": "OpenAI",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 67,
+        "hit_count": 69,
         "first_seen": "2026-10-03",
-        "last_hit": "2026-10-14"
+        "last_hit": "2026-10-15"
       },
       {
         "term": "Anthropic",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 49,
+        "hit_count": 53,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-14"
+        "last_hit": "2026-10-15"
       },
       {
         "term": "Waymo",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 31,
+        "hit_count": 32,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-14"
+        "last_hit": "2026-10-15"
       },
       {
         "term": "Philadelphia Police Department",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 20,
+        "hit_count": 23,
         "first_seen": "2026-10-11",
-        "last_hit": "2026-10-14"
+        "last_hit": "2026-10-15"
       },
       {
         "term": "autonomous driving",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 15,
+        "hit_count": 16,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-14"
-      },
-      {
-        "term": "Hugging Face",
-        "type": "subject",
-        "weight": 1.0,
-        "hit_count": 13,
-        "first_seen": "2026-10-08",
-        "last_hit": "2026-10-14"
-      },
-      {
-        "term": "software failed",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 8,
-        "first_seen": "2026-10-10",
-        "last_hit": "2026-10-14"
+        "last_hit": "2026-10-15"
       },
       {
         "term": "autonomous",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 2,
+        "hit_count": 3,
         "first_seen": "2026-10-14",
-        "last_hit": "2026-10-14"
+        "last_hit": "2026-10-15"
+      },
+      {
+        "term": "tasked",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-15",
+        "last_hit": "2026-10-15"
+      },
+      {
+        "term": "Federal Trade Commission",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-15",
+        "last_hit": "2026-10-15"
       }
     ],
     "biometrics_police_surveillance": [
@@ -145,72 +145,72 @@
         "term": "Anthropic",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 16,
+        "hit_count": 18,
         "first_seen": "2026-10-06",
-        "last_hit": "2026-10-14"
+        "last_hit": "2026-10-15"
       },
       {
         "term": "City of Fargo",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 14,
+        "hit_count": 15,
         "first_seen": "2026-10-06",
-        "last_hit": "2026-10-14"
+        "last_hit": "2026-10-15"
       },
       {
         "term": "Persona Identities Inc",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 12,
+        "hit_count": 14,
         "first_seen": "2026-10-07",
-        "last_hit": "2026-10-14"
+        "last_hit": "2026-10-15"
       },
       {
         "term": "wrongful arrest",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 12,
+        "hit_count": 14,
         "first_seen": "2026-10-10",
-        "last_hit": "2026-10-14"
+        "last_hit": "2026-10-15"
       },
       {
         "term": "Anthropic implemented",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 7,
+        "hit_count": 8,
         "first_seen": "2026-10-10",
-        "last_hit": "2026-10-14"
+        "last_hit": "2026-10-15"
       },
       {
         "term": "innocent person",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 6,
+        "hit_count": 7,
         "first_seen": "2026-10-12",
-        "last_hit": "2026-10-14"
+        "last_hit": "2026-10-15"
       },
       {
-        "term": "prolonged detention",
+        "term": "Facial recognition",
         "type": "incident",
-        "weight": 0.95,
-        "hit_count": 4,
-        "first_seen": "2026-10-12",
-        "last_hit": "2026-10-13"
-      },
-      {
-        "term": "minority communities",
-        "type": "incident",
-        "weight": 0.857,
+        "weight": 1.0,
         "hit_count": 2,
-        "first_seen": "2026-10-12",
-        "last_hit": "2026-10-12"
+        "first_seen": "2026-10-15",
+        "last_hit": "2026-10-15"
+      },
+      {
+        "term": "Angela Lipps",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-15",
+        "last_hit": "2026-10-15"
       }
     ],
     "autonomous_mobility_robotics": [
       {
         "term": "SUV driver",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-10-13",
         "last_hit": "2026-10-13"
@@ -218,7 +218,7 @@
       {
         "term": "SM7 sedan passengers",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-10-13",
         "last_hit": "2026-10-13"
@@ -226,7 +226,7 @@
       {
         "term": "involved motorists",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-10-13",
         "last_hit": "2026-10-13"
@@ -234,7 +234,7 @@
       {
         "term": "driver relied",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-10-13",
         "last_hit": "2026-10-13"
@@ -242,7 +242,7 @@
       {
         "term": "adaptive cruise control",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-10-13",
         "last_hit": "2026-10-13"
@@ -250,7 +250,7 @@
       {
         "term": "while approaching slowed",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-10-13",
         "last_hit": "2026-10-13"
@@ -258,7 +258,7 @@
       {
         "term": "construction zone",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-10-13",
         "last_hit": "2026-10-13"
@@ -266,7 +266,7 @@
       {
         "term": "maintain manual vigilance",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-10-13",
         "last_hit": "2026-10-13"
@@ -274,9 +274,33 @@
     ],
     "multimodal_media_deepfakes": [
       {
-        "term": "General Public",
+        "term": "Anthropic",
         "type": "subject",
         "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-14",
+        "last_hit": "2026-10-15"
+      },
+      {
+        "term": "Zhipu Zai",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-14",
+        "last_hit": "2026-10-15"
+      },
+      {
+        "term": "distillation techniques",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-14",
+        "last_hit": "2026-10-15"
+      },
+      {
+        "term": "General Public",
+        "type": "subject",
+        "weight": 0.95,
         "hit_count": 6,
         "first_seen": "2026-10-12",
         "last_hit": "2026-10-14"
@@ -284,7 +308,7 @@
       {
         "term": "Google",
         "type": "subject",
-        "weight": 1.0,
+        "weight": 0.95,
         "hit_count": 5,
         "first_seen": "2026-10-07",
         "last_hit": "2026-10-14"
@@ -292,7 +316,7 @@
       {
         "term": "Voice Technology Providers",
         "type": "subject",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-10-12",
         "last_hit": "2026-10-13"
@@ -300,42 +324,18 @@
       {
         "term": "deployment",
         "type": "incident",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-10-13",
         "last_hit": "2026-10-13"
       },
       {
-        "term": "Anthropic",
-        "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-10-14",
-        "last_hit": "2026-10-14"
-      },
-      {
-        "term": "Zhipu Zai",
-        "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-10-14",
-        "last_hit": "2026-10-14"
-      },
-      {
-        "term": "Unauthorized actors leveraged",
+        "term": "article text",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-14",
-        "last_hit": "2026-10-14"
-      },
-      {
-        "term": "distillation techniques",
-        "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-10-14",
-        "last_hit": "2026-10-14"
+        "first_seen": "2026-10-15",
+        "last_hit": "2026-10-15"
       }
     ],
     "social_chatbots_harm_governance": [
@@ -343,38 +343,54 @@
         "term": "CharacterAI",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 18,
+        "hit_count": 19,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-14"
+        "last_hit": "2026-10-15"
       },
       {
-        "term": "State of Kentucky",
+        "term": "Minor",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 5,
-        "first_seen": "2026-10-12",
-        "last_hit": "2026-10-14"
+        "hit_count": 6,
+        "first_seen": "2026-10-10",
+        "last_hit": "2026-10-15"
       },
       {
         "term": "FBI",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 2,
+        "hit_count": 3,
         "first_seen": "2026-10-14",
-        "last_hit": "2026-10-14"
-      },
-      {
-        "term": "vulnerable",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 2,
-        "first_seen": "2026-10-14",
-        "last_hit": "2026-10-14"
+        "last_hit": "2026-10-15"
       },
       {
         "term": "Disney Worldwide Services",
         "type": "subject",
         "weight": 1.0,
+        "hit_count": 3,
+        "first_seen": "2026-10-14",
+        "last_hit": "2026-10-15"
+      },
+      {
+        "term": "OpenAI",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-15",
+        "last_hit": "2026-10-15"
+      },
+      {
+        "term": "State of Kentucky",
+        "type": "subject",
+        "weight": 0.95,
+        "hit_count": 5,
+        "first_seen": "2026-10-12",
+        "last_hit": "2026-10-14"
+      },
+      {
+        "term": "vulnerable",
+        "type": "incident",
+        "weight": 0.95,
         "hit_count": 2,
         "first_seen": "2026-10-14",
         "last_hit": "2026-10-14"
@@ -382,26 +398,10 @@
       {
         "term": "encouraging self-harm",
         "type": "incident",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 8,
         "first_seen": "2026-10-10",
         "last_hit": "2026-10-13"
-      },
-      {
-        "term": "psychological distress",
-        "type": "incident",
-        "weight": 0.95,
-        "hit_count": 2,
-        "first_seen": "2026-10-13",
-        "last_hit": "2026-10-13"
-      },
-      {
-        "term": "Minor",
-        "type": "subject",
-        "weight": 0.857,
-        "hit_count": 5,
-        "first_seen": "2026-10-10",
-        "last_hit": "2026-10-12"
       }
     ]
   }
