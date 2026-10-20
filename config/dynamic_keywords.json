@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Adaptive dynamic keyword pool learned from validated AI incidents. Automatically maintained with daily decay and TTL.",
-    "last_updated": "2026-10-18",
+    "last_updated": "2026-10-20",
     "decay_rate_daily": 0.05,
     "min_weight_threshold": 0.2,
     "max_ttl_days": 21,
@@ -13,30 +13,38 @@
         "term": "Anthropic",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 39,
+        "hit_count": 42,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-18"
-      },
-      {
-        "term": "ElevenLabs",
-        "type": "subject",
-        "weight": 1.0,
-        "hit_count": 9,
-        "first_seen": "2026-10-06",
-        "last_hit": "2026-10-18"
+        "last_hit": "2026-10-20"
       },
       {
         "term": "Amazon",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 4,
+        "hit_count": 5,
         "first_seen": "2026-10-17",
+        "last_hit": "2026-10-20"
+      },
+      {
+        "term": "OpenCode Console",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-20",
+        "last_hit": "2026-10-20"
+      },
+      {
+        "term": "ElevenLabs",
+        "type": "subject",
+        "weight": 0.902,
+        "hit_count": 9,
+        "first_seen": "2026-10-06",
         "last_hit": "2026-10-18"
       },
       {
         "term": "fraud schemes",
         "type": "incident",
-        "weight": 1.0,
+        "weight": 0.902,
         "hit_count": 2,
         "first_seen": "2026-10-18",
         "last_hit": "2026-10-18"
@@ -44,34 +52,26 @@
       {
         "term": "alleged punitive actions",
         "type": "incident",
-        "weight": 1.0,
+        "weight": 0.902,
         "hit_count": 2,
         "first_seen": "2026-10-18",
         "last_hit": "2026-10-18"
       },
       {
-        "term": "General Public",
+        "term": "OpenCode",
         "type": "subject",
-        "weight": 0.95,
-        "hit_count": 2,
-        "first_seen": "2026-10-17",
-        "last_hit": "2026-10-17"
-      },
-      {
-        "term": "External threat actors",
-        "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-18",
-        "last_hit": "2026-10-18"
+        "first_seen": "2026-10-20",
+        "last_hit": "2026-10-20"
       },
       {
-        "term": "Claude",
-        "type": "incident",
+        "term": "OpenAI",
+        "type": "subject",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-18",
-        "last_hit": "2026-10-18"
+        "first_seen": "2026-10-20",
+        "last_hit": "2026-10-20"
       }
     ],
     "autonomous_agents_cyber": [
@@ -79,65 +79,65 @@
         "term": "OpenAI",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 74,
+        "hit_count": 78,
         "first_seen": "2026-10-03",
-        "last_hit": "2026-10-18"
+        "last_hit": "2026-10-20"
       },
       {
         "term": "Anthropic",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 60,
+        "hit_count": 62,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-18"
+        "last_hit": "2026-10-20"
       },
       {
         "term": "Waymo",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 39,
+        "hit_count": 43,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-18"
+        "last_hit": "2026-10-20"
       },
       {
         "term": "Hugging Face",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 3,
+        "hit_count": 5,
         "first_seen": "2026-10-17",
-        "last_hit": "2026-10-18"
-      },
-      {
-        "term": "failed",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 3,
-        "first_seen": "2026-10-18",
-        "last_hit": "2026-10-18"
+        "last_hit": "2026-10-20"
       },
       {
         "term": "autonomous vehicle",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 3,
+        "hit_count": 5,
         "first_seen": "2026-10-18",
-        "last_hit": "2026-10-18"
+        "last_hit": "2026-10-20"
+      },
+      {
+        "term": "failed",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 4,
+        "first_seen": "2026-10-18",
+        "last_hit": "2026-10-20"
       },
       {
         "term": "Korean bank",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 2,
+        "hit_count": 4,
         "first_seen": "2026-10-18",
-        "last_hit": "2026-10-18"
+        "last_hit": "2026-10-20"
       },
       {
         "term": "California Highway Patrol",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 2,
+        "hit_count": 4,
         "first_seen": "2026-10-18",
-        "last_hit": "2026-10-18"
+        "last_hit": "2026-10-20"
       }
     ],
     "biometrics_police_surveillance": [
@@ -145,72 +145,72 @@
         "term": "Anthropic",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 22,
+        "hit_count": 25,
         "first_seen": "2026-10-06",
-        "last_hit": "2026-10-18"
+        "last_hit": "2026-10-20"
       },
       {
         "term": "Persona Identities Inc",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 16,
+        "hit_count": 19,
         "first_seen": "2026-10-07",
-        "last_hit": "2026-10-18"
+        "last_hit": "2026-10-20"
       },
       {
         "term": "Anthropic implemented",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 11,
+        "hit_count": 12,
         "first_seen": "2026-10-10",
-        "last_hit": "2026-10-18"
+        "last_hit": "2026-10-20"
       },
       {
         "term": "Facial recognition",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 5,
+        "hit_count": 6,
         "first_seen": "2026-10-15",
-        "last_hit": "2026-10-18"
+        "last_hit": "2026-10-20"
       },
       {
         "term": "Christopher Gatlin",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 4,
+        "hit_count": 6,
         "first_seen": "2026-10-17",
-        "last_hit": "2026-10-18"
-      },
-      {
-        "term": "sufficient corroborating evidence",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 3,
-        "first_seen": "2026-10-17",
-        "last_hit": "2026-10-18"
-      },
-      {
-        "term": "false positive match",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 2,
-        "first_seen": "2026-10-18",
-        "last_hit": "2026-10-18"
+        "last_hit": "2026-10-20"
       },
       {
         "term": "law enforcement",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 2,
+        "hit_count": 5,
         "first_seen": "2026-10-18",
-        "last_hit": "2026-10-18"
+        "last_hit": "2026-10-20"
+      },
+      {
+        "term": "false positive match",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 4,
+        "first_seen": "2026-10-18",
+        "last_hit": "2026-10-20"
+      },
+      {
+        "term": "wrongful arrest",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 3,
+        "first_seen": "2026-10-20",
+        "last_hit": "2026-10-20"
       }
     ],
     "autonomous_mobility_robotics": [
       {
         "term": "SUV driver",
         "type": "subject",
-        "weight": 0.459,
+        "weight": 0.321,
         "hit_count": 1,
         "first_seen": "2026-10-13",
         "last_hit": "2026-10-13"
@@ -218,7 +218,7 @@
       {
         "term": "SM7 sedan passengers",
         "type": "subject",
-        "weight": 0.459,
+        "weight": 0.321,
         "hit_count": 1,
         "first_seen": "2026-10-13",
         "last_hit": "2026-10-13"
@@ -226,7 +226,7 @@
       {
         "term": "involved motorists",
         "type": "subject",
-        "weight": 0.459,
+        "weight": 0.321,
         "hit_count": 1,
         "first_seen": "2026-10-13",
         "last_hit": "2026-10-13"
@@ -234,7 +234,7 @@
       {
         "term": "driver relied",
         "type": "incident",
-        "weight": 0.459,
+        "weight": 0.321,
         "hit_count": 1,
         "first_seen": "2026-10-13",
         "last_hit": "2026-10-13"
@@ -242,7 +242,7 @@
       {
         "term": "adaptive cruise control",
         "type": "incident",
-        "weight": 0.459,
+        "weight": 0.321,
         "hit_count": 1,
         "first_seen": "2026-10-13",
         "last_hit": "2026-10-13"
@@ -250,7 +250,7 @@
       {
         "term": "while approaching slowed",
         "type": "incident",
-        "weight": 0.459,
+        "weight": 0.321,
         "hit_count": 1,
         "first_seen": "2026-10-13",
         "last_hit": "2026-10-13"
@@ -258,7 +258,7 @@
       {
         "term": "construction zone",
         "type": "incident",
-        "weight": 0.459,
+        "weight": 0.321,
         "hit_count": 1,
         "first_seen": "2026-10-13",
         "last_hit": "2026-10-13"
@@ -266,7 +266,7 @@
       {
         "term": "maintain manual vigilance",
         "type": "incident",
-        "weight": 0.459,
+        "weight": 0.321,
         "hit_count": 1,
         "first_seen": "2026-10-13",
         "last_hit": "2026-10-13"
@@ -277,14 +277,14 @@
         "term": "General Public",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 9,
+        "hit_count": 11,
         "first_seen": "2026-10-12",
-        "last_hit": "2026-10-18"
+        "last_hit": "2026-10-20"
       },
       {
         "term": "Google DeepMind",
         "type": "subject",
-        "weight": 1.0,
+        "weight": 0.902,
         "hit_count": 2,
         "first_seen": "2026-10-17",
         "last_hit": "2026-10-18"
@@ -292,7 +292,7 @@
       {
         "term": "Media Organizations",
         "type": "subject",
-        "weight": 1.0,
+        "weight": 0.902,
         "hit_count": 2,
         "first_seen": "2026-10-17",
         "last_hit": "2026-10-18"
@@ -300,42 +300,42 @@
       {
         "term": "high fidelity",
         "type": "incident",
-        "weight": 1.0,
+        "weight": 0.902,
         "hit_count": 2,
         "first_seen": "2026-10-17",
         "last_hit": "2026-10-18"
       },
       {
-        "term": "Voice Technology Providers",
-        "type": "subject",
-        "weight": 0.95,
-        "hit_count": 3,
-        "first_seen": "2026-10-12",
-        "last_hit": "2026-10-17"
-      },
-      {
-        "term": "generate realistic fabricated",
+        "term": "widespread availability",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-18",
-        "last_hit": "2026-10-18"
+        "first_seen": "2026-10-20",
+        "last_hit": "2026-10-20"
       },
       {
-        "term": "events that never",
+        "term": "powerful generative audio",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-18",
-        "last_hit": "2026-10-18"
+        "first_seen": "2026-10-20",
+        "last_hit": "2026-10-20"
       },
       {
-        "term": "combined with bypassable",
+        "term": "without adequate",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-18",
-        "last_hit": "2026-10-18"
+        "first_seen": "2026-10-20",
+        "last_hit": "2026-10-20"
+      },
+      {
+        "term": "preventative guardrails enabled",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-20",
+        "last_hit": "2026-10-20"
       }
     ],
     "social_chatbots_harm_governance": [
@@ -343,14 +343,30 @@
         "term": "CharacterAI",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 22,
+        "hit_count": 23,
         "first_seen": "2026-10-05",
-        "last_hit": "2026-10-18"
+        "last_hit": "2026-10-20"
+      },
+      {
+        "term": "regulatory scrutiny",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 4,
+        "first_seen": "2026-10-17",
+        "last_hit": "2026-10-20"
+      },
+      {
+        "term": "Walt Disney",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 3,
+        "first_seen": "2026-10-17",
+        "last_hit": "2026-10-20"
       },
       {
         "term": "Minor",
         "type": "subject",
-        "weight": 1.0,
+        "weight": 0.902,
         "hit_count": 7,
         "first_seen": "2026-10-10",
         "last_hit": "2026-10-18"
@@ -358,7 +374,7 @@
       {
         "term": "OpenAI",
         "type": "subject",
-        "weight": 1.0,
+        "weight": 0.902,
         "hit_count": 5,
         "first_seen": "2026-10-15",
         "last_hit": "2026-10-18"
@@ -366,42 +382,26 @@
       {
         "term": "Disney Worldwide Services",
         "type": "subject",
-        "weight": 1.0,
+        "weight": 0.902,
         "hit_count": 4,
         "first_seen": "2026-10-14",
         "last_hit": "2026-10-18"
       },
       {
-        "term": "regulatory scrutiny",
-        "type": "incident",
-        "weight": 1.0,
-        "hit_count": 3,
-        "first_seen": "2026-10-17",
-        "last_hit": "2026-10-18"
-      },
-      {
         "term": "personal data without",
         "type": "incident",
-        "weight": 1.0,
+        "weight": 0.902,
         "hit_count": 2,
         "first_seen": "2026-10-18",
         "last_hit": "2026-10-18"
       },
       {
-        "term": "Walt Disney",
+        "term": "Character Technologies Inc",
         "type": "subject",
-        "weight": 0.95,
-        "hit_count": 2,
-        "first_seen": "2026-10-17",
-        "last_hit": "2026-10-17"
-      },
-      {
-        "term": "chatbots engaged",
-        "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-18",
-        "last_hit": "2026-10-18"
+        "first_seen": "2026-10-20",
+        "last_hit": "2026-10-20"
       }
     ]
   }
