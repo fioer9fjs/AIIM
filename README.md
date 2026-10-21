@@ -33,7 +33,7 @@ A fully automated, zero-maintenance web platform designed to continuously harves
 
 ### 3. Interactive Web Dashboard (`src/`)
 - 🕸️ **Interactive Knowledge Graph**: Built with `vis-network` canvas engine featuring dynamic drag-and-drop physics, node inspection drawers, and dynamic clustering (EU AI Act, Harm Domain, System Type, Severity).
-- 🗺️ **GIS World Map**: Interactive Leaflet map with CartoDB Dark Matter tiles for geographic risk visualization.
+- 🗺️ **GIS World Map**: Interactive Leaflet map with Esri World Dark Gray Canvas tiles for geographic risk visualization.
 - 📋 **Incident Explorer**: Multi-column tabular/grid layout with 2-tier sidebar filters, search, and CSV/JSON data export.
 - 📊 **Analytics & Compliance Dashboard**: Recharts-powered analytics for EU AI Act, NIST AI RMF, and ISO 42001 compliance tracking.
 - 📰 **Daily Briefing**: 1-page executive dashboard summarizing top AI safety events.

@@ -91,7 +91,7 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
     });
   }, [selectedCountry, incidents]);
 
-  // Initialize Leaflet Map instance with CartoDB Dark Matter tile layer
+  // Initialize Leaflet Map instance with Esri World Dark Gray Canvas tile layer (100% Free, Keyless, Dark Theme)
   useEffect(() => {
     if (!mapContainerRef.current) return;
 
@@ -105,11 +105,15 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
         attributionControl: true
       });
 
-      // CartoDB Dark Matter Tile Layer (100% Free, Keyless, HD Dark Theme)
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 19
+      // Esri World Dark Gray Canvas Base (Free, Keyless, Neutral Dark Background)
+      L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+        maxZoom: 16
+      }).addTo(map);
+
+      // Esri World Dark Gray Reference (Labels & Country Boundaries)
+      L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 16
       }).addTo(map);
 
       markersGroupRef.current = L.layerGroup().addTo(map);
@@ -208,10 +212,10 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
       <div className="detail-section" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <h3 style={{ fontSize: '1.1rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Globe size={20} style={{ color: 'var(--accent-cyan)' }} /> Global Geospatial Risk Map (CartoDB Dark Matter)
+            <Globe size={20} style={{ color: 'var(--accent-cyan)' }} /> Global Geospatial Risk Map (Esri Dark Canvas)
           </h3>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-            Real-world OpenStreetMap GIS tiles showing global AI security breaches, regulatory actions, and financial impact.
+            Real-world GIS tiles showing global AI security breaches, regulatory actions, and financial impact.
           </p>
         </div>
 
