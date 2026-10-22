@@ -6,12 +6,14 @@ Following the strict Arrange - Act - Assert (AAA) pattern with mocked HTTP calls
 
 import unittest
 from unittest.mock import patch, MagicMock
+import os
 import json
 import io
 
 from scripts.migrate_json_to_supabase import (
     sync_supabase_records,
     post_to_supabase_table,
+    get_supabase_credentials,
 )
 
 
@@ -83,6 +85,46 @@ class TestSupabaseRecordSync(unittest.TestCase):
         self.assertEqual(called_req.get_full_url(), "https://mock-supabase.co/rest/v1/edges")
         self.assertEqual(called_req.get_header("Apikey"), key)
         self.assertEqual(called_req.get_header("Authorization"), f"Bearer {key}")
+
+    @patch("scripts.migrate_json_to_supabase.load_env_file")
+    def test_get_supabase_credentials_rejects_legacy_jwt_anon_key(self, _):
+        """
+        ARCHITECTURAL INVARIANT 2 & RULE 3:
+        Rejects legacy JWT format keys (e.g., 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...')
+        and mandates modern 'sb_secret_' tokens.
+        """
+        # --- ARRANGE ---
+        env_dict = {
+            "SUPABASE_URL": "https://xyz.supabase.co",
+            "SUPABASE_SECRET_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.legacy_token_sample"
+        }
+
+        with patch.dict(os.environ, env_dict, clear=True):
+            # --- ACT ---
+            url, key = get_supabase_credentials()
+
+            # --- ASSERT ---
+            self.assertEqual(url, "https://xyz.supabase.co")
+            self.assertEqual(key, "", "Legacy JWT keys must be rejected and return an empty key.")
+
+    @patch("scripts.migrate_json_to_supabase.load_env_file")
+    def test_get_supabase_credentials_accepts_valid_modern_key(self, _):
+        """
+        Accepts modern sb_secret_ service credentials.
+        """
+        # --- ARRANGE ---
+        env_dict = {
+            "SUPABASE_URL": "https://xyz.supabase.co",
+            "SUPABASE_SECRET_KEY": "sb_secret_prod_valid_token_789"
+        }
+
+        with patch.dict(os.environ, env_dict, clear=True):
+            # --- ACT ---
+            url, key = get_supabase_credentials()
+
+            # --- ASSERT ---
+            self.assertEqual(url, "https://xyz.supabase.co")
+            self.assertEqual(key, "sb_secret_prod_valid_token_789")
 
 
 if __name__ == "__main__":

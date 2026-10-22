@@ -16,8 +16,10 @@ from scripts.ingest import (
     _load_harvest_keywords,
     fetch_arxiv,
     fetch_aiid_rss,
+    fetch_google_news,
     fetch_google_news_multilane,
     filter_known_candidate_urls,
+    unwrap_google_news_link,
 )
 from scripts.clean_and_enrich_incidents import estimate_financial_damage
 
@@ -358,6 +360,85 @@ class TestArXivResearchGuardrails(unittest.TestCase):
         # --- ASSERT ---
         self.assertEqual(usd, 12_500_000)
         self.assertEqual(methodology, "statutory_formula")
+
+
+class TestIngestionHarvesterInvariants(unittest.TestCase):
+    """
+    Guarantees compliance with Harvester query boundaries, XML entity security, and URL unwrapping.
+    """
+
+    def test_google_news_rss_queries_strictly_under_160_chars(self):
+        """
+        ARCHITECTURAL INVARIANT 1:
+        Search engines (Google News RSS) silently drop results on Boolean queries exceeding 160 characters.
+        Verifies that every generated chunk across all lanes remains <= 160 characters.
+        """
+        kw = _load_harvest_keywords()
+        lanes = kw.get("rss", {}).get("lanes", {})
+        self.assertTrue(len(lanes) > 0, "At least one RSS lane must be configured.")
+
+        for lane_key, lane_cfg in lanes.items():
+            subjects = lane_cfg.get("subjects", [])
+            incidents = lane_cfg.get("incidents", [])
+
+            s_chunks = [subjects[i:i+4] for i in range(0, len(subjects), 4)]
+            i_chunks = [incidents[i:i+4] for i in range(0, len(incidents), 4)]
+
+            for s_c in s_chunks:
+                for i_c in i_chunks:
+                    s_str = " OR ".join(f'"{s}"' for s in s_c)
+                    i_str = " OR ".join(f'"{i}"' for i in i_c)
+                    sub_query = f"({s_str}) AND ({i_str})"
+                    self.assertLessEqual(
+                        len(sub_query),
+                        160,
+                        f"Sub-query in lane '{lane_key}' exceeds 160 chars ({len(sub_query)} chars): '{sub_query}'"
+                    )
+
+    @patch("urllib.request.urlopen")
+    def test_xml_entity_injection_xxe_payload_rejected(self, mock_urlopen):
+        """
+        Guarantees that XML Entity Injection (XXE) payloads with DOCTYPE/ENTITY are discarded
+        prior to parsing, preventing external entity inclusion and SSRF.
+        """
+        # --- ARRANGE ---
+        malicious_xml = b"""<?xml version="1.0"?>
+        <!DOCTYPE data [
+          <!ENTITY xxe SYSTEM "http://169.254.169.254/latest/meta-data/">
+        ]>
+        <rss version="2.0"><channel><title>&xxe;</title></channel></rss>"""
+
+        mock_resp = MagicMock()
+        mock_resp.read.return_value = malicious_xml
+        mock_resp.__enter__.return_value = mock_resp
+        mock_urlopen.return_value = mock_resp
+
+        # --- ACT ---
+        gnews_results = fetch_google_news("test query", max_items=5)
+        aiid_results = fetch_aiid_rss(max_items=5)
+
+        # --- ASSERT ---
+        self.assertEqual(gnews_results, [], "fetch_google_news must reject XML with DOCTYPE/ENTITY payloads.")
+        self.assertEqual(aiid_results, [], "fetch_aiid_rss must reject XML with DOCTYPE/ENTITY payloads.")
+
+    def test_unwrap_google_news_link_returns_original_if_not_google_news(self):
+        # --- ARRANGE ---
+        direct_url = "https://www.reuters.com/technology/ai-investigation-2026"
+
+        # --- ACT ---
+        unwrapped = unwrap_google_news_link(direct_url)
+
+        # --- ASSERT ---
+        self.assertEqual(unwrapped, direct_url)
+
+    def test_unwrap_google_news_link_graceful_fallback_on_decoder_exception(self):
+        wrapped_url = "https://news.google.com/rss/articles/CBMiMWh0dHBzOi8vd3d3LmJlcmxpbjI0LmRlL25ld3MvcHJvdGVzdC1haS1kcm9uZXMuaHRtbNIBAA?oc=5"
+        mock_decoder = MagicMock()
+        mock_decoder.new_decoderv1.side_effect = RuntimeError("Decoder crash")
+
+        with patch.dict("sys.modules", {"googlenewsdecoder": mock_decoder}):
+            result = unwrap_google_news_link(wrapped_url)
+            self.assertEqual(result, wrapped_url, "Must gracefully fallback to wrapped URL if decoder raises an exception.")
 
 
 if __name__ == "__main__":

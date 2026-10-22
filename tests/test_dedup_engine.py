@@ -5,6 +5,8 @@ Following the strict Arrange - Act - Assert (AAA) pattern.
 """
 
 import unittest
+import json
+from unittest.mock import patch, MagicMock
 from scripts.dedup_engine import (
     UnionFind,
     normalize_url,
@@ -19,6 +21,9 @@ from scripts.dedup_engine import (
     cosine_similarity_vectors,
     compute_candidate_pairs_tfidf,
     consolidate_new_against_existing,
+    consolidate_dataset_hybrid,
+    verify_candidate_pair_llm,
+    extract_distinct_entity_tokens,
 )
 
 
@@ -604,6 +609,150 @@ class TestIncrementalConsolidation(unittest.TestCase):
         self.assertEqual(len(result), 2)
         self.assertEqual(result[0]["incident_id"], "INC-20260924-001")
         self.assertEqual(result[1]["incident_id"], "INC-20260925-002")
+
+
+class TestLLMVerificationAndEventChain(unittest.TestCase):
+    """
+    Unit Tests for Stage 4 LLM-assisted verification and temporal milestone extraction.
+    """
+
+    def test_verify_candidate_pair_llm_aborts_cleanly_without_api_key(self):
+        # --- ARRANGE ---
+        inc1 = {"title": "Incident A", "summary": "Summary A"}
+        inc2 = {"title": "Incident B", "summary": "Summary B"}
+
+        # --- ACT ---
+        is_same, conf, reason, milestone = verify_candidate_pair_llm(inc1, inc2, api_key="")
+
+        # --- ASSERT ---
+        self.assertFalse(is_same)
+        self.assertEqual(conf, 0.0)
+        self.assertEqual(reason, "No API key")
+        self.assertEqual(milestone.get("evolution_type"), "redundant_copy")
+
+    @patch("scripts.dedup_engine.genai.Client")
+    def test_verify_candidate_pair_llm_parses_valid_evolution_json(self, mock_client_cls):
+        # --- ARRANGE ---
+        inc1 = {"title": "Autonomous Shuttle Collision in Munich", "date": "2026-09-01", "summary": "Preliminary collision report."}
+        inc2 = {"title": "Munich Autonomous Shuttle Crash Investigation Update", "date": "2026-09-10", "summary": "Findings reveal sensor blind spot."}
+
+        mock_response = MagicMock()
+        mock_response.text = json.dumps({
+            "is_same_incident": True,
+            "confidence": 0.94,
+            "evolution_type": "investigation_update",
+            "milestone_phase": "investigation",
+            "summary_delta": "Investigators confirm sensor blindspot caused collision.",
+            "reasoning": "Both describe the exact same shuttle incident in Munich with follow-up findings."
+        })
+        mock_client = MagicMock()
+        mock_client.models.generate_content.return_value = mock_response
+        mock_client_cls.return_value = mock_client
+
+        # --- ACT ---
+        is_same, conf, reason, milestone = verify_candidate_pair_llm(inc1, inc2, api_key="sb_secret_test_key")
+
+        # --- ASSERT ---
+        self.assertTrue(is_same)
+        self.assertAlmostEqual(conf, 0.94)
+        self.assertEqual(milestone.get("evolution_type"), "investigation_update")
+        self.assertEqual(milestone.get("milestone_phase"), "investigation")
+        self.assertIn("sensor blindspot", milestone.get("summary_delta", ""))
+
+    @patch("scripts.dedup_engine.genai.Client")
+    def test_verify_candidate_pair_llm_handles_markdown_wrapped_json(self, mock_client_cls):
+        # --- ARRANGE ---
+        inc1 = {"title": "AI Deepfake CEO Wire Fraud in Hong Kong", "date": "2026-08-01"}
+        inc2 = {"title": "Hong Kong Police Arrest Perpetrators of AI Video Call Scam", "date": "2026-08-15"}
+
+        mock_response = MagicMock()
+        mock_response.text = "```json\n" + json.dumps({
+            "is_same_incident": True,
+            "confidence": 0.91,
+            "evolution_type": "legal_or_regulatory_action",
+            "milestone_phase": "resolution",
+            "summary_delta": "Arrests made following the wire fraud investigation.",
+            "reasoning": "Follow-up enforcement action regarding the same deepfake scam."
+        }) + "\n```"
+        mock_client = MagicMock()
+        mock_client.models.generate_content.return_value = mock_response
+        mock_client_cls.return_value = mock_client
+
+        # --- ACT ---
+        is_same, conf, reason, milestone = verify_candidate_pair_llm(inc1, inc2, api_key="mock_key")
+
+        # --- ASSERT ---
+        self.assertTrue(is_same)
+        self.assertAlmostEqual(conf, 0.91)
+        self.assertEqual(milestone.get("milestone_phase"), "resolution")
+
+
+class TestHybridConsolidationAndCollisionShield(unittest.TestCase):
+    """
+    Unit Tests for dataset-level clustering and false-positive prevention.
+    """
+
+    def test_distinct_entity_tokens_block_accidental_merge(self):
+        # --- ARRANGE ---
+        # Two reports with high lexical similarity but completely different entities
+        parties1 = {"Waymo LLC", "Alphabet"}
+        parties2 = {"Cruise LLC", "General Motors"}
+
+        # --- ACT ---
+        tokens1 = extract_distinct_entity_tokens(parties1)
+        tokens2 = extract_distinct_entity_tokens(parties2)
+
+        # --- ASSERT ---
+        self.assertIn("waymo", tokens1)
+        self.assertIn("alphabet", tokens1)
+        self.assertIn("cruise", tokens2)
+        # Verify that these entities are strictly mutually exclusive
+        self.assertEqual(len(tokens1.intersection(tokens2)), 0)
+
+        # Verify through compute_entity_and_temporal_boost that shared entities is empty
+        inc1 = {"title": "Autonomous Shuttle Crash", "affected_parties": list(parties1), "date": "2026-09-01"}
+        inc2 = {"title": "Autonomous Shuttle Crash", "affected_parties": list(parties2), "date": "2026-09-01"}
+        _, shared = compute_entity_and_temporal_boost(inc1, inc2)
+        self.assertEqual(shared, set(), "Mutually exclusive entity tokens must not yield shared entities.")
+
+    def test_consolidate_dataset_hybrid_transitive_clustering(self):
+        # --- ARRANGE ---
+        # 3 related duplicate records across multiple dates
+        incidents = [
+            {
+                "incident_id": "INC-20260901-001",
+                "title": "Autonomous Drone Navigation Malfunction Causes Facility Collision",
+                "date": "2026-09-01",
+                "summary": "Initial report of drone collision.",
+                "source_urls": ["https://news.example.com/drone-crash-day1"]
+            },
+            {
+                "incident_id": "INC-20260905-002",
+                "title": "Autonomous Drone Navigation Malfunction Causes Facility Collision",
+                "date": "2026-09-05",
+                "summary": "Follow-up investigation report.",
+                "source_urls": ["https://news.example.com/drone-crash-investigation"]
+            },
+            {
+                "incident_id": "INC-20260910-003",
+                "title": "Autonomous Drone Navigation Malfunction Causes Facility Collision",
+                "date": "2026-09-10",
+                "summary": "Regulatory settlement and conclusion.",
+                "source_urls": ["https://news.example.com/drone-crash-conclusion"]
+            }
+        ]
+
+        # --- ACT ---
+        consolidated = consolidate_dataset_hybrid(incidents, api_key="")
+
+        # --- ASSERT ---
+        self.assertEqual(len(consolidated), 1, "All 3 reports must be consolidated into a single canonical incident.")
+        canonical = consolidated[0]
+        self.assertEqual(canonical["incident_id"], "INC-20260901-001", "Earliest incident ID must be preserved.")
+        self.assertEqual(canonical["date"], "2026-09-01", "Earliest date must be preserved.")
+        self.assertEqual(len(canonical["source_urls"]), 3, "All unique source URLs must be preserved.")
+        self.assertIn("timeline", canonical)
+        self.assertEqual(len(canonical["timeline"]), 3, "Timeline must capture all 3 historical milestones.")
 
 
 if __name__ == "__main__":

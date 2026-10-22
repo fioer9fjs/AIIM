@@ -90,7 +90,7 @@ def assign_compliance_frameworks(inc: Dict[str, Any]):
     harm_type = (inc.get("harm_type") or "").lower()
     purpose = (inc.get("primary_purpose") or "").lower()
     
-    if "governance" in rc or "policy" in summary or "legal" in summary or "court" in title or "fcc" in title or "sec" in title:
+    if "governance" in rc or "policy" in summary or "legal" in summary or "court" in title or bool(re.search(r'\b(fcc|sec)\b', title)):
         nist = "GOVERN"
     elif "cyber" in summary or "hack" in summary or "agent" in sys_cls or "autonomous" in sys_cls or "breach" in summary:
         nist = "MANAGE"
