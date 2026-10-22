@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Header, ViewType } from './components/Header';
 import { ExplorerView } from './components/ExplorerView';
-import { GraphView } from './components/GraphView';
 import { GeoMapView } from './components/GeoMapView';
 import { AnalyticsView } from './components/AnalyticsView';
 import { DailyBriefingView } from './components/DailyBriefingView';
@@ -130,9 +129,6 @@ export const App: React.FC = () => {
             papers={researchPapers}
             onSelectPaper={setSelectedIncident}
           />
-        )}
-        {currentView === 'graph' && (
-          <GraphView incidents={operationalIncidents} edges={edges} onSelectIncident={setSelectedIncident} />
         )}
         {currentView === 'map' && (
           <GeoMapView incidents={operationalIncidents} onSelectIncident={setSelectedIncident} />

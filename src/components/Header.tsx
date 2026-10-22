@@ -1,8 +1,8 @@
 import React from 'react';
-import { ShieldAlert, Network, Table, BarChart3, Globe, FileText, Info, FlaskConical } from 'lucide-react';
+import { ShieldAlert, Table, BarChart3, Globe, FileText, Info, FlaskConical } from 'lucide-react';
 import { DateRangeSlider } from './DateRangeSlider';
 
-export type ViewType = 'explorer' | 'graph' | 'map' | 'analytics' | 'briefing' | 'about' | 'research';
+export type ViewType = 'explorer' | 'map' | 'analytics' | 'briefing' | 'about' | 'research';
 
 interface HeaderProps {
   currentView: ViewType;
@@ -69,12 +69,6 @@ export const Header: React.FC<HeaderProps> = ({
           style={currentView === 'research' ? { borderColor: 'var(--accent-purple)' } : {}}
         >
           <FlaskConical size={16} /> Research Lab ({researchCount})
-        </button>
-        <button
-          className={`tab-button ${currentView === 'graph' ? 'active' : ''}`}
-          onClick={() => onViewChange('graph')}
-        >
-          <Network size={16} /> Knowledge Graph
         </button>
         <button
           className={`tab-button ${currentView === 'map' ? 'active' : ''}`}
