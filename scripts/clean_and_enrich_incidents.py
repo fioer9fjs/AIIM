@@ -143,6 +143,10 @@ def assign_impact_scope(inc: Dict[str, Any]):
 
 def estimate_financial_damage(inc: Dict[str, Any]) -> Tuple[int, str]:
     """Calculates conservative, lower-bound empirical financial damage in USD and returns (usd, methodology)."""
+    # ArXiv preprints & academic benchmarks represent research studies, not real-world financial damage
+    if inc.get("source_type") == "arxiv":
+        return 0, "theoretical_academic"
+
     text_corpus = f"{inc.get('title', '')} {inc.get('summary', '')} {inc.get('full_text', '')}".lower()
     severity = inc.get("severity", "medium").lower()
 

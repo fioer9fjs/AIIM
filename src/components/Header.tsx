@@ -1,13 +1,14 @@
 import React from 'react';
-import { ShieldAlert, Network, Table, BarChart3, Globe, FileText, Info } from 'lucide-react';
+import { ShieldAlert, Network, Table, BarChart3, Globe, FileText, Info, FlaskConical } from 'lucide-react';
 import { DateRangeSlider } from './DateRangeSlider';
 
-export type ViewType = 'explorer' | 'graph' | 'map' | 'analytics' | 'briefing' | 'about';
+export type ViewType = 'explorer' | 'graph' | 'map' | 'analytics' | 'briefing' | 'about' | 'research';
 
 interface HeaderProps {
   currentView: ViewType;
   onViewChange: (view: ViewType) => void;
-  incidentCount: number;
+  operationalCount: number;
+  researchCount: number;
   availableDates: string[];
   selectedRange: [string, string];
   onRangeChange: (range: [string, string]) => void;
@@ -16,7 +17,8 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({
   currentView,
   onViewChange,
-  incidentCount,
+  operationalCount,
+  researchCount,
   availableDates,
   selectedRange,
   onRangeChange
@@ -35,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div>
             <h1 className="logo-title">Global AI Incident Monitor</h1>
             <span style={{ fontSize: '0.725rem', color: 'var(--text-dim)', display: 'block', lineHeight: 1.2 }}>
-              Multi-Source Intelligence • {incidentCount} Records
+              {operationalCount} Incidents • {researchCount} Research Papers
             </span>
           </div>
         </div>
@@ -59,7 +61,14 @@ export const Header: React.FC<HeaderProps> = ({
           className={`tab-button ${currentView === 'explorer' ? 'active' : ''}`}
           onClick={() => onViewChange('explorer')}
         >
-          <Table size={16} /> Explorer & Feed
+          <Table size={16} /> Incident Feed ({operationalCount})
+        </button>
+        <button
+          className={`tab-button ${currentView === 'research' ? 'active' : ''}`}
+          onClick={() => onViewChange('research')}
+          style={currentView === 'research' ? { borderColor: 'var(--accent-purple)' } : {}}
+        >
+          <FlaskConical size={16} /> Research Lab ({researchCount})
         </button>
         <button
           className={`tab-button ${currentView === 'graph' ? 'active' : ''}`}

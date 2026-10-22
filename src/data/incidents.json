@@ -145,10 +145,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "benchmark evaluation",
       "root_cause_category": "model",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -162,7 +162,9 @@
     "related_incidents": [],
     "created_at": "2026-10-21T07:12:28.959367+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261021-345",
@@ -186,10 +188,10 @@
       "primary_purpose": "healthcare_medical",
       "root_cause_subtype": "undetermined",
       "root_cause_category": "undetermined",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -203,7 +205,9 @@
     "related_incidents": [],
     "created_at": "2026-10-21T07:12:28.959367+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261021-346",
@@ -227,10 +231,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "cyber_breach_report"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -249,7 +253,9 @@
     "related_incidents": [],
     "created_at": "2026-10-21T07:12:28.959367+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261021-347",
@@ -273,10 +279,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "none",
       "root_cause_category": "governance",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "cyber_breach_report"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -292,7 +298,9 @@
     "related_incidents": [],
     "created_at": "2026-10-21T07:12:28.959367+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261021-348",
@@ -316,10 +324,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "undetermined",
       "root_cause_category": "undetermined",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "cyber_breach_report"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -335,7 +343,9 @@
     "related_incidents": [],
     "created_at": "2026-10-21T07:12:28.959367+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261021-349",
@@ -359,10 +369,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "generalization_failure",
       "root_cause_category": "model",
-      "financial_damage_usd": 850000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "critical_infrastructure_component",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -378,7 +388,9 @@
     "related_incidents": [],
     "created_at": "2026-10-21T07:12:28.959367+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 850000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261021-357",
@@ -678,7 +690,7 @@
       "harm_type": "misinformation",
       "harm_domain": "systemic_integrity",
       "source_type": "arxiv",
-      "temporality": "actual",
+      "temporality": "potential",
       "failure_mode": "Adversarial information injection via fake news bypasses model robustness, causing erroneous financial decision-making and potential market instability.",
       "impact_scope": "cumulative_macro_trend",
       "natsec_impact": false,
@@ -687,10 +699,10 @@
       "primary_purpose": "financial_fintech",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "data",
-      "financial_damage_usd": 2500000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "autonomous_agent",
-      "valuation_methodology": "explicit_confirmed"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.7,
@@ -709,7 +721,9 @@
     "related_incidents": [],
     "created_at": "2026-10-20T07:10:37.794267+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261020-340",
@@ -1478,10 +1492,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "cyber_breach_report"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1499,7 +1513,9 @@
     "related_incidents": [],
     "created_at": "2026-10-17T06:41:34.951825+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261017-317",
@@ -1523,10 +1539,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "inadequate_safety_guardrails",
       "root_cause_category": "model",
-      "financial_damage_usd": 2500000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -1546,7 +1562,9 @@
     "related_incidents": [],
     "created_at": "2026-10-17T06:41:34.951825+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261017-318",
@@ -1570,10 +1588,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -1591,7 +1609,9 @@
     "related_incidents": [],
     "created_at": "2026-10-17T06:41:34.951825+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261017-319",
@@ -1606,7 +1626,7 @@
       "harm_type": "discrimination_bias",
       "harm_domain": "persons_rights",
       "source_type": "arxiv",
-      "temporality": "latent",
+      "temporality": "potential",
       "failure_mode": "Large language models exhibit systematic name-based biases due to biased training data or representations, leading to skewed or discriminatory outputs.",
       "impact_scope": "discrete_incident",
       "natsec_impact": false,
@@ -1615,10 +1635,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "bias",
       "root_cause_category": "data",
-      "financial_damage_usd": 280000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "regulatory_turnover"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -1634,7 +1654,9 @@
     "related_incidents": [],
     "created_at": "2026-10-17T06:41:34.951825+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 280000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261017-320",
@@ -1658,10 +1680,10 @@
       "primary_purpose": "defense_national_security",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "external",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "dual_use_security",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -1677,7 +1699,9 @@
     "related_incidents": [],
     "created_at": "2026-10-17T06:41:34.951825+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261017-327",
@@ -3437,10 +3461,10 @@
       "primary_purpose": "defense_national_security",
       "root_cause_subtype": "dual_use_capability",
       "root_cause_category": "governance",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "dual_use_security",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -3458,7 +3482,9 @@
     "related_incidents": [],
     "created_at": "2026-10-11T08:27:15.401263+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261011-281",
@@ -3482,10 +3508,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "none",
       "root_cause_category": "undetermined",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 1.0,
@@ -3503,7 +3529,9 @@
     "related_incidents": [],
     "created_at": "2026-10-11T08:27:15.401263+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261010-268",
@@ -3582,10 +3610,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "undetermined",
       "root_cause_category": "undetermined",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "unclassified",
-      "valuation_methodology": "cyber_breach_report"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.99,
@@ -3603,7 +3631,9 @@
     "related_incidents": [],
     "created_at": "2026-10-10T08:20:07.756447+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261010-270",
@@ -3627,10 +3657,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "undetermined",
       "root_cause_category": "undetermined",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "unclassified",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 1.0,
@@ -3646,7 +3676,9 @@
     "related_incidents": [],
     "created_at": "2026-10-10T08:20:07.756447+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261010-271",
@@ -3670,10 +3702,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "undetermined",
       "root_cause_category": "undetermined",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "unclassified",
-      "valuation_methodology": "cyber_breach_report"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 1.0,
@@ -3687,7 +3719,9 @@
     "related_incidents": [],
     "created_at": "2026-10-10T08:20:07.756447+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261010-284",
@@ -4398,7 +4432,7 @@
       "harm_type": "economic_labor",
       "harm_domain": "systemic_integrity",
       "source_type": "arxiv",
-      "temporality": "actual",
+      "temporality": "potential",
       "failure_mode": "Language model agents encounter failures while utilizing external tools, which can manifest as either explicit errors or silent failures leading to incorrect task execution.",
       "impact_scope": "cumulative_macro_trend",
       "natsec_impact": false,
@@ -4407,10 +4441,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "error_propagation",
       "root_cause_category": "model",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "autonomous_agent",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -4427,7 +4461,9 @@
     "related_incidents": [],
     "created_at": "2026-10-08T08:30:24.180771+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261008-258",
@@ -4451,10 +4487,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -4470,7 +4506,9 @@
     "related_incidents": [],
     "created_at": "2026-10-08T08:30:24.180771+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261008-259",
@@ -4494,10 +4532,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "bias",
       "root_cause_category": "model",
-      "financial_damage_usd": 280000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "regulatory_turnover"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -4513,7 +4551,9 @@
     "related_incidents": [],
     "created_at": "2026-10-08T08:30:24.180771+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 280000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261008-267",
@@ -4588,10 +4628,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "none",
       "root_cause_category": "undetermined",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -4605,7 +4645,9 @@
     "related_incidents": [],
     "created_at": "2026-10-07T08:19:15.49372+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261007-251",
@@ -4629,10 +4671,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "autonomous_agent",
-      "valuation_methodology": "cyber_breach_report"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -4646,7 +4688,9 @@
     "related_incidents": [],
     "created_at": "2026-10-07T08:19:15.49372+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261007-252",
@@ -4670,10 +4714,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 850000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -4690,7 +4734,9 @@
     "related_incidents": [],
     "created_at": "2026-10-07T08:19:15.49372+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 850000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261007-255",
@@ -5132,7 +5178,7 @@
       "harm_type": "undetermined",
       "harm_domain": "systemic_integrity",
       "source_type": "arxiv",
-      "temporality": "actual",
+      "temporality": "potential",
       "failure_mode": "Autonomous LLM agents engaged in collusive behavior during a wiki-related interaction, as identified through statistical quantification.",
       "impact_scope": "discrete_incident",
       "natsec_impact": false,
@@ -5141,10 +5187,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "emergent behavior",
       "root_cause_category": "model",
-      "financial_damage_usd": 850000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "autonomous_agent",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.5,
@@ -5162,7 +5208,9 @@
     "related_incidents": [],
     "created_at": "2026-10-06T08:31:43.377934+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 850000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261006-246",
@@ -5330,10 +5378,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "cyber_breach_report"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -5351,7 +5399,9 @@
     "related_incidents": [],
     "created_at": "2026-10-05T07:01:01.216077+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261005-232",
@@ -5375,10 +5425,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "none",
       "root_cause_category": "undetermined",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "autonomous_agent",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 1.0,
@@ -5394,7 +5444,9 @@
     "related_incidents": [],
     "created_at": "2026-10-05T07:01:01.216077+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261005-237",
@@ -5515,10 +5567,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "none",
       "root_cause_category": "undetermined",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "unclassified",
-      "valuation_methodology": "cyber_breach_report"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 1.0,
@@ -5532,7 +5584,9 @@
     "related_incidents": [],
     "created_at": "2026-10-04T07:58:42.009677+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261004-242",
@@ -5607,10 +5661,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "undetermined",
       "root_cause_category": "undetermined",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "unclassified",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.99,
@@ -5624,7 +5678,9 @@
     "related_incidents": [],
     "created_at": "2026-10-03T13:03:47.694382+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261003-228",
@@ -5648,10 +5704,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "undetermined",
       "root_cause_category": "undetermined",
-      "financial_damage_usd": 500000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "unclassified",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -5671,7 +5727,9 @@
     "related_incidents": [],
     "created_at": "2026-10-03T13:03:47.694382+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 500000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20261003-229",
@@ -6368,10 +6426,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "external",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "autonomous_agent",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -6389,7 +6447,9 @@
     "related_incidents": [],
     "created_at": "2026-09-30T07:58:13.673768+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260930-203",
@@ -6698,10 +6758,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "undetermined",
       "root_cause_category": "undetermined",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "dual_use_security",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -6717,7 +6777,9 @@
     "related_incidents": [],
     "created_at": "2026-09-30T07:58:13.673768+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260930-199",
@@ -6732,7 +6794,7 @@
       "harm_type": "discrimination_bias",
       "harm_domain": "persons_rights",
       "source_type": "arxiv",
-      "temporality": "actual",
+      "temporality": "potential",
       "failure_mode": "Audio language models exhibit demographic biases when processing human speech, exposing systemic fairness issues.",
       "impact_scope": "discrete_incident",
       "natsec_impact": false,
@@ -6741,10 +6803,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "bias",
       "root_cause_category": "model",
-      "financial_damage_usd": 280000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "regulatory_turnover"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -6763,7 +6825,9 @@
     "related_incidents": [],
     "created_at": "2026-09-30T07:58:13.673768+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 280000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260930-206",
@@ -7095,10 +7159,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -7116,7 +7180,9 @@
     "related_incidents": [],
     "created_at": "2026-09-29T08:05:28.963536+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260929-195",
@@ -7131,7 +7197,7 @@
       "harm_type": "discrimination_bias",
       "harm_domain": "systemic_integrity",
       "source_type": "arxiv",
-      "temporality": "latent",
+      "temporality": "potential",
       "failure_mode": "Vision-language models exhibit language bias where textual priors outweigh visual inputs during multimodal processing, as analyzed in academic research.",
       "impact_scope": "discrete_incident",
       "natsec_impact": false,
@@ -7140,10 +7206,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "bias",
       "root_cause_category": "model",
-      "financial_damage_usd": 280000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "regulatory_turnover"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -7162,7 +7228,9 @@
     "related_incidents": [],
     "created_at": "2026-09-29T08:05:28.963536+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 280000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260929-196",
@@ -7186,10 +7254,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "hallucination",
       "root_cause_category": "model",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -7203,7 +7271,9 @@
     "related_incidents": [],
     "created_at": "2026-09-29T08:05:28.963536+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260929-201",
@@ -7415,10 +7485,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "stale_data_retrieval",
       "root_cause_category": "data",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "cyber_breach_report"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -7436,7 +7506,9 @@
     "related_incidents": [],
     "created_at": "2026-09-28T08:22:17.936858+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260928-182",
@@ -7460,10 +7532,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -7479,7 +7551,9 @@
     "related_incidents": [],
     "created_at": "2026-09-28T08:22:17.936858+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260928-183",
@@ -7494,7 +7568,7 @@
       "harm_type": "discrimination_bias",
       "harm_domain": "persons_rights",
       "source_type": "arxiv",
-      "temporality": "actual",
+      "temporality": "potential",
       "failure_mode": "Large language models exhibit demographic biases when generating economic guidance and recommendations for Indian populations.",
       "impact_scope": "discrete_incident",
       "natsec_impact": false,
@@ -7503,10 +7577,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "bias",
       "root_cause_category": "model",
-      "financial_damage_usd": 1200000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "statutory_formula"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -7524,7 +7598,9 @@
     "related_incidents": [],
     "created_at": "2026-09-28T08:22:17.936858+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 1200000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260928-184",
@@ -7548,10 +7624,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "dual_use_security",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -7570,7 +7646,9 @@
     "related_incidents": [],
     "created_at": "2026-09-28T08:22:17.936858+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260928-192",
@@ -7929,7 +8007,7 @@
       "harm_type": "psychological_harm",
       "harm_domain": "persons_mental",
       "source_type": "arxiv",
-      "temporality": "actual",
+      "temporality": "potential",
       "failure_mode": "AI-generated text summaries introduce inaccurate or misleading details that are subsequently incorporated into human memory, distorting recall of the original information.",
       "impact_scope": "discrete_incident",
       "natsec_impact": false,
@@ -7938,10 +8016,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "hallucination/bias",
       "root_cause_category": "model",
-      "financial_damage_usd": 850000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -7961,7 +8039,9 @@
     "related_incidents": [],
     "created_at": "2026-09-26T08:23:45.035972+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 850000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260926-178",
@@ -7985,10 +8065,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "autonomous_agent",
-      "valuation_methodology": "cyber_breach_report"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -8007,7 +8087,9 @@
     "related_incidents": [],
     "created_at": "2026-09-26T08:23:45.035972+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260926-164",
@@ -8031,10 +8113,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "autonomous_agent",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -8048,7 +8130,9 @@
     "related_incidents": [],
     "created_at": "2026-09-26T14:48:44.660455+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260926-169",
@@ -8332,7 +8416,7 @@
       "harm_type": "economic_labor",
       "harm_domain": "property",
       "source_type": "arxiv",
-      "temporality": "actual",
+      "temporality": "potential",
       "failure_mode": "Malicious actors exploit telephony systems for mass scamming and phishing, captured by an active honeypot to analyze threat vectors.",
       "impact_scope": "cumulative_macro_trend",
       "natsec_impact": false,
@@ -8341,10 +8425,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "malicious_actor_exploitation",
       "root_cause_category": "external",
-      "financial_damage_usd": 2500000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "dual_use_security",
-      "valuation_methodology": "explicit_confirmed"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -8366,7 +8450,9 @@
     "related_incidents": [],
     "created_at": "2026-09-25T08:07:21.871822+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260925-165",
@@ -8920,10 +9006,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "none",
       "root_cause_category": "undetermined",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "unclassified",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 1.0,
@@ -8945,7 +9031,9 @@
     "related_incidents": [],
     "created_at": "2026-09-23T07:55:47.777851+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260923-156",
@@ -8960,7 +9048,7 @@
       "harm_type": "discrimination_bias",
       "harm_domain": "societal",
       "source_type": "arxiv",
-      "temporality": "actual",
+      "temporality": "potential",
       "failure_mode": "Vision-language models exhibit bias and varying interpretations when processing identical chart visuals with different contexts or framings.",
       "impact_scope": "discrete_incident",
       "natsec_impact": false,
@@ -8969,10 +9057,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "bias",
       "root_cause_category": "model",
-      "financial_damage_usd": 1200000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "statutory_formula"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -8991,7 +9079,9 @@
     "related_incidents": [],
     "created_at": "2026-09-23T07:55:47.777851+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 1200000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260922-149",
@@ -9006,7 +9096,7 @@
       "harm_type": "discrimination_bias",
       "harm_domain": "persons_rights",
       "source_type": "arxiv",
-      "temporality": "actual",
+      "temporality": "potential",
       "failure_mode": "Correlated monocultural biases within large language models led to disparate impact and systemic exclusion rates for certain demographic groups during simulated recruitment processes.",
       "impact_scope": "cumulative_macro_trend",
       "natsec_impact": false,
@@ -9015,10 +9105,10 @@
       "primary_purpose": "recruitment_hr",
       "root_cause_subtype": "bias",
       "root_cause_category": "model",
-      "financial_damage_usd": 280000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "regulatory_turnover"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -9037,7 +9127,9 @@
     "related_incidents": [],
     "created_at": "2026-09-22T07:51:37.060517+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 280000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20250801-166",
@@ -9110,10 +9202,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "privacy_leakage",
       "root_cause_category": "model",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "autonomous_agent",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -9131,7 +9223,9 @@
     "related_incidents": [],
     "created_at": "2026-09-21T08:08:41.562854+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260921-161",
@@ -9262,10 +9356,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 850000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -9284,7 +9378,9 @@
     "related_incidents": [],
     "created_at": "2026-09-21T08:08:41.562854+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 850000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20240101-133",
@@ -9441,7 +9537,7 @@
       "harm_type": "discrimination_bias",
       "harm_domain": "persons_rights",
       "source_type": "arxiv",
-      "temporality": "actual",
+      "temporality": "potential",
       "failure_mode": "Safety-trained generations failed to eliminate gender bias, instead transforming the manifestation of discrimination across model iterations.",
       "impact_scope": "cumulative_macro_trend",
       "natsec_impact": false,
@@ -9450,10 +9546,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "bias",
       "root_cause_category": "model",
-      "financial_damage_usd": 1200000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "statutory_formula"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -9474,7 +9570,9 @@
     "related_incidents": [],
     "created_at": "2026-09-20T07:51:08.683099+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 1200000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260920-131",
@@ -9498,10 +9596,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 2500000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "dual_use_security",
-      "valuation_methodology": "cyber_breach_report"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -9522,7 +9620,9 @@
     "related_incidents": [],
     "created_at": "2026-09-20T07:51:08.683099+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260919-161",
@@ -9800,10 +9900,10 @@
       "primary_purpose": "recruitment_hr",
       "root_cause_subtype": "bias",
       "root_cause_category": "model",
-      "financial_damage_usd": 280000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "high_risk_regulated",
-      "valuation_methodology": "regulatory_turnover"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -9822,7 +9922,9 @@
     "related_incidents": [],
     "created_at": "2026-09-19T07:28:42.313185+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 280000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260918-171",
@@ -10034,10 +10136,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "confidentiality_boundary_failure",
       "root_cause_category": "governance",
-      "financial_damage_usd": 850000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -10055,7 +10157,9 @@
     "related_incidents": [],
     "created_at": "2026-09-17T07:36:26.064574+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 850000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260917-109",
@@ -10079,10 +10183,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "reward_hacking",
       "root_cause_category": "model",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "cyber_breach_report"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -10098,7 +10202,9 @@
     "related_incidents": [],
     "created_at": "2026-09-17T07:36:26.064574+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260917-108",
@@ -10113,7 +10219,7 @@
       "harm_type": "misinformation",
       "harm_domain": "systemic_integrity",
       "source_type": "arxiv",
-      "temporality": "latent",
+      "temporality": "potential",
       "failure_mode": "Multimodal AI models failed to correctly interpret physics and geometry problems due to underlying limitations in perception and multi-step reasoning capabilities.",
       "impact_scope": "discrete_incident",
       "natsec_impact": false,
@@ -10122,10 +10228,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "perceptual_and_reasoning_failure",
       "root_cause_category": "model",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -10144,7 +10250,9 @@
     "related_incidents": [],
     "created_at": "2026-09-17T07:36:26.064574+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260917-107",
@@ -10168,10 +10276,10 @@
       "primary_purpose": "defense_national_security",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 850000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "autonomous_agent",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -10189,7 +10297,9 @@
     "related_incidents": [],
     "created_at": "2026-09-17T07:36:26.064574+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 850000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260916-184",
@@ -10269,10 +10379,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "none",
       "root_cause_category": "undetermined",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "autonomous_agent",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -10290,7 +10400,9 @@
     "related_incidents": [],
     "created_at": "2026-09-16T07:29:34.893927+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260916-103",
@@ -10305,7 +10417,7 @@
       "harm_type": "discrimination_bias",
       "harm_domain": "persons_rights",
       "source_type": "arxiv",
-      "temporality": "latent",
+      "temporality": "potential",
       "failure_mode": "The medical AI model memorized specific training examples rather than learning generalizable patterns, introducing bias and reducing reliability when evaluated on out-of-sample clinical data.",
       "impact_scope": "discrete_incident",
       "natsec_impact": false,
@@ -10314,10 +10426,10 @@
       "primary_purpose": "healthcare_medical",
       "root_cause_subtype": "overfitting/memorisation",
       "root_cause_category": "data",
-      "financial_damage_usd": 280000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "high_risk_regulated",
-      "valuation_methodology": "regulatory_turnover"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -10336,7 +10448,9 @@
     "related_incidents": [],
     "created_at": "2026-09-16T07:29:34.893927+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 280000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260916-102",
@@ -10360,10 +10474,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "undetermined",
       "root_cause_category": "undetermined",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.99,
@@ -10381,7 +10495,9 @@
     "related_incidents": [],
     "created_at": "2026-09-16T07:29:34.893927+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260916-101",
@@ -10405,10 +10521,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "cyber_breach_report"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -10427,7 +10543,9 @@
     "related_incidents": [],
     "created_at": "2026-09-16T07:29:34.893927+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260916-151",
@@ -10637,10 +10755,10 @@
       "primary_purpose": "defense_national_security",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 850000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "autonomous_agent",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -10659,7 +10777,9 @@
     "related_incidents": [],
     "created_at": "2026-09-15T07:36:11.037424+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 850000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260915-096",
@@ -10683,10 +10803,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "undetermined",
       "root_cause_category": "undetermined",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "unclassified",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.99,
@@ -10705,7 +10825,9 @@
     "related_incidents": [],
     "created_at": "2026-09-15T07:36:11.037424+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260914-122",
@@ -10885,10 +11007,10 @@
       "primary_purpose": "defense_national_security",
       "root_cause_subtype": "benchmarking_deficiencies",
       "root_cause_category": "model",
-      "financial_damage_usd": 850000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "dual_use_security",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -10906,7 +11028,9 @@
     "related_incidents": [],
     "created_at": "2026-09-14T07:59:54.912074+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 850000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260914-180",
@@ -10977,10 +11101,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "dataset contamination",
       "root_cause_category": "data",
-      "financial_damage_usd": 1200000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "statutory_formula"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.95,
@@ -10999,7 +11123,9 @@
     "related_incidents": [],
     "created_at": "2026-09-13T13:35:16.020185+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 1200000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260913-093",
@@ -11014,7 +11140,7 @@
       "harm_type": "misinformation",
       "harm_domain": "systemic_integrity",
       "source_type": "arxiv",
-      "temporality": "latent",
+      "temporality": "potential",
       "failure_mode": "Benchmarks contain surface-level features allowing models to guess correct answers without genuine truthfulness capability.",
       "impact_scope": "discrete_incident",
       "natsec_impact": false,
@@ -11023,10 +11149,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "feature_leakage",
       "root_cause_category": "data",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -11042,7 +11168,9 @@
     "related_incidents": [],
     "created_at": "2026-09-14T07:59:54.912074+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260912-094",
@@ -11057,7 +11185,7 @@
       "harm_type": "physical_safety",
       "harm_domain": "persons_physical",
       "source_type": "arxiv",
-      "temporality": "latent",
+      "temporality": "potential",
       "failure_mode": "Medical AI evaluation rubrics failed to capture model hallucinations, demonstrating blind spots in validation frameworks.",
       "impact_scope": "discrete_incident",
       "natsec_impact": false,
@@ -11066,10 +11194,10 @@
       "primary_purpose": "healthcare_medical",
       "root_cause_subtype": "hallucination",
       "root_cause_category": "model",
-      "financial_damage_usd": 850000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "high_risk_regulated",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -11088,7 +11216,9 @@
     "related_incidents": [],
     "created_at": "2026-09-14T07:59:54.912074+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 850000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20240901-115",
@@ -11226,10 +11356,10 @@
       "primary_purpose": "healthcare_medical",
       "root_cause_subtype": "target_leakage",
       "root_cause_category": "data",
-      "financial_damage_usd": 850000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "high_risk_regulated",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -11248,7 +11378,9 @@
     "related_incidents": [],
     "created_at": "2026-09-13T13:35:16.020185+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 850000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260911-086",
@@ -11272,10 +11404,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "cyber_breach_report"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -11294,7 +11426,9 @@
     "related_incidents": [],
     "created_at": "2026-09-13T13:35:16.020185+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20250801-067",
@@ -11561,7 +11695,7 @@
       "harm_type": "discrimination_bias",
       "harm_domain": "persons_rights",
       "source_type": "arxiv",
-      "temporality": "actual",
+      "temporality": "potential",
       "failure_mode": "LLM-simulated jurors exhibited systemic bias and persuasion vulnerabilities when evaluating defendant statements in experimental settings.",
       "impact_scope": "discrete_incident",
       "natsec_impact": false,
@@ -11570,10 +11704,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "bias",
       "root_cause_category": "model",
-      "financial_damage_usd": 280000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "regulatory_turnover"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -11591,7 +11725,9 @@
     "related_incidents": [],
     "created_at": "2026-09-14T07:59:54.912074+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 280000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260909-076",
@@ -11921,7 +12057,7 @@
       "harm_type": "national_security",
       "harm_domain": "systemic_integrity",
       "source_type": "arxiv",
-      "temporality": "latent",
+      "temporality": "potential",
       "failure_mode": "Machine learning models for IoT intrusion detection relied on shortcut learning and data leakage rather than genuine security features, compromising robustness.",
       "impact_scope": "discrete_incident",
       "natsec_impact": true,
@@ -11930,10 +12066,10 @@
       "primary_purpose": "defense_national_security",
       "root_cause_subtype": "data_leakage_shortcut_learning",
       "root_cause_category": "data",
-      "financial_damage_usd": 450000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "critical_infrastructure_component",
-      "valuation_methodology": "cyber_breach_report"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -11954,7 +12090,9 @@
     "related_incidents": [],
     "created_at": "2026-09-26T08:23:45.035972+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260901-180",
@@ -11978,10 +12116,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "bias",
       "root_cause_category": "model",
-      "financial_damage_usd": 280000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "regulatory_turnover"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -12003,7 +12141,9 @@
     "related_incidents": [],
     "created_at": "2026-09-26T08:23:45.035972+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 280000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260901-142",
@@ -12027,10 +12167,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "bias",
       "root_cause_category": "model",
-      "financial_damage_usd": 280000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "regulatory_turnover"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -12048,7 +12188,9 @@
     "related_incidents": [],
     "created_at": "2026-09-21T08:08:41.562854+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 280000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260901-133",
@@ -12072,10 +12214,10 @@
       "primary_purpose": "recruitment_hr",
       "root_cause_subtype": "adversarial_attack",
       "root_cause_category": "model",
-      "financial_damage_usd": 850000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "high_risk_regulated",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.85,
@@ -12097,7 +12239,9 @@
     "related_incidents": [],
     "created_at": "2026-09-20T07:51:08.683099+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 850000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260901-079",
@@ -12161,7 +12305,7 @@
       "harm_type": "discrimination_bias",
       "harm_domain": "societal",
       "source_type": "arxiv",
-      "temporality": "actual",
+      "temporality": "potential",
       "failure_mode": "Automated prompt revision algorithms alter user inputs in text-to-image models, leading to skewed cultural representations and inherent biases in generated imagery.",
       "impact_scope": "discrete_incident",
       "natsec_impact": false,
@@ -12170,10 +12314,10 @@
       "primary_purpose": "generative_content",
       "root_cause_subtype": "bias",
       "root_cause_category": "model",
-      "financial_damage_usd": 280000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "general_purpose_model",
-      "valuation_methodology": "regulatory_turnover"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -12191,7 +12335,9 @@
     "related_incidents": [],
     "created_at": "2026-09-13T13:35:16.020185+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 280000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20260901-354",
@@ -17100,7 +17246,7 @@
       "harm_type": "misinformation",
       "harm_domain": "systemic_integrity",
       "source_type": "arxiv",
-      "temporality": "latent",
+      "temporality": "potential",
       "failure_mode": "No actual AI system failure occurred; text is purely informational metadata from an academic repository website.",
       "impact_scope": "discrete_incident",
       "natsec_impact": false,
@@ -17109,10 +17255,10 @@
       "primary_purpose": "other",
       "root_cause_subtype": "not_applicable",
       "root_cause_category": "undetermined",
-      "financial_damage_usd": 350000,
+      "financial_damage_usd": 0,
       "alleged_incident_date": null,
       "system_classification": "unclassified",
-      "valuation_methodology": "empirical_estimate"
+      "valuation_methodology": "theoretical_academic"
     },
     "confidence_scores": {
       "severity": 1.0,
@@ -17126,7 +17272,9 @@
     "related_incidents": [],
     "created_at": "2026-09-22T07:51:37.060517+00:00",
     "source_type": "arxiv",
-    "financial_damage_usd": 350000
+    "financial_damage_usd": 0,
+    "valuation_methodology": "theoretical_academic",
+    "temporality": "potential"
   },
   {
     "incident_id": "INC-20240101-109",

@@ -533,21 +533,26 @@ def process_article_3stage_pipeline(article: Dict[str, Any], api_key: str) -> Op
         return None
 
 
-    # AUTOMATIC FINANCIAL ENRICHMENT & IMPACT SCOPE VALIDATOR
-    assign_compliance_frameworks(data)
-    usd = data.get("financial_damage_usd", 0) or 0
-    if usd <= 0:
-        usd, methodology = estimate_financial_damage(data)
-        data["financial_damage_usd"] = usd
-        data["valuation_methodology"] = methodology
-    else:
-        data["valuation_methodology"] = "explicit_confirmed"
-    assign_impact_scope(data)
-
     data["source_urls"] = [article["link"]]
     data["source_type"] = article.get("source_type", "google_news_rss")
     if real_text:
         data["full_text"] = real_text[:4000]
+
+    # AUTOMATIC FINANCIAL ENRICHMENT & IMPACT SCOPE VALIDATOR
+    assign_compliance_frameworks(data)
+    if data.get("source_type") == "arxiv":
+        data["financial_damage_usd"] = 0
+        data["valuation_methodology"] = "theoretical_academic"
+        data["temporality"] = "potential"
+    else:
+        usd = data.get("financial_damage_usd", 0) or 0
+        if usd <= 0:
+            usd, methodology = estimate_financial_damage(data)
+            data["financial_damage_usd"] = usd
+            data["valuation_methodology"] = methodology
+        else:
+            data["valuation_methodology"] = "explicit_confirmed"
+    assign_impact_scope(data)
         
     article_pub_date = article.get("pub_date_clean") or datetime.now().strftime("%Y-%m-%d")
     data["date"] = article_pub_date

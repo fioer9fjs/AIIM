@@ -19,6 +19,7 @@ from scripts.ingest import (
     fetch_google_news_multilane,
     filter_known_candidate_urls,
 )
+from scripts.clean_and_enrich_incidents import estimate_financial_damage
 
 
 class TestDateSanitization(unittest.TestCase):
@@ -316,6 +317,47 @@ class TestMultiLaneHarvester(unittest.TestCase):
         finally:
             if os.path.exists(tmp_path):
                 os.remove(tmp_path)
+
+
+
+class TestArXivResearchGuardrails(unittest.TestCase):
+    """
+    Guarantees that ArXiv research papers/benchmarks are classified with $0 financial damage
+    and theoretical/potential attributes to avoid distorting real-world incident metrics.
+    """
+
+    def test_arxiv_paper_financial_damage_is_strictly_zero(self):
+        # --- ARRANGE ---
+        # ArXiv record containing breach/lawsuit words that would otherwise trigger empirical damage rules
+        arxiv_paper = {
+            "title": "[ArXiv] Jailbreaking Frontier LLMs via Autonomous Agent Exploit and Breach",
+            "summary": "This research analyzes vulnerability exploits and potential data breach vectors.",
+            "severity": "critical",
+            "source_type": "arxiv"
+        }
+
+        # --- ACT ---
+        usd, methodology = estimate_financial_damage(arxiv_paper)
+
+        # --- ASSERT ---
+        self.assertEqual(usd, 0, "ArXiv academic papers must strictly evaluate to $0 financial damage.")
+        self.assertEqual(methodology, "theoretical_academic")
+
+    def test_operational_incident_evaluates_damage_normally(self):
+        # --- ARRANGE ---
+        real_incident = {
+            "title": "Major AI Company Sued in Class Action Lawsuit over CSAM",
+            "summary": "Lawsuit filed in federal court alleging widespread copyright infringement.",
+            "severity": "critical",
+            "source_type": "google_news_rss"
+        }
+
+        # --- ACT ---
+        usd, methodology = estimate_financial_damage(real_incident)
+
+        # --- ASSERT ---
+        self.assertEqual(usd, 12_500_000)
+        self.assertEqual(methodology, "statutory_formula")
 
 
 if __name__ == "__main__":

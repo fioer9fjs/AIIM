@@ -6,6 +6,7 @@ import { GeoMapView } from './components/GeoMapView';
 import { AnalyticsView } from './components/AnalyticsView';
 import { DailyBriefingView } from './components/DailyBriefingView';
 import { AboutView } from './components/AboutView';
+import { ResearchLabView } from './components/ResearchLabView';
 import { IncidentDetailDrawer } from './components/IncidentDetailDrawer';
 import { AIIncident, GraphEdge } from './types/incident';
 import { isSupabaseConfigured, fetchIncidentsFromSupabase, fetchEdgesFromSupabase } from './lib/supabase';
@@ -20,16 +21,26 @@ export const App: React.FC = () => {
   const [rawIncidents, setRawIncidents] = useState<AIIncident[]>(() => incidentsData as unknown as AIIncident[]);
   const [edges, setEdges] = useState<GraphEdge[]>(edgesData as unknown as GraphEdge[]);
 
+  // Split into real-world operational incidents and ArXiv preprints/research papers
+  const operationalIncidents = useMemo(
+    () => rawIncidents.filter((inc) => inc.source_type !== 'arxiv'),
+    [rawIncidents]
+  );
+  const researchPapers = useMemo(
+    () => rawIncidents.filter((inc) => inc.source_type === 'arxiv'),
+    [rawIncidents]
+  );
+
   const getYesterdayStr = (): string => {
     const d = new Date();
     d.setDate(d.getDate() - 1);
     return d.toISOString().split('T')[0];
   };
 
-  // Continuous sorted dates ascending from min incident date through yesterday (today - 1 day)
+  // Continuous sorted dates ascending from min operational incident date through yesterday (today - 1 day)
   const availableDates = useMemo(() => {
     const datesSet = new Set<string>();
-    rawIncidents.forEach((inc) => {
+    operationalIncidents.forEach((inc) => {
       if (inc.date) datesSet.add(inc.date);
     });
     const sortedRaw = Array.from(datesSet).sort((a, b) => a.localeCompare(b));
@@ -49,7 +60,7 @@ export const App: React.FC = () => {
       current.setUTCDate(current.getUTCDate() + 1);
     }
     return result;
-  }, [rawIncidents]);
+  }, [operationalIncidents]);
 
   // Default dateRange to yesterday (today - 1 day, since today's run has not yet occurred)
   const [selectedRange, setSelectedRange] = useState<[string, string]>(() => {
@@ -84,19 +95,20 @@ export const App: React.FC = () => {
     }
   }, []);
 
-  // Filter incidents globally by selectedRange
-  const filteredIncidents = useMemo(() => {
+  // Filter operational incidents globally by selectedRange for the Daily Briefing
+  const filteredOperationalIncidents = useMemo(() => {
     const [start, end] = selectedRange;
-    if (!start || !end) return rawIncidents;
-    return rawIncidents.filter((inc) => inc.date >= start && inc.date <= end);
-  }, [rawIncidents, selectedRange]);
+    if (!start || !end) return operationalIncidents;
+    return operationalIncidents.filter((inc) => inc.date >= start && inc.date <= end);
+  }, [operationalIncidents, selectedRange]);
 
   return (
     <div className="app-container">
       <Header
         currentView={currentView}
         onViewChange={setCurrentView}
-        incidentCount={rawIncidents.length}
+        operationalCount={operationalIncidents.length}
+        researchCount={researchPapers.length}
         availableDates={availableDates}
         selectedRange={selectedRange}
         onRangeChange={setSelectedRange}
@@ -105,22 +117,28 @@ export const App: React.FC = () => {
       <main className="main-content">
         {currentView === 'briefing' && (
           <DailyBriefingView
-            incidents={filteredIncidents}
+            incidents={filteredOperationalIncidents}
             dateRange={selectedRange}
             onSelectIncident={setSelectedIncident}
           />
         )}
         {currentView === 'explorer' && (
-          <ExplorerView incidents={rawIncidents} onSelectIncident={setSelectedIncident} />
+          <ExplorerView incidents={operationalIncidents} onSelectIncident={setSelectedIncident} />
+        )}
+        {currentView === 'research' && (
+          <ResearchLabView
+            papers={researchPapers}
+            onSelectPaper={setSelectedIncident}
+          />
         )}
         {currentView === 'graph' && (
-          <GraphView incidents={rawIncidents} edges={edges} onSelectIncident={setSelectedIncident} />
+          <GraphView incidents={operationalIncidents} edges={edges} onSelectIncident={setSelectedIncident} />
         )}
         {currentView === 'map' && (
-          <GeoMapView incidents={rawIncidents} onSelectIncident={setSelectedIncident} />
+          <GeoMapView incidents={operationalIncidents} onSelectIncident={setSelectedIncident} />
         )}
         {currentView === 'analytics' && (
-          <AnalyticsView incidents={rawIncidents} onSelectIncident={setSelectedIncident} />
+          <AnalyticsView incidents={operationalIncidents} onSelectIncident={setSelectedIncident} />
         )}
         {currentView === 'about' && (
           <AboutView />
