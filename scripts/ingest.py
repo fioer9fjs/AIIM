@@ -323,7 +323,7 @@ def fetch_full_text_and_title(url: str, reported_by_samples: Optional[List[str]]
             rss_url = f"https://news.google.com/rss/search?q={query_encoded}&hl=en-US&gl=US&ceid=US:en"
             req = urllib.request.Request(rss_url, headers={'User-Agent': 'Mozilla/5.0'})
             with urllib.request.urlopen(req, timeout=8) as response:
-                xml_data = response.read().decode('utf-8', errors='ignore')
+                xml_data = response.read(1048576).decode('utf-8', errors='ignore')
                 soup = BeautifulSoup(xml_data, 'html.parser')
                 items = soup.find_all('item')
                 for item in items[:5]:
@@ -579,7 +579,9 @@ def fetch_google_news(query: str, max_items: int = 12) -> List[Dict[str, Any]]:
     try:
         req = urllib.request.Request(rss_url, headers={'User-Agent': 'Mozilla/5.0'})
         with urllib.request.urlopen(req, timeout=8) as response:
-            xml_data = response.read()
+            xml_data = response.read(1048576) # Max 1MB RSS XML
+            if b'<!ENTITY' in xml_data or b'<!DOCTYPE' in xml_data:
+                return []
             root = ET.fromstring(xml_data)
             
             for item in root.findall('./channel/item')[:max_items]:
@@ -951,7 +953,9 @@ def fetch_aiid_rss(max_items: int = 15) -> List[Dict[str, Any]]:
     try:
         req = urllib.request.Request(feed_url, headers=headers)
         with urllib.request.urlopen(req, timeout=10) as response:
-            xml_data = response.read()
+            xml_data = response.read(1048576) # Max 1MB RSS XML
+            if b'<!ENTITY' in xml_data or b'<!DOCTYPE' in xml_data:
+                return []
             root = ET.fromstring(xml_data)
             
             for item in root.findall("./channel/item")[:max_items]:

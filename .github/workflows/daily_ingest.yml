@@ -6,10 +6,6 @@ on:
     - cron: '0 2 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub UI
 
-env:
-  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: "true"
-  ACTIONS_RUNNER_SILENCE_DEPRECATION_WARNINGS: "true"
-
 jobs:
   ingest:
     runs-on: ubuntu-latest

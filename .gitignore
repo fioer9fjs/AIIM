@@ -24,6 +24,10 @@ dist
 dist-ssr
 *.local
 
+# Scratch & temporary analysis files
+scratch/
+*.tmp
+
 # Environment & API Keys
 .env
 .env.local
