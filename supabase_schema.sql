@@ -63,23 +63,44 @@ ALTER TABLE incidents ENABLE ROW LEVEL SECURITY;
 ALTER TABLE edges ENABLE ROW LEVEL SECURITY;
 ALTER TABLE daily_source_stats ENABLE ROW LEVEL SECURITY;
 
--- 5. Create RLS Policies for Public Read & Service Role Write (Idempotent & Airtight)
--- Public 'anon' users can ONLY perform SELECT queries; INSERT/UPDATE/DELETE are strictly denied by RLS.
+-- 5. Create RLS Policies & Column-Level Grants (Airtight & Idempotent)
+-- Public 'anon' users can ONLY perform SELECT queries on public UI columns (excluding raw full_text).
 DROP POLICY IF EXISTS "Allow public read access to incidents" ON incidents;
 CREATE POLICY "Allow public read access to incidents" ON incidents FOR SELECT USING (true);
+
+-- Revoke whole-table SELECT on incidents and grant only UI columns
+REVOKE SELECT ON TABLE incidents FROM anon, authenticated;
+GRANT SELECT (
+    incident_id,
+    title,
+    summary,
+    date,
+    verification_status,
+    severity,
+    source_type,
+    financial_damage_usd,
+    taxonomy,
+    confidence_scores,
+    geographic_scope,
+    affected_parties,
+    source_urls,
+    related_incidents,
+    created_at
+) ON TABLE incidents TO anon, authenticated;
 
 DROP POLICY IF EXISTS "Allow public read access to edges" ON edges;
 CREATE POLICY "Allow public read access to edges" ON edges FOR SELECT USING (true);
 
+-- daily_source_stats is internal ingestion telemetry: Revoke public access
 DROP POLICY IF EXISTS "Allow public read access to daily_source_stats" ON daily_source_stats;
-CREATE POLICY "Allow public read access to daily_source_stats" ON daily_source_stats FOR SELECT USING (true);
+REVOKE SELECT ON TABLE daily_source_stats FROM anon, authenticated;
 
--- Explicit Service Role Full Access (Admin ingestion scripts using SUPABASE_SERVICE_ROLE_KEY)
+-- Explicit Service Role Full Access (Admin ingestion scripts using SUPABASE_SECRET_KEY)
 DROP POLICY IF EXISTS "Allow service role full access to incidents" ON incidents;
-CREATE POLICY "Allow service role full access to incidents" ON incidents FOR ALL TO service_role USING (true);
+CREATE POLICY "Allow service role full access to incidents" ON incidents FOR ALL TO service_role USING (true) WITH CHECK (true);
 
 DROP POLICY IF EXISTS "Allow service role full access to edges" ON edges;
-CREATE POLICY "Allow service role full access to edges" ON edges FOR ALL TO service_role USING (true);
+CREATE POLICY "Allow service role full access to edges" ON edges FOR ALL TO service_role USING (true) WITH CHECK (true);
 
 DROP POLICY IF EXISTS "Allow service role full access to daily_source_stats" ON daily_source_stats;
-CREATE POLICY "Allow service role full access to daily_source_stats" ON daily_source_stats FOR ALL TO service_role USING (true);
+CREATE POLICY "Allow service role full access to daily_source_stats" ON daily_source_stats FOR ALL TO service_role USING (true) WITH CHECK (true);
