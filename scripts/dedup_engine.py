@@ -288,29 +288,36 @@ def verify_candidate_pair_llm(inc1: Dict[str, Any], inc2: Dict[str, Any], api_ke
     if not api_key:
         return False, 0.0, "No API key"
 
-    prompt = f"""Compare Report A and Report B below and determine if they describe the EXACT SAME underlying real-world AI incident.
+    alleged_date_1 = inc1.get('alleged_incident_date') or 'Not specified (use publication date)'
+    alleged_date_2 = inc2.get('alleged_incident_date') or 'Not specified (use publication date)'
+
+    prompt = f"""Compare Report A and Report B below and determine if they describe the EXACT SAME underlying real-world AI incident or event.
 
 REPORT A:
 Title: {inc1.get('title', '')}
 Summary: {inc1.get('summary', '')}
-Date: {inc1.get('date', '')}
+Article Publication Date: {inc1.get('date', '')}
+Alleged Incident Event Date: {alleged_date_1}
 Affected Parties: {inc1.get('affected_parties', [])}
 
 REPORT B:
 Title: {inc2.get('title', '')}
 Summary: {inc2.get('summary', '')}
-Date: {inc2.get('date', '')}
+Article Publication Date: {inc2.get('date', '')}
+Alleged Incident Event Date: {alleged_date_2}
 Affected Parties: {inc2.get('affected_parties', [])}
 
 Instructions:
 1. Return is_same_incident: true ONLY if Report A and Report B describe the exact same underlying real-world incident.
-2. Return is_same_incident: false if they describe different lawsuits, different crimes, or different security breaches—even if they involve the same company.
+2. Reporting Date vs Event Date: "Article Publication Date" merely reflects when news outlets published an article. A follow-up investigation, court settlement, government audit, or retrospective report published weeks or months later about the same real-world incident is STILL the same incident. Do NOT treat different publication dates as different incidents if the underlying core event, victim, or technology failure is the same.
+3. Evolving Media Attribution: News reporting evolves over time. Earlier articles may name a general campaign, parent agency, or contractor, while later articles name a specific Super PAC, subsidiary agency, or specific perpetrator. If they describe the same real-world event or action against the same targets, return is_same_incident: true.
+4. Return is_same_incident: false ONLY if they describe genuinely different lawsuits, different crimes, or distinct technical vulnerabilities—even if they involve the same company.
 
 Respond strictly in valid JSON format:
 {{
   "is_same_incident": true or false,
   "confidence": 0.95,
-  "reasoning": "Short explanation."
+  "reasoning": "Short explanation focusing on whether the real-world event is identical."
 }}"""
 
     candidate_models = list(PREFERRED_MODELS_DEDUP)
@@ -518,41 +525,46 @@ def consolidate_new_against_existing(
         new_parties = {p.lower().strip() for p in (new_inc.get("affected_parties") or [])}
         distinct_new_parties = new_parties - generic_parties
 
-        best_match_idx = None
-        best_sim = 0.0
-
+        # Collect candidate matches with effective_score >= 0.22 or shared entities
+        candidates = []
         for idx, inc in enumerate(canonical_catalog):
             target_vec = tfidf_vectors[idx]
             sim = cosine_similarity_vectors(new_vec, target_vec)
             
-            target_parties = {p.lower().strip() for p in (inc.get("affected_parties") or [])}
+            target_parties = {p.lower().strip() for p in (inc.get('affected_parties') or [])}
             shared_parties = distinct_new_parties & (target_parties - generic_parties)
             
             # Significant boost if distinct entities match
             effective_score = sim + (0.20 if shared_parties else 0.0)
             
-            if effective_score > best_sim and (sim >= 0.22 or len(shared_parties) > 0):
-                best_sim = effective_score
-                best_match_idx = idx
+            if effective_score >= 0.22 or len(shared_parties) > 0:
+                candidates.append((effective_score, idx, inc))
 
-        # Step 3: Targeted LLM verification if a candidate was found
-        if best_match_idx is not None:
-            candidate_inc = canonical_catalog[best_match_idx]
+        # Sort candidates descending by effective score
+        candidates.sort(key=lambda c: c[0], reverse=True)
+
+        merged = False
+        # Step 3: Targeted LLM verification on Top-3 candidate matches (resolves greedy masking)
+        for eff_score, idx, candidate_inc in candidates[:3]:
             is_same, confidence, reasoning = verify_candidate_pair_llm(
                 candidate_inc, new_inc, api_key=api_key
             )
             llm_call_count += 1
-            print(f"  [DEDUP LLM VERIFY] Candidate '{candidate_inc.get('incident_id')}' vs New: Match={is_same} ({confidence:.2f}) | {reasoning}")
+            print(f"  [DEDUP LLM VERIFY] Candidate '{candidate_inc.get('incident_id')}' (Score: {eff_score:.2f}) vs New: Match={is_same} ({confidence:.2f}) | {reasoning}")
             
             if is_same and confidence >= 0.70:
-                canonical_catalog[best_match_idx] = merge_duplicate_records(
+                canonical_catalog[idx] = merge_duplicate_records(
                     candidate_inc, new_inc
                 )
                 for u in new_urls:
-                    url_to_index[u] = best_match_idx
+                    url_to_index[u] = idx
                 merged_into_existing_count += 1
+                merged = True
                 print(f"  [DEDUP LLM MERGE] Merged new report into existing '{candidate_inc.get('incident_id')}' ({candidate_inc.get('title')[:45]}...)")
-                continue
+                break
+
+        if merged:
+            continue
 
         # Step 4: Truly novel incident -> Assign ID and add as new canonical record
         if not new_inc.get("incident_id"):
