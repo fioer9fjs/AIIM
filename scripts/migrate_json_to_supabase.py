@@ -206,26 +206,29 @@ def run_migration():
             if not date_val or "-" not in date_val:
                 date_val = "2026-08-14"
                 
+            tax = inc.get("taxonomy") or {}
             taxonomy_obj = {
-                "alleged_incident_date": inc.get("alleged_incident_date"),
-                "lifecycle_phase": inc.get("lifecycle_phase"),
-                "system_classification": inc.get("system_classification"),
-                "root_cause_category": inc.get("root_cause_category"),
-                "root_cause_subtype": inc.get("root_cause_subtype"),
-                "failure_mode": inc.get("failure_mode"),
-                "harm_domain": inc.get("harm_domain"),
-                "temporality": inc.get("temporality"),
-                "intent": inc.get("intent"),
-                "primary_purpose": inc.get("primary_purpose"),
-                "harm_type": inc.get("harm_type"),
-                "eu_ai_act_tier": inc.get("eu_ai_act_tier"),
-                "natsec_impact": inc.get("natsec_impact"),
-                "impact_scope": inc.get("impact_scope"),
-                "valuation_methodology": inc.get("valuation_methodology"),
-                "source_type": inc.get("source_type", "google_news_rss"),
-                "financial_damage_usd": inc.get("financial_damage_usd", 0),
-                "timeline": inc.get("timeline", []),
-                "last_updated_date": inc.get("last_updated_date")
+                "alleged_incident_date": inc.get("alleged_incident_date") or tax.get("alleged_incident_date"),
+                "lifecycle_phase": inc.get("lifecycle_phase") or tax.get("lifecycle_phase") or "operation_and_monitoring",
+                "system_classification": inc.get("system_classification") or tax.get("system_classification") or "general_purpose_model",
+                "root_cause_category": inc.get("root_cause_category") or tax.get("root_cause_category") or "governance",
+                "root_cause_subtype": inc.get("root_cause_subtype") or tax.get("root_cause_subtype") or "",
+                "failure_mode": inc.get("failure_mode") or tax.get("failure_mode") or "",
+                "harm_domain": inc.get("harm_domain") or tax.get("harm_domain") or "systemic_integrity",
+                "temporality": inc.get("temporality") or tax.get("temporality") or "actual",
+                "intent": inc.get("intent") or tax.get("intent") or "unintentional_failure",
+                "primary_purpose": inc.get("primary_purpose") or tax.get("primary_purpose") or "other",
+                "harm_type": inc.get("harm_type") or tax.get("harm_type") or "other",
+                "eu_ai_act_tier": inc.get("eu_ai_act_tier") or tax.get("eu_ai_act_tier") or "high_risk",
+                "natsec_impact": inc.get("natsec_impact") if inc.get("natsec_impact") is not None else tax.get("natsec_impact", False),
+                "impact_scope": inc.get("impact_scope") or tax.get("impact_scope") or "discrete_incident",
+                "valuation_methodology": inc.get("valuation_methodology") or tax.get("valuation_methodology") or "empirical_estimate",
+                "source_type": inc.get("source_type") or tax.get("source_type", "google_news_rss"),
+                "financial_damage_usd": inc.get("financial_damage_usd", 0) if inc.get("financial_damage_usd") is not None else tax.get("financial_damage_usd", 0),
+                "timeline": inc.get("timeline") or tax.get("timeline", []),
+                "last_updated_date": inc.get("last_updated_date") or tax.get("last_updated_date"),
+                "nist_ai_rmf_function": inc.get("nist_ai_rmf_function") or tax.get("nist_ai_rmf_function"),
+                "iso_42001_category": inc.get("iso_42001_category") or tax.get("iso_42001_category"),
             }
             
             row = {

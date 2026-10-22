@@ -13,11 +13,41 @@ import { isSupabaseConfigured, fetchIncidentsFromSupabase, fetchEdgesFromSupabas
 import incidentsData from './data/incidents.json';
 import edgesData from './data/edges.json';
 
+const normalizeIncident = (inc: any): AIIncident => {
+  const tax = inc.taxonomy || {};
+  return {
+    ...inc,
+    source_type: inc.source_type || tax.source_type || 'google_news_rss',
+    timeline: inc.timeline || tax.timeline || [],
+    last_updated_date: inc.last_updated_date || tax.last_updated_date,
+    financial_damage_usd: inc.financial_damage_usd ?? tax.financial_damage_usd ?? 0,
+    lifecycle_phase: inc.lifecycle_phase || tax.lifecycle_phase || 'operation_and_monitoring',
+    system_classification: inc.system_classification || tax.system_classification || 'general_purpose_model',
+    root_cause_category: inc.root_cause_category || tax.root_cause_category || 'governance',
+    root_cause_subtype: inc.root_cause_subtype || tax.root_cause_subtype || '',
+    failure_mode: inc.failure_mode || tax.failure_mode || '',
+    harm_domain: inc.harm_domain || tax.harm_domain || 'systemic_integrity',
+    temporality: inc.temporality || tax.temporality || 'actual',
+    impact_scope: inc.impact_scope || tax.impact_scope || 'discrete_incident',
+    alleged_incident_date: inc.alleged_incident_date || tax.alleged_incident_date,
+    valuation_methodology: inc.valuation_methodology || tax.valuation_methodology,
+    intent: inc.intent || tax.intent,
+    primary_purpose: inc.primary_purpose || tax.primary_purpose,
+    harm_type: inc.harm_type || tax.harm_type,
+    eu_ai_act_tier: inc.eu_ai_act_tier || tax.eu_ai_act_tier,
+    natsec_impact: inc.natsec_impact ?? tax.natsec_impact,
+    nist_ai_rmf_function: inc.nist_ai_rmf_function || tax.nist_ai_rmf_function,
+    iso_42001_category: inc.iso_42001_category || tax.iso_42001_category,
+  };
+};
+
 export const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewType>('briefing');
   const [selectedIncident, setSelectedIncident] = useState<AIIncident | null>(null);
 
-  const [rawIncidents, setRawIncidents] = useState<AIIncident[]>(() => incidentsData as unknown as AIIncident[]);
+  const [rawIncidents, setRawIncidents] = useState<AIIncident[]>(() =>
+    (incidentsData as unknown as any[]).map(normalizeIncident)
+  );
   const [edges, setEdges] = useState<GraphEdge[]>(edgesData as unknown as GraphEdge[]);
 
   // Split into real-world operational incidents and ArXiv preprints/research papers
@@ -83,7 +113,7 @@ export const App: React.FC = () => {
       console.log('Supabase credentials detected! Loading live dataset from Supabase PostgreSQL...');
       Promise.all([fetchIncidentsFromSupabase(), fetchEdgesFromSupabase()]).then(([dbIncidents, dbEdges]) => {
         if (dbIncidents.length > 0) {
-          setRawIncidents(dbIncidents);
+          setRawIncidents(dbIncidents.map(normalizeIncident));
           const yesterdayStr = getYesterdayStr();
           setSelectedRange([yesterdayStr, yesterdayStr]);
         }

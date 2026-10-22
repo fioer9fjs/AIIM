@@ -58,6 +58,8 @@ export async function fetchIncidentsFromSupabase(): Promise<AIIncident[]> {
     harm_type: row.taxonomy?.harm_type,
     eu_ai_act_tier: row.taxonomy?.eu_ai_act_tier,
     natsec_impact: row.taxonomy?.natsec_impact,
+    nist_ai_rmf_function: row.taxonomy?.nist_ai_rmf_function,
+    iso_42001_category: row.taxonomy?.iso_42001_category,
 
     confidence_scores: row.confidence_scores || {
       verification_status: 0.95,
