@@ -112,13 +112,18 @@ def is_exact_duplicate(inc1: Dict[str, Any], inc2: Dict[str, Any]) -> Tuple[bool
 
     return False, "No exact match"
 
-def merge_duplicate_records(inc1: Dict[str, Any], inc2: Dict[str, Any]) -> Dict[str, Any]:
+def merge_duplicate_records(
+    inc1: Dict[str, Any],
+    inc2: Dict[str, Any],
+    milestone_info: Optional[Dict[str, Any]] = None
+) -> Dict[str, Any]:
     """
     Merges two duplicate incident records safely:
     - Combines source_urls (union set preserving order)
     - Preserves max financial_damage_usd
     - Retains longest summary and full_text
-    - Preserves primary incident_id and date
+    - Preserves primary incident_id and earliest publication date
+    - Maintains chronological Event-Chain timeline of milestones
     """
     merged = dict(inc1)
     
@@ -151,6 +156,104 @@ def merge_duplicate_records(inc1: Dict[str, Any], inc2: Dict[str, Any]) -> Dict[
     p2 = set(inc2.get("affected_parties") or [])
     merged["affected_parties"] = list(p1.union(p2))
 
+    # Verification status promotion (unverified -> confirmed if any report confirms)
+    v1 = inc1.get("verification_status") or "unverified"
+    v2 = inc2.get("verification_status") or "unverified"
+    if "confirmed" in (v1, v2):
+        merged["verification_status"] = "confirmed"
+
+    # First-Reported-Date principle: primary date is always the earliest publication date
+    d1 = inc1.get("date") or "9999-99-99"
+    d2 = inc2.get("date") or "9999-99-99"
+    earliest_date = min(d1, d2)
+    if earliest_date != "9999-99-99":
+        merged["date"] = earliest_date
+
+    # ==========================================================================
+    # EVENT-CHAIN / TIMELINE CONSOLIDATION
+    # ==========================================================================
+    timeline: List[Dict[str, Any]] = []
+    existing_t1 = inc1.get("timeline") or []
+    if existing_t1 and isinstance(existing_t1, list):
+        timeline.extend(existing_t1)
+    elif inc1.get("title"):
+        # Initialize anchor milestone for inc1
+        first_sentence_1 = (inc1.get("summary") or "").strip().split(". ")[0]
+        if first_sentence_1 and not first_sentence_1.endswith("."):
+            first_sentence_1 += "."
+        timeline.append({
+            "date": inc1.get("date") or "",
+            "title": inc1.get("title") or "",
+            "summary_delta": first_sentence_1 or (inc1.get("title") or ""),
+            "phase": "initial_report",
+            "source_url": (urls1 or [""])[0],
+            "source_type": inc1.get("source_type") or "google_news_rss"
+        })
+
+    # Collect milestones from inc2
+    incoming_milestones: List[Dict[str, Any]] = []
+    existing_t2 = inc2.get("timeline") or []
+    if existing_t2 and isinstance(existing_t2, list):
+        incoming_milestones.extend(existing_t2)
+    elif inc2.get("title"):
+        m_phase = "follow_up"
+        s_delta = ""
+        if milestone_info:
+            m_phase = milestone_info.get("milestone_phase") or "follow_up"
+            s_delta = milestone_info.get("summary_delta") or ""
+        if not s_delta:
+            s_delta = (inc2.get("summary") or "").strip().split(". ")[0]
+            if s_delta and not s_delta.endswith("."):
+                s_delta += "."
+        incoming_milestones.append({
+            "date": inc2.get("date") or "",
+            "title": inc2.get("title") or "",
+            "summary_delta": s_delta or (inc2.get("title") or ""),
+            "phase": m_phase,
+            "source_url": (urls2 or [""])[0],
+            "source_type": inc2.get("source_type") or "google_news_rss"
+        })
+
+    # Deduplicate milestones by normalized source_url and (date + normalized title)
+    seen_timeline_urls = set()
+    seen_date_titles = set()
+    for m in timeline:
+        u_norm = normalize_url(m.get("source_url") or "")
+        if u_norm:
+            seen_timeline_urls.add(u_norm)
+        dt_key = (m.get("date") or "", normalize_text(m.get("title") or ""))
+        seen_date_titles.add(dt_key)
+
+    for m in incoming_milestones:
+        u_norm = normalize_url(m.get("source_url") or "")
+        dt_key = (m.get("date") or "", normalize_text(m.get("title") or ""))
+        if u_norm and u_norm in seen_timeline_urls:
+            continue
+        if dt_key in seen_date_titles:
+            continue
+
+        # Skip redundant copy on the exact same date if classified as redundant
+        if milestone_info and milestone_info.get("evolution_type") == "redundant_copy" and m.get("date") == merged.get("date"):
+            continue
+
+        timeline.append(m)
+        if u_norm:
+            seen_timeline_urls.add(u_norm)
+        seen_date_titles.add(dt_key)
+
+    # Sort timeline chronologically by date
+    timeline.sort(key=lambda item: item.get("date") or "9999-99-99")
+
+    # Mark the chronological earliest milestone as initial_report
+    if timeline and timeline[0].get("phase") != "initial_report":
+        timeline[0]["phase"] = "initial_report"
+
+    # Compute latest activity / last_updated_date
+    valid_dates = [m.get("date") for m in timeline if m.get("date")]
+    if valid_dates:
+        merged["last_updated_date"] = max(valid_dates)
+
+    merged["timeline"] = timeline
     return merged
 
 # ==============================================================================
@@ -280,13 +383,18 @@ def compute_candidate_pairs_tfidf(
 # STEP 3: TOP-K RERANKING & TARGETED LLM VERIFICATION
 # ==============================================================================
 
-def verify_candidate_pair_llm(inc1: Dict[str, Any], inc2: Dict[str, Any], api_key: str = "") -> Tuple[bool, float, str]:
+def verify_candidate_pair_llm(
+    inc1: Dict[str, Any],
+    inc2: Dict[str, Any],
+    api_key: str = ""
+) -> Tuple[bool, float, str, Dict[str, Any]]:
     """
     Targeted LLM verification for high-probability candidate pairs.
-    Returns (is_same_incident: bool, confidence: float, reasoning: str).
+    Returns (is_same_incident: bool, confidence: float, reasoning: str, milestone_info: Dict[str, Any]).
     """
+    default_milestone = {"evolution_type": "redundant_copy", "milestone_phase": "follow_up", "summary_delta": ""}
     if not api_key:
-        return False, 0.0, "No API key"
+        return False, 0.0, "No API key", default_milestone
 
     alleged_date_1 = inc1.get('alleged_incident_date') or 'Not specified (use publication date)'
     alleged_date_2 = inc2.get('alleged_incident_date') or 'Not specified (use publication date)'
@@ -312,11 +420,18 @@ Instructions:
 2. Reporting Date vs Event Date: "Article Publication Date" merely reflects when news outlets published an article. A follow-up investigation, court settlement, government audit, or retrospective report published weeks or months later about the same real-world incident is STILL the same incident. Do NOT treat different publication dates as different incidents if the underlying core event, victim, or technology failure is the same.
 3. Evolving Media Attribution: News reporting evolves over time. Earlier articles may name a general campaign, parent agency, or contractor, while later articles name a specific Super PAC, subsidiary agency, or specific perpetrator. If they describe the same real-world event or action against the same targets, return is_same_incident: true.
 4. Return is_same_incident: false ONLY if they describe genuinely different lawsuits, different crimes, or distinct technical vulnerabilities—even if they involve the same company.
+5. If is_same_incident is true, classify the evolution between the reports:
+   - "evolution_type": "new_milestone" if Report B brings later developments, technical details, root causes, investigation updates, legal actions, or new dates. Use "redundant_copy" if Report B is virtually identical syndicate copy from the same time.
+   - "milestone_phase": One of: "initial_report", "technical_disclosure", "impact_escalation", "investigation", "regulatory_action", "legal_settlement", "remediation", "follow_up".
+   - "summary_delta": 1-2 concise sentences summarizing the NEW insight or development that Report B provides beyond Report A.
 
 Respond strictly in valid JSON format:
 {{
   "is_same_incident": true or false,
   "confidence": 0.95,
+  "evolution_type": "new_milestone" or "redundant_copy",
+  "milestone_phase": "technical_disclosure",
+  "summary_delta": "Follow-up analysis reveals the breach occurred via...",
   "reasoning": "Short explanation focusing on whether the real-world event is identical."
 }}"""
 
@@ -352,8 +467,13 @@ Respond strictly in valid JSON format:
                         is_same = bool(data.get("is_same_incident", False))
                         confidence = float(data.get("confidence", 0.90))
                         reasoning = str(data.get("reasoning", ""))
+                        m_info = {
+                            "evolution_type": data.get("evolution_type", "new_milestone" if inc1.get("date") != inc2.get("date") else "redundant_copy"),
+                            "milestone_phase": data.get("milestone_phase", "follow_up"),
+                            "summary_delta": data.get("summary_delta", "")
+                        }
                         _WORKING_DEDUP_MODEL = model_name
-                        return is_same, confidence, reasoning
+                        return is_same, confidence, reasoning, m_info
                 except Exception as err:
                     err_str = str(err)
                     if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
@@ -361,7 +481,7 @@ Respond strictly in valid JSON format:
                         continue
                     break
 
-    return False, 0.0, "LLM call failed"
+    return False, 0.0, "LLM call failed", default_milestone
 
 # ==============================================================================
 # STEP 4: UNION-FIND CLUSTERING & SINGLE-PASS DATASET CONSOLIDATION
@@ -419,7 +539,7 @@ def consolidate_dataset_hybrid(
             continue
             
         # Step 3: Targeted LLM Evaluation
-        is_same, confidence, reasoning = verify_candidate_pair_llm(
+        is_same, confidence, reasoning, _ = verify_candidate_pair_llm(
             incidents[i], incidents[j], api_key=api_key
         )
         llm_call_count += 1
@@ -504,8 +624,13 @@ def consolidate_new_against_existing(
 
         if exact_target_idx is not None:
             # Merge directly into existing canonical record (appends source_urls, preserves ID and original date)
+            exact_milestone = {
+                "evolution_type": "new_milestone" if new_inc.get("date") != canonical_catalog[exact_target_idx].get("date") else "redundant_copy",
+                "milestone_phase": "follow_up" if (new_inc.get("date") or "") > (canonical_catalog[exact_target_idx].get("date") or "") else "initial_report",
+                "summary_delta": (new_inc.get("summary") or "").strip().split(". ")[0] + ("." if not (new_inc.get("summary") or "").strip().endswith(".") else "")
+            }
             canonical_catalog[exact_target_idx] = merge_duplicate_records(
-                canonical_catalog[exact_target_idx], new_inc
+                canonical_catalog[exact_target_idx], new_inc, milestone_info=exact_milestone
             )
             for u in new_urls:
                 url_to_index[u] = exact_target_idx
@@ -546,7 +671,7 @@ def consolidate_new_against_existing(
         merged = False
         # Step 3: Targeted LLM verification on Top-3 candidate matches (resolves greedy masking)
         for eff_score, idx, candidate_inc in candidates[:3]:
-            is_same, confidence, reasoning = verify_candidate_pair_llm(
+            is_same, confidence, reasoning, milestone_info = verify_candidate_pair_llm(
                 candidate_inc, new_inc, api_key=api_key
             )
             llm_call_count += 1
@@ -554,7 +679,7 @@ def consolidate_new_against_existing(
             
             if is_same and confidence >= 0.70:
                 canonical_catalog[idx] = merge_duplicate_records(
-                    candidate_inc, new_inc
+                    candidate_inc, new_inc, milestone_info=milestone_info
                 )
                 for u in new_urls:
                     url_to_index[u] = idx

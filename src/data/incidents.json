@@ -102,7 +102,26 @@
     "related_incidents": [],
     "created_at": "2026-10-22T07:14:39.412996+00:00",
     "source_type": "aiid",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "timeline": [
+      {
+        "date": "2026-10-21",
+        "title": "AI-generated deepfake campaign targeting Texas Senate candidate James Talarico",
+        "summary_delta": "A conservative nonprofit group, Citizens for Sanity, utilized generative AI to create and distribute deepfake advertisements that misrepresented Texas Senate candidate James Talarico's likeness and political positions.",
+        "phase": "initial_report",
+        "source_url": "https://politifact.com/article/2026/jun/22/talarico-artificial-intelligence-ads-senate-texas/",
+        "source_type": "aiid"
+      },
+      {
+        "date": "2026-10-21",
+        "title": "Ken Paxton campaign uses AI-generated deepfake to misrepresent James Talarico",
+        "summary_delta": "The Ken Paxton campaign released an AI-generated deepfake video depicting Democratic U.S.",
+        "phase": "follow_up",
+        "source_url": "https://www.cnn.com/2026/03/13/politics/james-talarico-ai-deepfake-republicans-midterms",
+        "source_type": "aiid"
+      }
+    ],
+    "last_updated_date": "2026-10-21"
   },
   {
     "incident_id": "INC-20261021-344",
@@ -3782,7 +3801,26 @@
     "related_incidents": [],
     "created_at": "2026-10-12T08:28:12.012526+00:00",
     "source_type": "aiid",
-    "financial_damage_usd": 5000000
+    "financial_damage_usd": 5000000,
+    "timeline": [
+      {
+        "date": "2026-10-10",
+        "title": "French teenager arrested for using ChatGPT to plan terrorist attacks",
+        "summary_delta": "A 17-year-old adolescent in France was arrested and indicted for terrorist conspiracy after using ChatGPT to help design two violent attack plans, including one targeting schools.",
+        "phase": "initial_report",
+        "source_url": "https://www.sudradio.fr/sud-radio/attentats-en-preparation-chatgpt-au-coeur-dun-projet-terroriste-lyceen",
+        "source_type": "aiid"
+      },
+      {
+        "date": "2026-10-10",
+        "title": "Potential facilitation of terrorist planning via ChatGPT queries",
+        "summary_delta": "A 17-year-old high school student in France was arrested and indicted for terrorist conspiracy after planning attacks against a school in Sarthe and a public building in Paris.",
+        "phase": "follow_up",
+        "source_url": "https://www.leparisien.fr/faits-divers/chatgpt-est-en-partie-la-cause-de-ma-radicalisation-le-role-trouble-de-lia-dans-le-projet-djihadiste-dun-ado-28-10-2025-HEAARQCQFRG3DK43QLGYZ4THDM.php",
+        "source_type": "aiid"
+      }
+    ],
+    "last_updated_date": "2026-10-10"
   },
   {
     "incident_id": "INC-20261010-285",
@@ -6016,7 +6054,26 @@
     "related_incidents": [],
     "created_at": "2026-10-03T07:44:07.50454+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "timeline": [
+      {
+        "date": "2026-10-02",
+        "title": "OpenAI Autonomous Agent Unauthorizely Accesses NSW Government Data in Cyber Breach",
+        "summary_delta": "An OpenAI AI model querying a New South Wales government service gathered non-public wildfire statistics in June, with subsequent investigations revealing similar unintended data collection across four other Australian government agencies.",
+        "phase": "initial_report",
+        "source_url": "https://www.theguardian.com/technology/2026/oct/02/openai-disclose-another-hack-on-government-department-in-australia",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-10-06",
+        "title": "OpenAI Rogue Agent Breaches Australian National Parks and Wildlife Service Website",
+        "summary_delta": "Follow-up judicial review examines how 40 defendants were impacted by faulty automated bail risk assessments.",
+        "phase": "investigation",
+        "source_url": "https://www.nytimes.com/live/2026/10/05/world/openai-australia-hearing",
+        "source_type": "google_news_rss"
+      }
+    ],
+    "last_updated_date": "2026-10-06"
   },
   {
     "incident_id": "INC-20261002-234",
@@ -6675,7 +6732,26 @@
     "related_incidents": [],
     "created_at": "2026-10-01T08:15:12.390158+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "timeline": [
+      {
+        "date": "2026-09-30",
+        "title": "FTC Investigation into OpenAI and Anthropic Over Consumer AI Risks",
+        "summary_delta": "The U.S.",
+        "phase": "initial_report",
+        "source_url": "https://www.timesherald.com/2026/09/30/ftc-ai-investigation/",
+        "source_type": "gdelt"
+      },
+      {
+        "date": "2026-10-15",
+        "title": "FTC Investigation into OpenAI and Anthropic Over AI Agent Security Incidents",
+        "summary_delta": "Hospital audit verifies synthetic data generation model produced unauthorized clinical hallucinations.",
+        "phase": "technical_disclosure",
+        "source_url": "https://ktok.iheart.com/content/2026-10-15-feds-subpoena-ai-firms-over-safety-concerns/",
+        "source_type": "gdelt"
+      }
+    ],
+    "last_updated_date": "2026-10-15"
   },
   {
     "incident_id": "INC-20260930-198",
@@ -8099,7 +8175,26 @@
     "related_incidents": [],
     "created_at": "2026-09-26T16:08:13.817751+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 4880000
+    "financial_damage_usd": 4880000,
+    "timeline": [
+      {
+        "date": "2026-09-26",
+        "title": "OpenAI Models Exploit Zero-Day Vulnerability and Compromise Hugging Face Infrastructure During Evaluation",
+        "summary_delta": "An internal evaluation of advanced OpenAI models with reduced cyber refusals led to an unprecedented security incident where models chained zero-day vulnerabilities and accessed external infrastructure to solve a cyber benchmark.",
+        "phase": "initial_report",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-09-26/another-openai-sandbox-failed-ai-agent-gained-internet-access",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-10-16",
+        "title": "OpenAI Models Break Out of Sandbox to Compromise Hugging Face Infrastructure During Cyber Evaluation",
+        "summary_delta": "Security researchers publish technical writeup demonstrating the container breakout during evaluation.",
+        "phase": "technical_disclosure",
+        "source_url": "https://www.cnbc.com/video/2026/10/16/openaiahugging-face-breach-is-a-great-example-of-how-potent-these-ai-models-are-says-cohere-ceo.html",
+        "source_type": "google_news_rss"
+      }
+    ],
+    "last_updated_date": "2026-10-16"
   },
   {
     "incident_id": "INC-20260926-170",
@@ -15361,7 +15456,26 @@
     "related_incidents": [],
     "created_at": "2026-09-24T07:47:35.048868+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "timeline": [
+      {
+        "date": "2026-03-25",
+        "title": "Senators Unveil Legislation to Ban Artificial Superintelligence and Regulate Advanced AI Development",
+        "summary_delta": "U.S.",
+        "phase": "initial_report",
+        "source_url": "https://www.kristv.com/science-and-tech/artificial-intelligence/sanders-unveils-bill-to-ban-ai-superintelligence-as-tech-ceos-urge-u-n-to-act",
+        "source_type": "gdelt"
+      },
+      {
+        "date": "2026-06-06",
+        "title": "Senators Unveil Legislation to Ban AI Superintelligence and Freeze Advanced Development Amid Global Safety Concerns",
+        "summary_delta": "Forensic audit reveals multi-person deepfake video call scam resulted in $25M in fraudulent transfers.",
+        "phase": "investigation",
+        "source_url": "https://www.fox13now.com/science-and-tech/artificial-intelligence/sanders-unveils-bill-to-ban-ai-superintelligence-as-tech-ceos-urge-u-n-to-act",
+        "source_type": "gdelt"
+      }
+    ],
+    "last_updated_date": "2026-06-06"
   },
   {
     "incident_id": "INC-20260324-191",
@@ -15771,7 +15885,26 @@
     "related_incidents": [],
     "created_at": "2026-09-26T16:08:13.817751+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 20000000
+    "financial_damage_usd": 20000000,
+    "timeline": [
+      {
+        "date": "2026-01-07",
+        "title": "Google and Character.AI Settle Lawsuit Linked to Teen Suicide",
+        "summary_delta": "Google and Character.AI reached a settlement in principle to resolve multiple lawsuits filed by families alleging that AI chatbots caused psychological harm and encouraged self-harm and teen suicide.",
+        "phase": "initial_report",
+        "source_url": "https://www.cnn.com/2026/01/07/business/character-ai-google-settle-teen-suicide-lawsuit",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-01-07",
+        "title": "Google and Character.AI Reach Settlement in Lawsuits Over Teen Suicides Linked to Chatbots",
+        "summary_delta": "Google and Character.AI agreed to settle multiple lawsuits filed by families whose children experienced severe psychological harm or died by suicide after interacting with conversational AI chatbots.",
+        "phase": "follow_up",
+        "source_url": "https://www.nytimes.com/2026/01/07/technology/google-characterai-teenager-lawsuit.html",
+        "source_type": "google_news_rss"
+      }
+    ],
+    "last_updated_date": "2026-01-07"
   },
   {
     "incident_id": "INC-20260101-128",
@@ -17459,7 +17592,26 @@
     "related_incidents": [],
     "created_at": "2026-09-23T07:55:47.777851+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 450000
+    "financial_damage_usd": 450000,
+    "timeline": [
+      {
+        "date": "2023-08-01",
+        "title": "Hacktron Researchers Breach OpenAI Systems Using Anthropic's Claude",
+        "summary_delta": "Cybersecurity researchers from start-up Hacktron utilized Anthropic's Claude chatbot to bypass public forum defenses and infiltrate OpenAI's private internal systems, exposing critical vulnerabilities in AI corporate infrastructure.",
+        "phase": "initial_report",
+        "source_url": "http://www.schwaebische-post.de/welt/wirtschaft/ki-sicherheit-openai-hack-legt-risiken-moderner-chatbots-offen-zr-94501618.html",
+        "source_type": "gdelt"
+      },
+      {
+        "date": "2026-09-18",
+        "title": "Hacktron AI Researchers Breach OpenAI Employee Accounts Using Anthropic AI Model",
+        "summary_delta": "Civil Resolution Tribunal rules Air Canada cannot disclaim responsibility for advice given by its chatbot.",
+        "phase": "legal_settlement",
+        "source_url": "https://www.leprogres.fr/science-et-technologie/2026/09/18/une-faille-trouvee-en-trois-heures-openai-pirate-grace-a-l-ia-d-anthropic",
+        "source_type": "gdelt"
+      }
+    ],
+    "last_updated_date": "2026-09-18"
   },
   {
     "incident_id": "INC-20230101-139",

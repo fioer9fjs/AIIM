@@ -269,6 +269,107 @@ class TestDuplicateMerging(unittest.TestCase):
         # 5. Affected parties unioned
         self.assertEqual(set(merged["affected_parties"]), {"OpenAI", "Hugging Face", "Users"})
 
+    def test_merges_duplicate_records_initializes_anchor_milestone(self):
+        # --- ARRANGE ---
+        inc1 = {
+            "incident_id": "INC-20261001-001",
+            "title": "Initial Outage Reported at Cloud Provider",
+            "summary": "Cloud provider experienced a multi-region outage. Service was disrupted.",
+            "date": "2026-10-01",
+            "source_urls": ["https://tech.example.com/outage-day1"]
+        }
+        inc2 = {
+            "incident_id": "INC-20261005-002",
+            "title": "Cloud Provider Outage Root Cause Revealed as Agent Deadlock",
+            "summary": "Post-mortem analysis shows an autonomous scheduler agent entered an infinite deadlock loop.",
+            "date": "2026-10-05",
+            "source_urls": ["https://forensics.example.com/post-mortem"]
+        }
+
+        # --- ACT ---
+        merged = merge_duplicate_records(inc1, inc2)
+
+        # --- ASSERT ---
+        self.assertIn("timeline", merged)
+        self.assertEqual(len(merged["timeline"]), 2)
+        
+        # Milestone 1: Anchor
+        m1 = merged["timeline"][0]
+        self.assertEqual(m1["date"], "2026-10-01")
+        self.assertEqual(m1["phase"], "initial_report")
+        self.assertEqual(m1["source_url"], "https://tech.example.com/outage-day1")
+
+        # Milestone 2: Evolving follow up
+        m2 = merged["timeline"][1]
+        self.assertEqual(m2["date"], "2026-10-05")
+        self.assertEqual(m2["phase"], "follow_up")
+        self.assertEqual(m2["source_url"], "https://forensics.example.com/post-mortem")
+        self.assertEqual(merged["last_updated_date"], "2026-10-05")
+        self.assertEqual(merged["date"], "2026-10-01")
+
+    def test_merges_duplicate_records_with_llm_milestone_info(self):
+        # --- ARRANGE ---
+        inc1 = {
+            "incident_id": "INC-20260915-001",
+            "title": "AI Image Generator Generated Defamatory Content",
+            "summary": "A public lawsuit was initiated against an image generation model.",
+            "date": "2026-09-15",
+            "source_urls": ["https://news.example.com/lawsuit-filed"]
+        }
+        inc2 = {
+            "incident_id": "INC-20261010-003",
+            "title": "Court Approves $5M Settlement in AI Defamation Case",
+            "summary": "The parties reached a 5 million dollar settlement approved by the federal judge.",
+            "date": "2026-10-10",
+            "financial_damage_usd": 5000000,
+            "source_urls": ["https://legal.example.com/settlement-approved"]
+        }
+        milestone_info = {
+            "evolution_type": "new_milestone",
+            "milestone_phase": "legal_settlement",
+            "summary_delta": "Federal court approves $5,000,000 settlement resolving the litigation."
+        }
+
+        # --- ACT ---
+        merged = merge_duplicate_records(inc1, inc2, milestone_info=milestone_info)
+
+        # --- ASSERT ---
+        self.assertEqual(len(merged["timeline"]), 2)
+        settlement_milestone = merged["timeline"][1]
+        self.assertEqual(settlement_milestone["phase"], "legal_settlement")
+        self.assertEqual(settlement_milestone["summary_delta"], "Federal court approves $5,000,000 settlement resolving the litigation.")
+        self.assertEqual(merged["financial_damage_usd"], 5000000)
+        self.assertEqual(merged["last_updated_date"], "2026-10-10")
+
+    def test_milestone_chronological_ordering_and_earliest_date(self):
+        # --- ARRANGE: inc2 is earlier than inc1 ---
+        inc1 = {
+            "incident_id": "INC-20261012-001",
+            "title": "Government Sanctions Firm over Deepfake Disinformation",
+            "summary": "Sanctions imposed after investigation.",
+            "date": "2026-10-12",
+            "source_urls": ["https://gov.example.com/sanctions"]
+        }
+        inc2 = {
+            "incident_id": "INC-20261002-001",
+            "title": "First Reports of Deepfake Campaign Targeting Election",
+            "summary": "Initial sightings of automated bots spreading synthetic media.",
+            "date": "2026-10-02",
+            "source_urls": ["https://watchdog.example.com/initial-findings"]
+        }
+
+        # --- ACT ---
+        merged = merge_duplicate_records(inc1, inc2)
+
+        # --- ASSERT ---
+        # First-Reported-Date Principle
+        self.assertEqual(merged["date"], "2026-10-02")
+        self.assertEqual(len(merged["timeline"]), 2)
+        self.assertEqual(merged["timeline"][0]["date"], "2026-10-02")
+        self.assertEqual(merged["timeline"][0]["phase"], "initial_report")
+        self.assertEqual(merged["timeline"][1]["date"], "2026-10-12")
+        self.assertEqual(merged["last_updated_date"], "2026-10-12")
+
 
 class TestTFIDFVectorization(unittest.TestCase):
     """

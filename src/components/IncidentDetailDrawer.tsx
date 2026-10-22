@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, ExternalLink, AlertTriangle, ShieldAlert, DollarSign, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, ExternalLink, AlertTriangle, ShieldAlert, DollarSign, ChevronLeft, ChevronRight, GitCommit } from 'lucide-react';
 import { AIIncident, GraphEdge, formatFinancialDamage, sanitizeExternalUrl } from '../types/incident';
 
 interface IncidentDetailDrawerProps {
@@ -125,10 +125,18 @@ export const IncidentDetailDrawer: React.FC<IncidentDetailDrawerProps> = ({
                   <ShieldAlert size={12} /> NatSec Impact
                 </span>
               )}
+              {incident.timeline && incident.timeline.length > 1 && (
+                <span className="badge" style={{ backgroundColor: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.3)', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
+                  <GitCommit size={12} /> {incident.timeline.length} Milestones
+                </span>
+              )}
             </div>
             <h2 style={{ fontSize: '1.25rem', fontWeight: 700, lineHeight: 1.3 }}>{incident.title}</h2>
             <div style={{ display: 'flex', gap: '1rem', marginTop: '0.35rem', fontSize: '0.8rem', color: 'var(--text-dim)', flexWrap: 'wrap' }}>
-              <span>📅 <strong>First Reported / Published:</strong> {incident.date}</span>
+              <span>📅 <strong>First Reported:</strong> {incident.date}</span>
+              {incident.last_updated_date && incident.last_updated_date !== incident.date && (
+                <span style={{ color: 'var(--accent-purple)' }}>🔄 <strong>Last Updated:</strong> {incident.last_updated_date}</span>
+              )}
               {incident.alleged_incident_date && incident.alleged_incident_date !== incident.date && (
                 <span style={{ color: 'var(--accent-cyan)' }}>⏱️ <strong>Alleged Occurrence:</strong> {incident.alleged_incident_date}</span>
               )}
@@ -139,6 +147,96 @@ export const IncidentDetailDrawer: React.FC<IncidentDetailDrawerProps> = ({
             <h4>Executive Summary</h4>
             <p style={{ fontSize: '0.9rem', color: 'var(--text-main)', lineHeight: 1.5 }}>{incident.summary}</p>
           </div>
+
+          {incident.timeline && incident.timeline.length > 1 && (
+            <div className="detail-section" style={{ borderColor: 'rgba(56, 189, 248, 0.3)', backgroundColor: 'rgba(15, 23, 42, 0.35)' }}>
+              <h4 style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'var(--accent-cyan)' }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <GitCommit size={15} /> Incident Evolution & Event Chain
+                </span>
+                <span style={{ fontSize: '0.75rem', fontWeight: 500, color: 'var(--text-muted)' }}>
+                  {incident.timeline.length} Chronological Phases
+                </span>
+              </h4>
+              <div style={{ position: 'relative', paddingLeft: '1.25rem', marginTop: '0.85rem', display: 'flex', flexDirection: 'column', gap: '1.1rem', borderLeft: '2px solid rgba(56, 189, 248, 0.25)', marginLeft: '0.5rem' }}>
+                {incident.timeline.map((milestone, idx) => {
+                  const phaseLabels: Record<string, { label: string; color: string; bg: string }> = {
+                    initial_report: { label: 'Initial Report', color: '#38bdf8', bg: 'rgba(56, 189, 248, 0.15)' },
+                    technical_disclosure: { label: 'Technical Disclosure', color: '#c084fc', bg: 'rgba(192, 132, 252, 0.15)' },
+                    impact_escalation: { label: 'Impact Escalation', color: '#f87171', bg: 'rgba(248, 113, 113, 0.15)' },
+                    investigation: { label: 'Investigation', color: '#fbbf24', bg: 'rgba(251, 191, 36, 0.15)' },
+                    regulatory_action: { label: 'Regulatory Action', color: '#fb923c', bg: 'rgba(251, 146, 60, 0.15)' },
+                    legal_settlement: { label: 'Legal Settlement', color: '#34d399', bg: 'rgba(52, 211, 153, 0.15)' },
+                    remediation: { label: 'Remediation', color: '#2dd4bf', bg: 'rgba(45, 212, 191, 0.15)' },
+                    follow_up: { label: 'Follow-Up Report', color: '#94a3b8', bg: 'rgba(148, 163, 184, 0.15)' }
+                  };
+                  const phaseInfo = phaseLabels[milestone.phase] || { label: (milestone.phase || 'Milestone').replace(/_/g, ' '), color: '#94a3b8', bg: 'rgba(148, 163, 184, 0.15)' };
+                  
+                  return (
+                    <div key={idx} style={{ position: 'relative' }}>
+                      {/* Timeline Node Dot */}
+                      <div style={{
+                        position: 'absolute',
+                        left: '-1.62rem',
+                        top: '0.22rem',
+                        width: '10px',
+                        height: '10px',
+                        borderRadius: '50%',
+                        backgroundColor: phaseInfo.color,
+                        boxShadow: `0 0 6px ${phaseInfo.color}`
+                      }} />
+                      
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.25rem' }}>
+                        <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-main)', fontFamily: 'monospace' }}>
+                          {milestone.date}
+                        </span>
+                        <span style={{
+                          fontSize: '0.675rem',
+                          fontWeight: 600,
+                          padding: '0.15rem 0.45rem',
+                          borderRadius: '4px',
+                          color: phaseInfo.color,
+                          backgroundColor: phaseInfo.bg,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.03em'
+                        }}>
+                          {phaseInfo.label}
+                        </span>
+                      </div>
+
+                      <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '0.25rem', lineHeight: 1.3 }}>
+                        {milestone.title}
+                      </div>
+
+                      {milestone.summary_delta && (
+                        <p style={{ fontSize: '0.8rem', color: 'var(--text-dim)', lineHeight: 1.45, margin: '0 0 0.35rem 0' }}>
+                          {milestone.summary_delta}
+                        </p>
+                      )}
+
+                      {milestone.source_url && (
+                        <a
+                          href={sanitizeExternalUrl(milestone.source_url)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            fontSize: '0.75rem',
+                            color: 'var(--accent-cyan)',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.25rem',
+                            textDecoration: 'none'
+                          }}
+                        >
+                          View Milestone Source <ExternalLink size={11} />
+                        </a>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {incident.failure_mode && (
             <div className="detail-section" style={{ borderColor: 'rgba(239, 68, 68, 0.3)' }}>

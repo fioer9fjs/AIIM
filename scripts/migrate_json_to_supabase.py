@@ -223,7 +223,9 @@ def run_migration():
                 "impact_scope": inc.get("impact_scope"),
                 "valuation_methodology": inc.get("valuation_methodology"),
                 "source_type": inc.get("source_type", "google_news_rss"),
-                "financial_damage_usd": inc.get("financial_damage_usd", 0)
+                "financial_damage_usd": inc.get("financial_damage_usd", 0),
+                "timeline": inc.get("timeline", []),
+                "last_updated_date": inc.get("last_updated_date")
             }
             
             row = {

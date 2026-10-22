@@ -884,6 +884,9 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
                   <div className="card-footer">
                     <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                       <span>📅 {inc.date}</span>
+                      {inc.timeline && inc.timeline.length > 1 && (
+                        <span style={{ color: 'var(--accent-cyan)', fontWeight: 600 }}>• 🔄 {inc.timeline.length} updates</span>
+                      )}
                       {inc.geographic_scope && inc.geographic_scope.length > 0 && (
                         <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
                           <Globe size={11} /> {inc.geographic_scope.slice(0, 2).join(', ')}
@@ -931,7 +934,14 @@ export const ExplorerView: React.FC<ExplorerViewProps> = ({ incidents, onSelectI
                       onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(56, 189, 248, 0.08)')}
                       onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
                     >
-                      <td style={{ padding: '0.65rem 1rem', whiteSpace: 'nowrap', color: 'var(--text-muted)', fontSize: '0.8rem' }}>{inc.date}</td>
+                      <td style={{ padding: '0.65rem 1rem', whiteSpace: 'nowrap', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+                        <div>{inc.date}</div>
+                        {inc.timeline && inc.timeline.length > 1 && (
+                          <div style={{ fontSize: '0.675rem', color: 'var(--accent-cyan)', fontWeight: 600 }}>
+                            🔄 {inc.timeline.length} phases
+                          </div>
+                        )}
+                      </td>
                       <td style={{ padding: '0.65rem 1rem', fontWeight: 600, color: 'var(--text-main)', maxWidth: '380px' }}>
                         <div style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                           {inc.title}

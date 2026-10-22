@@ -39,6 +39,26 @@ export type Severity = 'critical' | 'high' | 'medium' | 'low';
 
 export type SourceType = 'google_news_rss' | 'gdelt' | 'arxiv' | 'aiid' | 'other';
 
+// Event-Chain / Incident Evolution Phases
+export type MilestonePhase =
+  | 'initial_report'
+  | 'technical_disclosure'
+  | 'impact_escalation'
+  | 'investigation'
+  | 'regulatory_action'
+  | 'legal_settlement'
+  | 'remediation'
+  | 'follow_up';
+
+export interface IncidentMilestone {
+  date: string;
+  title: string;
+  summary_delta: string;
+  phase: MilestonePhase;
+  source_url: string;
+  source_type?: SourceType;
+}
+
 // Impact Scope Taxonomy: Discrete Single Event vs Macro Industry Trend
 export type ImpactScope = 'discrete_incident' | 'cumulative_macro_trend';
 
@@ -109,6 +129,8 @@ export interface AIIncident {
 
   // Data Origin Telemetry
   source_type?: SourceType;
+  timeline?: IncidentMilestone[];
+  last_updated_date?: string;
 
   // Estimated Financial Damage (USD) & Valuation Methodology
   financial_damage_usd?: number;
