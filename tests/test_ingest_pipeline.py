@@ -17,6 +17,7 @@ from scripts.ingest import (
     fetch_arxiv,
     fetch_aiid_rss,
     fetch_google_news_multilane,
+    filter_known_candidate_urls,
 )
 
 
@@ -285,6 +286,36 @@ class TestMultiLaneHarvester(unittest.TestCase):
         urls = [r["link"] for r in results]
         self.assertEqual(len(urls), len(set(urls)), "Multilane results must be strictly deduplicated by URL.")
 
+
+
+
+    def test_filter_known_candidate_urls_skips_existing_and_deduplicates_batch(self):
+        import tempfile
+        with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf-8") as tmp:
+            json.dump([
+                {
+                    "incident_id": "INC-20261019-335",
+                    "source_urls": ["https://g1.globo.com/mg/noticia/case.ghtml"],
+                    "timeline": [
+                        {"source_url": "https://tribunademinas.com.br/noticias/case2.html"}
+                    ]
+                }
+            ], tmp)
+            tmp_path = tmp.name
+
+        try:
+            candidates = [
+                {"title": "Already in source_urls", "link": "https://www.g1.globo.com/mg/noticia/case.ghtml?utm_source=rss"},
+                {"title": "Already in timeline", "link": "http://tribunademinas.com.br/noticias/case2.html/"},
+                {"title": "Brand new article", "link": "https://reuters.com/tech/new-incident"},
+                {"title": "Duplicate in same batch", "link": "https://www.reuters.com/tech/new-incident?ref=tw"}
+            ]
+            filtered = filter_known_candidate_urls(candidates, incidents_path=tmp_path)
+            self.assertEqual(len(filtered), 1)
+            self.assertEqual(filtered[0]["title"], "Brand new article")
+        finally:
+            if os.path.exists(tmp_path):
+                os.remove(tmp_path)
 
 
 if __name__ == "__main__":

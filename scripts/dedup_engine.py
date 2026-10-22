@@ -24,9 +24,9 @@ except ImportError:
 # Preferred active models (Gemma-4-26B primary, Gemini >= 3.1 fallback)
 PREFERRED_MODELS_DEDUP = [
     "gemma-4-26b-a4b-it",
+    "gemma-4-31b-it",
     "gemini-3.6-flash",
-    "gemini-3.5-flash-lite",
-    "gemma-4-31b-it"
+    "gemini-3.5-flash-lite"
 ]
 
 _WORKING_DEDUP_MODEL: Optional[str] = None
@@ -269,6 +269,100 @@ STOPWORDS = {
     'user', 'users', 'company', 'first', 'resulting', 'tools', 'tool', 'agent', 'agents'
 }
 
+GENERIC_PARTIES = {
+    "unknown", "public", "general public", "users", "consumers",
+    "openai", "anthropic", "google", "microsoft", "meta", "xai", "deepseek"
+}
+
+MAJOR_AI_VENDORS = {
+    "openai", "anthropic", "google", "microsoft", "meta", "xai", "deepseek",
+    "character.ai", "character ai", "huggingface", "hugging face", "waymo", "tesla"
+}
+
+GENERIC_ENTITY_TOKENS = STOPWORDS | GENERIC_PARTIES | {
+    "department", "ministry", "state", "government", "family", "system", "systems",
+    "agency", "police", "hospital", "public", "office", "court", "bank", "banks",
+    "services", "commission", "university", "company", "companies", "corporation",
+    "group", "students", "parents", "community", "organization", "organizations",
+    "officials", "authorities", "researchers", "patients", "victims", "citizens",
+    "employees", "workers", "customers", "clients", "children", "minors", "teens",
+    "schools", "school", "district", "county", "city", "national", "federal",
+    "international", "global", "united", "states", "south", "north", "east", "west",
+    "central", "general", "health", "medical", "financial", "commercial", "security",
+    "safety", "platform", "network", "networks", "software", "technology", "technologies"
+}
+
+def stem_word(word: str) -> str:
+    """Deterministic suffix/prefix stemmer for English morphological variants."""
+    if len(word) <= 4:
+        return word
+    for suffix in (
+        "ations", "ation", "itions", "ition", "ings", "ing",
+        "ments", "ment", "ities", "ity", "nesses", "ness", "ed", "es", "s"
+    ):
+        if word.endswith(suffix) and len(word) - len(suffix) >= 4:
+            base = word[:-len(suffix)]
+            return base[:6] if len(base) >= 6 else base
+    return word[:6] if len(word) >= 6 else word
+
+def extract_distinct_entity_tokens(parties: Set[str]) -> Set[str]:
+    """Extracts non-generic proper-noun / entity tokens (>= 4 chars) from a set of party names."""
+    tokens = set()
+    for p in parties:
+        for w in normalize_text(p).split():
+            if len(w) >= 4 and w not in GENERIC_ENTITY_TOKENS and not w.isdigit():
+                tokens.add(w)
+    return tokens
+
+def compute_entity_and_temporal_boost(inc1: Dict[str, Any], inc2: Dict[str, Any]) -> Tuple[float, Set[str]]:
+    """
+    Computes hybrid candidate boost combining:
+    1. Exact & Sub-Token Entity Overlap across affected_parties and title/summary.
+    2. Temporal + Vendor / Geographic Scope proximity boost (<= 7 days).
+    Returns (total_boost, shared_entity_identifiers).
+    """
+    p1 = {p.lower().strip() for p in (inc1.get("affected_parties") or [])} - GENERIC_PARTIES
+    p2 = {p.lower().strip() for p in (inc2.get("affected_parties") or [])} - GENERIC_PARTIES
+    exact_shared = p1 & p2
+
+    t1 = extract_distinct_entity_tokens(p1)
+    t2 = extract_distinct_entity_tokens(p2)
+    shared_subtokens = t1 & t2
+
+    text1_words = set(normalize_text(f"{inc1.get('title', '')} {inc1.get('summary', '')}").split())
+    text2_words = set(normalize_text(f"{inc2.get('title', '')} {inc2.get('summary', '')}").split())
+    cross_shared = (
+        {tok for tok in t1 if len(tok) >= 5 and tok in text2_words}
+        | {tok for tok in t2 if len(tok) >= 5 and tok in text1_words}
+    )
+
+    all_shared_entities = exact_shared | shared_subtokens | cross_shared
+    if exact_shared or len(shared_subtokens) >= 1 or len(cross_shared) >= 2:
+        entity_boost = 0.20
+    elif len(cross_shared) == 1:
+        entity_boost = 0.12
+    else:
+        entity_boost = 0.0
+
+    temporal_boost = 0.0
+    try:
+        d1 = datetime.strptime(str(inc1.get("date", ""))[:10], "%Y-%m-%d")
+        d2 = datetime.strptime(str(inc2.get("date", ""))[:10], "%Y-%m-%d")
+        days_apart = abs((d1 - d2).days)
+    except Exception:
+        days_apart = 999
+
+    if days_apart <= 7:
+        all_p1 = {p.lower().strip() for p in (inc1.get("affected_parties") or [])} | set(normalize_text(inc1.get("title", "")).split())
+        all_p2 = {p.lower().strip() for p in (inc2.get("affected_parties") or [])} | set(normalize_text(inc2.get("title", "")).split())
+        shared_vendors = (all_p1 & all_p2) & MAJOR_AI_VENDORS
+        g1 = {g.lower().strip() for g in (inc1.get("geographic_scope") or [])} - {"global", "united states", "unknown"}
+        g2 = {g.lower().strip() for g in (inc2.get("geographic_scope") or [])} - {"global", "united states", "unknown"}
+        if shared_vendors or (g1 & g2):
+            temporal_boost = 0.08
+
+    return entity_boost + temporal_boost, all_shared_entities
+
 def build_incident_corpus(inc: Dict[str, Any]) -> str:
     """
     Constructs the exact text corpus used for vector embedding:
@@ -283,9 +377,12 @@ def build_incident_corpus(inc: Dict[str, Any]) -> str:
     return normalize_text(raw_corpus)
 
 def tokenize(text: str) -> List[str]:
-    """Tokenizes text into unigrams and bigrams, filtering out generic stopwords."""
+    """Tokenizes text into unigrams, morphological stems, and bigrams, filtering out generic stopwords."""
     words = [w for w in text.split() if len(w) > 2 and w not in STOPWORDS]
     tokens = list(words)
+    for w in words:
+        if len(w) >= 5:
+            tokens.append(f"st_{stem_word(w)}")
     for i in range(len(words) - 1):
         bigram = f"{words[i]}_{words[i+1]}"
         tokens.append(bigram)
@@ -339,9 +436,9 @@ def cosine_similarity_vectors(vec1: Dict[str, float], vec2: Dict[str, float]) ->
 
 def compute_candidate_pairs_tfidf(
     incidents: List[Dict[str, Any]],
-    min_similarity: float = 0.20
+    min_similarity: float = 0.18
 ) -> Tuple[List[Dict[str, Any]], List[Dict[str, float]]]:
-    """Filters all pairwise incident combinations down to candidate pairs using Cosine Similarity."""
+    """Filters all pairwise incident combinations down to candidate pairs using Cosine Similarity & Entity/Temporal Boost."""
     corpus_list = [build_incident_corpus(inc) for inc in incidents]
     tfidf_vectors, vocab = compute_tfidf_vectors(corpus_list)
     
@@ -355,16 +452,10 @@ def compute_candidate_pairs_tfidf(
             
             is_exact, exact_reason = is_exact_duplicate(inc1, inc2)
             sim_score = cosine_similarity_vectors(tfidf_vectors[i], tfidf_vectors[j])
+            boost, shared_parties = compute_entity_and_temporal_boost(inc1, inc2)
+            effective_score = sim_score + boost
             
-            p1 = {p.lower().strip() for p in (inc1.get("affected_parties") or [])}
-            p2 = {p.lower().strip() for p in (inc2.get("affected_parties") or [])}
-            generic_parties = {
-                "unknown", "public", "general public", "users", "consumers",
-                "openai", "anthropic", "google", "microsoft", "meta", "xai", "deepseek"
-            }
-            shared_parties = (p1 - generic_parties) & (p2 - generic_parties)
-            
-            if is_exact or sim_score >= min_similarity or len(shared_parties) > 0:
+            if is_exact or effective_score >= min_similarity or len(shared_parties) > 0:
                 candidate_pairs.append({
                     "idx1": i,
                     "idx2": j,
@@ -373,6 +464,7 @@ def compute_candidate_pairs_tfidf(
                     "title1": inc1.get("title"),
                     "title2": inc2.get("title"),
                     "similarity": round(sim_score, 4),
+                    "effective_score": round(effective_score, 4),
                     "is_exact": is_exact,
                     "shared_parties": list(shared_parties)
                 })
@@ -419,8 +511,9 @@ Instructions:
 1. Return is_same_incident: true ONLY if Report A and Report B describe the exact same underlying real-world incident.
 2. Reporting Date vs Event Date: "Article Publication Date" merely reflects when news outlets published an article. A follow-up investigation, court settlement, government audit, or retrospective report published weeks or months later about the same real-world incident is STILL the same incident. Do NOT treat different publication dates as different incidents if the underlying core event, victim, or technology failure is the same.
 3. Evolving Media Attribution: News reporting evolves over time. Earlier articles may name a general campaign, parent agency, or contractor, while later articles name a specific Super PAC, subsidiary agency, or specific perpetrator. If they describe the same real-world event or action against the same targets, return is_same_incident: true.
-4. Return is_same_incident: false ONLY if they describe genuinely different lawsuits, different crimes, or distinct technical vulnerabilities—even if they involve the same company.
-5. If is_same_incident is true, classify the evolution between the reports:
+4. Coordinated Campaigns & Viral Hoax Trends: If two reports describe the same named viral AI hoax/meme trend (e.g., 'Cat in the Hat' school threat hoax) or coordinated cyberattack wave unfolding across multiple locations within days of each other, return is_same_incident: true.
+5. Return is_same_incident: false ONLY if they describe genuinely different lawsuits, different crimes, or distinct technical vulnerabilities—even if they involve the same company.
+6. If is_same_incident is true, classify the evolution between the reports:
    - "evolution_type": "new_milestone" if Report B brings later developments, technical details, root causes, investigation updates, legal actions, or new dates. Use "redundant_copy" if Report B is virtually identical syndicate copy from the same time.
    - "milestone_phase": One of: "initial_report", "technical_disclosure", "impact_escalation", "investigation", "regulatory_action", "legal_settlement", "remediation", "follow_up".
    - "summary_delta": 1-2 concise sentences summarizing the NEW insight or development that Report B provides beyond Report A.
@@ -476,7 +569,7 @@ Respond strictly in valid JSON format:
                         return is_same, confidence, reasoning, m_info
                 except Exception as err:
                     err_str = str(err)
-                    if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
+                    if any(code in err_str for code in ("429", "RESOURCE_EXHAUSTED", "Quota", "503", "UNAVAILABLE", "500", "INTERNAL")):
                         time.sleep(2 * (attempt + 1))
                         continue
                     break
@@ -647,22 +740,15 @@ def consolidate_new_against_existing(
         tfidf_vectors, _ = compute_tfidf_vectors(combined_corpus)
         new_vec = tfidf_vectors[-1]
         
-        new_parties = {p.lower().strip() for p in (new_inc.get("affected_parties") or [])}
-        distinct_new_parties = new_parties - generic_parties
-
-        # Collect candidate matches with effective_score >= 0.22 or shared entities
+        # Collect candidate matches with effective_score >= 0.18 or shared entities
         candidates = []
         for idx, inc in enumerate(canonical_catalog):
             target_vec = tfidf_vectors[idx]
             sim = cosine_similarity_vectors(new_vec, target_vec)
+            boost, shared_entities = compute_entity_and_temporal_boost(new_inc, inc)
+            effective_score = sim + boost
             
-            target_parties = {p.lower().strip() for p in (inc.get('affected_parties') or [])}
-            shared_parties = distinct_new_parties & (target_parties - generic_parties)
-            
-            # Significant boost if distinct entities match
-            effective_score = sim + (0.20 if shared_parties else 0.0)
-            
-            if effective_score >= 0.22 or len(shared_parties) > 0:
+            if effective_score >= 0.18 or len(shared_entities) > 0:
                 candidates.append((effective_score, idx, inc))
 
         # Sort candidates descending by effective score

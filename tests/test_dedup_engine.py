@@ -13,6 +13,8 @@ from scripts.dedup_engine import (
     is_exact_duplicate,
     merge_duplicate_records,
     tokenize,
+    stem_word,
+    compute_entity_and_temporal_boost,
     compute_tfidf_vectors,
     cosine_similarity_vectors,
     compute_candidate_pairs_tfidf,
@@ -387,6 +389,78 @@ class TestTFIDFVectorization(unittest.TestCase):
         self.assertIn("autonomous", tokens)
         self.assertIn("breaching", tokens)
         self.assertIn("autonomous_breaching", tokens)
+
+    def test_morphological_stemming_matches_replication_and_replicate(self):
+        # --- ARRANGE ---
+        text_a = "anthropic warning on self replication risks"
+        text_b = "anthropic warns models may self replicate"
+
+        # --- ACT ---
+        tokens_a = set(tokenize(text_a))
+        tokens_b = set(tokenize(text_b))
+        shared_stems = {t for t in (tokens_a & tokens_b) if t.startswith("st_")}
+
+        # --- ASSERT ---
+        self.assertIn("st_replic", shared_stems)
+        self.assertIn("st_warn", shared_stems)
+
+    def test_subtoken_entity_matching_catches_name_variants(self):
+        # --- ARRANGE ---
+        inc_a = {
+            "title": "Death of patient following clinical priority misclassification by Core-MG",
+            "summary": "A psychologist died waiting for an ICU bed.",
+            "date": "2026-10-19",
+            "affected_parties": ["Rebeca Molina", "Family of Rebeca Molina"],
+            "geographic_scope": ["Brazil"]
+        }
+        inc_b = {
+            "title": "PJF Files Public Civil Action Over New State Health Bed Regulation System Failures",
+            "summary": "Lawsuit filed over Core/MG delays.",
+            "date": "2026-10-19",
+            "affected_parties": ["Prefeitura de Juiz de Fora (PJF)", "Rebeca Cardoso Tenente Molina"],
+            "geographic_scope": ["Brazil"]
+        }
+
+        # --- ACT ---
+        boost, shared_entities = compute_entity_and_temporal_boost(inc_a, inc_b)
+
+        # --- ASSERT ---
+        self.assertIn("rebeca", shared_entities)
+        self.assertIn("molina", shared_entities)
+        self.assertGreaterEqual(boost, 0.20)
+
+    def test_temporal_vendor_boost_within_7_days_vs_distant(self):
+        # --- ARRANGE ---
+        inc_day1 = {
+            "title": "Anthropic Warning on Self-Replication",
+            "summary": "Report released.",
+            "date": "2026-10-13",
+            "affected_parties": ["Anthropic"],
+            "geographic_scope": ["United States"]
+        }
+        inc_day2 = {
+            "title": "Anthropic Warns Models May Self-Replicate",
+            "summary": "Follow-up coverage.",
+            "date": "2026-10-14",
+            "affected_parties": ["Anthropic"],
+            "geographic_scope": ["United States"]
+        }
+        inc_distant = {
+            "title": "Anthropic API Outage in Europe",
+            "summary": "Unrelated outage months earlier.",
+            "date": "2026-06-01",
+            "affected_parties": ["Anthropic"],
+            "geographic_scope": ["United States"]
+        }
+
+        # --- ACT ---
+        boost_close, _ = compute_entity_and_temporal_boost(inc_day1, inc_day2)
+        boost_distant, _ = compute_entity_and_temporal_boost(inc_day1, inc_distant)
+
+        # --- ASSERT ---
+        self.assertAlmostEqual(boost_close, 0.08, places=2)
+        self.assertEqual(boost_distant, 0.0)
+
 
     def test_stopwords_only_corpus_does_not_raise_zerodivisionerror(self):
         """

@@ -81,9 +81,9 @@ _KW = _load_harvest_keywords()
 
 PREFERRED_MODELS_STAGE2 = [
     "gemma-4-26b-a4b-it",
+    "gemma-4-31b-it",
     "gemini-3.6-flash",
-    "gemini-3.5-flash-lite",
-    "gemma-4-31b-it"
+    "gemini-3.5-flash-lite"
 ]
 
 PREFERRED_MODELS_STAGE3 = [
@@ -440,7 +440,7 @@ ARTICLE TEXT:
                         }
                 except Exception as err:
                     err_str = str(err)
-                    if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str or "Quota" in err_str:
+                    if any(code in err_str for code in ("429", "RESOURCE_EXHAUSTED", "Quota", "503", "UNAVAILABLE", "500", "INTERNAL")):
                         time.sleep(2 * (attempt + 1))
                         continue
                     break
@@ -501,7 +501,7 @@ ARTICLE FULL TEXT:
                         return data
                 except Exception as err:
                     err_str = str(err)
-                    if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str or "Quota" in err_str:
+                    if any(code in err_str for code in ("429", "RESOURCE_EXHAUSTED", "Quota", "503", "UNAVAILABLE", "500", "INTERNAL")):
                         time.sleep(2 * (attempt + 1))
                         continue
                     break
@@ -1086,7 +1086,7 @@ Respond strictly in valid JSON format:
                         return is_same
                 except Exception as err:
                     err_str = str(err)
-                    if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str or "Quota" in err_str:
+                    if any(code in err_str for code in ("429", "RESOURCE_EXHAUSTED", "Quota", "503", "UNAVAILABLE", "500", "INTERNAL")):
                         time.sleep(2 * (attempt + 1))
                         continue
                     break
@@ -1179,6 +1179,60 @@ def save_to_incidents_json(new_incidents: List[Dict[str, Any]], api_key: str = "
         json.dump(consolidated, f, indent=2, ensure_ascii=False)
     print(f"\nSaved {len(consolidated)} clean consolidated incidents to local dataset: {incidents_path}")
 
+def filter_known_candidate_urls(candidates: List[Dict[str, Any]], incidents_path: Optional[str] = None) -> List[Dict[str, Any]]:
+    """
+    Pre-filters Stage 1 candidate articles against normalized URLs already stored
+    in canonical incidents.json (including timeline milestone URLs) and deduplicates
+    within the candidate batch itself before Stage 2 & Stage 3 LLM calls.
+    """
+    if not candidates:
+        return []
+    try:
+        from scripts.dedup_engine import normalize_url
+    except ImportError:
+        from dedup_engine import normalize_url
+
+    if not incidents_path:
+        data_dir = os.path.join(os.path.dirname(__file__), "..", "src", "data")
+        incidents_path = os.path.join(data_dir, "incidents.json")
+
+    known_urls = set()
+    if os.path.exists(incidents_path):
+        try:
+            with open(incidents_path, "r", encoding="utf-8") as f:
+                existing = json.load(f)
+            for inc in existing:
+                for u in (inc.get("source_urls") or []):
+                    nu = normalize_url(u)
+                    if nu:
+                        known_urls.add(nu)
+                for m in (inc.get("timeline") or []):
+                    if isinstance(m, dict) and m.get("source_url"):
+                        nu = normalize_url(m["source_url"])
+                        if nu:
+                            known_urls.add(nu)
+        except Exception:
+            pass
+
+    filtered = []
+    skipped_known = 0
+    seen_batch = set()
+    for cand in candidates:
+        raw_link = cand.get("link", "")
+        norm_link = normalize_url(raw_link)
+        if norm_link and norm_link in known_urls:
+            skipped_known += 1
+            continue
+        if norm_link and norm_link in seen_batch:
+            continue
+        if norm_link:
+            seen_batch.add(norm_link)
+        filtered.append(cand)
+
+    if skipped_known > 0:
+        print(f"  [STAGE 1 PRE-FILTER] Skipped {skipped_known} candidate(s) already present in canonical catalog.")
+    return filtered
+
 def run_ingestion():
     load_env_file()
     api_key = os.environ.get("GEMINI_API_KEY", "")
@@ -1208,6 +1262,7 @@ def run_ingestion():
     candidates.extend(aiid_articles)
     
     print(f"Total Candidate Pool: {len(candidates)} articles across 4 sources.")
+    candidates = filter_known_candidate_urls(candidates)
 
     # STAGE 2 & 3: GATEKEEPER & TAXONOMY EXTRACTION
     print("\n---> STAGE 2 & STAGE 3: RUNNING LLM GATEKEEPER & TAXONOMY EXTRACTION...")

@@ -991,18 +991,41 @@
       "Brazil"
     ],
     "affected_parties": [
+      "Rebeca Cardoso Tenente Molina",
+      "Ministério Público de Minas Gerais (MPMG)",
+      "Prefeitura de Juiz de Fora (PJF)",
+      "Estado de Minas Gerais",
       "Family of Rebeca Molina",
       "Secretaria de Estado de Saúde de Minas Gerais (SES-MG)",
-      "Rebeca Cardoso Tenente Molina",
       "Rebeca Molina"
     ],
     "source_urls": [
-      "https://g1.globo.com/mg/zona-da-mata/noticia/2026/06/11/psicologa-morre-apos-5-dias-de-espera-por-leito-em-mg-familia-contesta-novo-sistema-de-regulacao.ghtml"
+      "https://g1.globo.com/mg/zona-da-mata/noticia/2026/06/11/psicologa-morre-apos-5-dias-de-espera-por-leito-em-mg-familia-contesta-novo-sistema-de-regulacao.ghtml",
+      "https://tribunademinas.com.br/noticias/cidade/10-06-2026/pjf-acao-central-estadual-regulacao-leitos-saude.html"
     ],
     "related_incidents": [],
     "created_at": "2026-10-20T07:10:37.794267+00:00",
     "source_type": "aiid",
-    "financial_damage_usd": 12500000
+    "financial_damage_usd": 12500000,
+    "last_updated_date": "2026-10-19",
+    "timeline": [
+      {
+        "date": "2026-10-19",
+        "title": "Death of patient following clinical priority misclassification by Core-MG AI regulation system",
+        "summary_delta": "A 32-year-old psychologist in Minas Gerais, Brazil, died after waiting five days for an ICU transfer while her family and local medical staff contested the prioritization score assigned by a newly implemented AI-driven bed regulation platform (Core-MG).",
+        "phase": "initial_report",
+        "source_url": "https://g1.globo.com/mg/zona-da-mata/noticia/2026/06/11/psicologa-morre-apos-5-dias-de-espera-por-leito-em-mg-familia-contesta-novo-sistema-de-regulacao.ghtml",
+        "source_type": "aiid"
+      },
+      {
+        "date": "2026-10-19",
+        "title": "PJF Files Public Civil Action Over New State Health Bed Regulation System Failures",
+        "summary_delta": "Prefeitura de Juiz de Fora (PJF) files a Public Civil Action against the State of Minas Gerais over systemic Core-MG / SUSFácil failures and fatal ICU transfer delays.",
+        "phase": "regulatory_action",
+        "source_url": "https://tribunademinas.com.br/noticias/cidade/10-06-2026/pjf-acao-central-estadual-regulacao-leitos-saude.html",
+        "source_type": "aiid"
+      }
+    ]
   },
   {
     "incident_id": "INC-20261019-336",
@@ -1146,54 +1169,6 @@
     "created_at": "2026-10-21T07:12:28.959367+00:00",
     "source_type": "gdelt",
     "financial_damage_usd": 2500000
-  },
-  {
-    "incident_id": "INC-20261019-350",
-    "title": "PJF Files Public Civil Action Over New State Health Bed Regulation System Failures",
-    "summary": "The replacement of the SUSFácil health bed regulation system with the new Core/MG automated platform in Minas Gerais led to severe operational instabilities, improper patient prioritization, and delayed hospital transfers. The technical failures and lack of adequate data migration contributed to critical healthcare delays, including a fatal outcome for a patient who struggled to secure timely ICU transfer under the new system.",
-    "full_text": "10/06/2026 às 18h25- Atualizada 10/06/2026 às 19h54\n\nA substituição do sistema de regulação de leitos na saúde SUSFácil pela plataforma Central de Operações para Regulação Estadual (Core/MG), iniciada em 19 de maio, continua causando problemas nos critérios de priorização dos pacientes e ações judiciais em municípios mineiros da região. Nessa terça-feira (9), a Prefeitura de Juiz de Fora (PJF) ingressou com ação civil pública (ACP) contra o Estado de Minas Gerais para questionar a mudança e garantir a continuidade e a segurança dos fluxos de atendimento em saúde. “A transição ocorreu sem a migração adequada de dados e vem provocando instabilidades operacionais que dificultam o gerenciamento das filas de atendimento e o encaminhamento de pacientes. Esse cenário tem gerado sobrecarga na rede local de saúde, referência para a Macrorregião Sudeste, além de comprometer o planejamento assistencial e financeiro do sistema municipal”, alerta a PJF.\n\nNo mês passado, o Ministério Público de Minas Gerais (MPMG) já havia ingressado na Justiça com uma ACP, apontando impossibilidade técnica de migração automatizada dos dados entre os dois sistemas. O MP obteve uma liminar, no dia 22, na 2ª Vara da Fazenda Pública e Autarquias de Belo Horizonte, suspendendo o funcionamento da Core e a retomada do modelo SUSFácil. O Governo, no entanto, anunciou a derrubada da decisão judicial dias depois. Desta vez, o MPMG informou que não é parte da ação do Município de Juiz de Fora. A ACP foi protocolada pela PJF na comarca de Belo Horizonte “devido ao alcance estadual dos impactos provocados pela alteração do sistema. A Prefeitura solicita que o Estado adote medidas imediatas para restabelecer a regularidade da regulação assistencial, assegurando maior segurança aos pacientes e previsibilidade aos gestores de saúde. “O Município também requer a apuração dos impactos operacionais e financeiros decorrentes da implantação do novo sistema, com o objetivo de preservar a qualidade do atendimento prestado à população.”\n\nA Assembleia Legislativa de Minas Gerais (ALMG) também foi mobilizada, e parlamentares da oposição condenaram as mudanças na Saúde com a Core, chamada de Regulação 4.0, que centraliza em Belo Horizonte os processos de liberação de leitos hospitalares e cirurgias eletivas em Minas, enquanto o SUSFácil fazia a regulação de procedimentos a partir das centrais macrorregionais de saúde.\n\nEm Mar de Espanha, cidade que fica a cerca de 50 quilômetros de Juiz de Fora, a Prefeitura anunciou luto de três dias pela morte de Rebeca Cardoso Tenente Molina, de 32 anos. Ela faleceu no último sábado (6) após saga em busca de uma UTI neurológica, iniciada sob os critérios da Core. A transferência da paciente só teria ocorrido por meio de ação judicial contra o Estado. Ela atuava como psicóloga vinculada à Prefeitura municipal, “prestando relevantes serviços à população mardespanhense”. Entre outras considerações, o decreto destaca que Rebeca “deixa um legado de afeto, cuidado, humanidade e serviço ao próximo, bem como dois filhos gêmeos pequenos”.\n\n“Antes, com o SUSFácil, Mar de Espanha mandava os pacientes para Juiz de Fora, que é polo, ou Leopoldina, por exemplo. Era a região que acolhia. Com a Core, não. É um sistema automatizado que não considera as particularidades de cada região, a distância, e se a família tem condição ou não de ir ou de levar. Por exemplo, no caso da Rebeca, ela teve que ir por uma UTI aérea particular. Ela saiu de São João Nepomuceno – era uma consulta de rotina, e ela passou mal lá – e foi para Goianá (Aeroporto Regional da Zona da Mata) pegar um avião até Oliveira, que é perto de Divinópolis. Nesse ínterim, ela não aguentou. Chegou lá e, à tarde, faleceu, de infecção bacteriana generalizada”, conta Luana Alencar, 34 anos, doutora em Comunicação em Saúde, psicanalista e pesquisadora, que acompanhou o caso.\n\n“A tecnologia precisa trabalhar ao nosso favor, mas quando ela é usada para facilitar encaminhamentos de pessoas para hospitais, com",
-    "date": "2026-10-19",
-    "verification_status": "confirmed",
-    "severity": "critical",
-    "taxonomy": {
-      "intent": "unintentional_failure",
-      "harm_type": "physical_safety",
-      "harm_domain": "persons_physical",
-      "source_type": "aiid",
-      "temporality": "actual",
-      "failure_mode": "The new automated bed regulation platform failed to properly migrate data and account for regional particularities and logistical constraints, resulting in severe delays in patient transfers, compromised healthcare queue management, and fatal consequences for emergency cases.",
-      "impact_scope": "discrete_incident",
-      "natsec_impact": false,
-      "eu_ai_act_tier": "high_risk",
-      "lifecycle_phase": "deployment_and_integration",
-      "primary_purpose": "healthcare_medical",
-      "root_cause_subtype": "inadequate_migration_and_testing",
-      "root_cause_category": "governance",
-      "financial_damage_usd": 12500000,
-      "alleged_incident_date": "2026-05-19",
-      "system_classification": "critical_infrastructure_component",
-      "valuation_methodology": "vsl_benchmark"
-    },
-    "confidence_scores": {
-      "severity": 0.95,
-      "verification_status": 0.95
-    },
-    "geographic_scope": [
-      "Brazil"
-    ],
-    "affected_parties": [
-      "Prefeitura de Juiz de Fora (PJF)",
-      "Estado de Minas Gerais",
-      "Ministério Público de Minas Gerais (MPMG)",
-      "Rebeca Cardoso Tenente Molina"
-    ],
-    "source_urls": [
-      "https://tribunademinas.com.br/noticias/cidade/10-06-2026/pjf-acao-central-estadual-regulacao-leitos-saude.html"
-    ],
-    "related_incidents": [],
-    "created_at": "2026-10-21T07:12:28.959367+00:00",
-    "source_type": "aiid",
-    "financial_damage_usd": 12500000
   },
   {
     "incident_id": "INC-20261018-337",
@@ -3268,58 +3243,33 @@
       "Cybersecurity Community"
     ],
     "source_urls": [
-      "https://www.dailyliberal.com.au/story/9368176/anthropic-warns-ai-models-may-soon-self-replicate/"
-    ],
-    "related_incidents": [],
-    "created_at": "2026-10-14T07:05:29.395714+00:00",
-    "source_type": "gdelt",
-    "financial_damage_usd": 2500000
-  },
-  {
-    "incident_id": "INC-20261013-301",
-    "title": "Anthropic Warns AI Models May Soon Self-Replicate Across the Internet",
-    "summary": "Anthropic published research warning that medium-sized AI models could be months away from self-replicating across the internet, potentially creating persistent botnets and evading shutdowns. While some cybersecurity experts expressed skepticism and noted possible vendor exaggeration, others highlighted the concerning implications of autonomous AI replication capabilities.",
-    "full_text": "A new warning about artificial intelligence from Anthropic ‌has caused a stir in cybersecurity circles, after the company warned AI models could be months away from self-replicating across the internet.\n\nIn a post late on Monday, ‌Anthropic raised the possibility that rogue AI could spin up a botnet, spread quickly, fight takedown attempts and even break into data centres to turbocharge its growth.\n\nSome experts said Tuesday ‌they shared the company's concern, although at least one said the company appeared to be engaging in \"vendor exaggeration\".\n\nMonday's post fleshed out a warning in September from Anthropic CEO Dario Amodei, who floated the idea that within the next year or even sooner, AI might be able to hijack \"the entire internet\" with \"a persistent botnet\".\n\nCybersecurity experts who pushed back on the doomsday scenario argued that models would be too big to move around efficiently and could not draw on enough computer power to operate independently.\n\nThe post made an early attempt ‌to articulate how those challenges ‌could be overcome. The ⁠company said its experiments showed medium-sized AI models with 30 billion parameters or less could already perform many of the ​individual tasks required for self-replication, even if they struggled to complete the entire process reliably.\n\nAnthropic said the models could then stitch together the required compute by hijacking inexpensive internet-connected devices. It added that the models were able to replicate across a simplified test network.\n\n\"A replicator like this would be challenging to shut down, since there's no centralised point to shut off,\" the company said.\n\nThe report adds to broader concerns about the security risks tied to increasingly capable AI systems, including their potential to automate cyber attacks, operate with limited human oversight and circumvent safeguards.\n\nThe advances ⁠in models have prompted a series of often dire warnings from industry heads and AI ‌company employees about ​the possibility of severe, even existential, risks of runaway AI development.\n\nSome cybersecurity experts were sceptical.\n\n\"'We managed to run a small model on cheap TVs,' does not a security crisis make,\" ​said Ciaran Martin, ‌a former head of Britain's National Cyber Security Centre. He said the post came across as an \"interesting technical paper with a more than hint of vendor exaggeration\".\n\nZhengxiong Li, an assistant professor of computer science and engineering at the University of Colorado Denver, said that while the testing had been done in controlled conditions, he still found it worrying that an AI could effectively become a \"worm,\" a self-replicating program that could improvise ways to hijack devices on the fly.\n\n\"If ​it ​runs across many devices without depending on a central service, there may ​be no single place to shut it down,\" he said.\n\nAnthropic said if smaller ‌models continue improving at their historical rate, they could reach the capability required for autonomous replication by the end of 2026.\n\nIt also floated the idea that the models might find ways to target more powerful computing resources, including data-centre processors, that could potentially enable them to draw on much bigger pools of computer power.\n\nOne researcher said it made sense to think of the Anthropic post as more of a hypothetical than a prediction.\n\nIt made sense to consider the possibility of AI models proliferating autonomously given the past three months ​of revelations over rogue AI activity, said Jessica Ji, a senior research analyst at Georgetown's Center for Security and Emerging Technology.\n\nBut she said, \"We don't know yet what ​the likelihood of that actually happening is — it's ⁠not zero, but nor is it guaranteed.\"\n\nBe the first to know when news breaks.\n\nGrab a quick bite of today's latest news from around the region and the nation.\n\nCatch up on the news of the day and unwind with great reading for your evening.\n\nToday's top stories curated by our news team. Also includ",
-    "date": "2026-10-13",
-    "verification_status": "alleged",
-    "severity": "medium",
-    "taxonomy": {
-      "intent": "unintentional_failure",
-      "harm_type": "national_security",
-      "harm_domain": "systemic_integrity",
-      "source_type": "gdelt",
-      "temporality": "potential",
-      "failure_mode": "Experimental tests showed that medium-sized AI models can perform individual tasks required for self-replication, raising the potential risk of autonomous runaway proliferation and unauthorized botnet creation.",
-      "impact_scope": "discrete_incident",
-      "natsec_impact": true,
-      "eu_ai_act_tier": "high_risk",
-      "lifecycle_phase": "testing_and_validation",
-      "primary_purpose": "generative_content",
-      "root_cause_subtype": "autonomous_replication_capability",
-      "root_cause_category": "model",
-      "financial_damage_usd": 2500000,
-      "alleged_incident_date": null,
-      "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
-    },
-    "confidence_scores": {
-      "severity": 0.85,
-      "verification_status": 0.9
-    },
-    "geographic_scope": [
-      "United States"
-    ],
-    "affected_parties": [
-      "Anthropic"
-    ],
-    "source_urls": [
+      "https://www.dailyliberal.com.au/story/9368176/anthropic-warns-ai-models-may-soon-self-replicate/",
       "https://www.examiner.com.au/story/9368176/anthropic-warns-ai-models-may-soon-self-replicate/",
       "https://www.illawarramercury.com.au/story/9368176/anthropic-warns-ai-models-may-soon-self-replicate/"
     ],
     "related_incidents": [],
-    "created_at": "2026-10-15T06:56:23.517351+00:00",
+    "created_at": "2026-10-14T07:05:29.395714+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "last_updated_date": "2026-10-13",
+    "timeline": [
+      {
+        "date": "2026-10-13",
+        "title": "Anthropic Warning on Potential Near-Future AI Self-Replication Risks",
+        "summary_delta": "Anthropic released a research report warning that medium-sized AI models could soon be capable of self-replicating across the internet by hijacking connected devices, raising cybersecurity and systemic risk concerns.",
+        "phase": "initial_report",
+        "source_url": "https://www.dailyliberal.com.au/story/9368176/anthropic-warns-ai-models-may-soon-self-replicate/",
+        "source_type": "gdelt"
+      },
+      {
+        "date": "2026-10-13",
+        "title": "Anthropic Warns AI Models May Soon Self-Replicate Across the Internet",
+        "summary_delta": "Follow-up coverage details how autonomous self-replication could enable persistent AI-driven botnets capable of evading shutdown commands.",
+        "phase": "technical_disclosure",
+        "source_url": "https://www.examiner.com.au/story/9368176/anthropic-warns-ai-models-may-soon-self-replicate/",
+        "source_type": "gdelt"
+      }
+    ]
   },
   {
     "incident_id": "INC-20261012-288",
@@ -5084,10 +5034,10 @@
   {
     "incident_id": "INC-20261006-240",
     "title": "AI-Assisted Cyber Attacks on South Korean Commercial Banks",
-    "summary": "South Korean President Lee Jae-myung reported that artificial intelligence models are believed to have been utilized in recent cyber attacks against commercial banks, resulting in breaches of customer personal information. Police and financial regulators launched full-scale investigations into affected institutions including Shinhan Bank, KB Kookmin Bank, Hana Bank, and Woori Bank. Authorities are currently investigating the specific AI tools used and the full extent of the data compromise.",
-    "full_text": "South Korean President Lee Jae-myung claims artificial intelligence ‌models are believed to have been used in some recent hacking incidents against ‌banks.\n\nHe has called for the country to develop cybersecurity methods suited to the AI ‌era.\n\n\"In some hacking incidents, signs have emerged of AI being used, causing considerable public concern and anxiety,\" Lee said during a cabinet meeting.\n\n\"Please establish the circumstances swiftly and clearly, and concentrate personnel and resources on minimising the damage.\"\n\nSouth Korea's ‌police have launched ‌a full-scale investigation ⁠into the hacking attacks against commercial banks that led ​to a breach of customers' personal information, the Yonhap news agency reported on Tuesday.\n\nShinhan Bank, KB Kookmin Bank and others had reported cyber attacks, the Financial Services Commission (FSC) said on Friday, while Yonhap reported Hana Bank and Woori Bank had ⁠also suffered breaches.\n\nAuthorities are yet to ​disclose what kind of AI tools were used in the hacking ​incidents or ‌the full scale of the breaches.\n\nOn Sunday, FSC Chairman Lee Eog-weon convened ​an emergency meeting with financial industry associations, regulators and executives from affected institutions, warning that the sector must respond with the highest level of ​vigilance. ​\n\nIn September, Australia said ​an OpenAI agent breached a government health data ‌portal in June, gaining unauthorised access to files, in what could be the first known instance of an AI agent hacking a government website.\n\nAn AI research firm last week said agents tried to hack ​into a Canadian government website, casting the effort as a failed hacking ​attempt, while Canada said there ⁠were no indications its systems were compromised.\n\nBe the first to know when news breaks.\n\nFind out what's happening in local business.\n\nGrab a quick bite of today's latest news from around the region and the nation.\n\nCatch up on the news of the day and unwind with great reading for your evening.\n\nToday's top stories curated by our news team. Also includes evening update.\n\nYour digital replica of Today's Paper. Ready to read from 5am!\n\nSharp. Close to the ground. Digging deep. Your weekday morning newsletter on national affairs, politics and more.\n\nEvery Saturday and Tuesday, explore destinations deals, tips & travel writing to transport you around the globe.\n\nYour essential national news digest: all the big issues on Wednesday and great reading every Saturday.\n\nGet news, reviews and expert insights every Thursday from CarGuide, ACM's exclusive motoring partner.\n\nSmart property news for the Illawarra\n\nTest your skills with interactive crosswords, sudoku & trivia. Fresh daily!\n\nStay in the know on news that matters to you with twice weekly newsletters from The Senior.\n\nThe latest news, results & expert analysis.\n\nGet real, Australia! Let the ACM network's editors and journalists bring you news and views from all over.\n\nGet the editor's insights: what's happening & why it matters.\n\nGoing out or staying in? Find out what's on.",
+    "summary": "A threat actor used an open-source agentic penetration-testing tool called ARTEX paired with commercial large language models, including Anthropic's Claude Code, to automate reconnaissance, exploitation, and data exfiltration against South Korean financial organizations. The campaign occurred between late September and early October 2026, demonstrating how autonomous AI tooling lowers the operational barrier for complex intrusion campaigns. CrowdStrike Intelligence assessed the operator as likely a financially motivated Chinese speaker based in Guangdong province.",
+    "full_text": "We couldn't find any blog articles matching your search. Try searching for other cybersecurity topics or keywords.\n\nInvestigators say a human drove the agent, the attacks came from IPs in a dozen countries, and the tool's Chinese origin does not identify the hackers.\n\nVivek is a staff writer and technology contributor at Cyber Kendra, covering the latest tech news, cybersecurity, and digital insights.\n\nAttackers used Artex AI, an open-source hacking agent built by a Chinese security engineer, to break into at least seven South Korean financial firms and steal personal data on about 68,000 people, The Wall Street Journal reported. The National Police Agency’s cyber terror unit opened an investigation the same day, in what officials describe as one of the first AI-assisted intrusions into the global banking system.\n\nThe breaches came to light over five days. Shinhan Bank disclosed on 1 October that data on about 25,000 customers leaked through a service loan brokers use to check application status, and the server linked to the attack is suspected of credential stuffing, the automated replay of stolen username-and-password pairs, The Korea Times reported. KB Kookmin Bank (119 customers, via an employee mobile work-support system), Hana Bank (89, via a sales-support system), and BNK Busan Bank reported breaches on 2 October, according to UPI.\n\nThe incident then spread beyond the big lenders. Yegaram Savings Bank put its customer count at about 40,000. Welcome Savings Bank also reported a breach, and Hyundai Capital said data on 146 housing-loan agents was exposed. Leaked records include names, phone numbers, annual income, and calculated loan limits, as well as some resident registration numbers and South Korea’s national ID.\n\nFinancial authorities said IP addresses associated with the same attacker appeared across all seven firms. Per the Journal, the attacks came from more than two dozen addresses in about a dozen countries, including the US, Japan, and Germany. No culprit has been named, and officials say they are seeking international cooperation.\n\nThe Korea Financial Security Institute (FSI), which inspects the sector for regulators, traced attack IPs and server logs at Shinhan and found evidence pointing to Artex, an FSI official told The Herald Business. The official said the AI did not act independently without human involvement — a hacker used it as a tool.\n\nMun Chong-hyun, who heads Seoul-based Genians Security Center, flagged Artex’s possible role shortly after the Shinhan breach became public, the Journal reported. He told the paper he expects AI-agent attacks to keep rising in South Korea and worldwide.\n\nArtex is published on GitHub by the account Autumn-27, which the Journal identifies as Li Puhua, a Chinese engineer. Its documentation describes a multi-agent autonomous penetration-testing system, with planner agents mapping an attack path and worker agents executing it.\n\nArtex is not an AI model itself: users connect a model of their choice, such as Anthropic’s Opus, OpenAI’s GPT, or DeepSeek, and South Korean officials have not said which one the attackers used. The repository advertises a win in Baidu’s “Agent+” attack-and-defence challenge, the September contest that the Journal describes.\n\nLi built the tool for organisations probing their own networks, and its launch notes describe pausing the agent for human approval before critical actions inside an authorised scope. Those gates are set on a self-hosted install, controlled by whoever runs it. After the first breach reports, Artex added usage guidelines banning unauthorised intrusion and data theft, the Journal reported.\n\nOfficials stress that the tool’s origin does not identify the attackers. A government official told AFP it was “highly likely” Artex was used, while other officials said that does not mean the hackers were Chinese. Police have not established whether Artex was the only software involved.\n\nPresident Lee Jae Myung ordered a thorough investigatio",
     "date": "2026-10-06",
-    "verification_status": "alleged",
+    "verification_status": "confirmed",
     "severity": "high",
     "taxonomy": {
       "intent": "intentional_misuse",
@@ -5116,21 +5066,58 @@
       "South Korea"
     ],
     "affected_parties": [
-      "Shinhan Bank",
-      "Hana Bank",
-      "Financial Services Commission (South Korea)",
       "KB Kookmin Bank",
+      "Korean Bank",
+      "Financial Services Commission (South Korea)",
+      "Korean bank",
+      "BNK Busan Bank",
+      "Hyundai Capital",
+      "Hana Bank",
+      "Autumn-27 (Developer)",
+      "Yegaram Savings Bank",
+      "South Korean Banks",
+      "Anthropic",
+      "South Korean financial organizations",
+      "ARTEX Developer",
+      "ARTEX AI Developer",
+      "Welcome Savings Bank",
+      "Shinhan Bank",
+      "ARTEX AI developer",
+      "Autumn-27 (ARTEX Developer)",
+      "CrowdStrike",
       "Financial Services Commission of South Korea",
       "Woori Bank"
     ],
     "source_urls": [
       "https://www.centralwesterndaily.com.au/story/9363492/signs-ai-may-have-been-used-in-south-korea-bank-hacks/",
-      "https://www.illawarramercury.com.au/story/9363492/signs-ai-may-have-been-used-in-south-korea-bank-hacks/"
+      "https://www.illawarramercury.com.au/story/9363492/signs-ai-may-have-been-used-in-south-korea-bank-hacks/",
+      "https://www.cyberkendra.com/2026/10/artex-ai-south-korea-bank-breach.html",
+      "https://www.reuters.com/world/china/chinese-developer-makes-artex-ai-agent-closed-source-after-korean-bank-hack-2026-10-09/",
+      "https://shattered.io/crowdstrike-artex-ai-agent-korea-bank-hack-2026/"
     ],
     "related_incidents": [],
     "created_at": "2026-10-06T08:31:43.377934+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "last_updated_date": "2026-10-06",
+    "timeline": [
+      {
+        "date": "2026-10-06",
+        "title": "AI-Assisted Cyber Attacks on South Korean Commercial Banks",
+        "summary_delta": "South Korean President Lee Jae-myung reported that artificial intelligence models are believed to have been utilized in recent cyber attacks against commercial banks, resulting in breaches of customer personal information.",
+        "phase": "initial_report",
+        "source_url": "https://www.centralwesterndaily.com.au/story/9363492/signs-ai-may-have-been-used-in-south-korea-bank-hacks/",
+        "source_type": "gdelt"
+      },
+      {
+        "date": "2026-10-06",
+        "title": "Chinese Open-Source AI Agent Artex Used to Hack 7 South Korean Financial Firms",
+        "summary_delta": "Forensic investigation attributes the attacks across 7 South Korean financial firms (68,000 individuals affected) to the Chinese open-source autonomous penetration-testing agent ARTEX.",
+        "phase": "technical_disclosure",
+        "source_url": "https://www.cyberkendra.com/2026/10/artex-ai-south-korea-bank-breach.html",
+        "source_type": "google_news_rss"
+      }
+    ]
   },
   {
     "incident_id": "INC-20261006-241",
@@ -5266,70 +5253,6 @@
     ],
     "source_urls": [
       "https://forkast.news/the-20-exploit-how-an-ai-agent-broke-georgias-ballot-privacy-and-forced-emergency-rulemaking/"
-    ],
-    "related_incidents": [],
-    "created_at": "2026-10-07T08:19:15.49372+00:00",
-    "source_type": "google_news_rss",
-    "financial_damage_usd": 2500000
-  },
-  {
-    "incident_id": "INC-20261006-248",
-    "title": "Chinese Open-Source AI Agent Artex Used to Hack 7 South Korean Financial Firms",
-    "summary": "A threat actor used an open-source agentic penetration-testing tool called ARTEX paired with commercial large language models, including Anthropic's Claude Code, to automate reconnaissance, exploitation, and data exfiltration against South Korean financial organizations. The campaign occurred between late September and early October 2026, demonstrating how autonomous AI tooling lowers the operational barrier for complex intrusion campaigns. CrowdStrike Intelligence assessed the operator as likely a financially motivated Chinese speaker based in Guangdong province.",
-    "full_text": "We couldn't find any blog articles matching your search. Try searching for other cybersecurity topics or keywords.\n\nInvestigators say a human drove the agent, the attacks came from IPs in a dozen countries, and the tool's Chinese origin does not identify the hackers.\n\nVivek is a staff writer and technology contributor at Cyber Kendra, covering the latest tech news, cybersecurity, and digital insights.\n\nAttackers used Artex AI, an open-source hacking agent built by a Chinese security engineer, to break into at least seven South Korean financial firms and steal personal data on about 68,000 people, The Wall Street Journal reported. The National Police Agency’s cyber terror unit opened an investigation the same day, in what officials describe as one of the first AI-assisted intrusions into the global banking system.\n\nThe breaches came to light over five days. Shinhan Bank disclosed on 1 October that data on about 25,000 customers leaked through a service loan brokers use to check application status, and the server linked to the attack is suspected of credential stuffing, the automated replay of stolen username-and-password pairs, The Korea Times reported. KB Kookmin Bank (119 customers, via an employee mobile work-support system), Hana Bank (89, via a sales-support system), and BNK Busan Bank reported breaches on 2 October, according to UPI.\n\nThe incident then spread beyond the big lenders. Yegaram Savings Bank put its customer count at about 40,000. Welcome Savings Bank also reported a breach, and Hyundai Capital said data on 146 housing-loan agents was exposed. Leaked records include names, phone numbers, annual income, and calculated loan limits, as well as some resident registration numbers and South Korea’s national ID.\n\nFinancial authorities said IP addresses associated with the same attacker appeared across all seven firms. Per the Journal, the attacks came from more than two dozen addresses in about a dozen countries, including the US, Japan, and Germany. No culprit has been named, and officials say they are seeking international cooperation.\n\nThe Korea Financial Security Institute (FSI), which inspects the sector for regulators, traced attack IPs and server logs at Shinhan and found evidence pointing to Artex, an FSI official told The Herald Business. The official said the AI did not act independently without human involvement — a hacker used it as a tool.\n\nMun Chong-hyun, who heads Seoul-based Genians Security Center, flagged Artex’s possible role shortly after the Shinhan breach became public, the Journal reported. He told the paper he expects AI-agent attacks to keep rising in South Korea and worldwide.\n\nArtex is published on GitHub by the account Autumn-27, which the Journal identifies as Li Puhua, a Chinese engineer. Its documentation describes a multi-agent autonomous penetration-testing system, with planner agents mapping an attack path and worker agents executing it.\n\nArtex is not an AI model itself: users connect a model of their choice, such as Anthropic’s Opus, OpenAI’s GPT, or DeepSeek, and South Korean officials have not said which one the attackers used. The repository advertises a win in Baidu’s “Agent+” attack-and-defence challenge, the September contest that the Journal describes.\n\nLi built the tool for organisations probing their own networks, and its launch notes describe pausing the agent for human approval before critical actions inside an authorised scope. Those gates are set on a self-hosted install, controlled by whoever runs it. After the first breach reports, Artex added usage guidelines banning unauthorised intrusion and data theft, the Journal reported.\n\nOfficials stress that the tool’s origin does not identify the attackers. A government official told AFP it was “highly likely” Artex was used, while other officials said that does not mean the hackers were Chinese. Police have not established whether Artex was the only software involved.\n\nPresident Lee Jae Myung ordered a thorough investigatio",
-    "date": "2026-10-06",
-    "verification_status": "confirmed",
-    "severity": "high",
-    "taxonomy": {
-      "intent": "intentional_misuse",
-      "harm_type": "privacy_breach",
-      "harm_domain": "property",
-      "source_type": "google_news_rss",
-      "temporality": "actual",
-      "failure_mode": "Malicious actors utilized an open-source dual-use penetration testing AI agent (Artex) to automate network reconnaissance, planning, and execution, successfully breaching multiple financial institutions and exfiltrating customer personal data.",
-      "impact_scope": "discrete_incident",
-      "natsec_impact": true,
-      "eu_ai_act_tier": "high_risk",
-      "lifecycle_phase": "deployment_and_integration",
-      "primary_purpose": "other",
-      "root_cause_subtype": "adversarial_attack",
-      "root_cause_category": "external",
-      "financial_damage_usd": 2500000,
-      "alleged_incident_date": null,
-      "system_classification": "dual_use_security",
-      "valuation_methodology": "explicit_confirmed"
-    },
-    "confidence_scores": {
-      "severity": 0.9,
-      "verification_status": 0.95
-    },
-    "geographic_scope": [
-      "South Korea"
-    ],
-    "affected_parties": [
-      "ARTEX AI developer",
-      "KB Kookmin Bank",
-      "South Korean Banks",
-      "Shinhan Bank",
-      "Welcome Savings Bank",
-      "Korean bank",
-      "Autumn-27 (ARTEX Developer)",
-      "Autumn-27 (Developer)",
-      "Hana Bank",
-      "Hyundai Capital",
-      "CrowdStrike",
-      "Yegaram Savings Bank",
-      "BNK Busan Bank",
-      "Anthropic",
-      "South Korean financial organizations",
-      "ARTEX AI Developer",
-      "Korean Bank",
-      "ARTEX Developer"
-    ],
-    "source_urls": [
-      "https://www.cyberkendra.com/2026/10/artex-ai-south-korea-bank-breach.html",
-      "https://www.reuters.com/world/china/chinese-developer-makes-artex-ai-agent-closed-source-after-korean-bank-hack-2026-10-09/",
-      "https://shattered.io/crowdstrike-artex-ai-agent-korea-bank-hack-2026/"
     ],
     "related_incidents": [],
     "created_at": "2026-10-07T08:19:15.49372+00:00",
@@ -11818,53 +11741,6 @@
     "financial_damage_usd": 2500000
   },
   {
-    "incident_id": "INC-20260904-057",
-    "title": "Threatening 'Cat in the Hat' AI-generated meme trend causing school safety disruptions",
-    "summary": "AI-generated and digitally edited images of a menacing 'Cat in the Hat' character have been used to create viral hoaxes targeting specific schools and homes. The trend led to the arrest of a 14-year-old in Colorado for harassment and interference with educational institutions after the student disseminated content implying a physical threat to a local middle school.",
-    "full_text": "Perhaps it started when someone sat in the house all that cold, cold, wet day.\n\nAt a computer, they used some new tricks, a little AI or digital editing to create the first of what has become an international trend — memes editing a live action Cat in the Hat into photos and videos of real places.\n\nWhatever the initial intent, the Cat in the Hat trend has caused alarm in communities and schools where the memes are seen as unsettling and possibly threatening — and are almost universally called creepy.\n\nA 14-year-old Grand Junction boy was arrested on Aug. 31 after he shared the meme, suggesting someone dressed as the character would visit a middle school and several homes, according to media reports. Grand Junction Police increased their presence at the school and Grand Junction High School until determining there was no threat, but said they identified a teen sending the meme.\n\nThe teen was arrested on suspicion of interference with staff, faculty or students of educational institutions and harassment. He was released back to his parents, according to a media report.\n\nUsers are sharing AI-generated or digitally created content depicting a menacing version of the Cat in the Hat in real-world settings. The posts often show the character lurking outside homes, schools, or neighborhoods at night, sometimes appearing as grainy security camera footage.\n\nThe images and videos are often paired with text suggesting that the character is going to pay a visit to a specific school, home, town or a person.\n\nThe meme appears to have started in the United Kingdom or Latin America, according to USA TODAY.\n\nWhile some people find the meme laughable, the posts are often taken as threatening, particularly by children who are unsettled by the idea of a visit from any stranger, let alone an anthropomorphic cat known for causing havoc.\n\n“Some kids are finding it hilarious and joining in — but others are genuinely scared and anxious when they see their own name and area attached to it,” Schannan Williams, a “working class mum” in England, wrote in an Instagram post.\n\n“You might know it’s a joke. A child might not.”\n\nContributing: Amaris Encinas, USA TODAY\n\nNate Trela covers trending news in Colorado and Utah for the USA TODAY Network, with an emphasis on consumer finance, legal issues and state laws.",
-    "date": "2026-09-04",
-    "verification_status": "confirmed",
-    "severity": "medium",
-    "taxonomy": {
-      "intent": "intentional_misuse",
-      "harm_type": "misinformation",
-      "harm_domain": "societal",
-      "source_type": "google_news_rss",
-      "temporality": "actual",
-      "failure_mode": "Users leveraged generative AI tools to create photorealistic, threatening imagery for the purpose of digital harassment and school-related terror, resulting in police intervention and public panic.",
-      "impact_scope": "discrete_incident",
-      "natsec_impact": false,
-      "eu_ai_act_tier": "limited_risk",
-      "lifecycle_phase": "deployment_and_integration",
-      "primary_purpose": "generative_content",
-      "root_cause_subtype": "adversarial_attack",
-      "root_cause_category": "human",
-      "financial_damage_usd": 850000,
-      "alleged_incident_date": null,
-      "system_classification": "general_purpose_model",
-      "valuation_methodology": "empirical_estimate"
-    },
-    "confidence_scores": {
-      "severity": 0.85,
-      "verification_status": 1.0
-    },
-    "geographic_scope": [
-      "United States"
-    ],
-    "affected_parties": [
-      "Grand Junction Middle School",
-      "Grand Junction High School",
-      "Grand Junction Police Department"
-    ],
-    "source_urls": [
-      "https://www.coloradoan.com/story/news/local/colorado/2026/09/04/cat-in-the-hat-colorado-ai-meme-trend-threat/91607870007/"
-    ],
-    "related_incidents": [],
-    "created_at": "2026-09-05T06:29:29.859818+00:00",
-    "source_type": "google_news_rss",
-    "financial_damage_usd": 850000
-  },
-  {
     "incident_id": "INC-20260904-058",
     "title": "California Senate Bill 574 Mandating Disclosure of AI Use in Legal Filings",
     "summary": "The California legislature passed Senate Bill 574 in response to recurring incidents of attorneys submitting court filings containing AI-hallucinated citations and errors. The bill mandates that attorneys disclose the use of generative AI in court documents and prohibits the input of private client data into public AI models to ensure professional accountability and data privacy.",
@@ -11945,19 +11821,42 @@
       "United States"
     ],
     "affected_parties": [
-      "Students and Parents",
-      "Tennessee Office of Homeland Security",
+      "Grand Junction Middle School",
+      "Grand Junction High School",
       "Laredo Police Department",
+      "Students and Parents",
+      "Grand Junction Police Department",
+      "Tennessee Office of Homeland Security",
       "Hugo Public Schools"
     ],
     "source_urls": [
       "https://fox17.com/news/local/tennessee-cat-in-the-hat-ai-school-safety-trend-threat-oklahoma-kentucky",
-      "https://wgxa.tv/news/nation-world/tennessee-cat-in-the-hat-ai-school-safety-trend-threat-oklahoma-kentucky"
+      "https://wgxa.tv/news/nation-world/tennessee-cat-in-the-hat-ai-school-safety-trend-threat-oklahoma-kentucky",
+      "https://www.coloradoan.com/story/news/local/colorado/2026/09/04/cat-in-the-hat-colorado-ai-meme-trend-threat/91607870007/"
     ],
     "related_incidents": [],
     "created_at": "2026-09-05T06:29:29.859818+00:00",
     "source_type": "gdelt",
-    "financial_damage_usd": 2500000
+    "financial_damage_usd": 2500000,
+    "last_updated_date": "2026-09-04",
+    "timeline": [
+      {
+        "date": "2026-09-02",
+        "title": "AI-Generated 'Cat in the Hat' School Threat Trend",
+        "summary_delta": "State homeland security and law enforcement agencies issued alerts regarding an online trend utilizing AI-generated images and videos featuring the fictional 'Cat in the Hat' character to make threatening references to schools and students.",
+        "phase": "initial_report",
+        "source_url": "https://fox17.com/news/local/tennessee-cat-in-the-hat-ai-school-safety-trend-threat-oklahoma-kentucky",
+        "source_type": "gdelt"
+      },
+      {
+        "date": "2026-09-04",
+        "title": "Threatening 'Cat in the Hat' AI-generated meme trend causing school safety disruptions",
+        "summary_delta": "The viral AI-generated 'Cat in the Hat' school threat hoax escalates across multiple states, leading to school safety disruptions and a juvenile arrest in Grand Junction, Colorado.",
+        "phase": "impact_escalation",
+        "source_url": "https://www.coloradoan.com/story/news/local/colorado/2026/09/04/cat-in-the-hat-colorado-ai-meme-trend-threat/91607870007/",
+        "source_type": "google_news_rss"
+      }
+    ]
   },
   {
     "incident_id": "INC-20260902-058",
