@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { AIIncident, GraphEdge } from '../types/incident';
+import { AIIncident, GraphEdge, escapeHtml } from '../types/incident';
 import { Filter, Search, RotateCcw, Layers, Play, Pause, Maximize2 } from 'lucide-react';
 // Import vis-network and vis-data
 import { Network, Options, Node, Edge, DataSet } from 'vis-network/standalone';
@@ -57,10 +57,13 @@ export const GraphView: React.FC<GraphViewProps> = ({ incidents, edges, onSelect
     const visNodes: Node[] = filteredIncidents.map((inc) => {
       const color = SEVERITY_COLORS[inc.severity] || '#3b82f6';
       const incAny = inc as any;
+      const safeTitle = escapeHtml(inc.title);
+      const safeId = escapeHtml(inc.incident_id);
+      const safeSeverity = escapeHtml(inc.severity.toUpperCase());
       return {
         id: inc.incident_id,
-        label: inc.title.length > 28 ? `${inc.title.substring(0, 25)}...` : inc.title,
-        title: `<b>${inc.incident_id}</b><br/>${inc.title}<br/><i>Severity: ${inc.severity.toUpperCase()}</i>`,
+        label: safeTitle.length > 28 ? `${safeTitle.substring(0, 25)}...` : safeTitle,
+        title: `<b>${safeId}</b><br/>${safeTitle}<br/><i>Severity: ${safeSeverity}</i>`,
         shape: 'dot',
         size: inc.severity === 'critical' ? 22 : inc.severity === 'high' ? 18 : 14,
         color: {
@@ -194,9 +197,12 @@ export const GraphView: React.FC<GraphViewProps> = ({ incidents, edges, onSelect
         },
         processProperties: (_clusterOptions: any, childNodes: any[]) => {
           const count = childNodes.length;
-          let labelText = `${propertyLabel}:\n${val.replace(/_/g, ' ').toUpperCase()} (${count})`;
+          const safePropLabel = escapeHtml(propertyLabel);
+          const safeVal = escapeHtml(val.replace(/_/g, ' ').toUpperCase());
+          const safeRawVal = escapeHtml(val);
+          let labelText = `${safePropLabel}:\n${safeVal} (${count})`;
           return {
-            title: `<b>${propertyLabel}: ${val}</b><br/>Contains ${count} incidents. Click to expand.`,
+            title: `<b>${safePropLabel}: ${safeRawVal}</b><br/>Contains ${count} incidents. Click to expand.`,
             label: labelText,
             color: {
               background: '#1e293b',

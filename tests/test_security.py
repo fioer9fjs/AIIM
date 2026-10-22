@@ -192,6 +192,8 @@ class TestInfrastructureSecurityHeaders(unittest.TestCase):
         self.assertIn("Content-Security-Policy", headers)
         csp = headers["Content-Security-Policy"]
         self.assertIn("default-src 'self'", csp)
+        self.assertIn("script-src 'self'", csp)
+        self.assertNotIn("'unsafe-inline'", csp.split("script-src")[1].split(";")[0], "script-src must not allow unsafe-inline")
         self.assertIn("frame-ancestors 'none'", csp)
         self.assertIn("https://*.supabase.co", csp)
 

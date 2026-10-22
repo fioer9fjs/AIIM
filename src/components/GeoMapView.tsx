@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { AIIncident, formatFinancialDamage } from '../types/incident';
+import { AIIncident, formatFinancialDamage, escapeHtml } from '../types/incident';
 import { Globe, DollarSign, MapPin, ChevronRight, ShieldAlert } from 'lucide-react';
 
 interface GeoMapViewProps {
@@ -177,7 +177,7 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
               border-radius: 4px;
               font-size: 10px;
               font-weight: 600;
-            ">${coords.name}</div>
+            ">${escapeHtml(coords.name)}</div>
           </div>
         `,
         iconSize: [36, 36],
@@ -191,7 +191,7 @@ export const GeoMapView: React.FC<GeoMapViewProps> = ({ incidents, onSelectIncid
       // Interactive Popup
       marker.bindPopup(`
         <div style="font-family: sans-serif; padding: 4px; color: #0f172a;">
-          <h4 style="margin: 0 0 6px 0; font-size: 14px; font-weight: 700;">📍 ${coords.name}</h4>
+          <h4 style="margin: 0 0 6px 0; font-size: 14px; font-weight: 700;">📍 ${escapeHtml(coords.name)}</h4>
           <p style="margin: 0 0 4px 0; font-size: 12px;">Incidents: <strong>${count}</strong></p>
           <p style="margin: 0 0 4px 0; font-size: 12px; color: #dc2626;">Critical Events: <strong>${criticalCount}</strong></p>
           ${totalDamage > 0 ? `<p style="margin: 0; font-size: 12px; color: #16a34a;">Est. Impact: <strong>${formatFinancialDamage(totalDamage)}</strong></p>` : ''}
