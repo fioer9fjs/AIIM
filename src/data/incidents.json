@@ -39,18 +39,23 @@
     ],
     "affected_parties": [
       "Office for Budget Responsibility",
+      "Internet Archive",
       "City of Edinburgh Council",
-      "Finnish Government",
-      "Wiz",
-      "Oxford City Council",
       "Cloudflare",
+      "Dutch Cybersecurity Agency",
       "Federal Bureau of Investigation (FBI)",
+      "Wikipedia",
+      "PHP Foundation",
+      "Oxford City Council",
+      "PHP Group",
       "OpenAI",
-      "PHP Foundation"
+      "Finnish Government",
+      "Wiz"
     ],
     "source_urls": [
       "https://www.glasgowtimes.co.uk/news/national/26659194.websites-around-world-taken-offline-ai-finds-critical-security-flaw/",
-      "https://www.news4jax.com/business/2026/10/21/some-websites-go-dark-as-operators-address-an-ai-detected-flaw-in-a-web-programming-language/"
+      "https://www.news4jax.com/business/2026/10/21/some-websites-go-dark-as-operators-address-an-ai-detected-flaw-in-a-web-programming-language/",
+      "https://www.dailyliberal.com.au/story/9373060/government-websites-go-dark-after-ai-discovers-flaw/"
     ],
     "related_incidents": [],
     "created_at": "2026-10-22T07:14:39.412996+00:00",
@@ -683,10 +688,12 @@
     ],
     "affected_parties": [
       "Vikki Goodwin",
+      "Dan Patrick",
       "Texas voters"
     ],
     "source_urls": [
-      "https://www.kut.org/politics/2026-09-21/vikki-goodwin-dan-patrick-ai-deepfake-campaign-ads-texas-lieutenant-governor-race"
+      "https://www.kut.org/politics/2026-09-21/vikki-goodwin-dan-patrick-ai-deepfake-campaign-ads-texas-lieutenant-governor-race",
+      "https://www.texastribune.org/2026/09/21/texas-goodwin-patrick-ad-police-complaint/"
     ],
     "related_incidents": [],
     "created_at": "2026-10-22T07:14:39.412996+00:00",
@@ -954,16 +961,19 @@
     ],
     "affected_parties": [
       "Google",
-      "Silicon Valley Tech Workers",
-      "Tech Workers",
-      "Anthropic",
-      "Bay Area Residents",
       "OpenAI",
-      "Hugging Face"
+      "Bay Area Residents",
+      "Silicon Valley Residents",
+      "Tech Workers",
+      "Silicon Valley Tech Workers",
+      "Hugging Face",
+      "Tech Industry Workers",
+      "Anthropic"
     ],
     "source_urls": [
       "https://www.capitalgazette.com/2026/10/20/survey-techies-more-optimistic-about-ai-than-other-bay-area-locals-but-still-worried-2/",
-      "https://www.pressdemocrat.com/2026/10/20/survey-techies-more-optimistic-about-ai-than-other-bay-area-locals-but-still-worried-2/"
+      "https://www.pressdemocrat.com/2026/10/20/survey-techies-more-optimistic-about-ai-than-other-bay-area-locals-but-still-worried-2/",
+      "https://www.dailydemocrat.com/2026/10/20/survey-techies-more-optimistic-about-ai-than-other-bay-area-locals-but-still-worried-2/"
     ],
     "related_incidents": [],
     "created_at": "2026-10-21T07:12:28.959367+00:00",
@@ -1012,12 +1022,13 @@
       "China"
     ],
     "affected_parties": [
+      "U.S. Federal Civilian Agencies",
       "DeepSeek",
-      "U.S. Department of Homeland Security",
-      "U.S. Federal Civilian Agencies"
+      "U.S. Department of Homeland Security"
     ],
     "source_urls": [
-      "https://www.thetimes-tribune.com/2026/10/20/china-deepseek-us-ban-ai/"
+      "https://www.thetimes-tribune.com/2026/10/20/china-deepseek-us-ban-ai/",
+      "https://www.eastbaytimes.com/2026/10/20/china-deepseek-us-ban-ai/"
     ],
     "related_incidents": [],
     "created_at": "2026-10-22T07:14:39.412996+00:00",
@@ -4068,7 +4079,7 @@
     "incident_id": "INC-20261010-270",
     "title": "Insufficient Information for AI Incident Classification",
     "summary": "The provided text is an informational boilerplate page from arXiv regarding its arXivLabs framework and core values. It does not contain any description of an AI incident, safety failure, harm, or regulatory breach. As a result, the extracted metadata reflects an unclassified, non-incident status.",
-    "full_text": "arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.\n\nBoth individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.\n\nHave an idea for a project that will add value for arXiv's community? Learn more about arXivLabs.",
+    "full_text": "Press Enter to search · Advanced search\n\narXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.\n\nBoth individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.\n\nHave an idea for a project that will add value for arXiv's community? Learn more about arXivLabs.",
     "date": "2026-10-10",
     "verification_status": "alleged",
     "severity": "low",
@@ -4102,7 +4113,8 @@
       "arXiv"
     ],
     "source_urls": [
-      "https://arxiv.org/abs/2610.12409"
+      "https://arxiv.org/abs/2610.12409",
+      "https://arxiv.org/abs/2610.31522"
     ],
     "related_incidents": [],
     "created_at": "2026-10-10T08:20:07.756447+00:00",
@@ -9691,17 +9703,21 @@
       "United States"
     ],
     "affected_parties": [
-      "Black, Brown, and Asian communities",
+      "Department of Homeland Security (DHS)",
       "Customs and Border Protection (CBP)",
       "U.S. Federal Government",
       "Immigration and Customs Enforcement (ICE)",
-      "U.S. Citizens",
-      "Black, Brown, and Asian communities in the United States",
       "Protestors",
-      "Immigrants"
+      "Protesters",
+      "Legal Observers",
+      "Black, Brown, and Asian communities",
+      "Immigrants",
+      "Black, Brown, and Asian communities in the United States",
+      "U.S. Citizens"
     ],
     "source_urls": [
-      "https://jayapal.house.gov/2026/09/25/reps-jayapal-tlaib-pressley-and-sens-markey-merkley-reintroduce-legislation-to-halt-government-use-of-facial-recognition-and-other-biometric-technology/"
+      "https://jayapal.house.gov/2026/09/25/reps-jayapal-tlaib-pressley-and-sens-markey-merkley-reintroduce-legislation-to-halt-government-use-of-facial-recognition-and-other-biometric-technology/",
+      "https://epic.org/senator-markey-introduces-bill-to-stop-the-governments-use-of-face-surveillance-and-other-biometric-surveillance-tech/"
     ],
     "related_incidents": [],
     "created_at": "2026-10-12T08:28:12.012526+00:00",
