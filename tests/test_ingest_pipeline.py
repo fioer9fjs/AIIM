@@ -8,6 +8,7 @@ import unittest
 from datetime import datetime, timedelta
 import os
 import json
+import time
 from unittest.mock import patch, MagicMock
 
 from scripts.ingest import (
@@ -20,6 +21,10 @@ from scripts.ingest import (
     fetch_google_news_multilane,
     filter_known_candidate_urls,
     unwrap_google_news_link,
+    batch_scrape_candidates,
+    safe_requests_get,
+    _URL_DECODE_CACHE,
+    _URL_DECODE_LOCK,
 )
 from scripts.clean_and_enrich_incidents import estimate_financial_damage
 
@@ -440,6 +445,129 @@ class TestIngestionHarvesterInvariants(unittest.TestCase):
         with patch.dict("sys.modules", {"googlenewsdecoder": mock_decoder}):
             result = unwrap_google_news_link(wrapped_url)
             self.assertEqual(result, wrapped_url, "Must gracefully fallback to wrapped URL if decoder raises an exception.")
+
+
+class TestConcurrentScrapingAndSafeHttp(unittest.TestCase):
+    """
+    Unit Tests for Stage 1.5 concurrent batch scraping, bounded unwrap_google_news_link,
+    and safe_requests_get redirect/timeout guardrails.
+    100% self-contained: 0 network requests, 0 external dependencies.
+    """
+
+    def test_batch_scrape_candidates_populates_scraped_fields(self):
+        # --- ARRANGE ---
+        candidates = [
+            {"id": f"c_{i}", "link": f"https://example.com/art-{i}", "title": f"Title {i}"}
+            for i in range(5)
+        ]
+
+        def mock_fetch(url, reported_by_samples=None, search_title=""):
+            return {
+                "title": f"Scraped {search_title}",
+                "full_text": f"Scraped full body text for {url} with sufficient length to qualify."
+            }
+
+        # --- ACT ---
+        with patch("scripts.ingest.fetch_full_text_and_title", side_effect=mock_fetch):
+            results = batch_scrape_candidates(candidates, max_workers=4)
+
+        # --- ASSERT ---
+        self.assertEqual(len(results), 5)
+        for cand in results:
+            self.assertTrue(cand["scraped_title"].startswith("Scraped Title"))
+            self.assertIn("Scraped full body text", cand["scraped_text"])
+
+    def test_batch_scrape_candidates_skips_already_scraped(self):
+        # --- ARRANGE ---
+        candidates = [
+            {"id": "c_pre", "link": "https://example.com/pre", "scraped_text": "Already scraped body."}
+        ]
+
+        # --- ACT ---
+        with patch("scripts.ingest.fetch_full_text_and_title") as mock_fetch:
+            results = batch_scrape_candidates(candidates, max_workers=2)
+
+        # --- ASSERT ---
+        mock_fetch.assert_not_called()
+        self.assertEqual(results[0]["scraped_text"], "Already scraped body.")
+
+    def test_batch_scrape_candidates_handles_exceptions_gracefully(self):
+        # --- ARRANGE ---
+        candidates = [
+            {"id": "c_err", "link": "https://example.com/error", "title": "Error article"}
+        ]
+
+        # --- ACT ---
+        with patch("scripts.ingest.fetch_full_text_and_title", side_effect=RuntimeError("Scrape exploded")):
+            results = batch_scrape_candidates(candidates, max_workers=2)
+
+        # --- ASSERT ---
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0].get("scraped_title"), "")
+        self.assertEqual(results[0].get("scraped_text"), "")
+
+    def test_unwrap_google_news_link_timeout_returns_original_url(self):
+        # --- ARRANGE ---
+        test_url = "https://news.google.com/rss/articles/CBMiTimeoutArticleTest"
+        with _URL_DECODE_LOCK:
+            _URL_DECODE_CACHE.pop(test_url, None)
+
+        def hanging_decoder(url):
+            time.sleep(1.0)
+            return {"status": True, "decoded_url": "https://example.com/decoded"}
+
+        mock_decoder = MagicMock(new_decoderv1=hanging_decoder)
+
+        # --- ACT ---
+        with patch.dict("sys.modules", {"googlenewsdecoder": mock_decoder}):
+            t0 = time.time()
+            res = unwrap_google_news_link(test_url, timeout=0.1)
+            elapsed = time.time() - t0
+
+        # --- ASSERT ---
+        self.assertEqual(res, test_url, "Must fallback to original URL on timeout.")
+        self.assertLess(elapsed, 0.6, f"Timeout took too long: {elapsed:.2f}s")
+
+    def test_unwrap_google_news_link_cache_hit(self):
+        # --- ARRANGE ---
+        cached_url = "https://news.google.com/rss/articles/CBMiCachedArticleTest"
+        decoded_url = "https://example.com/already-decoded"
+        with _URL_DECODE_LOCK:
+            _URL_DECODE_CACHE[cached_url] = decoded_url
+
+        # --- ACT ---
+        res = unwrap_google_news_link(cached_url)
+
+        # --- ASSERT ---
+        self.assertEqual(res, decoded_url, "Must return cached decoded URL immediately without calling decoder.")
+
+    def test_safe_requests_get_redirect_limit_and_close(self):
+        # --- ARRANGE ---
+        mock_resp = MagicMock()
+        mock_resp.is_redirect = True
+        mock_resp.status_code = 302
+        mock_resp.headers = {"Location": "http://example.com/loop"}
+        mock_resp.close = MagicMock()
+
+        # --- ACT ---
+        with patch("scripts.ingest.is_safe_public_url", return_value=True), \
+             patch("requests.get", return_value=mock_resp):
+            res = safe_requests_get("http://example.com/start", headers={}, max_redirects=2)
+
+        # --- ASSERT ---
+        self.assertIsNone(res, "Infinite redirect loop must return None when max_redirects exceeded.")
+        self.assertGreaterEqual(mock_resp.close.call_count, 2, "Stream close() must be invoked on redirect hops.")
+
+    def test_safe_requests_get_timeout_returns_none(self):
+        # --- ARRANGE ---
+        import requests
+        with patch("scripts.ingest.is_safe_public_url", return_value=True), \
+             patch("requests.get", side_effect=requests.exceptions.Timeout("Connection timed out")):
+            # --- ACT ---
+            res = safe_requests_get("http://example.com/timeout", headers={})
+
+            # --- ASSERT ---
+            self.assertIsNone(res, "Timeout must be caught safely and return None.")
 
 
 if __name__ == "__main__":

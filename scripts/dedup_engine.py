@@ -12,6 +12,7 @@ import time
 import json
 import urllib.parse
 from datetime import datetime
+from functools import lru_cache
 from collections import Counter
 from typing import Dict, Any, List, Set, Tuple, Optional
 
@@ -292,6 +293,7 @@ GENERIC_ENTITY_TOKENS = STOPWORDS | GENERIC_PARTIES | {
     "safety", "platform", "network", "networks", "software", "technology", "technologies"
 }
 
+@lru_cache(maxsize=8192)
 def stem_word(word: str) -> str:
     """Deterministic suffix/prefix stemmer for English morphological variants."""
     if len(word) <= 4:
@@ -314,26 +316,43 @@ def extract_distinct_entity_tokens(parties: Set[str]) -> Set[str]:
                 tokens.add(w)
     return tokens
 
-def compute_entity_and_temporal_boost(inc1: Dict[str, Any], inc2: Dict[str, Any]) -> Tuple[float, Set[str]]:
-    """
-    Computes hybrid candidate boost combining:
-    1. Exact & Sub-Token Entity Overlap across affected_parties and title/summary.
-    2. Temporal + Vendor / Geographic Scope proximity boost (<= 7 days).
-    Returns (total_boost, shared_entity_identifiers).
-    """
-    p1 = {p.lower().strip() for p in (inc1.get("affected_parties") or [])} - GENERIC_PARTIES
-    p2 = {p.lower().strip() for p in (inc2.get("affected_parties") or [])} - GENERIC_PARTIES
-    exact_shared = p1 & p2
+def extract_incident_entity_metadata(inc: Dict[str, Any]) -> Dict[str, Any]:
+    """Pre-computes normalized entity tokens, words, date, and scope sets for fast candidate matching."""
+    p = {p.lower().strip() for p in (inc.get("affected_parties") or [])} - GENERIC_PARTIES
+    t = extract_distinct_entity_tokens(p)
+    long_t = {tok for tok in t if len(tok) >= 5}
+    text_words = set(normalize_text(f"{inc.get('title', '')} {inc.get('summary', '')}").split())
+    date_str = str(inc.get("date", ""))[:10]
+    dt = None
+    if date_str:
+        try:
+            dt = datetime.strptime(date_str, "%Y-%m-%d")
+        except Exception:
+            dt = None
+    all_p = {p.lower().strip() for p in (inc.get("affected_parties") or [])} | set(normalize_text(inc.get("title", "")).split())
+    g = {g.lower().strip() for g in (inc.get("geographic_scope") or [])} - {"global", "united states", "unknown"}
+    return {
+        "parties": p,
+        "tokens": t,
+        "long_tokens": long_t,
+        "words": text_words,
+        "dt": dt,
+        "all_p": all_p,
+        "g": g,
+    }
 
-    t1 = extract_distinct_entity_tokens(p1)
-    t2 = extract_distinct_entity_tokens(p2)
+def compute_boost_from_metadata(meta1: Dict[str, Any], meta2: Dict[str, Any]) -> Tuple[float, Set[str]]:
+    """Fast boost computation directly operating on pre-computed metadata sets without repeated parsing/regexes."""
+    exact_shared = meta1["parties"] & meta2["parties"]
+    t1 = meta1["tokens"]
+    t2 = meta2["tokens"]
     shared_subtokens = t1 & t2
 
-    text1_words = set(normalize_text(f"{inc1.get('title', '')} {inc1.get('summary', '')}").split())
-    text2_words = set(normalize_text(f"{inc2.get('title', '')} {inc2.get('summary', '')}").split())
+    text1_words = meta1["words"]
+    text2_words = meta2["words"]
     cross_shared = (
-        {tok for tok in t1 if len(tok) >= 5 and tok in text2_words}
-        | {tok for tok in t2 if len(tok) >= 5 and tok in text1_words}
+        (meta1["long_tokens"] & text2_words)
+        | (meta2["long_tokens"] & text1_words)
     )
 
     all_shared_entities = exact_shared | shared_subtokens | cross_shared
@@ -345,23 +364,31 @@ def compute_entity_and_temporal_boost(inc1: Dict[str, Any], inc2: Dict[str, Any]
         entity_boost = 0.0
 
     temporal_boost = 0.0
-    try:
-        d1 = datetime.strptime(str(inc1.get("date", ""))[:10], "%Y-%m-%d")
-        d2 = datetime.strptime(str(inc2.get("date", ""))[:10], "%Y-%m-%d")
+    d1 = meta1["dt"]
+    d2 = meta2["dt"]
+    if d1 is not None and d2 is not None:
         days_apart = abs((d1 - d2).days)
-    except Exception:
+    else:
         days_apart = 999
 
     if days_apart <= 7:
-        all_p1 = {p.lower().strip() for p in (inc1.get("affected_parties") or [])} | set(normalize_text(inc1.get("title", "")).split())
-        all_p2 = {p.lower().strip() for p in (inc2.get("affected_parties") or [])} | set(normalize_text(inc2.get("title", "")).split())
-        shared_vendors = (all_p1 & all_p2) & MAJOR_AI_VENDORS
-        g1 = {g.lower().strip() for g in (inc1.get("geographic_scope") or [])} - {"global", "united states", "unknown"}
-        g2 = {g.lower().strip() for g in (inc2.get("geographic_scope") or [])} - {"global", "united states", "unknown"}
-        if shared_vendors or (g1 & g2):
+        shared_vendors = (meta1["all_p"] & meta2["all_p"]) & MAJOR_AI_VENDORS
+        if shared_vendors or (meta1["g"] & meta2["g"]):
             temporal_boost = 0.08
 
     return entity_boost + temporal_boost, all_shared_entities
+
+def compute_entity_and_temporal_boost(inc1: Dict[str, Any], inc2: Dict[str, Any]) -> Tuple[float, Set[str]]:
+    """
+    Computes hybrid candidate boost combining:
+    1. Exact & Sub-Token Entity Overlap across affected_parties and title/summary.
+    2. Temporal + Vendor / Geographic Scope proximity boost (<= 7 days).
+    Returns (total_boost, shared_entity_identifiers).
+    """
+    return compute_boost_from_metadata(
+        extract_incident_entity_metadata(inc1),
+        extract_incident_entity_metadata(inc2)
+    )
 
 def build_incident_corpus(inc: Dict[str, Any]) -> str:
     """
@@ -388,21 +415,27 @@ def tokenize(text: str) -> List[str]:
         tokens.append(bigram)
     return tokens
 
-def compute_tfidf_vectors(corpus_list: List[str]) -> Tuple[List[Dict[str, float]], List[str]]:
-    """Computes pure-Python TF-IDF feature vectors for a list of document strings."""
+def build_tfidf_index(corpus_list: List[str]) -> Tuple[List[Dict[str, float]], Dict[str, float], int]:
+    """
+    Computes smoothed IDF dictionary and L2-normalized sparse vectors for a corpus of documents.
+    Returns (tfidf_vectors, idf_dictionary, total_documents).
+    """
     N = len(corpus_list)
+    if N == 0:
+        return [], {}, 0
+
     doc_tokens = [tokenize(doc) for doc in corpus_list]
-    
+
     df_counts = Counter()
     for tokens in doc_tokens:
         unique_terms = set(tokens)
         for term in unique_terms:
             df_counts[term] += 1
-            
+
     idf = {}
     for term, count in df_counts.items():
         idf[term] = math.log((1 + N) / (1 + count)) + 1.0
-        
+
     tfidf_vectors = []
     for tokens in doc_tokens:
         tf_counts = Counter(tokens)
@@ -414,13 +447,68 @@ def compute_tfidf_vectors(corpus_list: List[str]) -> Tuple[List[Dict[str, float]
             weight = tf * idf[term]
             vec[term] = weight
             norm_sq += weight * weight
-            
+
         norm = math.sqrt(norm_sq) or 1.0
         normalized_vec = {t: w / norm for t, w in vec.items()}
         tfidf_vectors.append(normalized_vec)
-        
-    vocab = sorted(list(df_counts.keys()))
-    return tfidf_vectors, vocab
+
+    return tfidf_vectors, idf, N
+
+
+def vectorize_single_document(
+    doc: str,
+    idf_dict: Dict[str, float],
+    total_docs: int
+) -> Dict[str, float]:
+    """
+    Incrementally projects a single document against a pre-computed IDF dictionary in O(L) time.
+    Applies L2 normalization.
+    """
+    tokens = tokenize(doc)
+    tf_counts = Counter(tokens)
+    doc_len = len(tokens) or 1
+
+    # Smooth IDF default for terms not in canonical catalog
+    default_idf = math.log(1 + max(total_docs, 1)) + 1.0
+
+    vec = {}
+    norm_sq = 0.0
+    for term, count in tf_counts.items():
+        tf = count / doc_len
+        weight = tf * idf_dict.get(term, default_idf)
+        vec[term] = weight
+        norm_sq += weight * weight
+
+    norm = math.sqrt(norm_sq) or 1.0
+    return {t: w / norm for t, w in vec.items()}
+
+
+class TermIndex(dict):
+    """
+    Hybrid term index preserving 100% backward compatibility:
+    Behaves as Dict[str, float] (term -> idf) while supporting sequence/list-like indexing and iteration.
+    """
+    def __init__(self, idf_dict: Dict[str, float]):
+        super().__init__(idf_dict)
+        self._term_list = sorted(list(idf_dict.keys()))
+
+    def __getitem__(self, key: Any) -> Any:
+        if isinstance(key, int):
+            return self._term_list[key]
+        return super().__getitem__(key)
+
+    def __iter__(self):
+        return iter(self._term_list)
+
+
+def compute_tfidf_vectors(corpus_list: List[str]) -> Tuple[List[Dict[str, float]], Any]:
+    """
+    Computes pure-Python TF-IDF feature vectors for a list of document strings.
+    Maintains 100% backward compatibility returning (vectors, TermIndex(idf_dict)).
+    """
+    tfidf_vectors, idf, _ = build_tfidf_index(corpus_list)
+    return tfidf_vectors, TermIndex(idf)
+
 
 def cosine_similarity_vectors(vec1: Dict[str, float], vec2: Dict[str, float]) -> float:
     """Computes cosine similarity between two normalized sparse TF-IDF vectors."""
@@ -429,8 +517,9 @@ def cosine_similarity_vectors(vec1: Dict[str, float], vec2: Dict[str, float]) ->
         vec1, vec2 = vec2, vec1
         
     for term, w1 in vec1.items():
-        if term in vec2:
-            dot_product += w1 * vec2[term]
+        w2 = vec2.get(term)
+        if w2 is not None:
+            dot_product += w1 * w2
             
     return dot_product
 
@@ -441,6 +530,7 @@ def compute_candidate_pairs_tfidf(
     """Filters all pairwise incident combinations down to candidate pairs using Cosine Similarity & Entity/Temporal Boost."""
     corpus_list = [build_incident_corpus(inc) for inc in incidents]
     tfidf_vectors, vocab = compute_tfidf_vectors(corpus_list)
+    metadata_list = [extract_incident_entity_metadata(inc) for inc in incidents]
     
     N = len(incidents)
     candidate_pairs = []
@@ -452,7 +542,7 @@ def compute_candidate_pairs_tfidf(
             
             is_exact, exact_reason = is_exact_duplicate(inc1, inc2)
             sim_score = cosine_similarity_vectors(tfidf_vectors[i], tfidf_vectors[j])
-            boost, shared_parties = compute_entity_and_temporal_boost(inc1, inc2)
+            boost, shared_parties = compute_boost_from_metadata(metadata_list[i], metadata_list[j])
             effective_score = sim_score + boost
             
             if is_exact or effective_score >= min_similarity or len(shared_parties) > 0:
@@ -539,7 +629,10 @@ Respond strictly in valid JSON format:
             for attempt in range(3):
                 try:
                     from google.genai import types
-                    client = genai.Client(api_key=api_key)
+                    client = genai.Client(
+                        api_key=api_key,
+                        http_options=types.HttpOptions(timeout=8000)
+                    )
                     response = client.models.generate_content(
                         model=model_name,
                         contents=prompt,
@@ -664,21 +757,29 @@ def consolidate_dataset_hybrid(
 def consolidate_new_against_existing(
     new_incidents: List[Dict[str, Any]],
     existing_incidents: List[Dict[str, Any]],
-    api_key: str = ""
+    api_key: Optional[str] = "",
+    time_budget_sec: float = 60.0
 ) -> List[Dict[str, Any]]:
     """
     Ultra-Fast O(K) Incremental Deduplication Engine:
-    - Compares newly ingested candidate incidents (K) against existing canonical catalog (N).
+    - Pre-computes and caches TF-IDF vocabulary, IDF dictionary, and sparse vectors across
+      all existing canonical records ONCE upfront in O(N).
+    - Incrementally projects each newly ingested candidate incident in O(L) time.
+    - Enforces a strict cumulative time budget (<= 60s) with deadline guardrails.
+    - Filters candidate pairs with tightened threshold (effective_score >= 0.28 or shared entities).
     - If a new candidate describes an already known incident:
       -> Merges into the existing canonical incident: appends URLs to source_urls,
          merges affected_parties and damages, and PRESERVES the original incident_id and first date.
     - If a new candidate is truly novel:
-      -> Assigns a new incident_id and appends to the dataset.
+      -> Assigns a new incident_id, appends to canonical catalog and updates cached vectors in O(1).
     - Zero quadratic O(N^2) loops over the historical dataset!
-    - Runs in < 2 seconds and issues at most K targeted LLM calls.
     """
     if not new_incidents:
         return existing_incidents
+
+    start_time = time.time()
+    deadline = start_time + float(time_budget_sec)
+    effective_api_key = api_key or ""
 
     canonical_catalog = [dict(inc) for inc in existing_incidents]
 
@@ -691,6 +792,13 @@ def consolidate_new_against_existing(
         norm_t = normalize_text(inc.get("title", ""))
         if norm_t:
             title_to_index[norm_t] = idx
+
+    # Pre-compute TF-IDF vocabulary, document frequencies, IDF dictionary,
+    # sparse vectors, and entity/scope metadata for all existing canonical catalog items ONCE upfront.
+    canonical_corpus = [build_incident_corpus(inc) for inc in canonical_catalog]
+    canonical_vectors, idf_dict, total_canonical_docs = build_tfidf_index(canonical_corpus)
+    canonical_meta = [extract_incident_entity_metadata(inc) for inc in canonical_catalog]
+    canonical_terms = [set(v.keys()) for v in canonical_vectors]
 
     llm_call_count = 0
     exact_match_count = 0
@@ -725,6 +833,7 @@ def consolidate_new_against_existing(
             canonical_catalog[exact_target_idx] = merge_duplicate_records(
                 canonical_catalog[exact_target_idx], new_inc, milestone_info=exact_milestone
             )
+            canonical_meta[exact_target_idx] = extract_incident_entity_metadata(canonical_catalog[exact_target_idx])
             for u in new_urls:
                 url_to_index[u] = exact_target_idx
             exact_match_count += 1
@@ -732,52 +841,75 @@ def consolidate_new_against_existing(
             print(f"  [DEDUP EXACT MERGE] Appended source to '{canonical_catalog[exact_target_idx].get('incident_id')}' ({canonical_catalog[exact_target_idx].get('title')[:45]}...)")
             continue
 
-        # Step 2: Vector similarity comparison of new_inc against canonical_catalog
-        all_corpus = [build_incident_corpus(inc) for inc in canonical_catalog]
+        # Step 2: Incremental vector projection of new_inc against pre-computed IDF dictionary
         new_corpus = build_incident_corpus(new_inc)
-        combined_corpus = all_corpus + [new_corpus]
-        
-        tfidf_vectors, _ = compute_tfidf_vectors(combined_corpus)
-        new_vec = tfidf_vectors[-1]
-        
-        # Collect candidate matches with effective_score >= 0.18 or shared entities
+        new_vec = vectorize_single_document(new_corpus, idf_dict, total_canonical_docs)
+        new_meta = extract_incident_entity_metadata(new_inc)
+        new_terms = set(new_vec.keys())
+
+        # Collect candidate matches with effective_score >= 0.28 or shared entities
         candidates = []
         for idx, inc in enumerate(canonical_catalog):
-            target_vec = tfidf_vectors[idx]
-            sim = cosine_similarity_vectors(new_vec, target_vec)
-            boost, shared_entities = compute_entity_and_temporal_boost(new_inc, inc)
+            target_terms = canonical_terms[idx]
+            if new_terms.isdisjoint(target_terms):
+                sim = 0.0
+            else:
+                sim = cosine_similarity_vectors(new_vec, canonical_vectors[idx])
+
+            target_meta = canonical_meta[idx]
+
+            # Fast gating: skip full boost computation if similarity is negligible and no entity overlap
+            if (
+                sim < 0.08
+                and not (new_meta["parties"] & target_meta["parties"])
+                and not (new_meta["tokens"] & target_meta["tokens"])
+                and not (new_meta["long_tokens"] & target_meta["words"])
+                and not (target_meta["long_tokens"] & new_meta["words"])
+            ):
+                boost, shared_entities = 0.0, set()
+            else:
+                boost, shared_entities = compute_boost_from_metadata(new_meta, target_meta)
+
             effective_score = sim + boost
-            
-            if effective_score >= 0.18 or len(shared_entities) > 0:
+
+            if effective_score >= 0.28 or len(shared_entities) > 0:
                 candidates.append((effective_score, idx, inc))
 
         # Sort candidates descending by effective score
         candidates.sort(key=lambda c: c[0], reverse=True)
 
         merged = False
-        # Step 3: Targeted LLM verification on Top-3 candidate matches (resolves greedy masking)
-        for eff_score, idx, candidate_inc in candidates[:3]:
-            is_same, confidence, reasoning, milestone_info = verify_candidate_pair_llm(
-                candidate_inc, new_inc, api_key=api_key
-            )
-            llm_call_count += 1
-            print(f"  [DEDUP LLM VERIFY] Candidate '{candidate_inc.get('incident_id')}' (Score: {eff_score:.2f}) vs New: Match={is_same} ({confidence:.2f}) | {reasoning}")
-            
-            if is_same and confidence >= 0.70:
-                canonical_catalog[idx] = merge_duplicate_records(
-                    candidate_inc, new_inc, milestone_info=milestone_info
+        # Step 3: Targeted LLM verification on Top candidate matches within time budget
+        if effective_api_key:
+            for eff_score, idx, candidate_inc in candidates[:2]:
+                # Strict deadline check before every LLM call (treat unverified candidates safely as novel records)
+                remaining_time = deadline - time.time()
+                if remaining_time <= 0.0 or (time_budget_sec > 5.0 and remaining_time < 3.0):
+                    print(f"  [DEDUP TIMEOUT SAFEGUARD] Approaching cumulative deadline ({remaining_time:.1f}s remaining). Skipping further LLM checks.")
+                    break
+
+                is_same, confidence, reasoning, milestone_info = verify_candidate_pair_llm(
+                    candidate_inc, new_inc, api_key=effective_api_key
                 )
-                for u in new_urls:
-                    url_to_index[u] = idx
-                merged_into_existing_count += 1
-                merged = True
-                print(f"  [DEDUP LLM MERGE] Merged new report into existing '{candidate_inc.get('incident_id')}' ({candidate_inc.get('title')[:45]}...)")
-                break
+                llm_call_count += 1
+                print(f"  [DEDUP LLM VERIFY] Candidate '{candidate_inc.get('incident_id')}' (Score: {eff_score:.2f}) vs New: Match={is_same} ({confidence:.2f}) | {reasoning}")
+
+                if is_same and confidence >= 0.70:
+                    canonical_catalog[idx] = merge_duplicate_records(
+                        candidate_inc, new_inc, milestone_info=milestone_info
+                    )
+                    canonical_meta[idx] = extract_incident_entity_metadata(canonical_catalog[idx])
+                    for u in new_urls:
+                        url_to_index[u] = idx
+                    merged_into_existing_count += 1
+                    merged = True
+                    print(f"  [DEDUP LLM MERGE] Merged new report into existing '{candidate_inc.get('incident_id')}' ({candidate_inc.get('title')[:45]}...)")
+                    break
 
         if merged:
             continue
 
-        # Step 4: Truly novel incident -> Assign ID and add as new canonical record
+        # Step 4: Truly novel incident -> Assign ID, add to catalog, and update cached vectors in O(1)
         if not new_inc.get("incident_id"):
             date_prefix = (new_inc.get("date") or datetime.now().strftime("%Y-%m-%d")).replace("-", "")
             seq_num = len(canonical_catalog) + 1
@@ -785,6 +917,10 @@ def consolidate_new_against_existing(
 
         new_idx = len(canonical_catalog)
         canonical_catalog.append(new_inc)
+        canonical_vectors.append(new_vec)
+        canonical_meta.append(new_meta)
+        canonical_terms.append(new_terms)
+        total_canonical_docs += 1
         for u in new_urls:
             url_to_index[u] = new_idx
         norm_t = normalize_text(new_inc.get("title", ""))

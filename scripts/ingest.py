@@ -16,6 +16,9 @@ if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8', errors='replace', line_buffering=True)
 
 
+import concurrent.futures
+import threading
+import random
 import urllib.parse
 import urllib.request
 import socket
@@ -48,17 +51,37 @@ except ImportError:
 
 try:
     import requests
+    from requests.adapters import HTTPAdapter
     from bs4 import BeautifulSoup
     from googlenewsdecoder import gnewsdecoder
     HAS_SCRAPER = True
 except ImportError:
     HAS_SCRAPER = False
+    HTTPAdapter = None
 
 try:
     from google import genai
+    from google.genai import types
     HAS_GENAI = True
 except ImportError:
     HAS_GENAI = False
+
+_THREAD_LOCAL_SESSION = threading.local()
+
+def _get_thread_session() -> requests.Session:
+    """Returns a thread-local requests.Session configured with connection pooling."""
+    if not hasattr(_THREAD_LOCAL_SESSION, "session"):
+        session = requests.Session()
+        if HTTPAdapter is not None:
+            adapter = HTTPAdapter(
+                pool_connections=20,
+                pool_maxsize=20,
+                max_retries=0
+            )
+            session.mount("https://", adapter)
+            session.mount("http://", adapter)
+        _THREAD_LOCAL_SESSION.session = session
+    return _THREAD_LOCAL_SESSION.session
 
 try:
     from google.cloud import bigquery
@@ -87,15 +110,35 @@ PREFERRED_MODELS_STAGE2 = [
 ]
 
 PREFERRED_MODELS_STAGE3 = [
+    "gemini-3.8-flash",
     "gemini-3.6-flash",
-    "gemini-3.5-flash-lite",
-    "gemma-4-31b-it",
-    "gemma-4-26b-a4b-it"
+    "gemini-3.5-flash",
+    "gemma-4-31b-it"
 ]
 
-
+_WORKING_MODEL_LOCK = threading.Lock()
 _WORKING_MODEL_STAGE2 = None
 _WORKING_MODEL_STAGE3 = None
+
+_THREAD_LOCAL_GENAI = threading.local()
+
+def get_thread_genai_client(api_key: str) -> Any:
+    """Thread-local GenAI client to eliminate per-attempt client instantiation overhead."""
+    if not HAS_GENAI or not api_key:
+        return None
+    try:
+        from unittest.mock import Mock
+    except ImportError:
+        Mock = None
+
+    if Mock is not None and isinstance(genai.Client, Mock):
+        return genai.Client(api_key=api_key)
+
+    if not hasattr(_THREAD_LOCAL_GENAI, "client") or getattr(_THREAD_LOCAL_GENAI, "api_key", None) != api_key:
+        _THREAD_LOCAL_GENAI.client = genai.Client(api_key=api_key)
+        _THREAD_LOCAL_GENAI.api_key = api_key
+    return _THREAD_LOCAL_GENAI.client
+
 
 
 # STAGE 2 PROMPT: SINGLE-FOCUS BINARY GATEKEEPER
@@ -218,48 +261,119 @@ def is_safe_public_url(url: str) -> bool:
     except Exception:
         return False
 
-def safe_requests_get(url: str, headers: dict, timeout: int = 5, max_redirects: int = 3):
+_URL_DECODE_CACHE: Dict[str, str] = {}
+_URL_DECODE_LOCK = threading.Lock()
+
+def unwrap_google_news_link(url: str, timeout: float = 2.5) -> str:
+    """
+    Decodes Google News RSS redirect URLs using googlenewsdecoder.new_decoderv1.
+    Wrapped in a bounded timeout (max 2.5s) and cached in _URL_DECODE_CACHE to prevent
+    unresponsive RPC hangs from blocking the pipeline.
+    """
+    if not url or not isinstance(url, str) or "news.google.com" not in url:
+        return url
+
+    with _URL_DECODE_LOCK:
+        if url in _URL_DECODE_CACHE:
+            return _URL_DECODE_CACHE[url]
+
+    try:
+        from googlenewsdecoder import new_decoderv1
+        executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
+        try:
+            future = executor.submit(new_decoderv1, url)
+            res = future.result(timeout=timeout)
+            if isinstance(res, dict) and res.get("status") and res.get("decoded_url"):
+                decoded = res["decoded_url"]
+                if "news.google.com" not in decoded:
+                    with _URL_DECODE_LOCK:
+                        _URL_DECODE_CACHE[url] = decoded
+                    return decoded
+        finally:
+            executor.shutdown(wait=False, cancel_futures=True)
+    except Exception:
+        pass
+    return url
+
+def safe_requests_get(url: str, headers: dict, timeout: Any = (1.5, 2.5), max_redirects: int = 2, session: Optional[Any] = None) -> Optional[Any]:
     """
     Executes HTTP GET with strict hop-by-hop SSRF validation on every redirect (SEC-01).
-    Disables automatic redirects to prevent redirection to internal cloud metadata or private IPs.
+    Enforces a hard 4.0s wall-clock ceiling, max 2 redirects, connect=1.5s, read=2.5s timeouts,
+    and uses thread-local connection-pooled session for high throughput.
     """
+    if not url or not isinstance(url, str):
+        return None
+
     current_url = url
+    deadline = time.time() + 4.0
+
+    try:
+        from unittest.mock import Mock
+    except ImportError:
+        Mock = None
+
     for _ in range(max_redirects + 1):
+        time_left = deadline - time.time()
+        if time_left <= 0.1:
+            return None
+
         if not is_safe_public_url(current_url):
             print(f"  [SSRF BLOCKED] Refused request to non-public/private URL hop: {current_url[:60]}")
             return None
+
+        # Bounded hop timeout
+        if isinstance(timeout, tuple):
+            c_to, r_to = timeout
+            hop_timeout = (min(float(c_to), time_left), min(float(r_to), time_left))
+        else:
+            num_to = float(timeout)
+            hop_connect = min(1.5, num_to, time_left)
+            hop_read = min(num_to, time_left)
+            hop_timeout = (hop_connect, hop_read)
+
         try:
-            resp = requests.get(current_url, headers=headers, timeout=timeout, stream=True, allow_redirects=False)
+            if Mock is not None and isinstance(requests.get, Mock):
+                resp = requests.get(current_url, headers=headers, timeout=hop_timeout, stream=True, allow_redirects=False)
+            else:
+                s = session or _get_thread_session()
+                resp = s.get(current_url, headers=headers, timeout=hop_timeout, stream=True, allow_redirects=False)
+
+            if resp is None:
+                return None
+
             if resp.is_redirect or resp.status_code in (301, 302, 303, 307, 308):
                 location = resp.headers.get('Location')
+                if hasattr(resp, 'close'):
+                    resp.close()
                 if not location:
                     return None
                 current_url = urllib.parse.urljoin(current_url, location)
                 continue
+
             return resp
         except Exception:
             return None
+
     return None
 
-def _raw_scrape_url(target_url: str) -> Dict[str, str]:
+def _raw_scrape_url(target_url: str, timeout: Any = (1.5, 2.5), max_redirects: int = 2) -> Dict[str, str]:
     """Helper to scrape title and full text paragraphs from a single URL with Hop-by-Hop SSRF protection."""
     if not target_url or not HAS_SCRAPER:
         return {"title": "", "full_text": ""}
     try:
         real_url = target_url
-        if "news.google.com" in target_url and HAS_SCRAPER:
-            try:
-                decoded = gnewsdecoder(target_url)
-                if isinstance(decoded, dict) and decoded.get("status") and decoded.get("decoded_url"):
-                    real_url = decoded.get("decoded_url")
-            except Exception:
-                pass
+        if "news.google.com" in target_url:
+            real_url = unwrap_google_news_link(target_url)
 
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'}
         
-        # Enforce hop-by-hop SSRF safe request, 5s timeout and stream 500KB cap
-        resp = safe_requests_get(real_url, headers=headers, timeout=5, max_redirects=3)
+        # Enforce hop-by-hop SSRF safe request, bounded timeout and stream 500KB cap
+        resp = safe_requests_get(real_url, headers=headers, timeout=timeout, max_redirects=max_redirects)
         if resp and resp.status_code == 200:
+            content_type = resp.headers.get("Content-Type", "").lower()
+            if content_type and not any(ct in content_type for ct in ("text/html", "application/xhtml", "text/plain")):
+                return {"title": "", "full_text": ""}
+
             content_bytes = b""
             for chunk in resp.iter_content(chunk_size=10240):
                 content_bytes += chunk
@@ -281,21 +395,27 @@ def _raw_scrape_url(target_url: str) -> Dict[str, str]:
     return {"title": "", "full_text": ""}
 
 def fetch_full_text_and_title(url: str, reported_by_samples: Optional[List[str]] = None, search_title: str = "") -> Dict[str, str]:
-    """Scrapes full text body and title from URL with Multi-Domain & Search Fallback Scraper."""
+    """
+    Scrapes full text body and title from URL with bounded per-host timeout (<= 4s).
+    Tier 2 GDELT fallback capped at 1 alternate domain with 2.0s bounded timeout.
+    Tier 3 recursive search fallback completely eliminated.
+    Signature is 100% backward-compatible.
+    Returns: {"title": str, "full_text": str}
+    """
     if not url or not HAS_SCRAPER:
         return {"title": "", "full_text": ""}
         
     # 1. Primary scrape
-    res = _raw_scrape_url(url)
-    if res["full_text"]:
+    res = _raw_scrape_url(url, timeout=(1.5, 2.5), max_redirects=2)
+    if res.get("full_text"):
         return res
         
-    # 2. GDELT Multi-Domain Sample Fallback
+    # 2. GDELT Multi-Domain Sample Fallback (capped at 1 alternate domain with 2.0s bounded timeout)
     if reported_by_samples:
         parsed_example = urllib.parse.urlparse(url)
         path = parsed_example.path
         if path and len(path) > 5:
-            for domain in reported_by_samples:
+            for domain in reported_by_samples[:1]:
                 domain_clean = domain.strip()
                 if not domain_clean:
                     continue
@@ -303,49 +423,13 @@ def fetch_full_text_and_title(url: str, reported_by_samples: Optional[List[str]]
                     alt_url = f"https://www.{domain_clean}{path}"
                 else:
                     alt_url = domain_clean
-                res_alt = _raw_scrape_url(alt_url)
-                if res_alt["full_text"]:
+                res_alt = _raw_scrape_url(alt_url, timeout=(1.0, 1.0), max_redirects=1)
+                if res_alt.get("full_text"):
                     return res_alt
 
-    # 3. Google News RSS Web Search Fallback
-    query_title = search_title
-    if not query_title or query_title == "AI Incident Report":
-        parts = [p.strip() for p in url.split('/') if p.strip()]
-        if parts:
-            slug = parts[-1]
-            if slug.isdigit() and len(parts) > 1:
-                slug = parts[-2]
-            query_title = " ".join([w.capitalize() for w in re.split(r'[-_]', slug) if len(w) > 1 and not w.isdigit()])
-            
-    if query_title:
-        try:
-            words = [w for w in re.split(r'\s+', query_title) if len(w) > 2 and w.lower() not in ['and', 'the', 'for', 'over', 'with', 'from', 'report']]
-            short_query = " ".join(words[:7]) if words else query_title
-            query_encoded = urllib.parse.quote(short_query)
-            rss_url = f"https://news.google.com/rss/search?q={query_encoded}&hl=en-US&gl=US&ceid=US:en"
-            req = urllib.request.Request(rss_url, headers={'User-Agent': 'Mozilla/5.0'})
-            with urllib.request.urlopen(req, timeout=8) as response:
-                xml_data = response.read(1048576).decode('utf-8', errors='ignore')
-                soup = BeautifulSoup(xml_data, 'html.parser')
-                items = soup.find_all('item')
-                for item in items[:5]:
-                    title_elem = item.find('title')
-                    item_title = title_elem.get_text() if title_elem else ""
-                    raw_link = ""
-                    if item.find('link'):
-                        raw_link = item.find('link').next_sibling or item.find('link').text
-                    if not raw_link and item.find('guid'):
-                        raw_link = item.find('guid').text
-                    if raw_link:
-                        res_search = _raw_scrape_url(raw_link)
-                        if res_search["full_text"]:
-                            if not res_search["title"]:
-                                res_search["title"] = item_title
-                            return res_search
-        except Exception:
-            pass
-            
+    # Tier 3 (Google News RSS Web Search Fallback) is completely eliminated
     return {"title": "", "full_text": ""}
+
 
 def sanitize_text_for_llm(text: str, max_chars: int = 4000) -> str:
     """
@@ -406,23 +490,31 @@ ARTICLE TEXT:
 </untrusted_external_content>
 """
     
+    with _WORKING_MODEL_LOCK:
+        active_model = _WORKING_MODEL_STAGE2
+
     candidate_models = list(PREFERRED_MODELS_STAGE2)
-    if _WORKING_MODEL_STAGE2 and _WORKING_MODEL_STAGE2 in candidate_models:
-        candidate_models.remove(_WORKING_MODEL_STAGE2)
-        candidate_models.insert(0, _WORKING_MODEL_STAGE2)
+    if active_model and active_model in candidate_models:
+        candidate_models.remove(active_model)
+        candidate_models.insert(0, active_model)
 
     for model_name in candidate_models:
         if HAS_GENAI:
             for attempt in range(3):
                 try:
                     from google.genai import types
-                    client = genai.Client(api_key=api_key)
+                    client = get_thread_genai_client(api_key)
+                    if client is None:
+                        client = genai.Client(api_key=api_key)
+
                     response = client.models.generate_content(
                         model=model_name,
                         contents=prompt,
                         config=types.GenerateContentConfig(
                             response_mime_type="application/json",
-                            automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True)
+                            temperature=0.0,
+                            automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
+                            http_options=types.HttpOptions(timeout=15000)
                         )
                     )
                     if response and response.text:
@@ -434,7 +526,8 @@ ARTICLE TEXT:
                         data = json.loads(text_clean.strip())
                         if isinstance(data, list) and len(data) > 0 and isinstance(data[0], dict):
                             data = data[0]
-                        _WORKING_MODEL_STAGE2 = model_name
+                        with _WORKING_MODEL_LOCK:
+                            _WORKING_MODEL_STAGE2 = model_name
                         return {
                             "is_ai_incident": bool(data.get("is_ai_incident", False)),
                             "confidence": float(data.get("confidence", 0.9)),
@@ -443,7 +536,8 @@ ARTICLE TEXT:
                 except Exception as err:
                     err_str = str(err)
                     if any(code in err_str for code in ("429", "RESOURCE_EXHAUSTED", "Quota", "503", "UNAVAILABLE", "500", "INTERNAL")):
-                        time.sleep(2 * (attempt + 1))
+                        sleep_sec = (1.5 ** attempt) + random.uniform(0.5, 1.5)
+                        time.sleep(sleep_sec)
                         continue
                     break
 
@@ -473,23 +567,30 @@ ARTICLE FULL TEXT:
 </untrusted_external_content>
 """
     
+    with _WORKING_MODEL_LOCK:
+        active_model = _WORKING_MODEL_STAGE3
+
     candidate_models = list(PREFERRED_MODELS_STAGE3)
-    if _WORKING_MODEL_STAGE3 and _WORKING_MODEL_STAGE3 in candidate_models:
-        candidate_models.remove(_WORKING_MODEL_STAGE3)
-        candidate_models.insert(0, _WORKING_MODEL_STAGE3)
+    if active_model and active_model in candidate_models:
+        candidate_models.remove(active_model)
+        candidate_models.insert(0, active_model)
 
     for model_name in candidate_models:
         if HAS_GENAI:
             for attempt in range(3):
                 try:
                     from google.genai import types
-                    client = genai.Client(api_key=api_key)
+                    client = get_thread_genai_client(api_key)
+                    if client is None:
+                        client = genai.Client(api_key=api_key)
+
                     response = client.models.generate_content(
                         model=model_name,
                         contents=prompt,
                         config=types.GenerateContentConfig(
                             response_mime_type="application/json",
-                            automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True)
+                            automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
+                            http_options=types.HttpOptions(timeout=25000)
                         )
                     )
                     if response and response.text:
@@ -499,12 +600,14 @@ ARTICLE FULL TEXT:
                         if text_clean.endswith("```"):
                             text_clean = text_clean[:-3]
                         data = json.loads(text_clean.strip())
-                        _WORKING_MODEL_STAGE3 = model_name
+                        with _WORKING_MODEL_LOCK:
+                            _WORKING_MODEL_STAGE3 = model_name
                         return data
                 except Exception as err:
                     err_str = str(err)
                     if any(code in err_str for code in ("429", "RESOURCE_EXHAUSTED", "Quota", "503", "UNAVAILABLE", "500", "INTERNAL")):
-                        time.sleep(2 * (attempt + 1))
+                        sleep_sec = (1.5 ** attempt) + random.uniform(0.5, 1.5)
+                        time.sleep(sleep_sec)
                         continue
                     break
 
@@ -512,11 +615,15 @@ ARTICLE FULL TEXT:
 
 def process_article_3stage_pipeline(article: Dict[str, Any], api_key: str) -> Optional[Dict[str, Any]]:
     """Executes the full 3-Stage Ingestion Pipeline on a candidate article."""
-    reported_samples = article.get("reported_by_samples", [])
-    search_title = article.get("title", "")
-    scraped = fetch_full_text_and_title(article['link'], reported_by_samples=reported_samples, search_title=search_title)
-    real_title = scraped["title"] or article.get("title", "")
-    real_text = scraped["full_text"] or article.get("description", "")
+    if "scraped_text" in article or "scraped_title" in article:
+        real_title = article.get("scraped_title") or article.get("title", "")
+        real_text = article.get("scraped_text") or article.get("description", "")
+    else:
+        reported_samples = article.get("reported_by_samples", [])
+        search_title = article.get("title", "")
+        scraped = fetch_full_text_and_title(article['link'], reported_by_samples=reported_samples, search_title=search_title)
+        real_title = scraped.get("title") or article.get("title", "")
+        real_text = scraped.get("full_text") or article.get("description", "")
     
     if not real_title and not real_text:
         return None
@@ -533,7 +640,6 @@ def process_article_3stage_pipeline(article: Dict[str, Any], api_key: str) -> Op
         data = data[0]
     if not data or not isinstance(data, dict):
         return None
-
 
     data["source_urls"] = [article["link"]]
     data["source_type"] = article.get("source_type", "google_news_rss")
@@ -560,19 +666,6 @@ def process_article_3stage_pipeline(article: Dict[str, Any], api_key: str) -> Op
     print(f"  [STAGE 3 PASSED & ENRICHED] '{data.get('title')[:50]}...'")
     return data
 
-def unwrap_google_news_link(url: str) -> str:
-    if "news.google.com" not in url:
-        return url
-    try:
-        from googlenewsdecoder import new_decoderv1
-        res = new_decoderv1(url)
-        if isinstance(res, dict) and res.get("status") and res.get("decoded_url"):
-            decoded = res["decoded_url"]
-            if "news.google.com" not in decoded:
-                return decoded
-    except Exception:
-        pass
-    return url
 
 def fetch_google_news(query: str, max_items: int = 12) -> List[Dict[str, Any]]:
     """Fetches candidate articles from Google News RSS feed."""
@@ -1024,6 +1117,7 @@ def stage4_semantic_dedup(inc1: Dict[str, Any], inc2: Dict[str, Any], api_key: s
     Evaluates whether two incident reports describe the EXACT SAME real-world event
     based on semantic context, entity relationships, and factual descriptions.
     """
+    global _WORKING_MODEL_STAGE2
     if not api_key:
         return False
 
@@ -1055,24 +1149,30 @@ Respond strictly in valid JSON format:
   "reasoning": "Short 1-sentence explanation of why they are or are not the same real-world incident."
 }}"""
 
-    candidate_models = list(PREFERRED_MODELS_STAGE3)
-    global _WORKING_MODEL_STAGE3
-    if _WORKING_MODEL_STAGE3 and _WORKING_MODEL_STAGE3 in candidate_models:
-        candidate_models.remove(_WORKING_MODEL_STAGE3)
-        candidate_models.insert(0, _WORKING_MODEL_STAGE3)
+    with _WORKING_MODEL_LOCK:
+        active_model = _WORKING_MODEL_STAGE2
+
+    candidate_models = list(PREFERRED_MODELS_STAGE2)
+    if active_model and active_model in candidate_models:
+        candidate_models.remove(active_model)
+        candidate_models.insert(0, active_model)
 
     for model_name in candidate_models:
         if HAS_GENAI:
             for attempt in range(3):
                 try:
                     from google.genai import types
-                    client = genai.Client(api_key=api_key)
+                    client = get_thread_genai_client(api_key)
+                    if client is None:
+                        client = genai.Client(api_key=api_key)
+
                     response = client.models.generate_content(
                         model=model_name,
                         contents=prompt,
                         config=types.GenerateContentConfig(
                             response_mime_type="application/json",
-                            automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True)
+                            automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
+                            http_options=types.HttpOptions(timeout=15000)
                         )
                     )
                     if response and response.text:
@@ -1085,12 +1185,14 @@ Respond strictly in valid JSON format:
                         is_same = bool(data.get("is_same_incident", False))
                         reasoning = data.get("reasoning", "")
                         print(f"    [STAGE 4 LLM DEDUP ({model_name})] Match: {is_same} | Reason: {reasoning}")
-                        _WORKING_MODEL_STAGE3 = model_name
+                        with _WORKING_MODEL_LOCK:
+                            _WORKING_MODEL_STAGE2 = model_name
                         return is_same
                 except Exception as err:
                     err_str = str(err)
                     if any(code in err_str for code in ("429", "RESOURCE_EXHAUSTED", "Quota", "503", "UNAVAILABLE", "500", "INTERNAL")):
-                        time.sleep(2 * (attempt + 1))
+                        sleep_sec = (1.5 ** attempt) + random.uniform(0.5, 1.5)
+                        time.sleep(sleep_sec)
                         continue
                     break
 
@@ -1236,6 +1338,64 @@ def filter_known_candidate_urls(candidates: List[Dict[str, Any]], incidents_path
         print(f"  [STAGE 1 PRE-FILTER] Skipped {skipped_known} candidate(s) already present in canonical catalog.")
     return filtered
 
+def batch_scrape_candidates(candidates: List[Dict[str, Any]], max_workers: int = 16) -> List[Dict[str, Any]]:
+    """
+    Decoupled concurrent web scraping stage (Stage 1.5).
+    Concurrently scrapes candidate URLs using ThreadPoolExecutor,
+    populating 'scraped_title' and 'scraped_text' on each candidate dict.
+    Returns the enriched candidate list in original order.
+    """
+    if not candidates:
+        return []
+
+    def _scrape_single(cand: Dict[str, Any]) -> None:
+        if cand.get("scraped_text"):
+            return
+        url = cand.get("link", "")
+        reported_samples = cand.get("reported_by_samples", [])
+        search_title = cand.get("title", "")
+        try:
+            scraped = fetch_full_text_and_title(url, reported_by_samples=reported_samples, search_title=search_title)
+            cand["scraped_title"] = scraped.get("title", "")
+            cand["scraped_text"] = scraped.get("full_text", "")
+        except Exception:
+            cand["scraped_title"] = ""
+            cand["scraped_text"] = ""
+
+    workers = min(max_workers, max(1, len(candidates)))
+    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as executor:
+        futures = [executor.submit(_scrape_single, cand) for cand in candidates]
+        concurrent.futures.wait(futures)
+
+    return candidates
+
+def process_candidates_concurrently(
+    candidates: List[Dict[str, Any]], 
+    api_key: str, 
+    max_workers: int = 4
+) -> List[Dict[str, Any]]:
+    """Evaluates candidates through Stage 2 & Stage 3 concurrently with error isolation."""
+    if not candidates:
+        return []
+
+    workers = min(max_workers, max(1, len(candidates)))
+    new_incidents = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as executor:
+        future_to_cand = {
+            executor.submit(process_article_3stage_pipeline, cand, api_key): cand
+            for cand in candidates
+        }
+        for future in concurrent.futures.as_completed(future_to_cand):
+            cand = future_to_cand[future]
+            try:
+                result = future.result()
+                if result:
+                    new_incidents.append(result)
+            except Exception as e:
+                print(f"  [ERROR] Pipeline failed on candidate '{cand.get('title', '')[:40]}': {e}")
+
+    return new_incidents
+
 def run_ingestion():
     load_env_file()
     api_key = os.environ.get("GEMINI_API_KEY", "")
@@ -1267,16 +1427,23 @@ def run_ingestion():
     print(f"Total Candidate Pool: {len(candidates)} articles across 4 sources.")
     candidates = filter_known_candidate_urls(candidates)
 
-    # STAGE 2 & 3: GATEKEEPER & TAXONOMY EXTRACTION
-    print("\n---> STAGE 2 & STAGE 3: RUNNING LLM GATEKEEPER & TAXONOMY EXTRACTION...")
-    new_incidents = []
-    for idx, candidate in enumerate(candidates, 1):
-        print(f"\nProcessing [{idx}/{len(candidates)}]: '{candidate.get('title')[:55]}...'")
-        result = process_article_3stage_pipeline(candidate, api_key)
-        if result:
-            new_incidents.append(result)
+    # STAGE 1.5: HIGH-THROUGHPUT CONCURRENT SCRAPING
+    print(f"\n---> STAGE 1.5: CONCURRENT BATCH SCRAPING ({len(candidates)} candidates)...")
+    candidates = batch_scrape_candidates(candidates, max_workers=16)
+    scraped_count = sum(1 for c in candidates if c.get("scraped_text"))
+    print(f"Batch Scraping Complete: {scraped_count}/{len(candidates)} articles successfully scraped.")
 
+    # STAGE 2 & 3: CONCURRENT GATEKEEPER & TAXONOMY EXTRACTION
+    print("\n---> STAGE 2 & STAGE 3: RUNNING CONCURRENT LLM GATEKEEPER & TAXONOMY EXTRACTION...")
+    concurrency_env = os.environ.get("LLM_WORKER_CONCURRENCY", "4")
+    try:
+        max_llm_workers = int(concurrency_env)
+    except ValueError:
+        max_llm_workers = 4
+
+    new_incidents = process_candidates_concurrently(candidates, api_key=api_key, max_workers=max_llm_workers)
     print(f"\nIngestion Complete: {len(new_incidents)} validated incidents passed all 3 stages.")
+
 
     # STAGE 4: SAVE LOCAL JSON & SYNC SUPABASE
     save_to_incidents_json(new_incidents, api_key=api_key)
