@@ -10,25 +10,25 @@
   "lanes": {
     "frontier_llms_leaks": [
       {
+        "term": "OpenAI",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 7,
+        "first_seen": "2026-10-20",
+        "last_hit": "2026-10-23"
+      },
+      {
         "term": "Anthropic",
         "type": "subject",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 47,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-22"
       },
       {
-        "term": "OpenAI",
-        "type": "subject",
-        "weight": 0.902,
-        "hit_count": 6,
-        "first_seen": "2026-10-20",
-        "last_hit": "2026-10-22"
-      },
-      {
         "term": "Google",
         "type": "subject",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 3,
         "first_seen": "2026-10-21",
         "last_hit": "2026-10-22"
@@ -126,7 +126,7 @@
       {
         "term": "OpenAI",
         "type": "subject",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 87,
         "first_seen": "2026-10-03",
         "last_hit": "2026-10-22"
@@ -134,7 +134,7 @@
       {
         "term": "Anthropic",
         "type": "subject",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 65,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-22"
@@ -144,7 +144,7 @@
       {
         "term": "Anthropic",
         "type": "subject",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 30,
         "first_seen": "2026-10-06",
         "last_hit": "2026-10-22"
@@ -152,7 +152,7 @@
       {
         "term": "Persona Identities Inc",
         "type": "subject",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 22,
         "first_seen": "2026-10-07",
         "last_hit": "2026-10-22"
@@ -160,7 +160,7 @@
       {
         "term": "Anthropic implemented",
         "type": "incident",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 16,
         "first_seen": "2026-10-10",
         "last_hit": "2026-10-22"
@@ -168,7 +168,7 @@
       {
         "term": "law enforcement",
         "type": "incident",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 10,
         "first_seen": "2026-10-18",
         "last_hit": "2026-10-22"
@@ -176,7 +176,7 @@
       {
         "term": "Facial recognition",
         "type": "incident",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 9,
         "first_seen": "2026-10-15",
         "last_hit": "2026-10-22"
@@ -184,7 +184,7 @@
       {
         "term": "Christopher Gatlin",
         "type": "subject",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 9,
         "first_seen": "2026-10-17",
         "last_hit": "2026-10-22"
@@ -192,7 +192,7 @@
       {
         "term": "false positive match",
         "type": "incident",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 6,
         "first_seen": "2026-10-18",
         "last_hit": "2026-10-22"
@@ -200,7 +200,7 @@
       {
         "term": "wrongful arrest",
         "type": "incident",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-10-22",
         "last_hit": "2026-10-22"
@@ -211,7 +211,7 @@
       {
         "term": "General Public",
         "type": "subject",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 15,
         "first_seen": "2026-10-12",
         "last_hit": "2026-10-22"
@@ -219,7 +219,7 @@
       {
         "term": "Texas voters",
         "type": "subject",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-10-22",
         "last_hit": "2026-10-22"
@@ -227,7 +227,7 @@
       {
         "term": "James Talarico",
         "type": "subject",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-10-22",
         "last_hit": "2026-10-22"
@@ -251,7 +251,7 @@
       {
         "term": "Google DeepMind",
         "type": "subject",
-        "weight": 0.773,
+        "weight": 0.698,
         "hit_count": 3,
         "first_seen": "2026-10-17",
         "last_hit": "2026-10-21"
@@ -259,7 +259,7 @@
       {
         "term": "powerful generative audio",
         "type": "incident",
-        "weight": 0.773,
+        "weight": 0.698,
         "hit_count": 2,
         "first_seen": "2026-10-20",
         "last_hit": "2026-10-21"
@@ -267,7 +267,7 @@
       {
         "term": "without adequate",
         "type": "incident",
-        "weight": 0.773,
+        "weight": 0.698,
         "hit_count": 2,
         "first_seen": "2026-10-20",
         "last_hit": "2026-10-21"
@@ -277,7 +277,7 @@
       {
         "term": "CharacterAI",
         "type": "subject",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 25,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-22"
@@ -285,7 +285,7 @@
       {
         "term": "Walt Disney",
         "type": "subject",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 4,
         "first_seen": "2026-10-17",
         "last_hit": "2026-10-22"
@@ -293,7 +293,7 @@
       {
         "term": "mental health",
         "type": "incident",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 3,
         "first_seen": "2026-10-21",
         "last_hit": "2026-10-22"
@@ -301,7 +301,7 @@
       {
         "term": "chatbot platform allegedly",
         "type": "incident",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-10-21",
         "last_hit": "2026-10-22"
@@ -309,7 +309,7 @@
       {
         "term": "Minors",
         "type": "subject",
-        "weight": 0.902,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-10-22",
         "last_hit": "2026-10-22"
@@ -317,7 +317,7 @@
       {
         "term": "OpenAI",
         "type": "subject",
-        "weight": 0.773,
+        "weight": 0.698,
         "hit_count": 6,
         "first_seen": "2026-10-15",
         "last_hit": "2026-10-21"
@@ -325,7 +325,7 @@
       {
         "term": "fatal consequences",
         "type": "incident",
-        "weight": 0.773,
+        "weight": 0.698,
         "hit_count": 2,
         "first_seen": "2026-10-21",
         "last_hit": "2026-10-21"
@@ -333,7 +333,7 @@
       {
         "term": "regulatory scrutiny",
         "type": "incident",
-        "weight": 0.63,
+        "weight": 0.54,
         "hit_count": 4,
         "first_seen": "2026-10-17",
         "last_hit": "2026-10-20"
