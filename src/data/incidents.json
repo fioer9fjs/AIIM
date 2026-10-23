@@ -26,7 +26,9 @@
       "system_classification": "dual_use_security",
       "valuation_methodology": "unquantified",
       "nist_ai_rmf_function": "MAP",
-      "iso_42001_category": "System_Impact"
+      "iso_42001_category": "System_Impact",
+      "developer": "OpenAI",
+      "deployer": "Calif / OpenAI"
     },
     "confidence_scores": {
       "severity": 0.9,
@@ -50,12 +52,15 @@
       "PHP Group",
       "OpenAI",
       "Finnish Government",
-      "Wiz"
+      "Wiz",
+      "Government of Finland",
+      "BBC"
     ],
     "source_urls": [
       "https://www.glasgowtimes.co.uk/news/national/26659194.websites-around-world-taken-offline-ai-finds-critical-security-flaw/",
       "https://www.news4jax.com/business/2026/10/21/some-websites-go-dark-as-operators-address-an-ai-detected-flaw-in-a-web-programming-language/",
-      "https://www.dailyliberal.com.au/story/9373060/government-websites-go-dark-after-ai-discovers-flaw/"
+      "https://www.dailyliberal.com.au/story/9373060/government-websites-go-dark-after-ai-discovers-flaw/",
+      "https://www.borehamwoodtimes.co.uk/news/national/26659194.websites-around-world-taken-offline-ai-finds-critical-security-flaw/"
     ],
     "related_incidents": [],
     "created_at": "2026-10-22T07:14:39.412996+00:00",
@@ -64,7 +69,10 @@
     "nist_ai_rmf_function": "MAP",
     "iso_42001_category": "System_Impact",
     "impact_scope": "discrete_incident",
-    "valuation_methodology": "unquantified"
+    "valuation_methodology": "unquantified",
+    "harm_domain": "systemic_integrity",
+    "developer": "OpenAI",
+    "deployer": "Calif / OpenAI"
   },
   {
     "incident_id": "INC-20261021-363",
@@ -19853,53 +19861,6 @@
     "valuation_methodology": "theoretical_academic",
     "date": "2026-10-23",
     "incident_id": "INC-20261023-357"
-  },
-  {
-    "title": "Global Website Disruptions Following AI-Assisted Discovery of Critical PHP Flaw",
-    "summary": "A cybersecurity researcher using an advanced OpenAI model discovered a critical remote code execution vulnerability in PHP, a language underpinning nearly 70% of websites. A premature leak of the patch details prompted millions of automated exploitation attempts globally, forcing governments, public authorities, and media sites to take their web services offline to prevent compromise.",
-    "alleged_incident_date": "2026-10-21",
-    "verification_status": "confirmed",
-    "lifecycle_phase": "operation_and_monitoring",
-    "system_classification": "dual_use_security",
-    "intent": "intentional_misuse",
-    "primary_purpose": "other",
-    "root_cause_category": "external",
-    "root_cause_subtype": "adversarial_attack",
-    "failure_mode": "Advanced frontier AI model was leveraged to uncover a zero-day vulnerability in PHP, which triggered mass exploitation attempts and emergency service shutdowns after patch details leaked before deployment.",
-    "harm_domain": "systemic_integrity",
-    "harm_type": "national_security",
-    "impact_scope": "discrete_incident",
-    "financial_damage_usd": 0,
-    "eu_ai_act_tier": "limited_risk",
-    "nist_ai_rmf_function": "MANAGE",
-    "iso_42001_category": "Operational_Security",
-    "natsec_impact": true,
-    "temporality": "actual",
-    "severity": "high",
-    "geographic_scope": [
-      "United Kingdom",
-      "Finland",
-      "United States"
-    ],
-    "affected_parties": [
-      "Government of Finland",
-      "Oxford City Council",
-      "City of Edinburgh Council",
-      "BBC",
-      "Office for Budget Responsibility"
-    ],
-    "confidence_scores": {
-      "verification_status": 0.95,
-      "severity": 0.9
-    },
-    "source_urls": [
-      "https://www.borehamwoodtimes.co.uk/news/national/26659194.websites-around-world-taken-offline-ai-finds-critical-security-flaw/"
-    ],
-    "source_type": "gdelt",
-    "full_text": "Cyber security chiefs have warned UK organisations their websites may have to be taken offline, after a researcher using AI discovered a “critical security issue” in a programming language.\n\nThe Finnish government’s website was one of several to be partly disabled because of the incident on Wednesday, along with the websites of several local authorities in the UK.\n\nOxford City Council and the City of Edinburgh Council were among the organisations to take their websites offline, while pages for some BBC programmes were unavailable.\n\nOxford City Council's website is temporarily unavailable.\n\nThis is a precaution because of a worldwide issue with the underlying technology and is not a cyber incident.\n\nYou can still contact us by phone on 01865 249 811.\n\n— Oxford City Council (@OxfordCity) October 21, 2026\n\nThe Office for Budget Responsibility said it had followed guidance to take its website offline, “in view of the critical security issues affecting PHP”.\n\nIt is understood some of the Government’s online services may be temporarily unavailable while steps are taken to maintain security, but any impact is expected to be minimal.\n\nNo large public-facing critical services are thought to have been affected.\n\nThe security issue identified by the researcher could allow attackers to remotely control any web servers running the widely used programming language, PHP.\n\nPHP is used by almost 70% of websites, according to cybersecurity firm Cloudflare, and underpins popular platforms such as WordPress and Magento.\n\nAccording to Cloudflare chief executive Matthew Prince, there was a dramatic surge in attempts to exploit the issue once it was announced.\n\nHe wrote on X: “Some stats on #php2shell. In the 10 hours before it was publicly announced, across the @Cloudflare network we saw thousands of attempts to exploit it.\n\n“That jumped to tens of thousands in the 45 minutes post announcement, hundreds of thousands within 2 hours, and millions now.”\n\nOrganisations have been urged by the National Cyber Security Centre (NCSC) to update to a new, fixed version of the software.\n\nIf software cannot be immediately upgraded, organisations should consider taking their websites offline, the NCSC said.\n\nSome stats on #php2shell. In the 10 hours before it was publicly announced, across the @Cloudflare network we saw thousands of attempts to exploit it. That jumped to tens of thousands in the 45 minutes post announcement, hundreds of thousands within 2 hours, and millions now.\n\n— Matthew Prince 🌥 (@eastdakota) October 22, 2026\n\nA Government spokesperson said: “Work is already under way across Government to actively identify and patch any potential exposure.\n\n“We encourage all organisations, private and public, large and small, to follow guidance issued by the NCSC to understand their exposure and take the necessary actions to safeguard their systems.”\n\nThe cyber division of the National Security Agency in the US warned weaknesses in the software could provide “a direct path to the server’s file system or database”.\n\nThe Wall Street Journal reported that the flaw was discovered in August by Ryan Austin, a researcher at the cybersecurity company Calif, using an advanced AI model developed by OpenAI.\n\nPHP developers had reportedly planned a security update on Thursday, but the release was brought forward after details of its work to address the vulnerabilities leaked online.\n\nOpenAI, which runs ChatGPT, said in the past two months it has been leading a team of researchers working to address the critical flaw in PHP, and supported its developers as it led the fixes.\n\nAll that sort of scamming and fraud and so forth gets turbochargedAll that sort of scamming and fraud and so forth gets turbocharged\n\nThe company described the incident as “one of the most impactful security issues in recent memory”, adding that while AI can help to uncover issues, it can also aid attackers.\n\n“To our knowledge, frontier AI found these vulnerabilities before attackers did, opening a d",
-    "valuation_methodology": "unquantified",
-    "date": "2026-10-22",
-    "incident_id": "INC-20261022-355"
   },
   {
     "title": "OpenAI GPT-5.6 Sol Discovers Critical Zero-Day Vulnerabilities in PHP",
