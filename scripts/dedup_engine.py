@@ -631,7 +631,7 @@ Respond strictly in valid JSON format:
                     from google.genai import types
                     client = genai.Client(
                         api_key=api_key,
-                        http_options=types.HttpOptions(timeout=8000)
+                        http_options=types.HttpOptions(timeout=12000)
                     )
                     response = client.models.generate_content(
                         model=model_name,
@@ -662,8 +662,8 @@ Respond strictly in valid JSON format:
                         return is_same, confidence, reasoning, m_info
                 except Exception as err:
                     err_str = str(err)
-                    if any(code in err_str for code in ("429", "RESOURCE_EXHAUSTED", "Quota", "503", "UNAVAILABLE", "500", "INTERNAL")):
-                        time.sleep(2 * (attempt + 1))
+                    if any(code in err_str for code in ("429", "RESOURCE_EXHAUSTED", "Quota")):
+                        time.sleep(1.0 * (attempt + 1))
                         continue
                     break
 

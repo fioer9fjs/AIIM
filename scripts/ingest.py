@@ -535,7 +535,7 @@ ARTICLE TEXT:
                         }
                 except Exception as err:
                     err_str = str(err)
-                    if any(code in err_str for code in ("429", "RESOURCE_EXHAUSTED", "Quota", "503", "UNAVAILABLE", "500", "INTERNAL")):
+                    if any(code in err_str for code in ("429", "RESOURCE_EXHAUSTED", "Quota")):
                         sleep_sec = (1.5 ** attempt) + random.uniform(0.5, 1.5)
                         time.sleep(sleep_sec)
                         continue
@@ -605,7 +605,7 @@ ARTICLE FULL TEXT:
                         return data
                 except Exception as err:
                     err_str = str(err)
-                    if any(code in err_str for code in ("429", "RESOURCE_EXHAUSTED", "Quota", "503", "UNAVAILABLE", "500", "INTERNAL")):
+                    if any(code in err_str for code in ("429", "RESOURCE_EXHAUSTED", "Quota")):
                         sleep_sec = (1.5 ** attempt) + random.uniform(0.5, 1.5)
                         time.sleep(sleep_sec)
                         continue
@@ -1190,7 +1190,7 @@ Respond strictly in valid JSON format:
                         return is_same
                 except Exception as err:
                     err_str = str(err)
-                    if any(code in err_str for code in ("429", "RESOURCE_EXHAUSTED", "Quota", "503", "UNAVAILABLE", "500", "INTERNAL")):
+                    if any(code in err_str for code in ("429", "RESOURCE_EXHAUSTED", "Quota")):
                         sleep_sec = (1.5 ** attempt) + random.uniform(0.5, 1.5)
                         time.sleep(sleep_sec)
                         continue
