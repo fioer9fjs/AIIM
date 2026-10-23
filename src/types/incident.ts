@@ -134,7 +134,16 @@ export interface AIIncident {
 
   // Estimated Financial Damage (USD) & Valuation Methodology
   financial_damage_usd?: number;
-  valuation_methodology?: 'explicit_confirmed' | 'vsl_benchmark' | 'statutory_formula' | 'regulatory_turnover' | 'cyber_breach_report' | 'empirical_estimate';
+  valuation_methodology?:
+    | 'explicit_confirmed'
+    | 'macro_statistic'
+    | 'unquantified'
+    | 'theoretical_academic'
+    | 'vsl_benchmark'
+    | 'statutory_formula'
+    | 'regulatory_turnover'
+    | 'cyber_breach_report'
+    | 'empirical_estimate';
 
   // MIT & AIID Extensions
   intent?: IncidentIntent;

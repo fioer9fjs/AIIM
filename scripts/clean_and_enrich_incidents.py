@@ -29,7 +29,9 @@ def load_env_file():
 def get_supabase_credentials():
     load_env_file()
     url = os.environ.get("SUPABASE_URL", "")
-    key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "") or os.environ.get("SUPABASE_KEY", "")
+    key = os.environ.get("SUPABASE_SECRET_KEY", "")
+    if not key or not key.startswith("sb_secret_"):
+        return url, ""
     return url, key
 
 def fetch_supabase_incidents(url: str, key: str) -> List[Dict[str, Any]]:
@@ -123,14 +125,11 @@ MACRO_KEYWORDS = [
 
 def assign_impact_scope(inc: Dict[str, Any]):
     """Assigns impact_scope ('discrete_incident' | 'cumulative_macro_trend')."""
-    usd = inc.get("financial_damage_usd", 0) or 0
     text_corpus = f"{inc.get('title', '')} {inc.get('summary', '')} {inc.get('full_text', '')}".lower()
     
     llm_scope = inc.get("impact_scope") or (inc.get("taxonomy", {}).get("impact_scope") if isinstance(inc.get("taxonomy"), dict) else None)
     
     if llm_scope == "cumulative_macro_trend":
-        scope = "cumulative_macro_trend"
-    elif usd >= 500_000_000 and any(k in text_corpus for k in MACRO_KEYWORDS):
         scope = "cumulative_macro_trend"
     elif any(k in text_corpus for k in MACRO_KEYWORDS):
         scope = "cumulative_macro_trend"
@@ -141,68 +140,104 @@ def assign_impact_scope(inc: Dict[str, Any]):
     if isinstance(inc.get("taxonomy"), dict):
         inc["taxonomy"]["impact_scope"] = scope
 
+NON_DAMAGE_PATTERNS = [
+    re.compile(r'(?:valued\s+at|valuation\s+of|valuation\s+at|market\s+cap\w*\s+of)\s*(?:\$|usd\s*)?([0-9]+(?:\.[0-9]+)?)\s*(billion|million)?', re.IGNORECASE),
+    re.compile(r'(?:raised|funding\s+round\s+of|series\s+[a-z]\s+of)\s*(?:\$|usd\s*)?([0-9]+(?:\.[0-9]+)?)\s*(billion|million)?', re.IGNORECASE),
+    re.compile(r'(?:contract\s+bid|contract\s+worth|contract\s+evaluation\s+of|contract\s+for\s+[a-z]+|pentagon\s+contract|dod\s+contract|deal\s+with\s+disney|ip\s+licensing|licensing\s+deal|licensing\s+fee|(?:\$|usd\s*)[0-9]+(?:\.[0-9]+)?\s*(?:billion|million)\s+contract)\b', re.IGNORECASE),
+    re.compile(r'ipo\s+prospectus|on-paper\s+loss|operating\s+loss|operating\s+expense|infrastructure\s+expenditure|infrastructure\s+plans', re.IGNORECASE),
+    re.compile(r'congressional\s+inquiry|senator\s+scrutinizes', re.IGNORECASE),
+]
+
+EXPLICIT_LOSS_PATTERNS = [
+    re.compile(r'(?:fined|fine\s+of|penalty\s+of|penalties\s+of|settlement\s+of|settled\s+for|stole|stolen|theft\s+of|losses\s+of|lost|loss\s+of|damages\s+of|defrauded\s+(?:of\s+)?|ransom\s+of|restitution\s+of|sued\s+for)\s*\$([0-9]+(?:\.[0-9]+)?)\s*(billion|million|k|thousand)?', re.IGNORECASE),
+    re.compile(r'\$([0-9]+(?:\.[0-9]+)?)\s*(billion|million|k|thousand)?\s*(?:fine|penalty|penalties|settlement|theft|loss|in\s+damages|in\s+losses|stolen|ransom|restitution)', re.IGNORECASE),
+]
+
+def _parse_currency_amount(val_str: str, unit_str: str) -> int:
+    try:
+        val = float(val_str)
+        unit = (unit_str or "").lower()
+        if unit == "billion":
+            return int(val * 1_000_000_000)
+        elif unit == "million":
+            return int(val * 1_000_000)
+        elif unit in ("k", "thousand"):
+            return int(val * 1_000)
+        return int(val)
+    except Exception:
+        return 0
+
+LEGACY_SYNTHETIC_FALLBACKS = {
+    2_500_000, 850_000, 12_500_000, 5_000_000, 280_000, 500_000, 450_000,
+    1_200_000, 350_000, 4_500_000, 4_880_000, 6_800_000, 20_000_000, 15_000_000, 200_000_000
+}
+
+def _verify_number_in_text(usd: int, text: str) -> bool:
+    if usd <= 0:
+        return False
+    if usd >= 1_000_000_000:
+        b_val = usd / 1_000_000_000
+        b_str = f"{b_val:.1f}" if b_val != int(b_val) else str(int(b_val))
+        patterns = [f"{b_str} billion", f"${b_str} billion", f"${b_str}b", f"{usd:,}"]
+    elif usd >= 1_000_000:
+        m_val = usd / 1_000_000
+        m_str = f"{m_val:.2f}".rstrip('0').rstrip('.') if m_val != int(m_val) else str(int(m_val))
+        patterns = [f"{m_str} million", f"${m_str} million", f"${m_str}m", f"{m_str}m", f"{usd:,}"]
+    elif usd >= 1_000:
+        k_val = usd / 1_000
+        k_str = f"{k_val:.1f}".rstrip('0').rstrip('.') if k_val != int(k_val) else str(int(k_val))
+        patterns = [f"{k_str}k", f"${k_str}k", f"{k_str} thousand", f"{usd:,}", str(int(usd))]
+    else:
+        patterns = [str(int(usd))]
+    return any(p in text for p in patterns)
+
 def estimate_financial_damage(inc: Dict[str, Any]) -> Tuple[int, str]:
-    """Calculates conservative, lower-bound empirical financial damage in USD and returns (usd, methodology)."""
-    # ArXiv preprints & academic benchmarks represent research studies, not real-world financial damage
+    """
+    Evidence-Only Financial Damage Valuation.
+    Returns (usd, methodology).
+    
+    Invariant:
+    An incident receives financial_damage_usd > 0 if and only if explicit monetary loss,
+    theft, fine, settlement, or damages demand is stated in the article text.
+    Corporate balance-sheet metrics (operating loss, IPO valuation, infrastructure spend,
+    licensing agreements, procurement contracts) are strictly excluded.
+    Otherwise returns (0, "unquantified").
+    """
     if inc.get("source_type") == "arxiv":
         return 0, "theoretical_academic"
 
     text_corpus = f"{inc.get('title', '')} {inc.get('summary', '')} {inc.get('full_text', '')}".lower()
-    severity = inc.get("severity", "medium").lower()
+    
+    # Rejection of non-damage corporate finance, contracts, and inquiry letters
+    if any(p.search(text_corpus) for p in NON_DAMAGE_PATTERNS):
+        return 0, "unquantified"
 
-    # Rule 1: Explicit dollar amounts in text (Confirmed Official Figure)
-    match_billion = re.search(r'\$(\d+(?:\.\d+)?)\s*billion', text_corpus)
-    if match_billion:
-        return int(float(match_billion.group(1)) * 1_000_000_000), "explicit_confirmed"
+    # 1. Check existing financial_damage_usd from LLM or previous persistence
+    existing_usd = inc.get("financial_damage_usd", 0) or 0
+    if isinstance(inc.get("taxonomy"), dict) and not existing_usd:
+        existing_usd = inc["taxonomy"].get("financial_damage_usd", 0) or 0
 
-    match_million = re.search(r'\$(\d+(?:\.\d+)?)\s*million', text_corpus)
-    if match_million:
-        return int(float(match_million.group(1)) * 1_000_000), "explicit_confirmed"
+    if existing_usd > 0:
+        if existing_usd in LEGACY_SYNTHETIC_FALLBACKS or not _verify_number_in_text(existing_usd, text_corpus):
+            existing_usd = 0
 
-    # Rule 2: Fatalities (Official US DOT VSL Benchmark $12.5M per loss of life)
-    if any(k in text_corpus for k in ["fatality", "fatal", "death", "killed", "loss of life"]):
-        return 12_500_000, "vsl_benchmark"
+    if existing_usd > 0:
+        if inc.get("impact_scope") == "cumulative_macro_trend":
+            return existing_usd, "macro_statistic"
+        return existing_usd, "explicit_confirmed"
 
-    # Rule 3: Corporate Lawsuits, Class Actions & CSAM Claims (Conservative Lower-Bound Statutory Defense Baseline)
-    if any(k in text_corpus for k in ["lawsuit", "class action", "sues", "csam", "copyright", "trade secret"]):
-        if severity == "critical":
-            return 12_500_000, "statutory_formula"  # Conservative lower-bound litigation & defense baseline
-        elif severity == "high":
-            return 4_500_000, "statutory_formula"
-        return 1_200_000, "statutory_formula"
+    # 2. Strict regex check for explicit loss/fine/theft in article text
+    for dmg_pat in EXPLICIT_LOSS_PATTERNS:
+        match = dmg_pat.search(text_corpus)
+        if match:
+            extracted_usd = _parse_currency_amount(match.group(1), match.group(2))
+            if extracted_usd > 0:
+                if inc.get("impact_scope") == "cumulative_macro_trend":
+                    return extracted_usd, "macro_statistic"
+                return extracted_usd, "explicit_confirmed"
 
-    # Rule 4: Deepfake Fraud & Crypto Scams (Conservative Remediation Baseline)
-    if any(k in text_corpus for k in ["scam", "fraud", "crypto", "deepfake", "phishing"]):
-        if severity == "critical":
-            return 6_800_000, "empirical_estimate"
-        elif severity == "high":
-            return 2_500_000, "empirical_estimate"
-        return 500_000, "empirical_estimate"
-
-    # Rule 5: Cyber Intrusions, Autonomous Agent Escapes & Vulnerabilities (IBM Cyber Breach Lower Bound)
-    if any(k in text_corpus for k in ["breach", "hack", "intrusion", "vulnerability", "exploit", "rogue", "sandbox"]):
-        if severity == "critical":
-            return 4_880_000, "cyber_breach_report"  # IBM average breach baseline
-        elif severity == "high":
-            return 2_500_000, "cyber_breach_report"
-        return 450_000, "cyber_breach_report"
-
-    # Rule 6: Algorithmic Discrimination, Hiring Bias & Administrative Orders
-    if any(k in text_corpus for k in ["dismissal", "court", "prosecuted", "bias", "discrimination", "fcc", "ban"]):
-        if severity == "critical":
-            return 5_000_000, "regulatory_turnover"
-        elif severity == "high":
-            return 2_500_000, "regulatory_turnover"
-        return 280_000, "regulatory_turnover"
-
-    # Conservative Default Fallback per severity rating
-    if severity == "critical":
-        return 5_000_000, "empirical_estimate"
-    elif severity == "high":
-        return 2_500_000, "empirical_estimate"
-    elif severity == "medium":
-        return 850_000, "empirical_estimate"
-    return 350_000, "empirical_estimate"
+    # 3. No explicit evidence -> strictly 0 ("unquantified")
+    return 0, "unquantified"
 
 def main():
     print("=" * 85)

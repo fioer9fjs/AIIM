@@ -222,7 +222,7 @@ def run_migration():
                 "eu_ai_act_tier": inc.get("eu_ai_act_tier") or tax.get("eu_ai_act_tier") or "high_risk",
                 "natsec_impact": inc.get("natsec_impact") if inc.get("natsec_impact") is not None else tax.get("natsec_impact", False),
                 "impact_scope": inc.get("impact_scope") or tax.get("impact_scope") or "discrete_incident",
-                "valuation_methodology": inc.get("valuation_methodology") or tax.get("valuation_methodology") or "empirical_estimate",
+                "valuation_methodology": inc.get("valuation_methodology") or tax.get("valuation_methodology") or "unquantified",
                 "source_type": inc.get("source_type") or tax.get("source_type", "google_news_rss"),
                 "financial_damage_usd": inc.get("financial_damage_usd", 0) if inc.get("financial_damage_usd") is not None else tax.get("financial_damage_usd", 0),
                 "timeline": inc.get("timeline") or tax.get("timeline", []),

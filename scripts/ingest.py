@@ -137,8 +137,10 @@ CLASSIFICATION & ATTRIBUTION RULE:
 - If an attribute (system classification, harm domain, etc.) cannot be conclusively determined from the article text, do NOT assign fake default categories. Use "unclassified" or "undetermined".
 
 FINANCIAL DAMAGE EVALUATION GUARDRAILS:
-- If the article describes a DISCRETE INCIDENT (e.g. specific lawsuit demand, court judgment, direct theft, fine): set financial_damage_usd to the explicit confirmed value.
-- If the article describes an AGGREGATE INDUSTRY TREND (e.g. global annual crypto fraud statistics, Interpol industry reports): set impact_scope to "cumulative_macro_trend". DO NOT attribute the multi-billion global industry statistic as the single incident damage; set financial_damage_usd to a conservative single-incident estimate (e.g. 2500000) so macro totals do not skew single-event metrics.
+- ONLY extract financial_damage_usd if the text explicitly states a quantified monetary loss, theft/fraud sum, regulatory fine/penalty, court settlement, or explicit damages lawsuit demand directly resulting from the incident.
+- DO NOT extract company valuations (e.g. IPO valuation, market capitalization), venture funding amounts, corporate revenue, or procurement contract bid values (e.g. an Army contract bid worth $450 million is NOT incident damage). If only such non-damage figures appear, set financial_damage_usd to 0.
+- If the article describes an AGGREGATE INDUSTRY TREND (e.g. global annual crypto fraud statistics, Interpol industry reports): set impact_scope to "cumulative_macro_trend" and financial_damage_usd to the stated macro statistic.
+- If NO explicit monetary damage or loss figure is stated in the article, set financial_damage_usd to 0. NEVER guess, estimate, or invent a number.
 
 DATE RULE:
 - alleged_incident_date: If the article explicitly mentions that the underlying incident occurred on a specific prior date (e.g. "occurred on June 18, 2026"), extract that date as "YYYY-MM-DD". If no specific prior date is mentioned, set to null.
@@ -159,7 +161,7 @@ Return ONLY a valid JSON object matching this exact schema:
   "harm_domain": "persons_physical" | "persons_mental" | "persons_rights" | "property" | "environment" | "systemic_integrity" | "societal",
   "harm_type": "discrimination_bias" | "privacy_breach" | "physical_safety" | "misinformation" | "economic_labor" | "copyright_ip" | "psychological_harm" | "national_security",
   "impact_scope": "discrete_incident" | "cumulative_macro_trend",
-  "financial_damage_usd": 2500000,
+  "financial_damage_usd": 0,
   "eu_ai_act_tier": "prohibited" | "high_risk" | "limited_risk" | "minimal_risk",
   "nist_ai_rmf_function": "GOVERN" | "MAP" | "MEASURE" | "MANAGE",
   "iso_42001_category": "Internal_Governance" | "Data_&_Resources" | "System_Impact" | "Operational_Security",
@@ -540,19 +542,15 @@ def process_article_3stage_pipeline(article: Dict[str, Any], api_key: str) -> Op
 
     # AUTOMATIC FINANCIAL ENRICHMENT & IMPACT SCOPE VALIDATOR
     assign_compliance_frameworks(data)
+    assign_impact_scope(data)
     if data.get("source_type") == "arxiv":
         data["financial_damage_usd"] = 0
         data["valuation_methodology"] = "theoretical_academic"
         data["temporality"] = "potential"
     else:
-        usd = data.get("financial_damage_usd", 0) or 0
-        if usd <= 0:
-            usd, methodology = estimate_financial_damage(data)
-            data["financial_damage_usd"] = usd
-            data["valuation_methodology"] = methodology
-        else:
-            data["valuation_methodology"] = "explicit_confirmed"
-    assign_impact_scope(data)
+        usd, methodology = estimate_financial_damage(data)
+        data["financial_damage_usd"] = usd
+        data["valuation_methodology"] = methodology
         
     article_pub_date = article.get("pub_date_clean") or datetime.now().strftime("%Y-%m-%d")
     data["date"] = article_pub_date

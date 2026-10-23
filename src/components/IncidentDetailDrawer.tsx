@@ -106,12 +106,13 @@ export const IncidentDetailDrawer: React.FC<IncidentDetailDrawerProps> = ({
                     <DollarSign size={12} /> Est. Impact: {formatFinancialDamage(incident.financial_damage_usd)}
                   </span>
                   <span className="badge" style={{ backgroundColor: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.3)', fontSize: '0.65rem' }}>
-                    {incident.valuation_methodology === 'explicit_confirmed' && '🟢 Confirmed Official Figure'}
-                    {incident.valuation_methodology === 'vsl_benchmark' && '🟡 US DOT VSL Benchmark'}
-                    {incident.valuation_methodology === 'statutory_formula' && '🔵 Lower-Bound Statutory Formula'}
-                    {incident.valuation_methodology === 'cyber_breach_report' && '🟣 IBM Cyber Breach Baseline'}
-                    {incident.valuation_methodology === 'regulatory_turnover' && '🟠 Regulatory Fine Baseline'}
-                    {(!incident.valuation_methodology || incident.valuation_methodology === 'empirical_estimate') && '📉 Conservative Lower Bound'}
+                    {incident.valuation_methodology === 'explicit_confirmed' && '🟢 Confirmed / Reported Loss'}
+                    {incident.valuation_methodology === 'macro_statistic' && '🌐 Macro Industry Report'}
+                    {incident.valuation_methodology === 'vsl_benchmark' && '🟡 DOT VSL Benchmark'}
+                    {incident.valuation_methodology === 'statutory_formula' && '🔵 Statutory Formula'}
+                    {incident.valuation_methodology === 'cyber_breach_report' && '🟣 Cyber Breach Baseline'}
+                    {incident.valuation_methodology === 'regulatory_turnover' && '🟠 Regulatory Turnover'}
+                    {(!incident.valuation_methodology || incident.valuation_methodology === 'empirical_estimate') && '📉 Reported Damage'}
                   </span>
                 </>
               ) : null : null}

@@ -347,9 +347,10 @@ class TestArXivResearchGuardrails(unittest.TestCase):
 
     def test_operational_incident_evaluates_damage_normally(self):
         # --- ARRANGE ---
+        # Real-world incident with an explicit damages claim
         real_incident = {
-            "title": "Major AI Company Sued in Class Action Lawsuit over CSAM",
-            "summary": "Lawsuit filed in federal court alleging widespread copyright infringement.",
+            "title": "Major AI Company Sued for $12.5 Million in Class Action Lawsuit",
+            "summary": "Lawsuit filed in federal court demanding $12.5 million in damages for copyright infringement.",
             "severity": "critical",
             "source_type": "google_news_rss"
         }
@@ -359,7 +360,7 @@ class TestArXivResearchGuardrails(unittest.TestCase):
 
         # --- ASSERT ---
         self.assertEqual(usd, 12_500_000)
-        self.assertEqual(methodology, "statutory_formula")
+        self.assertEqual(methodology, "explicit_confirmed")
 
 
 class TestIngestionHarvesterInvariants(unittest.TestCase):

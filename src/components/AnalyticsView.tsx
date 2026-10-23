@@ -221,7 +221,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({ incidents, onSelec
           <p style={{ fontSize: '1.8rem', fontWeight: 700, color: '#34d399' }}>
             {formatFinancialDamage(discreteTotalUSD)}
           </p>
-          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Lower-bound statutory & empirical sum</span>
+          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Confirmed & reported incident sum</span>
         </div>
 
         <div className="detail-section" style={{ borderColor: 'rgba(168, 85, 247, 0.3)' }}>
