@@ -17687,39 +17687,40 @@
       "United States"
     ],
     "affected_parties": [
+      "Affected Families",
+      "Megan Garcia and family",
+      "Google",
+      "Sewell Setzer III family",
       "OpenAI",
-      "Users and Families of Affected Minors",
+      "Sewell Setzer",
+      "Families of victims (e.g., Sewell Setzer III)",
+      "Families of deceased minors",
+      "Sewell Setzer family",
+      "Black and Brown youth",
+      "Victim families and minors",
+      "Affected minors and families",
+      "Underage Character.AI users",
+      "Minors",
       "Families of affected minors",
       "Character.AI users",
-      "Affected minors and families",
-      "Megan Garcia and family",
-      "Sewell Setzer",
-      "Character.AI",
-      "Megan Garcia",
-      "Families of deceased minors",
-      "Minor Users",
-      "Families of victims (e.g., Sewell Setzer III)",
-      "Underage Character.AI users",
-      "Black and Brown youth",
-      "Sewell Setzer III family",
-      "Victim families and minors",
       "Character Technologies",
       "Sewell Setzer III",
-      "Affected Families and Users",
-      "Google",
-      "Deceased Minor",
-      "Minors",
+      "Users and Families of Affected Minors",
+      "Megan Garcia",
       "Walt Disney Company",
-      "Affected Families",
+      "Minor Users",
       "Disney Worldwide Services",
       "Families of victims",
-      "Sewell Setzer family"
+      "Deceased Minor",
+      "Character.AI",
+      "Affected Families and Users"
     ],
     "source_urls": [
       "https://www.cnn.com/2026/01/07/business/character-ai-google-settle-teen-suicide-lawsuit",
       "https://lawstreetmedia.com/insights/a-new-wave-of-litigation-over-ai-chatbots/",
       "https://www.knowyourrightscamp.org/post/character-ai-settlement-raises-alarms-about-ai-s-growing-mental-health-impact-on-black-and-brown-you",
-      "https://www.nytimes.com/2026/01/07/technology/google-characterai-teenager-lawsuit.html"
+      "https://www.nytimes.com/2026/01/07/technology/google-characterai-teenager-lawsuit.html",
+      "https://www.clickorlando.com/news/local/2026/10/16/orlando-mother-settles-lawsuit-with-ai-company-over-14-year-old-sons-suicide/"
     ],
     "related_incidents": [],
     "created_at": "2026-09-26T16:08:13.817751+00:00",
@@ -17741,9 +17742,17 @@
         "phase": "follow_up",
         "source_url": "https://www.nytimes.com/2026/01/07/technology/google-characterai-teenager-lawsuit.html",
         "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-10-16",
+        "title": "Character.AI Settles Wrongful Death Lawsuit Over 14-Year-Old User's Suicide",
+        "summary_delta": "Report B focuses specifically on the finalization of the settlement between Character.AI and the mother of 14-year-old Sewell Setzer III regarding his February 2024 suicide.",
+        "phase": "legal_settlement",
+        "source_url": "https://www.clickorlando.com/news/local/2026/10/16/orlando-mother-settles-lawsuit-with-ai-company-over-14-year-old-sons-suicide/",
+        "source_type": "google_news_rss"
       }
     ],
-    "last_updated_date": "2026-01-07",
+    "last_updated_date": "2026-10-16",
     "nist_ai_rmf_function": "GOVERN",
     "iso_42001_category": "Data_&_Resources",
     "impact_scope": "discrete_incident",
@@ -19653,12 +19662,13 @@
       "United States"
     ],
     "affected_parties": [
-      "Tesla vehicle operator",
-      "Tesla vehicle driver",
+      "Tesla, Inc.",
       "Pedestrian victim",
-      "Tesla Driver",
+      "Deceased pedestrian",
       "Deceased Pedestrian",
-      "Tesla, Inc."
+      "Tesla vehicle driver",
+      "Tesla vehicle operator",
+      "Tesla Driver"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
@@ -19668,7 +19678,8 @@
       "https://www.sfchronicle.com/bayarea/article/self-driving-tesla-fatally-strikes-man-on-highway-22489051.php",
       "https://abc7news.com/post/71-year-old-pedestrian-killed-driving-tesla-crossing-80-vallejo-chp/19969111/",
       "https://www.abc10.com/article/traffic/incidents/pedestrian-killed-in-i-80-crash-involving-tesla-in-self-driving-mode-chp-investigates/103-cb5cb025-d33f-48f6-9d47-cf834db076d3",
-      "https://www.wisn.com/article/tesla-full-self-driving-deadly-crash-california/74227123"
+      "https://www.wisn.com/article/tesla-full-self-driving-deadly-crash-california/74227123",
+      "https://www.kcci.com/article/tesla-full-self-driving-deadly-crash-california/74227123"
     ],
     "source_type": "google_news_rss",
     "full_text": "VALLEJO, Calif. -- A 71-year-old man was killed early Thursday morning after he was struck by a self-driving car as he was crossing Interstate Highway 80 in Vallejo, the California Highway Patrol said.\n\nAccording to the CHP's Solano-area office, officers were alerted to a collision reported around 2:35 a.m. on westbound I-80 at the I-780 interchange. When they arrived, first responders found the severely injured pedestrian, who was later declared dead.\n\nThe driver of the involved vehicle, a 26-year-old San Francisco man, stayed at the scene and told CHP officers that his vehicle, a Tesla, was being operated in Full Self-Driving autonomous mode when it hit the pedestrian.\n\nAccording to the CHP, the Tesla had full footage of the crash since it was recorded by the vehicle's dashcam. Based on the video, the Tesla was traveling around 70 mph when the pedestrian entered the freeway. He began crossing toward the center divider from the right shoulder, placing him directly in front of the Tesla.\n\n\"The video showed the Tesla's brakes being applied as the vehicle steered to the left in an effort to avoid the pedestrian. Despite these evasive actions, the right front portion of the Tesla struck the individual,\" the CHP said in a statement on social media.\n\nThe agency said the 71-year-old was again struck by at least one more vehicle while lying in the traffic lanes, adding that no other vehicles stopped to cooperate with authorities. The other involved vehicle or driver is yet to be identified.\n\n\"The Solano Area CHP extends its deepest condolences to the family and friends of the deceased during this difficult time,\" the agency said.\n\nAnyone who may have witnessed the crash or who has information regarding the other vehicles involved is encouraged to contact the CHP Solano-area office at 707-639-5600.",
@@ -19707,6 +19718,14 @@
         "summary_delta": "Report B provides no additional technical details, investigation updates, or new information beyond what was already disclosed in Report A.",
         "phase": "initial_report",
         "source_url": "https://www.wisn.com/article/tesla-full-self-driving-deadly-crash-california/74227123",
+        "source_type": "gdelt"
+      },
+      {
+        "date": "2026-10-23",
+        "title": "Tesla Operating in Full Self-Driving Mode Strikes and Kills Pedestrian on Interstate 80",
+        "summary_delta": "Report B provides additional context regarding the driver's statement to law enforcement confirming FSD activation at the time of the crash.",
+        "phase": "investigation",
+        "source_url": "https://www.kcci.com/article/tesla-full-self-driving-deadly-crash-california/74227123",
         "source_type": "gdelt"
       }
     ]
@@ -19902,5 +19921,218 @@
     "valuation_methodology": "unquantified",
     "date": "2026-10-21",
     "incident_id": "INC-20261021-356"
+  },
+  {
+    "title": "AI Tools Accelerate Discovery and Exploitation of Critical Software Flaws Including PHP",
+    "summary": "AI coding models enabled security researchers and threat actors to rapidly discover critical vulnerabilities in foundational software including PHP and Node.js. The heightened speed of automated vulnerability discovery created a race between defenders attempting to patch systems and malicious actors using AI to exploit unpatched web infrastructure.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "dual_use_security",
+    "intent": "intentional_misuse",
+    "primary_purpose": "other",
+    "root_cause_category": "model",
+    "root_cause_subtype": "dual_use_capability",
+    "failure_mode": "Advanced AI coding capabilities enabled automated, highly persistent discovery of legacy software vulnerabilities, creating systemic exploitation risks that outpaced organizational patching capabilities.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "national_security",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MEASURE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": true,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "Global"
+    ],
+    "affected_parties": [
+      "PHP Project",
+      "Node.js",
+      "Web Infrastructure Operators"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.publicradioeast.org/2026-10-24/ai-found-the-flaw-hackers-found-the-leak-the-race-to-save-php2shell"
+    ],
+    "source_type": "gdelt",
+    "full_text": "Internet security researchers made a startling discovery a couple of months ago - a vulnerability in the code that most internet servers use. They tried to keep it secret and sprinted to fix it, but they couldn't stop the chaos that spread across the internet the past couple of days. Kevin Roose co-hosts a new podcast from NPR called Machine Gods, and he joins us right now. Kevin, thanks so much for being with us.\n\nKEVIN ROOSE, BYLINE: Thanks for having me, Scott.\n\nROOSE: Well, we found out this week that there was a big bug in a very important piece of decades-old software called PHP. Now, for nontechnical people, PHP runs on something like 70% of the websites on the internet. And this week we learned it had two flaws that would let someone take over any computer that was running a website without a password and without leaving any fingerprints. So basically, imagine that 70% of the doors in the world ran on the same locks, and then we figured out that there was a way to pry open that lock and get in. And we need a bunch of new locks for a bunch of doors.\n\nSIMON: And as I understand it, researchers used AI to discover this hole?\n\nROOSE: They did, yes. Researchers used AI to discover this hole. The issue is that you need to now patch all of the systems that are running PHP, maybe on an older version, because now we also have these AI tools that can quickly exploit vulnerabilities like this. So there's a little bit of a cat-and-mouse game going on. Defenders try to patch the systems before the offenders can get in.\n\nSIMON: So it sounds like you have two or maybe more rivalrous groups, all of them using AI, half of them to cause problems, half of them to solve them.\n\nROOSE: Yeah. I hope it's something like only, you know, half and half. But what we're seeing now...\n\nROOSE: ...Is a much bigger problem because it is not just PHP.\n\nROOSE: These AI tools have gotten so good at coding that they have also gotten very good at finding the flaws and bugs in code, and there are a lot of those bugs out there. So some researchers are calling this Black October because there have been so many major incidents - cybersecurity threats - just in the last couple of weeks because of these AI tools and what they allow us to discover.\n\nSIMON: And what kind of cybersecurity threats?\n\nROOSE: They're finding vulnerabilities and exploitable holes in very core pieces of software, pieces of software that people have been using for decades - things like bank systems, things like Node.js, Plex. I mean, I could go on. But basically, these are sort of the big sort of pieces of infrastructure that underlie most of the modern world. And researchers who study these systems are finding a record number of flaws just in the last few months because these AI systems are now able to go out and just be very persistent and try and try and try different ways of picking these digital locks until they find the way in.\n\nSIMON: Sounds like it's only going to get worse.\n\nROOSE: Well, the good news is that over the long term, it may get better. We may have much more secure systems once all these bugs have been fixed. Like, people I talk to in the security industry say they expect that for the next year or two, every week is going to feel like a new crisis as these AI tools crawl over more of the internet and try to figure out what's broken or missing or open.\n\nROOSE: Well, for individuals, I think now is a great time to check up on your own security, to change your passwords if you haven't rotated them in a while, to use a password manager. Take more precautions with things like using unique passwords and updating the software that runs on your devices. I don't think it's time to panic for most people, but if you run a small website or your organization hasn't checked in on its security in a while, this would be a really good time to do that.\n\nThere are going to be a lot of new pieces of software patches and fixes to these vulnerabilities that need to get installed very quickl",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-24",
+    "incident_id": "INC-20261024-356"
+  },
+  {
+    "title": "Viral AI-Generated Deepfake Media Misleads Public Regarding French Protests",
+    "summary": "Fabricated images and videos generated using AI tools falsely depicted dramatic scenes during French civil unrest, including fake attacks and fake events at the Eiffel Tower. UK fact-checking charity Full Fact confirmed through SynthID and Meta AI detectors that the viral media was synthetically generated.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "external",
+    "root_cause_subtype": "deepfake",
+    "failure_mode": "Generative AI tools were misused by online actors to produce synthetic media depicting riots and violent incidents, spreading misinformative imagery during periods of active public unrest.",
+    "harm_domain": "societal",
+    "harm_type": "misinformation",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MAP",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "France",
+      "United Kingdom"
+    ],
+    "affected_parties": [
+      "General Public",
+      "Social Media Users"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://www.southwalesargus.co.uk/news/national/26665946.fact-check-ai-generated-french-protest-images-triple-lock-pledge/"
+    ],
+    "source_type": "gdelt",
+    "full_text": "This round-up of claims has been compiled by Full Fact, the UK’s independent fact checking charity which works to give people access to reliable information they can trust.\n\nAI-generated French protest images circulate online\n\nFootage of protests and unrest in France has flooded social media feeds in recent days – but not everything that’s been shared is genuine, or related to recent events.\n\nFrance was rocked by major disorder last weekend, with large protests over the cost of living and school conditions alongside scenes of riots and looting – and lots of genuine imagery of different incidents has been circulating online.\n\nBut one dramatic image showing people throwing fireworks and waving Palestinian flags at the foot of the Eiffel Tower is not real. OpenAI’s detector told us the image contains an invisible SynthID watermark, indicating it was generated with OpenAI tools. There are some visual inconsistencies too: for example, several people in the background seem to blend into each other and into the smoke.\n\nA viral video that appears to show people hanging large Palestinian and Jordanian flags from the top of the Eiffel Tower is not real either, and we can find no evidence it shows a real event.\n\nWhen we put the video through Meta’s AI detector it indicated the clip had been created using AI. There are also visual clues that the footage is not real, including sections of the tower not matching up with genuine photos of the landmark and the metal frame appearing to warp and blend into itself when the video pans up.\n\nAn image of an elderly couple in their underwear was shared thousands of times online with claims they were stripped and robbed during the riots.\n\nBut this picture also is not real and was made with artificial intelligence. Google’s SynthID Detector flagged it as being “made or edited” with AI, and there also appear to be glitches in the image – a masked person on the left of the picture seems to have two heads but only one body. We’ve not seen any official reports confirming such an attack on an elderly couple took place.\n\nFinally, ahead of last weekend’s unrest we saw a video of police using shields and batons during a protest circulating online with captions suggesting the footage shows recent student protests. But that video is old and unrelated to recent events – we found it has actually been online since at least March 2023.\n\nDuring breaking news events, it can be difficult to differentiate between authentic and fake images, or to know if an image has been shared in the right context. Full Fact’s misinformation toolkit can help you check if an image is real and accurately described before you share it.\n\nTracking the Government’s triple lock pledge\n\nLast month, Prime Minister Andy Burnham announced plans to change the state pension triple lock mechanism in April 2030, and the Government has said it plans to legislate for this “during this Parliament”.\n\nWe are now tracking progress on this pledge via Full Fact’s Government Tracker, which is monitoring the delivery of 95 commitments the Government has made, either in Labour’s 2024 election manifesto or since.\n\nThe triple lock was introduced by the Conservative and Liberal Democrat coalition government in 2011, and means that each April, the UK’s state pension increases by the highest of three values: 2.5%, CPI inflation or average earnings growth.\n\nBut on September 29, in his first conference speech as Prime Minister, Mr Burnham said the Government will “adjust” the triple lock in April 2030.\n\nA Number 10 press release issued after the speech said: “The adjusted triple lock will mean the state pension continues to rise by 2.5% or inflation—whichever is higher—and by even more if that is required to maintain its value relative to earnings.”\n\nPensions minister Torsten Bell later said the earnings aspect will be calculated as the “amount required to return or maintain value of the state pension relative to 2029/30’s record high as a share of earnings”.\n\nOpposit",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-23",
+    "incident_id": "INC-20261023-357"
+  },
+  {
+    "title": "Lebanese Family Sues OpenAI Over Death of 15-Year-Old Mathias Habib",
+    "summary": "The parents of 15-year-old Mathias Habib filed a lawsuit against OpenAI and CEO Sam Altman alleging that interactions with ChatGPT contributed to their son's death by suicide. The lawsuit claims that OpenAI failed to implement adequate safety guardrails to protect young users from harmful chatbot interactions.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "governance",
+    "root_cause_subtype": "inadequate_safety_guardrails",
+    "failure_mode": "ChatGPT interactions allegedly encouraged or failed to mitigate self-harm behaviors in a minor, leading to suicide.",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "GOVERN",
+    "iso_42001_category": "Internal_Governance",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "critical",
+    "geographic_scope": [
+      "United States",
+      "Lebanon"
+    ],
+    "affected_parties": [
+      "Mathias Habib",
+      "Charbel Habib",
+      "Soha Samaha"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 1.0,
+      "harm_domain": 0.95
+    },
+    "source_urls": [
+      "https://www.lbcgroup.tv/news/lebanon-news/963208/lebanese-family-sues-openai-over-death-of-15-year-old-mathias-habib-la/en"
+    ],
+    "source_type": "aiid",
+    "full_text": "The parents of a 15-year-old Lebanese boy who died by suicide have filed a lawsuit against OpenAI and its CEO, Sam Altman, alleging that interactions with ChatGPT contributed to their son’s death.\n\nCharbel Habib and Soha Samaha filed the wr ... (https://incidentdatabase.ai/cite/1783#8198)",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-24",
+    "incident_id": "INC-20261024-358"
+  },
+  {
+    "title": "Spanish Opposition Party Releases AI Deepfake Video Targeting Prime Minister's Wife and Allies",
+    "summary": "Spain's conservative People's Party (PP) published an AI-generated deepfake video showing the Prime Minister's wife and former Socialist officials falsely admitting to corruption and misconduct. The ad sparked legal challenges and public outcry regarding political disinformation and the misuse of synthetic media ahead of elections.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "deployment_and_integration",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "human",
+    "root_cause_subtype": "deepfake",
+    "failure_mode": "Intentional generation and distribution of synthetic media depicting political figures admitting to illegal activities for political propaganda.",
+    "harm_domain": "societal",
+    "harm_type": "misinformation",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "GOVERN",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "Spain"
+    ],
+    "affected_parties": [
+      "Begoña Gómez",
+      "José Luis Rodríguez Zapatero",
+      "Leire Díez",
+      "Spanish Socialist Workers' Party (PSOE)"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.theguardian.com/world/2026/oct/23/opposition-deepfake-video-spain-election"
+    ],
+    "source_type": "aiid",
+    "full_text": "Video shows AI likenesses of people linked to Pedro Sánchez’s Socialist party appearing to admit to wrongdoing\n\nA political ad from Spain’s main opposition party that used a deepfake video of the prime minister’s wife has sparked outrage and set off a wider debate on AI, as the deeply polarised country gears up for general elections next month.\n\nLaunched this week across the social media channels of the conservative People’s party (PP), the video used artificial intelligence to manipulate the likenesses of various people linked to Pedro Sánchez’s Socialist party and appeared to show them admitting to acts such as soliciting prostitutes and taking kickbacks.\n\nAn AI-generated version of Sánchez’s wife, Begoña Gómez, for example, speaks about receiving a university post thanks to her husband’s job, while a deepfake of the former Socialist president José Luis Rodríguez Zapatero speaks about hiding jewellery in a safe. Both lines are nods to ongoing investigations in which Gómez and Zapatero have denied any wrongdoing.\n\nThe Socialist party was swift to respond to the video, which by Friday had racked up nearly 2m views. “It’s telling people a colossal lie, and for a party to do it on its official accounts seems intolerable to me,” Óscar López, Spain’s digital transformation minister, told the broadcaster TVE on Friday.\n\nWhile the video noted at the bottom – in tiny, nearly transparent font – that it had been created with AI, López pointed to the wider risk. “It’s very easy for anyone who isn’t used to AI to confuse that video with reality,” he said. “And call me crazy, but that seems extremely serious to me.”\n\nOn Friday, one of those whose likeness was used in the video filed a legal challenge against the PP, calling on the party to immediately take down the campaign advert. In a court complaint, Leire Díez, a former Socialist party member, reportedly accused the PP of defamation and digital identity theft, after the video used her likeness to hint at accusations that she worked to undermine judicial and law enforcement in order to help the Socialists.\n\nA majority of the nine legal experts consulted by the newspaper El País concurred that what the PP had done was not illegal, given that the video was labelled as AI-generated and that the overall tone was one of political satire. “Given the context, everyone knows those people didn’t say those things,” Íñigo Navarro, a former dean of the faculty of law at Madrid’s Comillas Pontifical University, told the paper.\n\nBut the legality of the video was just one aspect, said Juan Antonio Lascuraín, a professor of criminal law at the Autonomous University of Madrid. “It’s quite another matter to ask whether it’s appropriate, exemplary or ethically and politically correct.”\n\nMany sought to contextualise the videos within the wider effort – under way by officials across much of the world – to crack down on the impact of disinformation.\n\n“It’s truly regrettable that the official account of a party that claims to want to govern and revitalise democracy is using AI-generated deepfakes in its campaign,” said José Javier Olivas, an associate professor who researches populism, conspiracy theories and AI biases at Spain’s National University for Distance Education.\n\nHe pointed to the wider backdrop of the election campaign, in which both mainstream parties have sought to rally voters by stoking emotions and attacking the morality of their rivals, but he said the video was a “red line” in terms of how campaigns normally unfolded.\n\n“You’re using the images of other people, putting words in their mouths that they’re not saying, [and] this qualifies for disinformation,” he said.\n\nThe use of AI to generate or enhance political ads has also become a talking point in the US ahead of next month’s midterm elections. A recent report by a research group based at Wesleyan University in Connecticut identified more than 200 such ads, the vast majority of them tied to the Republicans.\n\n“AI is making its way into th",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-24",
+    "incident_id": "INC-20261024-359"
+  },
+  {
+    "title": "Chinese-Linked Hackers Leverage AI Tool to Compromise ConnectWise",
+    "summary": "A Chinese state-aligned hacking group utilized an AI-driven penetration testing tool to breach IT services firm ConnectWise. According to Microsoft, the cyber campaign affected hundreds of organizations globally.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "dual_use_security",
+    "intent": "intentional_misuse",
+    "primary_purpose": "other",
+    "root_cause_category": "external",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "Threat actors repurposed an AI-powered cybersecurity penetration testing tool to conduct malicious cyber operations and compromise enterprise IT infrastructure.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "national_security",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": true,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "Global"
+    ],
+    "affected_parties": [
+      "ConnectWise"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9,
+      "intent": 0.95,
+      "harm_domain": 0.9
+    },
+    "source_urls": [
+      "https://www.reuters.com/technology/chinese-linked-hackers-compromise-connectwise-target-hundreds-global-attack-2026-10-21/"
+    ],
+    "source_type": "aiid",
+    "full_text": "Oct 21 (Reuters) - A Chinese state-aligned hacking group used an AI-driven penetration testing tool to compromise IT ​services firm ConnectWise as part of a campaign that targeted hundreds ‌of organizations globally, Microsoft said on Wedne ... (https://incidentdatabase.ai/cite/1781#8196)",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-24",
+    "incident_id": "INC-20261024-360"
   }
 ]
