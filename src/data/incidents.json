@@ -2,7 +2,7 @@
   {
     "incident_id": "INC-20261022-356",
     "title": "AI Discovered Critical Security Vulnerability in PHP Language Leading to Worldwide Website Outages",
-    "summary": "AI agents discovered critical vulnerabilities in the PHP programming language, prompting the FBI to issue warnings and governments and organizations in Europe and the U.S. to take websites offline to apply emergency patches. While the AI discovery helped preempt malicious actors, it exposed widespread systemic risks across internet infrastructure powering a vast majority of web applications.",
+    "summary": "Cybersecurity researchers utilized frontier AI models, including OpenAI's GPT-5.6 Sol and Google's Gemini 4 Argon, to identify and synthesize complex exploit chains for decade-old memory vulnerabilities in PHP (PHP2Shell). The AI-assisted discovery forced global governments, financial institutions, and web infrastructure providers to temporarily take services offline to apply patches amidst millions of active exploitation attempts.",
     "full_text": "Cyber security chiefs have warned UK organisations their websites may have to be taken offline, after a researcher using AI discovered a “critical security issue” in a programming language.\n\nThe Finnish government’s website was one of several to be partly disabled because of the incident on Wednesday, along with the websites of several local authorities in the UK.\n\nOxford City Council and the City of Edinburgh Council were among the organisations to take their websites offline, while pages for some BBC programmes were unavailable.\n\nOxford City Council's website is temporarily unavailable.\n\nThis is a precaution because of a worldwide issue with the underlying technology and is not a cyber incident.\n\nYou can still contact us by phone on 01865 249 811.\n\n— Oxford City Council (@OxfordCity) October 21, 2026\n\nThe Office for Budget Responsibility said it had followed guidance to take its website offline, “in view of the critical security issues affecting PHP”.\n\nIt is understood some of the Government’s online services may be temporarily unavailable while steps are taken to maintain security, but any impact is expected to be minimal.\n\nNo large public-facing critical services are thought to have been affected.\n\nThe security issue identified by the researcher could allow attackers to remotely control any web servers running the widely used programming language, PHP.\n\nPHP is used by almost 70% of websites, according to cybersecurity firm Cloudflare, and underpins popular platforms such as WordPress and Magento.\n\nAccording to Cloudflare chief executive Matthew Prince, there was a dramatic surge in attempts to exploit the issue once it was announced.\n\nHe wrote on X: “Some stats on #php2shell. In the 10 hours before it was publicly announced, across the @Cloudflare network we saw thousands of attempts to exploit it.\n\n“That jumped to tens of thousands in the 45 minutes post announcement, hundreds of thousands within 2 hours, and millions now.”\n\nOrganisations have been urged by the National Cyber Security Centre (NCSC) to update to a new, fixed version of the software.\n\nIf software cannot be immediately upgraded, organisations should consider taking their websites offline, the NCSC said.\n\nSome stats on #php2shell. In the 10 hours before it was publicly announced, across the @Cloudflare network we saw thousands of attempts to exploit it. That jumped to tens of thousands in the 45 minutes post announcement, hundreds of thousands within 2 hours, and millions now.\n\n— Matthew Prince 🌥 (@eastdakota) October 22, 2026\n\nA Government spokesperson said: “Work is already under way across Government to actively identify and patch any potential exposure.\n\n“We encourage all organisations, private and public, large and small, to follow guidance issued by the NCSC to understand their exposure and take the necessary actions to safeguard their systems.”\n\nThe cyber division of the National Security Agency in the US warned weaknesses in the software could provide “a direct path to the server’s file system or database”.\n\nThe Wall Street Journal reported that the flaw was discovered in August by Ryan Austin, a researcher at the cybersecurity company Calif, using an advanced AI model developed by OpenAI.\n\nPHP developers had reportedly planned a security update on Thursday, but the release was brought forward after details of its work to address the vulnerabilities leaked online.\n\nOpenAI, which runs ChatGPT, said in the past two months it has been leading a team of researchers working to address the critical flaw in PHP, and supported its developers as it led the fixes.\n\nAll that sort of scamming and fraud and so forth gets turbochargedAll that sort of scamming and fraud and so forth gets turbocharged\n\nThe company described the incident as “one of the most impactful security issues in recent memory”, adding that while AI can help to uncover issues, it can also aid attackers.\n\n“To our knowledge, frontier AI found these vulnerabilities before attackers did, opening a d",
     "date": "2026-10-22",
     "verification_status": "confirmed",
@@ -40,27 +40,38 @@
       "United States"
     ],
     "affected_parties": [
+      "BBC",
       "Office for Budget Responsibility",
-      "Internet Archive",
-      "City of Edinburgh Council",
-      "Cloudflare",
-      "Dutch Cybersecurity Agency",
-      "Federal Bureau of Investigation (FBI)",
-      "Wikipedia",
-      "PHP Foundation",
-      "Oxford City Council",
       "PHP Group",
-      "OpenAI",
+      "Global Web Platforms",
+      "ANA",
       "Finnish Government",
+      "MUFG",
+      "Wikipedia",
       "Wiz",
+      "OpenAI",
+      "Government Agencies",
+      "Wikimedia Foundation",
+      "JR West",
       "Government of Finland",
-      "BBC"
+      "Internet Archive",
+      "Oxford City Council",
+      "Cloudflare",
+      "PHP Foundation",
+      "Dutch Cybersecurity Agency",
+      "UK Government",
+      "City of Edinburgh Council",
+      "French Government",
+      "Dutch Government",
+      "Federal Bureau of Investigation (FBI)"
     ],
     "source_urls": [
       "https://www.glasgowtimes.co.uk/news/national/26659194.websites-around-world-taken-offline-ai-finds-critical-security-flaw/",
       "https://www.news4jax.com/business/2026/10/21/some-websites-go-dark-as-operators-address-an-ai-detected-flaw-in-a-web-programming-language/",
       "https://www.dailyliberal.com.au/story/9373060/government-websites-go-dark-after-ai-discovers-flaw/",
-      "https://www.borehamwoodtimes.co.uk/news/national/26659194.websites-around-world-taken-offline-ai-finds-critical-security-flaw/"
+      "https://www.borehamwoodtimes.co.uk/news/national/26659194.websites-around-world-taken-offline-ai-finds-critical-security-flaw/",
+      "https://www.omanobserver.om/article/1198392/business/economy/websites-go-dark-as-ai-exposes-critical-security-flaws",
+      "https://www.turnto23.com/science-and-tech/artificial-intelligence/websites-shut-down-globally-after-ai-finds-flaw-affecting-70-of-the-internet"
     ],
     "related_incidents": [],
     "created_at": "2026-10-22T07:14:39.412996+00:00",
@@ -72,7 +83,34 @@
     "valuation_methodology": "unquantified",
     "harm_domain": "systemic_integrity",
     "developer": "OpenAI",
-    "deployer": "Calif / OpenAI"
+    "deployer": "Calif / OpenAI",
+    "last_updated_date": "2026-10-22",
+    "timeline": [
+      {
+        "date": "2026-10-22",
+        "title": "AI Discovered Critical Security Vulnerability in PHP Language Leading to Worldwide Website Outages",
+        "summary_delta": "AI agents discovered critical vulnerabilities in the PHP programming language, prompting the FBI to issue warnings and governments and organizations in Europe and the U.S.",
+        "phase": "initial_report",
+        "source_url": "https://www.glasgowtimes.co.uk/news/national/26659194.websites-around-world-taken-offline-ai-finds-critical-security-flaw/",
+        "source_type": "gdelt"
+      },
+      {
+        "date": "2026-10-22",
+        "title": "AI Models Uncover Severe PHP Flaws Causing Global Website Shutdowns",
+        "summary_delta": "Report B provides specific technical attribution, naming the exact AI models (OpenAI's GPT-5.6 Sol and Google's Gemini 4 Argon) responsible for discovering the PHP vulnerabilities.",
+        "phase": "technical_disclosure",
+        "source_url": "https://www.omanobserver.om/article/1198392/business/economy/websites-go-dark-as-ai-exposes-critical-security-flaws",
+        "source_type": "gdelt"
+      },
+      {
+        "date": "2026-10-22",
+        "title": "AI Models Accelerate Discovery of Critical PHP2Shell Vulnerabilities Affecting 70% of Global Websites",
+        "summary_delta": "Report B provides specific technical details regarding the vulnerability, naming it the 'PHP2Shell' exploit chain for decade-old memory vulnerabilities and detailing active exploitation attempts.",
+        "phase": "technical_disclosure",
+        "source_url": "https://www.turnto23.com/science-and-tech/artificial-intelligence/websites-shut-down-globally-after-ai-finds-flaw-affecting-70-of-the-internet",
+        "source_type": "gdelt"
+      }
+    ]
   },
   {
     "incident_id": "INC-20261021-363",
@@ -20134,5 +20172,48 @@
     "valuation_methodology": "unquantified",
     "date": "2026-10-24",
     "incident_id": "INC-20261024-360"
+  },
+  {
+    "title": "State-Aligned Threat Actor Storm-0940 Uses Agentic AI ARTEX for Global Supply Chain Attacks",
+    "summary": "In September 2026, China-state aligned threat actor Storm-0940 deployed ARTEX, an agentic AI penetration testing framework, to automate cyberattacks against hundreds of target organizations worldwide. The campaign enabled widespread supply chain compromises across multiple critical industry sectors. The incident underscores the severe risk of dual-use agentic AI security tools being weaponized for state-sponsored cyber operations.",
+    "alleged_incident_date": "2026-09-01",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "intentional_misuse",
+    "primary_purpose": "defense_national_security",
+    "root_cause_category": "external",
+    "root_cause_subtype": "dual_use_weaponization",
+    "failure_mode": "Threat actors weaponized an agentic AI penetration testing framework to conduct autonomous, large-scale intrusions and supply chain attacks across global networks.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "national_security",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": true,
+    "temporality": "actual",
+    "severity": "critical",
+    "geographic_scope": [
+      "Global"
+    ],
+    "affected_parties": [
+      "Storm-0940 targeted organizations worldwide"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.95,
+      "harm_domain": 0.9,
+      "intent": 0.95
+    },
+    "source_urls": [
+      "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/"
+    ],
+    "source_type": "aiid",
+    "full_text": "As early as September 2026, Storm-0940, a China-state aligned actor, used the agentic AI penetration testing framework ARTEX to automate attacks targeting hundreds of organizations globally across a broad range of industries. Several of the ... (https://incidentdatabase.ai/cite/1781#8195)",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-24",
+    "incident_id": "INC-20261024-361"
   }
 ]

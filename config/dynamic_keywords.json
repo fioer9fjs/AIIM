@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Adaptive dynamic keyword pool learned from validated AI incidents. Automatically maintained with daily decay and TTL.",
-    "last_updated": "2026-10-25",
+    "last_updated": "2026-10-26",
     "decay_rate_daily": 0.05,
     "min_weight_threshold": 0.2,
     "max_ttl_days": 21,
@@ -10,123 +10,123 @@
   "lanes": {
     "frontier_llms_leaks": [
       {
-        "term": "OpenAI",
+        "term": "PHP Foundation",
         "type": "subject",
-        "weight": 0.857,
-        "hit_count": 7,
-        "first_seen": "2026-10-20",
-        "last_hit": "2026-10-23"
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-10-26",
+        "last_hit": "2026-10-26"
       },
       {
-        "term": "PHP Project",
-        "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-10-25",
-        "last_hit": "2026-10-25"
-      },
-      {
-        "term": "Nodejs",
+        "term": "Web Platforms",
         "type": "subject",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-25",
-        "last_hit": "2026-10-25"
+        "first_seen": "2026-10-26",
+        "last_hit": "2026-10-26"
       },
       {
-        "term": "Web Infrastructure Operators",
+        "term": "Government Agencies",
         "type": "subject",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-25",
-        "last_hit": "2026-10-25"
+        "first_seen": "2026-10-26",
+        "last_hit": "2026-10-26"
       },
       {
-        "term": "coding capabilities enabled",
+        "term": "uncovered critical",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-25",
-        "last_hit": "2026-10-25"
+        "first_seen": "2026-10-26",
+        "last_hit": "2026-10-26"
       },
       {
-        "term": "highly persistent discovery",
+        "term": "zero-day security flaws",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-25",
-        "last_hit": "2026-10-25"
+        "first_seen": "2026-10-26",
+        "last_hit": "2026-10-26"
       },
       {
-        "term": "legacy software vulnerabilities",
+        "term": "widely deployed infrastructure",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-25",
-        "last_hit": "2026-10-25"
+        "first_seen": "2026-10-26",
+        "last_hit": "2026-10-26"
       },
       {
-        "term": "creating systemic exploitation",
+        "term": "causing widespread operational",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-25",
-        "last_hit": "2026-10-25"
+        "first_seen": "2026-10-26",
+        "last_hit": "2026-10-26"
+      },
+      {
+        "term": "disruption and systemic",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-26",
+        "last_hit": "2026-10-26"
       }
     ],
     "autonomous_agents_cyber": [
       {
-        "term": "failed",
+        "term": "Threat actors weaponized",
         "type": "incident",
-        "weight": 0.857,
-        "hit_count": 9,
-        "first_seen": "2026-10-18",
-        "last_hit": "2026-10-23"
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-26",
+        "last_hit": "2026-10-26"
       },
       {
-        "term": "autonomous vehicle",
+        "term": "penetration testing framework",
         "type": "incident",
-        "weight": 0.857,
-        "hit_count": 9,
-        "first_seen": "2026-10-18",
-        "last_hit": "2026-10-23"
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-26",
+        "last_hit": "2026-10-26"
       },
       {
-        "term": "autonomous",
+        "term": "conduct autonomous",
         "type": "incident",
-        "weight": 0.857,
-        "hit_count": 6,
-        "first_seen": "2026-10-21",
-        "last_hit": "2026-10-23"
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-26",
+        "last_hit": "2026-10-26"
       },
       {
-        "term": "pedestrian crossing",
+        "term": "large-scale intrusions",
         "type": "incident",
-        "weight": 0.857,
-        "hit_count": 3,
-        "first_seen": "2026-10-23",
-        "last_hit": "2026-10-23"
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-26",
+        "last_hit": "2026-10-26"
       },
       {
-        "term": "Pedestrian victim",
-        "type": "subject",
-        "weight": 0.857,
-        "hit_count": 3,
-        "first_seen": "2026-10-23",
-        "last_hit": "2026-10-23"
+        "term": "supply chain attacks",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-26",
+        "last_hit": "2026-10-26"
       },
       {
-        "term": "LLM Email",
-        "type": "subject",
-        "weight": 0.857,
-        "hit_count": 2,
-        "first_seen": "2026-10-23",
-        "last_hit": "2026-10-23"
+        "term": "across global networks",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-26",
+        "last_hit": "2026-10-26"
       },
       {
         "term": "Deceased pedestrian",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-25",
         "last_hit": "2026-10-25"
@@ -134,7 +134,7 @@
       {
         "term": "Tesla vehicle driver",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-25",
         "last_hit": "2026-10-25"
@@ -144,7 +144,7 @@
       {
         "term": "Anthropic",
         "type": "subject",
-        "weight": 0.663,
+        "weight": 0.54,
         "hit_count": 30,
         "first_seen": "2026-10-06",
         "last_hit": "2026-10-22"
@@ -152,7 +152,7 @@
       {
         "term": "Persona Identities Inc",
         "type": "subject",
-        "weight": 0.663,
+        "weight": 0.54,
         "hit_count": 22,
         "first_seen": "2026-10-07",
         "last_hit": "2026-10-22"
@@ -160,7 +160,7 @@
       {
         "term": "Anthropic implemented",
         "type": "incident",
-        "weight": 0.663,
+        "weight": 0.54,
         "hit_count": 16,
         "first_seen": "2026-10-10",
         "last_hit": "2026-10-22"
@@ -168,7 +168,7 @@
       {
         "term": "law enforcement",
         "type": "incident",
-        "weight": 0.663,
+        "weight": 0.54,
         "hit_count": 10,
         "first_seen": "2026-10-18",
         "last_hit": "2026-10-22"
@@ -176,7 +176,7 @@
       {
         "term": "Facial recognition",
         "type": "incident",
-        "weight": 0.663,
+        "weight": 0.54,
         "hit_count": 9,
         "first_seen": "2026-10-15",
         "last_hit": "2026-10-22"
@@ -184,7 +184,7 @@
       {
         "term": "Christopher Gatlin",
         "type": "subject",
-        "weight": 0.663,
+        "weight": 0.54,
         "hit_count": 9,
         "first_seen": "2026-10-17",
         "last_hit": "2026-10-22"
@@ -192,7 +192,7 @@
       {
         "term": "false positive match",
         "type": "incident",
-        "weight": 0.663,
+        "weight": 0.54,
         "hit_count": 6,
         "first_seen": "2026-10-18",
         "last_hit": "2026-10-22"
@@ -200,7 +200,7 @@
       {
         "term": "wrongful arrest",
         "type": "incident",
-        "weight": 0.663,
+        "weight": 0.54,
         "hit_count": 2,
         "first_seen": "2026-10-22",
         "last_hit": "2026-10-22"
@@ -211,7 +211,7 @@
       {
         "term": "General Public",
         "type": "subject",
-        "weight": 0.923,
+        "weight": 0.877,
         "hit_count": 16,
         "first_seen": "2026-10-12",
         "last_hit": "2026-10-25"
@@ -219,7 +219,7 @@
       {
         "term": "Social Media",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-25",
         "last_hit": "2026-10-25"
@@ -227,7 +227,7 @@
       {
         "term": "misused",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-25",
         "last_hit": "2026-10-25"
@@ -235,7 +235,7 @@
       {
         "term": "online actors",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-25",
         "last_hit": "2026-10-25"
@@ -243,7 +243,7 @@
       {
         "term": "produce synthetic media",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-25",
         "last_hit": "2026-10-25"
@@ -251,7 +251,7 @@
       {
         "term": "depicting riots",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-25",
         "last_hit": "2026-10-25"
@@ -259,7 +259,7 @@
       {
         "term": "violent",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-25",
         "last_hit": "2026-10-25"
@@ -267,7 +267,7 @@
       {
         "term": "spreading misinformative imagery",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-25",
         "last_hit": "2026-10-25"
@@ -277,7 +277,7 @@
       {
         "term": "CharacterAI",
         "type": "subject",
-        "weight": 0.923,
+        "weight": 0.877,
         "hit_count": 26,
         "first_seen": "2026-10-05",
         "last_hit": "2026-10-25"
@@ -285,7 +285,7 @@
       {
         "term": "Sewell Setzer",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-25",
         "last_hit": "2026-10-25"
@@ -293,7 +293,7 @@
       {
         "term": "Megan Garcia",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-25",
         "last_hit": "2026-10-25"
@@ -301,7 +301,7 @@
       {
         "term": "chatbot generated emotionally",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-25",
         "last_hit": "2026-10-25"
@@ -309,7 +309,7 @@
       {
         "term": "manipulative and sexually",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-25",
         "last_hit": "2026-10-25"
@@ -317,7 +317,7 @@
       {
         "term": "explicit responses",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-25",
         "last_hit": "2026-10-25"
@@ -325,7 +325,7 @@
       {
         "term": "fail-safe mechanisms failed",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-25",
         "last_hit": "2026-10-25"
@@ -333,7 +333,7 @@
       {
         "term": "prevent discussions around",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-25",
         "last_hit": "2026-10-25"
