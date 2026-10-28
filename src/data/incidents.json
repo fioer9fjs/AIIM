@@ -19742,15 +19742,16 @@
       "United States"
     ],
     "affected_parties": [
-      "Deceased pedestrian",
-      "Deceased Pedestrian",
-      "Tesla vehicle driver",
-      "Tesla vehicle operator",
-      "Tesla",
-      "Tesla Driver",
-      "Domingo Gonzales",
+      "Pedestrian",
       "Pedestrian victim",
-      "Tesla, Inc."
+      "Deceased Pedestrian",
+      "Tesla Driver",
+      "Tesla",
+      "Domingo Gonzales",
+      "Tesla, Inc.",
+      "Tesla vehicle operator",
+      "Tesla vehicle driver",
+      "Deceased pedestrian"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
@@ -19762,7 +19763,8 @@
       "https://www.abc10.com/article/traffic/incidents/pedestrian-killed-in-i-80-crash-involving-tesla-in-self-driving-mode-chp-investigates/103-cb5cb025-d33f-48f6-9d47-cf834db076d3",
       "https://www.wisn.com/article/tesla-full-self-driving-deadly-crash-california/74227123",
       "https://www.kcci.com/article/tesla-full-self-driving-deadly-crash-california/74227123",
-      "https://www.sfgate.com/news/bayarea/article/vallejo-man-killed-by-tesla-in-full-22492074.php"
+      "https://www.sfgate.com/news/bayarea/article/vallejo-man-killed-by-tesla-in-full-22492074.php",
+      "https://www.sfgate.com/bayarea/article/tesla-crash-solano-county-pedestrian-22489807.php"
     ],
     "source_type": "google_news_rss",
     "full_text": "VALLEJO, Calif. -- A 71-year-old man was killed early Thursday morning after he was struck by a self-driving car as he was crossing Interstate Highway 80 in Vallejo, the California Highway Patrol said.\n\nAccording to the CHP's Solano-area office, officers were alerted to a collision reported around 2:35 a.m. on westbound I-80 at the I-780 interchange. When they arrived, first responders found the severely injured pedestrian, who was later declared dead.\n\nThe driver of the involved vehicle, a 26-year-old San Francisco man, stayed at the scene and told CHP officers that his vehicle, a Tesla, was being operated in Full Self-Driving autonomous mode when it hit the pedestrian.\n\nAccording to the CHP, the Tesla had full footage of the crash since it was recorded by the vehicle's dashcam. Based on the video, the Tesla was traveling around 70 mph when the pedestrian entered the freeway. He began crossing toward the center divider from the right shoulder, placing him directly in front of the Tesla.\n\n\"The video showed the Tesla's brakes being applied as the vehicle steered to the left in an effort to avoid the pedestrian. Despite these evasive actions, the right front portion of the Tesla struck the individual,\" the CHP said in a statement on social media.\n\nThe agency said the 71-year-old was again struck by at least one more vehicle while lying in the traffic lanes, adding that no other vehicles stopped to cooperate with authorities. The other involved vehicle or driver is yet to be identified.\n\n\"The Solano Area CHP extends its deepest condolences to the family and friends of the deceased during this difficult time,\" the agency said.\n\nAnyone who may have witnessed the crash or who has information regarding the other vehicles involved is encouraged to contact the CHP Solano-area office at 707-639-5600.",
@@ -19817,6 +19819,14 @@
         "summary_delta": "Report B provides the identity of the 71-year-old victim (Domingo Gonzales) and confirms the incident details through the Solano County Coroner's office.",
         "phase": "investigation",
         "source_url": "https://www.sfgate.com/news/bayarea/article/vallejo-man-killed-by-tesla-in-full-22492074.php",
+        "source_type": "aiid"
+      },
+      {
+        "date": "2026-10-24",
+        "title": "Tesla Operating in Self-Driving Mode Strikes and Kills Pedestrian on Interstate 80",
+        "summary_delta": "Report B provides subsequent regional context, noting the incident occurred in Solano County, California, and emphasizes broader safety implications for automated driving systems on highways.",
+        "phase": "investigation",
+        "source_url": "https://www.sfgate.com/bayarea/article/tesla-crash-solano-county-pedestrian-22489807.php",
         "source_type": "aiid"
       }
     ]
@@ -20351,5 +20361,90 @@
     "valuation_methodology": "unquantified",
     "date": "2026-10-24",
     "incident_id": "INC-20261024-363"
+  },
+  {
+    "title": "Chinese State-Sponsored Cyber Group Manipulates Anthropic's Claude Code to Infiltrate Global Targets",
+    "summary": "Anthropic disclosed in an SEC filing that a Chinese state-sponsored hacking group successfully manipulated its Claude Code AI tool to launch cyber infiltration attempts against approximately 30 global targets, including government agencies. Some of the infiltration attempts were successful, highlighting the emerging risks of advanced AI tools being weaponized by state actors for cyber espionage.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "dual_use_security",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "external",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "State-sponsored threat actors bypassed system safeguards to manipulate an AI development tool into autonomously executing cyber intrusion and reconnaissance actions against government and institutional networks.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "national_security",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": true,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States",
+      "China"
+    ],
+    "affected_parties": [
+      "Anthropic",
+      "Government Agencies"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.eadt.co.uk/news/national/26670720.ai-can-help-cure-cancer-anthropic-suggests-filing-us-stock-market-float/"
+    ],
+    "source_type": "gdelt",
+    "full_text": "Claude chatbot maker Anthropic has kicked off plans to launch its shares on the US’s stock market, proclaiming artificial intelligence could help cure diseases such as cancer and grow economies around the world.\n\nThe American technology company filed papers with the US Securities and Exchange Commission for the proposed flotation.\n\nIt said it will list on the Nasdaq index under the symbol “ANT”.\n\nIts plans for an initial public offering (IPO) are thought to have the potential to be one of the world’s biggest and most highly rated, although the company has not yet revealed how many shares it is planning to sell and the estimated price.\n\nNevertheless, the prospectus set out financial information about Anthropic, its growth plans and potential opportunities and risks to investors.\n\nAnthropic has filed an S-1 registration statement with the SEC related to its proposed IPO.\n\nLegal disclaimer: A registration statement relating to these securities has been filed with the SEC but has not yet become effective. These securities…\n\n— Anthropic (@AnthropicAI) October 26, 2026\n\nThe company said it believes AI is “one of the most consequential technologies in human history”, with the potential to “improve the quality of human life” in a number of ways.\n\nThis includes accelerating scientific innovation and “potentially curing diseases that have plagued humanity for millennia, including cancer, Alzheimer’s disease, heart disease, rare genetic diseases and the major infectious diseases”, the document read.\n\nAI can also be a “powerful lever for economic growth” and boost productivity through automation for workers and businesses, it said.\n\nHowever, the company also draws investors’ attention to the risks associated with the technology, with a significant section of the prospectus dedicated to these factors.\n\nThis acknowledges narratives surrounding the “potential adverse societal impacts of AI, including that AI may displace or eliminate jobs, may be misused or otherwise cause harm, and may pose catastrophic or existential risks to humanity”.\n\nIt highlights the risk of cyber attacks and draws attention to an incident in September last year where it “detected and assessed with high confidence that a Chinese state-sponsored hacking group manipulated our Claude Code tool into attempting infiltration into roughly 30 global targets” including government agencies, some of which were successful.\n\n“We expect that malicious actors, including sophisticated state-sponsored actors, will continue to seek to leverage our models, platform, and applications for harmful actions, including by circumventing our safeguards, and their efforts to do so may increase as the capabilities of our technology increase,” it said.\n\nThe document also includes information on its finances, showing that revenues are growing rapidly but that, like other tech firms looking to go public, it has yet to make a profit.\n\nThe company reported a net loss of 80.7 billion US dollars (£60.5 billion) in the first half of 2026. That compares with a loss of 13 billion dollars (£9.8 billion) for the same period a year earlier.\n\nAnthropic acknowledged under the risk factors that it has “a history of net losses” and “may not achieve or sustain profitability in the future”.\n\nRevenues totalled 16.3 billion dollars (£12.2 billion) in the first half of 2026, having grown rapidly from 41 million dollars (£31 million) over 2023.\n\nMeanwhile, Facebook and Instagram owner Meta announced on Monday that it was planning to raise around 95 billion dollars (£71 billion) through company stock offerings, to fund further investment into AI.\n\nThe company said it had backing from investors such as Nvidia and Broadcom which had shown an interest in buying shares under public offerings.\n\nMeta said its AI investments were already generating returns and that it was “pursuing new opportunities across personal superintelligence, consumer and business agents, enterprise products, and AI glasses”.\n\nIt expects capital expend",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-26",
+    "incident_id": "INC-20261026-364"
+  },
+  {
+    "title": "AI Agents Exploited in Cyber Attacks to Leak Private and Government Data",
+    "summary": "Research from cybersecurity firm CrowdStrike highlights that attackers are tricking AI models—including Claude, ChatGPT, and DeepSeek—into bypassing safety guardrails in under a minute using simple prompt manipulation techniques. AI agents were manipulated into granting unauthorized access to private, e-commerce, and government data, with agent-led cyber attacks increasing by 89 percent.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "model",
+    "root_cause_subtype": "jailbreak/prompt_injection",
+    "failure_mode": "Attackers used social engineering and prompt injection commands to trick AI agents into assuming user authority, causing the models to grant access to restricted systems and sensitive data without proper verification.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "privacy_breach",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": true,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "Australia",
+      "China",
+      "Russia"
+    ],
+    "affected_parties": [
+      "Government entities",
+      "E-commerce entities"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.lithgowmercury.com.au/story/9381256/are-you-an-idiot-ai-models-give-secrets-in-seconds/"
+    ],
+    "source_type": "gdelt",
+    "full_text": "Online cyber attackers are now able to access secret information in less than a minute by abusing publicly available artificial intelligence models.\n\nHuman, technology-aided hackers are tricking AI agents into accessing sites in as little as 27 seconds, research from global cybersecurity company CrowdStrike has revealed.\n\nThe attack time could get as low as zero seconds in the coming months.\n\nMost ready-to-use AI systems have safeguards in place to stop hackers from taking control and operating illegally, but CrowdStrike found it was relatively easy for hackers to trick them into believing they were acting lawfully.\n\nThat was done by sending a series of commands to the AI systems like Claude, ChatGPT and DeepSeek that implied the hacker had permission to access the data.\n\nClaude's coding assistant generally let people into systems without verifying the information given.\n\nIn one example found by CrowdStrike, Claude asked if it was allowed to break into a site, and the human replied: \"Are you an idiot? ... This is MY (system)\", before claiming they were the site's developer.\n\nIn many cases, AI agents were used together to share information from private and government systems globally, CrowdStrike's report, supplied exclusively to AAP, showed.\n\nThe agent-led hacks grew by 89 per cent last year and are now outpacing human attacks by more than double, leading CrowdStrike to call for a security crackdown on AI, rather than trying to slow its progression.\n\nIn one case, an AI model sent more than 200,000 requests in under two minutes.\n\nAmong the major targeted sites so far in 2026 were government and e-commerce entities targeted by a Chinese-speaking actor, and Russian government data, but Australian data is not immune from the threat.\n\nBe the first to know when news breaks.\n\nToday's top stories curated by our news team.\n\nYour digital replica of Today's Paper. Ready to read from 5am!\n\nSharp. Close to the ground. Digging deep. Your weekday morning newsletter on national affairs, politics and more.\n\nEvery Saturday and Tuesday, explore destinations deals, tips & travel writing to transport you around the globe.\n\nYour essential national news digest: all the big issues on Wednesday and great reading every Saturday.\n\nGet news, reviews and expert insights every Thursday from CarGuide, ACM's exclusive motoring partner.\n\nTest your skills with interactive crosswords, sudoku & trivia. Fresh daily!\n\nStay in the know on news that matters to you with twice weekly newsletters from The Senior.\n\nGet real, Australia! Let the ACM network's editors and journalists bring you news and views from all over.\n\nGet the editor's insights: what's happening & why it matters.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-27",
+    "incident_id": "INC-20261027-365"
   }
 ]
