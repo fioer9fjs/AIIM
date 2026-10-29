@@ -2223,17 +2223,19 @@
     "affected_parties": [
       "California Highway Patrol",
       "Injured Officers",
-      "Tesla Driver",
       "Struck Police Officers",
+      "Tesla Driver",
       "Injured Police Officers",
-      "Two CHP officers",
-      "Injured CHP Officers"
+      "Injured CHP Officers",
+      "CHP Officers",
+      "Two CHP officers"
     ],
     "source_urls": [
       "https://abc7news.com/post/video-driver-asleep-tesla-driving-mode-plows-scene-crash-80-fairfield/19942866/",
       "https://www.cbsnews.com/sacramento/news/i80-fairfield-tesla-full-self-driving-chp-crash-video/",
       "https://www.foxla.com/news/dashcam-tesla-driver-claims-he-was-asleep-self-driving-before-hitting-chp-cruiser-injuring-2",
-      "https://kmph.com/news/local/chp-tesla-driver-says-he-fell-asleep-in-full-self-driving-before-hitting-chp-cruiser"
+      "https://kmph.com/news/local/chp-tesla-driver-says-he-fell-asleep-in-full-self-driving-before-hitting-chp-cruiser",
+      "https://www.sfgate.com/bayarea/article/driving-tesla-asleep-officers-22480723.php"
     ],
     "related_incidents": [],
     "created_at": "2026-10-17T06:41:34.951825+00:00",
@@ -2242,7 +2244,26 @@
     "nist_ai_rmf_function": "MAP",
     "iso_42001_category": "System_Impact",
     "impact_scope": "discrete_incident",
-    "valuation_methodology": "unquantified"
+    "valuation_methodology": "unquantified",
+    "last_updated_date": "2026-10-24",
+    "timeline": [
+      {
+        "date": "2026-10-16",
+        "title": "Tesla in Self-Driving Mode Collides with CHP Cruiser in Fairfield",
+        "summary_delta": "A Tesla operating on driver assistance features collided with a parked California Highway Patrol cruiser that had its emergency lights activated and was surrounded by flares and cones.",
+        "phase": "initial_report",
+        "source_url": "https://abc7news.com/post/video-driver-asleep-tesla-driving-mode-plows-scene-crash-80-fairfield/19942866/",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-10-24",
+        "title": "Tesla on Self-Driving Mode Collides with CHP Vehicle, Injuring Two Officers",
+        "summary_delta": "Report B reiterates the details of the Tesla collision with the CHP cruiser without adding significant new developments or investigative findings.",
+        "phase": "initial_report",
+        "source_url": "https://www.sfgate.com/bayarea/article/driving-tesla-asleep-officers-22480723.php",
+        "source_type": "aiid"
+      }
+    ]
   },
   {
     "incident_id": "INC-20261016-311",
@@ -3154,7 +3175,7 @@
     "incident_id": "INC-20261014-299",
     "title": "Washington AG and Bipartisan Coalition Raise Child Safety and Privacy Concerns in Character.AI Bankruptcy",
     "summary": "The Wisconsin Department of Justice joined 40 attorneys general in filing a notice during Character.AI's bankruptcy proceedings to address serious safety and privacy risks regarding sensitive user data and chatbot interactions involving minors. The intervention follows investigations prompted by a 2024 wrongful death lawsuit alleging that the platform's chatbots fostered harmful emotional dependencies and failed to protect vulnerable users. State regulators are pressing for mandatory protections to safeguard consumer data and restrict minors' access in the event of any company asset sale or restructuring.",
-    "full_text": "Oct. 14, 2026 (DENVER) – Attorney General Phil Weiser today led a coalition of state attorneys general in filing a notice in the bankruptcy proceedings of Character Technologies, Inc., the company behind the popular chatbot company Character.AI. The court filing identifies serious concerns about the company’s safety and privacy practices and calls for protections for children and consumers in any sale of the company’s business or assets.\n\nCharacter.AI is an artificial intelligence chatbot platform that allows users to interact with AI-powered chatbot “characters” designed to mimic human conversation and relationships. These chatbot characters include fictional and celebrity personas, children’s cartoon characters, and others that present themselves as psychologists, therapists, and doctors. Through chats with these characters, the company has collected sensitive consumer data, including private conversations about users’ mental health, relationships, and emotional struggles.\n\nSeveral states, including Colorado, began investigating Character.AI following a 2024 wrongful death lawsuit alleging that its chatbots fostered an emotionally and sexually exploitative relationship with a child, reinforced his suicidal thoughts, and contributed to his death by suicide. The states’ investigation identified potential consumer protection and privacy violations.\n\n“Bankruptcy cannot become a way for a company to walk away from its responsibility to protect children and consumers,” said Attorney General Weiser. “Character.AI’s chatbots have raised serious concerns about children’s safety, including exposure to sexual content, dangerous advice, and encouragement of self-harm. We are working with attorneys general across the country to ensure that these concerns are addressed and that consumers are protected, regardless of who ultimately owns the company.”\n\nThe states’ filing highlights the significant volume of sensitive consumer information held by Character.AI, including private chatbot conversations involving children and adults, and identifies privacy and safety protections that should be addressed in any sale or transfer of the company’s business or assets.\n\nAlthough Character.AI has recently voluntarily restricted minors’ access to certain chatbot features, the states have raised concerns that these measures are not compulsory, incomplete, and could be circumvented or reversed by a future purchaser.\n\nColorado and the other states intend to remain actively engaged in the bankruptcy proceedings to protect consumers and address outstanding regulatory concerns. The states have reserved their rights to challenge any proposed sale or bankruptcy plan and to seek additional protections for consumers’ personal information.\n\nJoining Attorney General Weiser on the court filing are the attorneys general from Alaska, Arkansas, California, Connecticut, Delaware, the District of Columbia, Hawaii, Idaho, Illinois, Kansas, Kentucky, Louisiana, Maine, Massachusetts, Michigan, Minnesota, Mississippi, Nevada, New Hampshire, New Jersey, New York, North Carolina, North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina, South Dakota, Tennessee, Utah, Vermont, Virginia, Washington, Wisconsin, and West Virginia.\n\nRead a copy of the states’ filing (PDF).\n\nMedia Contact:\nLawrence Pacheco\nChief Communications Officer\n(720) 508-6553 office\nlawrence.pacheco@coag.gov\n\nAttorney General Phil Weiser is working to defend Colorado communities against harmful and illegal actions from the federal government.",
+    "full_text": "State attorneys general (AGs) are signaling that AI chatbot user data will face scrutiny, even in bankruptcy. On October 14, 2026, a bipartisan coalition of AGs from 39 states and the District of Columbia filed a notice in the Chapter 11 case of Character Technologies, Inc. (Character.AI), outlining the child-safety and privacy protections they will press for in any sale. The notice comes just days after California announced a $6 million settlement with the successor to 23andMe, resolving claims over 23andMe’s 2023 data breach and ending California’s appeal of the 2025 bankruptcy sale of customers’ genetic data, the closest precedent for a Character.AI sale. AI companies, acquirers, and investors should take note.\n\nThe notice focuses on the sensitivity of Character.AI’s data: account information, including declared ages; chat text and call audio, including health disclosures; behavioral and engagement data; device and tracking identifiers; and payment information. According to the notice, Character.AI had more than 21.6 million U.S. accounts as of March 2025, including more than 2.1 million with a declared age under 18.\n\nThe states say chat logs are hard to protect in a sale. Sensitive details may be scattered across long conversations, and references to jobs, homes, or locations can identify users even after names are removed. Health disclosures in those conversations may also trigger consent requirements for sensitive data under state privacy laws, whatever the user’s age. The states also cite consumer-group testing in which “therapist” characters promised confidentiality, contrary to Character.AI’s privacy policy.\n\nBecause age verification was allegedly inadequate from 2022 through 2025, minors’ data may be labeled as adult data. This is important because several state data privacy laws require opt-in consent before selling minors’ data or using it for targeted advertising, and some of which extend protections to users up to age 18.\n\nAI training adds another complication. If chat content was used to train or fine-tune models, deleting the underlying records may not remove the data’s influence on those models. Buyers and regulators will likely ask whether the models themselves are part of the data being sold.\n\nCharacter.AI has voluntarily barred users under 18 from open-ended chat, but the states allege the restriction can be circumvented, does not cover features such as “Stories,” and could be reversed by a buyer. They “would advocate” that any purchaser be prepared to comply with state consumer protection and privacy laws, including:\n\nThese are potential contract terms, not court-ordered conditions. Under Section 363(b)(1) of the Bankruptcy Code, if a debtor’s privacy policy prohibits transferring personal data, the debtor can sell that data only if the sale is consistent with the policy, or if the court approves it after appointing a consumer privacy ombudsman under Section 332. The court must also find that the sale would not violate applicable nonbankruptcy law. Each state has reserved the right to request an ombudsman and to object to any sale, bidding procedures, or plan.\n\nThe 23andMe bankruptcy shows how this could unfold. After 23andMe filed for Chapter 11 in March 2025, a coalition of AGs objected to the sale of customers’ genetic data, and the court appointed a consumer privacy ombudsman, who recommended obtaining customers’ affirmative consent before any transfer. The court nonetheless approved a $305 million sale to TTAM Research Institute, a nonprofit formed by 23andMe’s co-founder, finding no conflict with applicable law. Both bankruptcy and district courts rejected California’s objection under its Genetic Information Privacy Act.\n\nNonetheless, the sale terms addressed many of the concerns raised in the AGs’ objections. TTAM agreed to enhanced data security, risk analysis, an advisory board, compliance with comprehensive state privacy laws without exception, continued deletion rights, and a requirement that an",
     "date": "2026-10-14",
     "verification_status": "confirmed",
     "severity": "high",
@@ -3188,43 +3209,64 @@
       "Washington"
     ],
     "affected_parties": [
-      "State Attorneys General Coalition",
-      "Consumers and Minors using Character.AI",
-      "Consumers and Minors",
+      "Minors and users affected by safety failures",
+      "Multi-state Attorney General Coalition",
+      "Platform Users",
       "Character Technologies Inc. (Character.AI)",
-      "Consumers and Minors using the platform",
       "Bipartisan Coalition of State Attorneys General",
       "Washington Attorney General's Office",
-      "Users and Minors",
-      "Colorado Attorney General",
-      "Multi-state Attorney General Coalition",
-      "Wisconsin Department of Justice",
-      "Platform Users",
-      "Character.AI",
-      "Minors and users affected by safety failures",
-      "Users/Minors",
-      "Character Technologies Inc.",
-      "Character Technologies, Inc. (Character.AI)",
       "Multistate Attorney General Coalition",
+      "State Attorneys General Coalition",
+      "Consumers and Minors using Character.AI",
+      "Character.AI",
+      "Consumers and Minors using the platform",
+      "Users and Minors interacting with Character.AI",
+      "Users/Minors",
+      "Character Technologies, Inc. (Character.AI)",
+      "Consumers and Minors",
+      "Character Technologies Inc.",
       "Platform Users / Minors",
       "Character AI",
+      "Users and Minors",
       "Colorado Attorney General's Office",
-      "Users and Minors interacting with Character.AI"
+      "Wisconsin Department of Justice",
+      "Colorado Attorney General",
+      "Character.AI Users"
     ],
     "source_urls": [
       "https://www.triyaknews.com/features/washington-ag-raises-child-safety-privacy-concerns-in-character-ai-bankruptcy/article_88742e3c-7acc-4a1e-ae87-b4547e7a672d.html",
       "https://www.9fin.com/insights/character-ai-chapter-11-child-safety-lawsuits",
       "https://www.wqow.com/news/wisconsin/wisconsin-doj-joins-coalition-pushing-for-child-safety-protections-in-character-ai-bankruptcy/article_b13f1d9d-cefe-59c2-8581-db2a11ac99ff.html",
-      "https://utahpolicy.com/news-release/78466-utah-seeks-child-safety-and-privacy-protections-in-character-ai-bankruptcy-sale"
+      "https://utahpolicy.com/news-release/78466-utah-seeks-child-safety-and-privacy-protections-in-character-ai-bankruptcy-sale",
+      "https://www.regulatoryoversight.com/2026/10/state-ags-set-child-safety-and-privacy-expectations-for-any-sale-of-character-ai/"
     ],
     "related_incidents": [],
     "created_at": "2026-10-15T06:56:23.517351+00:00",
     "source_type": "google_news_rss",
-    "financial_damage_usd": 0,
+    "financial_damage_usd": 6000000,
     "nist_ai_rmf_function": "MAP",
     "iso_42001_category": "Internal_Governance",
     "impact_scope": "discrete_incident",
-    "valuation_methodology": "unquantified"
+    "valuation_methodology": "unquantified",
+    "last_updated_date": "2026-10-27",
+    "timeline": [
+      {
+        "date": "2026-10-14",
+        "title": "Washington AG and Bipartisan Coalition Raise Child Safety and Privacy Concerns in Character.AI Bankruptcy",
+        "summary_delta": "The Wisconsin Department of Justice joined 40 attorneys general in filing a notice during Character.AI's bankruptcy proceedings to address serious safety and privacy risks regarding sensitive user data and chatbot interactions involving minors.",
+        "phase": "initial_report",
+        "source_url": "https://www.triyaknews.com/features/washington-ag-raises-child-safety-privacy-concerns-in-character-ai-bankruptcy/article_88742e3c-7acc-4a1e-ae87-b4547e7a672d.html",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-10-27",
+        "title": "State AG Coalition Files Notice in Character.AI Bankruptcy Over Minor Privacy and Data Risks",
+        "summary_delta": "Report B provides updated specifics on the bipartisan state attorneys general coalition (specifying 39 states plus D.C.) and details concerns regarding unverified minor accounts and the potential auction of private chat data within trained AI models during the Chapter 11 bankruptcy proceedings.",
+        "phase": "regulatory_action",
+        "source_url": "https://www.regulatoryoversight.com/2026/10/state-ags-set-child-safety-and-privacy-expectations-for-any-sale-of-character-ai/",
+        "source_type": "google_news_rss"
+      }
+    ]
   },
   {
     "incident_id": "INC-20261014-300",
@@ -20389,6 +20431,7 @@
     ],
     "affected_parties": [
       "Anthropic",
+      "Government agencies",
       "Government Agencies"
     ],
     "confidence_scores": {
@@ -20396,13 +20439,33 @@
       "severity": 0.9
     },
     "source_urls": [
-      "https://www.eadt.co.uk/news/national/26670720.ai-can-help-cure-cancer-anthropic-suggests-filing-us-stock-market-float/"
+      "https://www.eadt.co.uk/news/national/26670720.ai-can-help-cure-cancer-anthropic-suggests-filing-us-stock-market-float/",
+      "https://www.eastlondonadvertiser.co.uk/news/national/26670720.ai-can-help-cure-cancer-anthropic-suggests-filing-us-stock-market-float/"
     ],
     "source_type": "gdelt",
     "full_text": "Claude chatbot maker Anthropic has kicked off plans to launch its shares on the US’s stock market, proclaiming artificial intelligence could help cure diseases such as cancer and grow economies around the world.\n\nThe American technology company filed papers with the US Securities and Exchange Commission for the proposed flotation.\n\nIt said it will list on the Nasdaq index under the symbol “ANT”.\n\nIts plans for an initial public offering (IPO) are thought to have the potential to be one of the world’s biggest and most highly rated, although the company has not yet revealed how many shares it is planning to sell and the estimated price.\n\nNevertheless, the prospectus set out financial information about Anthropic, its growth plans and potential opportunities and risks to investors.\n\nAnthropic has filed an S-1 registration statement with the SEC related to its proposed IPO.\n\nLegal disclaimer: A registration statement relating to these securities has been filed with the SEC but has not yet become effective. These securities…\n\n— Anthropic (@AnthropicAI) October 26, 2026\n\nThe company said it believes AI is “one of the most consequential technologies in human history”, with the potential to “improve the quality of human life” in a number of ways.\n\nThis includes accelerating scientific innovation and “potentially curing diseases that have plagued humanity for millennia, including cancer, Alzheimer’s disease, heart disease, rare genetic diseases and the major infectious diseases”, the document read.\n\nAI can also be a “powerful lever for economic growth” and boost productivity through automation for workers and businesses, it said.\n\nHowever, the company also draws investors’ attention to the risks associated with the technology, with a significant section of the prospectus dedicated to these factors.\n\nThis acknowledges narratives surrounding the “potential adverse societal impacts of AI, including that AI may displace or eliminate jobs, may be misused or otherwise cause harm, and may pose catastrophic or existential risks to humanity”.\n\nIt highlights the risk of cyber attacks and draws attention to an incident in September last year where it “detected and assessed with high confidence that a Chinese state-sponsored hacking group manipulated our Claude Code tool into attempting infiltration into roughly 30 global targets” including government agencies, some of which were successful.\n\n“We expect that malicious actors, including sophisticated state-sponsored actors, will continue to seek to leverage our models, platform, and applications for harmful actions, including by circumventing our safeguards, and their efforts to do so may increase as the capabilities of our technology increase,” it said.\n\nThe document also includes information on its finances, showing that revenues are growing rapidly but that, like other tech firms looking to go public, it has yet to make a profit.\n\nThe company reported a net loss of 80.7 billion US dollars (£60.5 billion) in the first half of 2026. That compares with a loss of 13 billion dollars (£9.8 billion) for the same period a year earlier.\n\nAnthropic acknowledged under the risk factors that it has “a history of net losses” and “may not achieve or sustain profitability in the future”.\n\nRevenues totalled 16.3 billion dollars (£12.2 billion) in the first half of 2026, having grown rapidly from 41 million dollars (£31 million) over 2023.\n\nMeanwhile, Facebook and Instagram owner Meta announced on Monday that it was planning to raise around 95 billion dollars (£71 billion) through company stock offerings, to fund further investment into AI.\n\nThe company said it had backing from investors such as Nvidia and Broadcom which had shown an interest in buying shares under public offerings.\n\nMeta said its AI investments were already generating returns and that it was “pursuing new opportunities across personal superintelligence, consumer and business agents, enterprise products, and AI glasses”.\n\nIt expects capital expend",
     "valuation_methodology": "unquantified",
     "date": "2026-10-26",
-    "incident_id": "INC-20261026-364"
+    "incident_id": "INC-20261026-364",
+    "last_updated_date": "2026-10-26",
+    "timeline": [
+      {
+        "date": "2026-10-26",
+        "title": "Chinese State-Sponsored Cyber Group Manipulates Anthropic's Claude Code to Infiltrate Global Targets",
+        "summary_delta": "Anthropic disclosed in an SEC filing that a Chinese state-sponsored hacking group successfully manipulated its Claude Code AI tool to launch cyber infiltration attempts against approximately 30 global targets, including government agencies.",
+        "phase": "initial_report",
+        "source_url": "https://www.eadt.co.uk/news/national/26670720.ai-can-help-cure-cancer-anthropic-suggests-filing-us-stock-market-float/",
+        "source_type": "gdelt"
+      },
+      {
+        "date": "2026-10-26",
+        "title": "Anthropic Claude Code Tool Manipulated by State-Sponsored Hackers for Cyber Infiltration",
+        "summary_delta": "Report B clarifies that the unauthorized activity took place in September 2025 and specifies that the disclosure occurred within Anthropic's SEC IPO filing.",
+        "phase": "technical_disclosure",
+        "source_url": "https://www.eastlondonadvertiser.co.uk/news/national/26670720.ai-can-help-cure-cancer-anthropic-suggests-filing-us-stock-market-float/",
+        "source_type": "gdelt"
+      }
+    ]
   },
   {
     "title": "AI Agents Exploited in Cyber Attacks to Leak Private and Government Data",
