@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Adaptive dynamic keyword pool learned from validated AI incidents. Automatically maintained with daily decay and TTL.",
-    "last_updated": "2026-10-29",
+    "last_updated": "2026-10-30",
     "decay_rate_daily": 0.05,
     "min_weight_threshold": 0.2,
     "max_ttl_days": 21,
@@ -13,204 +13,139 @@
         "term": "Government Agencies",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 3,
+        "hit_count": 4,
         "first_seen": "2026-10-26",
-        "last_hit": "2026-10-29"
+        "last_hit": "2026-10-30"
       },
       {
         "term": "Anthropic",
         "type": "subject",
-        "weight": 1.0,
+        "weight": 0.95,
         "hit_count": 2,
         "first_seen": "2026-10-28",
         "last_hit": "2026-10-29"
       },
       {
-        "term": "actors manipulated safety",
+        "term": "ConnectWise",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-30",
+        "last_hit": "2026-10-30"
+      },
+      {
+        "term": "Microsoft",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-30",
+        "last_hit": "2026-10-30"
+      },
+      {
+        "term": "Defense Contractors",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-30",
+        "last_hit": "2026-10-30"
+      },
+      {
+        "term": "Threat actors weaponized",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-29",
-        "last_hit": "2026-10-29"
+        "first_seen": "2026-10-30",
+        "last_hit": "2026-10-30"
       },
       {
-        "term": "Claude Code",
+        "term": "security automation",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-29",
-        "last_hit": "2026-10-29"
+        "first_seen": "2026-10-30",
+        "last_hit": "2026-10-30"
       },
       {
-        "term": "execute unauthorized network",
+        "term": "perform rapid scanning",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-29",
-        "last_hit": "2026-10-29"
-      },
-      {
-        "term": "infiltration attempts against",
-        "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-10-29",
-        "last_hit": "2026-10-29"
-      },
-      {
-        "term": "government and corporate",
-        "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-10-29",
-        "last_hit": "2026-10-29"
-      },
-      {
-        "term": "State-sponsored threat actors",
-        "type": "incident",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-10-28",
-        "last_hit": "2026-10-28"
+        "first_seen": "2026-10-30",
+        "last_hit": "2026-10-30"
       }
     ],
     "autonomous_agents_cyber": [
       {
-        "term": "OpenAI",
+        "term": "GitHub repository maintainers",
         "type": "subject",
-        "weight": 0.857,
-        "hit_count": 2,
-        "first_seen": "2026-10-27",
-        "last_hit": "2026-10-27"
-      },
-      {
-        "term": "Government entities",
-        "type": "subject",
-        "weight": 0.807,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-28",
-        "last_hit": "2026-10-28"
+        "first_seen": "2026-10-30",
+        "last_hit": "2026-10-30"
       },
       {
-        "term": "E-commerce entities",
-        "type": "subject",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-10-28",
-        "last_hit": "2026-10-28"
-      },
-      {
-        "term": "Attackers used social",
+        "term": "generated",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-28",
-        "last_hit": "2026-10-28"
+        "first_seen": "2026-10-30",
+        "last_hit": "2026-10-30"
       },
       {
-        "term": "engineering and prompt",
+        "term": "commit code containing",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-28",
-        "last_hit": "2026-10-28"
+        "first_seen": "2026-10-30",
+        "last_hit": "2026-10-30"
       },
       {
-        "term": "injection commands",
+        "term": "security backdoor",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-28",
-        "last_hit": "2026-10-28"
+        "first_seen": "2026-10-30",
+        "last_hit": "2026-10-30"
       },
       {
-        "term": "assuming",
+        "term": "software repository during",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-28",
-        "last_hit": "2026-10-28"
+        "first_seen": "2026-10-30",
+        "last_hit": "2026-10-30"
       },
       {
-        "term": "authority",
+        "term": "code generation activities",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-28",
-        "last_hit": "2026-10-28"
-      }
-    ],
-    "biometrics_police_surveillance": [
+        "first_seen": "2026-10-30",
+        "last_hit": "2026-10-30"
+      },
       {
         "term": "Anthropic",
         "type": "subject",
-        "weight": 0.214,
-        "hit_count": 30,
-        "first_seen": "2026-10-06",
-        "last_hit": "2026-10-22"
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-30",
+        "last_hit": "2026-10-30"
       },
       {
-        "term": "Persona Identities Inc",
-        "type": "subject",
-        "weight": 0.214,
-        "hit_count": 22,
-        "first_seen": "2026-10-07",
-        "last_hit": "2026-10-22"
-      },
-      {
-        "term": "Anthropic implemented",
+        "term": "autonomously accessed",
         "type": "incident",
-        "weight": 0.214,
-        "hit_count": 16,
-        "first_seen": "2026-10-10",
-        "last_hit": "2026-10-22"
-      },
-      {
-        "term": "law enforcement",
-        "type": "incident",
-        "weight": 0.214,
-        "hit_count": 10,
-        "first_seen": "2026-10-18",
-        "last_hit": "2026-10-22"
-      },
-      {
-        "term": "Facial recognition",
-        "type": "incident",
-        "weight": 0.214,
-        "hit_count": 9,
-        "first_seen": "2026-10-15",
-        "last_hit": "2026-10-22"
-      },
-      {
-        "term": "Christopher Gatlin",
-        "type": "subject",
-        "weight": 0.214,
-        "hit_count": 9,
-        "first_seen": "2026-10-17",
-        "last_hit": "2026-10-22"
-      },
-      {
-        "term": "false positive match",
-        "type": "incident",
-        "weight": 0.214,
-        "hit_count": 6,
-        "first_seen": "2026-10-18",
-        "last_hit": "2026-10-22"
-      },
-      {
-        "term": "wrongful arrest",
-        "type": "incident",
-        "weight": 0.214,
-        "hit_count": 2,
-        "first_seen": "2026-10-22",
-        "last_hit": "2026-10-22"
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-10-30",
+        "last_hit": "2026-10-30"
       }
     ],
+    "biometrics_police_surveillance": [],
     "autonomous_mobility_robotics": [
       {
         "term": "California Highway Patrol",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -218,7 +153,7 @@
       {
         "term": "CHP Officers",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -226,7 +161,7 @@
       {
         "term": "vehicle",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -234,7 +169,7 @@
       {
         "term": "automated driving",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -242,7 +177,7 @@
       {
         "term": "detect and avoid",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -250,7 +185,7 @@
       {
         "term": "moving police vehicle",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -258,7 +193,7 @@
       {
         "term": "while the human",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -266,7 +201,7 @@
       {
         "term": "driver fell asleep",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -276,7 +211,7 @@
       {
         "term": "Authors",
         "type": "subject",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-10-27",
         "last_hit": "2026-10-27"
@@ -284,7 +219,7 @@
       {
         "term": "Anthropic",
         "type": "subject",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-10-27",
         "last_hit": "2026-10-27"
@@ -292,7 +227,7 @@
       {
         "term": "Anthropic ingested pirated",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-10-27",
         "last_hit": "2026-10-27"
@@ -300,7 +235,7 @@
       {
         "term": "books",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-10-27",
         "last_hit": "2026-10-27"
@@ -308,7 +243,7 @@
       {
         "term": "training dataset",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-10-27",
         "last_hit": "2026-10-27"
@@ -316,7 +251,7 @@
       {
         "term": "its Claude chatbot",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-10-27",
         "last_hit": "2026-10-27"
@@ -324,7 +259,7 @@
       {
         "term": "class-action copyright infringement",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-10-27",
         "last_hit": "2026-10-27"
@@ -332,7 +267,7 @@
       {
         "term": "lawsuit",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-10-27",
         "last_hit": "2026-10-27"
@@ -342,7 +277,7 @@
       {
         "term": "Inadequate age verification",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -350,7 +285,7 @@
       {
         "term": "privacy controls",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -358,7 +293,7 @@
       {
         "term": "sensitive user chat",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -366,7 +301,7 @@
       {
         "term": "health disclosures",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -374,7 +309,7 @@
       {
         "term": "minors",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -382,7 +317,7 @@
       {
         "term": "being collected",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -390,7 +325,7 @@
       {
         "term": "potentially embedded",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -398,7 +333,7 @@
       {
         "term": "undergoing Chapter",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
