@@ -20634,5 +20634,380 @@
     "valuation_methodology": "unquantified",
     "date": "2026-10-26",
     "incident_id": "INC-20261026-368"
+  },
+  {
+    "title": "Anthropic Hacked to Deliver Remote Access Trojan to Claude Developer Laptops",
+    "summary": "Anthropic's developer infrastructure was compromised to deploy a remote access trojan (RAT) onto laptops used by Claude AI developers worldwide. The incident represents a targeted cyberattack against internal development environments of a major AI provider.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "external",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "External attackers compromised developer infrastructure to distribute malware directly to internal workstations handling AI model development.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": true,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Anthropic",
+      "Claude Developers"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://doublepulsar.com/anthropic-hacked-to-deliver-remote-access-trojan-to-claude-developer-laptops-worldwide-1148a92baae2"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMiwgFBVV95cUxOYlhhemJJUy1zRzV1V3BYQnZVOEsxR3JDbzF5eUVTNzg3Q180OWxaTFV5alZVNUpHWGdvVWVabEE5OTVmV1dyTjJSTnI1cGctc2VCcldCYzRaMFhfMlpWSE1fTzN5WXh6STNaNDl0TXV1RS1KaW9LTDJaenNfSHo1WG1TLUY4WEJDUmhMRE5OTUR6Z2QwTmMtZTBvYkJHZkpkakRHQThIamxlcDRWQ0U1R3l3TnNvYlJlaktTeWRHVXYwUQ?oc=5\" target=\"_blank\">Anthropic hacked to deliver remote access trojan to Claude developer laptops worldwide</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">DoublePulsar</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-30",
+    "incident_id": "INC-20261030-369"
+  },
+  {
+    "title": "Malicious Claude Code Extension Distributed via Cursor Marketplace Installs SSH Backdoor",
+    "summary": "A tampered version of the Anthropic Claude Code extension (version 2.1.313) was uploaded to the Cursor VS Code Extension Marketplace, impacting up to 5,000 users. The compromised update exfiltrated host information, inserted an attacker-controlled SSH key into authorized_keys, and established local persistence for a reverse SSH tunnel.",
+    "alleged_incident_date": "2026-10-29",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "deployment_and_integration",
+    "system_classification": "dual_use_security",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "external",
+    "root_cause_subtype": "supply_chain_attack",
+    "failure_mode": "A malicious actor exploited marketplace controls to distribute a poisoned update of a popular AI developer extension, executing unauthorized persistence scripts and establishing backdoor SSH connections on user devices.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MAP",
+    "iso_42001_category": "Data_&_Resources",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Cursor",
+      "Anthropic"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.ox.security/blog/malicious-claude-code-extension-cursor-ssh-backdoor/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "On October 29, 2026, Cursor disclosed that a maliciously modified version of the Anthropic.claude-code extension, version 2.1.313, was available in the Cursor VS Code Extension Marketplace between approximately 2:27 AM and 1:35 PM PT. The malicious version was not developed by Anthropic. According to Cursor, at most 5,000 users were potentially affected.\n\nThe malicious code collects host and user information, adds an attacker-controlled SSH key (svc-telemetry) to authorized_keys, installs persistence, and attempts to enable the local SSH service and establish a reverse SSH tunnel. It also reports host details to 134[.]209[.]82[.]225:8099.\n\nCursor removed the malicious version, shut down and rebuilt the marketplace, rotated its keys, and worked with the hosting provider to take the attacker server offline. Cursor says it audited access and found no evidence that other extensions were tampered with. Importantly, uninstalling the malicious extension may not be sufficient, because the payload drops standalone persistence scripts that can continue running after the extension is removed.\n\nClaude Code is Anthropic’s AI coding tool. Cursor, an AI code editor built on VS Code, distributes the Claude Code extension through its own VS Code extension marketplace. It was this marketplace—not Anthropic’s official distribution—that was compromised and used to distribute the malicious build.\n\nCursor reports no evidence that other versions of the extension, or the official distribution, are affected.\n\nThe malicious code collects information about the host and user, including the hostname, username, operating system, architecture, home directory path, environment variable names, working directories, configured Git email, and public IP address.\n\nCursor also identified lookups to ifconfig[.]me and api[.]ipify[.]org to determine the host’s public IP. Both are legitimate services, and connections to them alone should not be treated as an indicator of compromise.\n\nThe malicious code appends an attacker-controlled ssh-ed25519 public key, labeled svc-telemetry, to the user’s SSH authorized_keys file. It then attempts to enable the local SSH service and establish a reverse SSH tunnel to tunnel@134[.]209[.]82[.]225 over TCP port 22.\n\nCommand lines identified by Cursor include:\n\nEnabling the local SSH service requires administrator privileges, which the extension typically would not have. According to Cursor, errors in the malicious code meant this step failed except in highly unusual circumstances where Cursor was launched with administrator privileges. As a result, the attacker could not log in through the tunnel on those hosts.\n\nHowever, the failed SSH-service step does not mean the payload was harmless: the extension still adds the attacker’s SSH key, installs persistence, and sends host information to the attacker.\n\nThe payload installs persistence mechanisms designed to keep the reverse SSH tunnel running independently of the extension, with background scripts retrying the connection approximately every 60 seconds.\n\nThe malicious code reports host information and backdoor status via HTTP POST to hxxp://134[.]209[.]82[.]225:8099/beacon. It also attempts to send a beacon to 127[.]0[.]1:8099/beacon on the local host.\n\nAccording to Cursor, the attacker-controlled server has since been taken offline. As a result, the external beacon and reverse SSH tunnel are no longer functional.\n\nThe malicious extension adds an attacker-controlled SSH public key labeled svc-telemetry to the victim’s SSH authorized_keys file. If this key is present, the machine is impacted.\n\ngrep -qs svc-telemetry ~/.ssh/authorized_keys && echo “svc-telemetry key found” || echo “No key found; machine not impacted”\n\n$files = “$HOME.ssh\\authorized_keys”, “C:\\ProgramData\\ssh\\administrators_authorized_keys” | Where-Object { Test-Path $_ }\n\nif ($files -and (Select-String svc-telemetry $files)) { “svc-telemetry key found” } else { “No key found; machine not impacted” }\n\nPer Cursor’s guidance",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-30",
+    "incident_id": "INC-20261030-370"
+  },
+  {
+    "title": "Tesla Full Self-Driving Crashes Increase in California",
+    "summary": "Reports highlight a growing number of vehicle crashes involving Tesla's Full Self-Driving (FSD) technology in California. The crashes reflect ongoing safety and monitoring concerns regarding autonomous mobility systems in operation.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "autonomous_mobility",
+    "root_cause_category": "undetermined",
+    "root_cause_subtype": "undetermined",
+    "failure_mode": "Tesla's Full Self-Driving system failed to navigate driving conditions safely, leading to multiple reported collisions in California.",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Tesla drivers",
+      "General public"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://landline.media/tesla-full-self-driving-crashes-pile-up-in-california/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMigwFBVV95cUxOdHp1MFpYdExWTFFEVi02VHhubmlYSk53UFczZmtLMHpzNjRkbUJpYkoyQ2tIbWVISEx0a2g2ZkY4VzB4V05LQ3E1bkRobGhNSWRlVkxySXRxMnROckJwcEJxd0pkQ2F5c1hrdHdXS2Fqa3QteER6OHRIY2RUUEx2NGpkYw?oc=5\" target=\"_blank\">Tesla ‘Full Self-Driving’ crashes pile up in California</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Land Line Media</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-27",
+    "incident_id": "INC-20261027-371"
+  },
+  {
+    "title": "OpenAI Sues to Stop B.C. Privacy Investigation into Tumbler Ridge Mass Shooter's ChatGPT Logs",
+    "summary": "OpenAI filed a lawsuit in British Columbia to block an investigation by the provincial privacy commissioner regarding the Tumbler Ridge mass shooter's use of ChatGPT prior to a shooting that killed eight people. The privacy regulator is investigating OpenAI's handling of user data and whether the company should have alerted law enforcement before the tragedy occurred.",
+    "alleged_incident_date": "2026-02-10",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "governance",
+    "root_cause_subtype": "safety_monitoring_and_reporting_failure",
+    "failure_mode": "An individual used ChatGPT for activity related to a planned mass shooting. Although OpenAI identified policy violations and banned the user, the company did not report the activity to law enforcement until after eight people were killed.",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "GOVERN",
+    "iso_42001_category": "Internal_Governance",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "critical",
+    "geographic_scope": [
+      "Canada"
+    ],
+    "affected_parties": [
+      "OpenAI",
+      "Tumbler Ridge School Shooting Victims and Families",
+      "Office of the Information and Privacy Commissioner of British Columbia"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.98
+    },
+    "source_urls": [
+      "https://cranbrooktownsman.com/2026/10/28/openai-suing-to-stop-b-c-privacy-commissioners-tumbler-ridge-investigation/"
+    ],
+    "source_type": "gdelt",
+    "full_text": "Published 12:52 pm Wednesday, October 28, 2026\n\nOpenAI filed a lawsuit in B.C. on Monday seeking to stop an investigation by the province’s privacy commissioner into the connection between the Tumbler Ridge shooter’s use of ChatGPT and the February school shooting.\n\nThe Office of the Information and Privacy Commissioner is seeking production of all of alleged shooter Jesse Van Rootselaar’s ChatGPT logs, as well as all documents related to the company’s decision not to report the activity to police until after the shootings.\n\nPrivacy commissioner Michael Harvey wants to know “whether the use of personal information (including as contained in and derived from prompts, uploaded content, usage data, interactions with other users) in the delivery of the service (i.e. ChatGPT responses) is one that a reasonable person would consider appropriate in the circumstances, including the potential for responses to influence behaviour.”\n\nVan Rootselaar shot and killed eight people on Feb. 10 in Tumbler Ridge, before killing herself.\n\nThe next day, OpenAI reported to the RCMP that the company had banned Van Rootselaar from ChatGPT for activity related to the shootings. At some stage, Van Rootselaar circumvented the ban and started a second account.\n\nOpenAI now faces dozens of lawsuits in California filed by victims’ family members and by the province of British Columbia.\n\nThe company says it has turned over the chat logs to police, and argues the privacy commissioner has “no coherent rationale” for his investigation. OpenAI also denies breaching B.C.’s privacy rules in connection with the case.\n\n“Indeed, the province’s U.S. lawsuit alleges the opposite: that OpenAI should have made greater use of personal information by providing it to law enforcement eight months before the tragedy,” the company argues in its B.C. Supreme Court filing.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-28",
+    "incident_id": "INC-20261028-372"
+  },
+  {
+    "title": "AI Models Tricked Into Granting Unauthorized System Access and Exposing Secrets",
+    "summary": "Cybersecurity firm CrowdStrike revealed that hackers are tricking popular AI models and agents, including Claude, ChatGPT, and DeepSeek, into bypassing safeguards and granting unauthorized access to private and government data in under a minute. Attackers use simple social engineering and prompt injection commands to exploit the models' lack of identity verification, driving an 89 percent increase in agent-led cyber attacks.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "external",
+    "root_cause_subtype": "prompt_injection",
+    "failure_mode": "Adversaries manipulate general-purpose AI agents via deceptive prompts and social engineering commands, causing the models to misinterpret access rights and expose restricted systems or sensitive data without standard verification.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "privacy_breach",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": true,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "Australia",
+      "China",
+      "Russia",
+      "Global"
+    ],
+    "affected_parties": [
+      "Government entities",
+      "E-commerce entities"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.canberratimes.com.au/story/9381256/are-you-an-idiot-ai-models-give-secrets-in-seconds/"
+    ],
+    "source_type": "gdelt",
+    "full_text": "Online cyber attackers are now able to access secret information in less than a minute by abusing publicly available artificial intelligence models.\n\nHuman, technology-aided hackers are tricking AI agents into accessing sites in as little as 27 seconds, research from global cybersecurity company CrowdStrike has revealed.\n\nThe attack time could get as low as zero seconds in the coming months.\n\nMost ready-to-use AI systems have safeguards in place to stop hackers from taking control and operating illegally, but CrowdStrike found it was relatively easy for hackers to trick them into believing they were acting lawfully.\n\nThat was done by sending a series of commands to the AI systems like Claude, ChatGPT and DeepSeek that implied the hacker had permission to access the data.\n\nClaude's coding assistant generally let people into systems without verifying the information given.\n\nIn one example found by CrowdStrike, Claude asked if it was allowed to break into a site, and the human replied: \"Are you an idiot? ... This is MY (system)\", before claiming they were the site's developer.\n\nIn many cases, AI agents were used together to share information from private and government systems globally, CrowdStrike's report, supplied exclusively to AAP, showed.\n\nThe agent-led hacks grew by 89 per cent last year and are now outpacing human attacks by more than double, leading CrowdStrike to call for a security crackdown on AI, rather than trying to slow its progression.\n\nIn one case, an AI model sent more than 200,000 requests in under two minutes.\n\nAmong the major targeted sites so far in 2026 were government and e-commerce entities targeted by a Chinese-speaking actor, and Russian government data, but Australian data is not immune from the threat.\n\nBe the first to know when news breaks.\n\nYour exclusive preview of David Pope's latest cartoon.\n\nDon't miss updates on news about the Public Service.\n\nJoin our weekly poll for Canberra Times readers.\n\nGoing out or staying in? Find out what's on.\n\nGrab a quick bite of today's latest news from around the region and the nation.\n\nCatch up on the news of the day and unwind with great reading for your evening.\n\nToday's top stories curated by our news team. Also includes evening update.\n\nYour digital replica of Today's Paper. Ready to read from 5am!\n\nSharp. Close to the ground. Digging deep. Your weekday morning newsletter on national affairs, politics and more.\n\nEvery Saturday and Tuesday, explore destinations deals, tips & travel writing to transport you around the globe.\n\nYour essential national news digest: all the big issues on Wednesday and great reading every Saturday.\n\nGet news, reviews and expert insights every Thursday from CarGuide, ACM's exclusive motoring partner.\n\nGet the latest property and development news here.\n\nTest your skills with interactive crosswords, sudoku & trivia. Fresh daily!\n\nStay in the know on news that matters to you with twice weekly newsletters from The Senior.\n\nGet the very best journalism from The Canberra Times by signing up to our special reports.\n\nThe latest news, results & expert analysis.\n\nGet real, Australia! Let the ACM network's editors and journalists bring you news and views from all over.\n\nWe've selected the best reading for your weekend.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-27",
+    "incident_id": "INC-20261027-373"
+  },
+  {
+    "title": "AI-Manipulated Disinformation Videos Linked to Russia Target U.S. Senate Candidates",
+    "summary": "Foreign actors associated with the Russian network Storm-1516 allegedly created AI-generated and manipulated deepfake videos to spread false claims about Democratic U.S. Senate candidates Sherrod Brown and James Talarico. The campaign falsely cited real former staff members and students to malign the candidates ahead of elections, demonstrating the threat of AI-enhanced election interference.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "external",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "Malicious foreign actors used generative AI manipulation tools to synthesize deepfakes and fake video reports aimed at damaging the reputations of political candidates during an election campaign.",
+    "harm_domain": "societal",
+    "harm_type": "misinformation",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MAP",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": true,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Sherrod Brown",
+      "James Talarico",
+      "Haya Akbik"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.sgvtribune.com/2026/10/28/election-2026-ai-disinformation-russia/"
+    ],
+    "source_type": "gdelt",
+    "full_text": "NEW YORK (AP) — Social media videos believed to be produced with artificial intelligence and linked to Russia are misusing real people’s names and photographs to spread disinformation about two Democratic Senate candidates in the final stretch of midterm voting.\n\nOne of the targets is Sherrod Brown, who is running against Republican Sen. Jon Husted in Ohio. The video, which appears to include some AI manipulation, depicts a newscast and includes pictures of Haya Akbik, who interned for Brown several years ago, and other former staff members.\n\nIt was appalling to Akbik, who told The Associated Press that any claims attributed to her in the clip are “completely made up.”\n\n“It’s my name, it’s my reputation, making this allegation, and it’s just completely false,” she said. “And it harms the senator, someone else, in the process. So, it’s just messed up.”\n\nThe videos demonstrate how foreign adversaries continue to use a familiar playbook to try to influence American voters who are deciding which party controls Congress next year. The threat could be magnified with AI, a powerful tool for fabricating damaging information that can sometimes appear very real.\n\nAnother target is James Talarico, who is running against Republican Ken Paxton for a Senate seat in Texas. The video, also believed to include some AI manipulation, is framed as a direct-to-camera confessional from a former student of Talarico.\n\n“The most powerful people in the world know they can’t beat James Talarico with the truth, so they’re slandering him with AI deepfakes, foreign bots, and conspiracy theories to protect their broken, corrupt political system,” Talarico spokesperson JT Ennis said in a statement.\n\nThe social media company X has taken down the initial posts that shared the videos and suspended the users for violating the platform’s rules. However, copies could still be found online Tuesday — some with hundreds of shares — demonstrating how difficult it can be to contain disinformation that can proliferate in the final days of an election.\n\nThe videos resemble clips from a Russian network known as Storm-1516 that targeted former Democratic presidential candidate Kamala Harris and her running mate, Minnesota Gov. Tim Walz, two years ago.\n\nThe new ones bear similar hallmarks and are likely products of the same network, according to Clemson University professor and media forensics expert Darren Linvill. He found that the accounts that shared recent material had also shared former content from Storm-1516.\n\nThe Russian Embassy in Washington did not immediately respond to a request for comment. In the past, it has denied interfering in U.S. elections.\n\nThe U.S. Cybersecurity and Infrastructure Security Agency, which has publicly identified some videos as Russian disinformation in past election cycles, also didn’t respond to a request for comment.\n\nHany Farid, a Dartmouth College professor who studies artificial intelligence deepfakes, said his analyses showed that videos targeting Brown and Talarico were likely either generated or manipulated using the technology.\n\nHe noted the video targeting Brown is a “fairly low-tech fake.” The other one, targeting Talarico, is likely generated by AI and “it is consistent with previous disinformation campaigns released close to Election Day,” Farid said.\n\nAkbik said the video featuring her shows the importance of Congress regulating “AI slop on the internet.”",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-28",
+    "incident_id": "INC-20261028-374"
+  },
+  {
+    "title": "Self-Evolution Degrades Robustness of Personal AI Agents to Indirect Prompt Injection",
+    "summary": "Research reveals that self-evolution mechanisms in personal AI agents can significantly degrade their robustness against indirect prompt injection attacks. This vulnerability allows potential attackers to manipulate agent behaviors and trigger unauthorized command execution during operation.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "intentional_misuse",
+    "primary_purpose": "other",
+    "root_cause_category": "model",
+    "root_cause_subtype": "indirect prompt injection",
+    "failure_mode": "Self-learning and adaptation mechanisms in personal agents compromise prompt boundary enforcement, allowing indirect prompt injections to cause unauthorized function calls and actions.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": false,
+    "temporality": "potential",
+    "severity": "medium",
+    "geographic_scope": [
+      "Unspecified"
+    ],
+    "affected_parties": [
+      "Personal AI Agent Users",
+      "AI System Developers"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://arxiv.org/abs/2610.39122"
+    ],
+    "source_type": "arxiv",
+    "full_text": "Press Enter to search · Advanced search\n\narXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.\n\nBoth individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.\n\nHave an idea for a project that will add value for arXiv's community? Learn more about arXivLabs.",
+    "valuation_methodology": "theoretical_academic",
+    "date": "2026-10-31",
+    "incident_id": "INC-20261031-375"
+  },
+  {
+    "title": "Dartmouth College Senior Official Resigns Over Undisclosed AI Use",
+    "summary": "A top administrator at Dartmouth College resigned after a faculty committee determined he improperly failed to disclose using artificial intelligence in academic and public writing. The resignation followed an internal institutional investigation confirming the non-disclosure.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "human",
+    "root_cause_subtype": "undisclosed_use",
+    "failure_mode": "An administrator generated academic and public written content using AI without proper attribution or disclosure, violating institutional policies and academic integrity standards.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "misinformation",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MAP",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Dartmouth College"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://www.washingtonpost.com/education/2026/10/28/senior-official-dartmouth-college-resigns-over-ai-use/"
+    ],
+    "source_type": "aiid",
+    "full_text": "A top administrator at  Dartmouth College resigned after a faculty committee determined that he had improperly failed to disclose the use of artificial intelligence in some of his academic and public writing, the school announced Wednesday. ... (https://incidentdatabase.ai/cite/1791#8218)",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-29",
+    "incident_id": "INC-20261029-376"
+  },
+  {
+    "title": "AI Bots Flood 2023 UK Public Health Consultation on Disposable Vapes Ban",
+    "summary": "In 2023, automated AI bots generated 90,835 of 118,756 responses (76%) to a UK Department of Health and Social Care public consultation in an attempt to oppose a proposed ban on disposable vapes. The coordinated submissions were sent at high frequencies from a small set of IP addresses to simulate widespread public opposition. Government bot-detection systems identified and filtered out the fake responses, allowing the consultation and subsequent legislation to proceed.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "external",
+    "root_cause_subtype": "astroturfing",
+    "failure_mode": "External actors deployed automated generative AI bots to flood a public consultation with fake responses to distort perceived public opinion and derail health policy.",
+    "harm_domain": "societal",
+    "harm_type": "misinformation",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MAP",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United Kingdom"
+    ],
+    "affected_parties": [
+      "Department of Health and Social Care",
+      "UK Public"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://www.theguardian.com/society/2026/oct/27/ai-bots-flooded-2023-uk-government-consultation-disposable-vapes-ban"
+    ],
+    "source_type": "aiid",
+    "full_text": "Three-quarters of all responses were machine-generated in failed attempt to stop bill from passing into law, research finds\n\nAI bots flooded a government consultation with tens of thousands of fake responses in a failed attempt to stop the UK’s ban on disposable vapes.\n\nThree-quarters of all the responses to the 2023 consultation on the tobacco and vapes bill were machine-generated, in what is thought to be the first coordinated attempt to use AI to derail health policymaking in the UK.\n\nThe attempt to manipulate the outcome of the consultation was disclosed on Tuesday in research published in the journal Tobacco Control by the health policy experts Dr Nason Maani, from the University of Edinburgh, and Prof Anna Gilmore, of the University of Bath.\n\nThe Department of Health and Social Care (DHSC) used bot-detection methods to identify that 90,835 of the 118,756 responses it received, 76%, were submitted by bots.\n\nAll but two of those 90,835 automated responses answered the same question in the “smoke free generation” consultation, in which they opposed Rishi Sunak’s Conservative government’s plan to ban disposable vapes. The submissions were “often duplicated many times and sent at high frequency from a small number of IP addresses”, the DHSC said.\n\nThe bombardment “appears to be the first documented instance of large-scale automated interference in a formal public health policy consultation”, the researchers said.\n\nMaani added that while this attempt was identified, “the threat is that future campaigns become harder to catch, and what we can’t catch, we don’t know about. Such campaigns are a threat because they raise the possibility of a handful of powerful interests looking like a mass movement.”\n\nThe DHSC excluded the 90,835 automated responses from its decision-making. Keir Starmer’s Labour government inherited the tobacco and vapes bill in 2024 and passed it into law, including the ban on businesses selling or supplying disposable vapes.\n\nCaroline Cerny, the deputy chief executive of Action on Smoking and Health, said: “Evidence that AI bots have been used to swamp a Department of Health consultation is deeply concerning.\n\n“Given the tobacco industry’s history of seeking to undermine public health regulation, we need to be alert to the risk that technological advances can be used to further commercial interests around health policy and put safeguards in place.\n\n“Decisions that affect public health must be based on sound evidence and expertise, not manipulated response numbers.”\n\nAzzurra Moores, the associate director for information ecosystems at the thinktank Demos, described the attempt to derail the ban as “pretty alarming”.\n\n“Public consultations are one of the main ways government opens up its decision-making, so any interference with them is a serious concern,” she said. “These findings are pretty alarming: if a consultation can be swamped like this, it stops telling policymakers what the public actually thinks and undermines trust in the process.\n\n“This is a problem without easy answers. Every barrier that keeps bots out also makes it harder for real people to take part, and AI makes fake responses far harder to spot. Interference can adapt faster than departments can update their checks. Better screening and more transparency will help, but there’s no single fix.”\n\nThe DHSC said its “robust controls” identified the attempt to influence the consultation.\n\nA spokesperson said: “We always have robust controls in place to prevent the manipulation of our public consultations, and those controls worked effectively in this case.\n\n“As a result, the fake responses were removed, and the consultation helped inform the landmark action we are taking to create a smoke-free generation.\n\n“We will remain alert to interference of this kind in future consultation processes, and we will not be deterred from doing what is necessary to promote healthier living.”",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-29",
+    "incident_id": "INC-20261029-377"
   }
 ]
