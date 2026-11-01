@@ -21009,5 +21009,385 @@
     "valuation_methodology": "unquantified",
     "date": "2026-10-29",
     "incident_id": "INC-20261029-377"
+  },
+  {
+    "title": "Tampered Claude Code Extension Distributes Malware via Cursor Marketplace",
+    "summary": "A malicious actor published tampered versions of Anthropic's Claude Code extension on the Cursor IDE marketplace, affecting up to 5,000 developers. The compromised extension attempted to exfiltrate host metadata, identify cloud credential environment variables, and establish SSH backdoors on infected machines. In response, Cursor temporarily shut down its marketplace, revoked keys, and provided removal scripts for affected users.",
+    "alleged_incident_date": "2026-10-29",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "deployment_and_integration",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "external",
+    "root_cause_subtype": "supply_chain_attack",
+    "failure_mode": "An unauthorized attacker compromised the distribution pipeline on the Cursor extension marketplace, publishing malicious updates to the Claude Code extension designed to back-door developer systems.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MAP",
+    "iso_42001_category": "Data_&_Resources",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Anthropic",
+      "Cursor",
+      "Cursor Users"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.98,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://thenextweb.com/news/tampered-claude-code-extension-cursor-ssh-backdoor"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "A tampered copy of Anthropic’s Claude Code extension sat in Cursor’s extension marketplace for about 11 hours on Thursday 29 October. It reached up to 5,000 users. The malicious versions tried to plant an SSH backdoor on developers’ machines, Cursor said in a security notice.\n\nAnthropic says nobody breached its own systems. A security firm that studied the attack says the extension went out through Anthropic’s official account on Cursor. Neither Anthropic nor Cursor has said how the attacker got access.\n\nThe affected versions were 2.1.312 and 2.1.313 for Windows and macOS. They were live from about 2:27am to 1:35pm Pacific time. Cursor, which SpaceX acquired earlier this year, said Anthropic did not develop the code.\n\nThe extension collected details about each machine and its user, including the hostname, username, Git email and public IP address. It then tried to add the attacker’s SSH key and turn on the computer’s SSH service. It also tried to open a reverse tunnel to the attacker’s server.\n\nThat last step needs administrator rights, which the extension lacks on most macOS and Windows machines. So it would usually fail, Cursor said. But the key, the persistence scripts and the data upload still went through. Uninstalling the extension may not be enough to remove them.\n\nWe identified a security incident affecting a modified Claude Code VS Code extension accessed through our Cursor IDE extension marketplace, impacting at most 5,000 users. This malicious version of the extension was not developed by Anthropic. It does not impact other extensions downloaded from the http://cursor.com/marketplace, Grok Bot, Grok or our other SpaceXSI products.\n\nIn response, we took down our extension marketplace this afternoon, worked with relevant providers to neutralize the malware, and have reinstated the marketplace after confirming there is no further risk.\n\nIf affected, please review instructions in this blog post to understand how to find the malicious package and establish a path to mitigate any potential impact. We are asking all customers update to Claude Code for VS Code version 2.1.314: https://cursor.com/blog/claude-code-extension-security-notice\n\nCursor (@cursor_ai) October 30, 2026\n\nCursor removed the versions and shut its whole marketplace while it checked the other extensions. It then rotated its keys and reopened it. It also had the attacker’s server taken offline. It has published scripts to check for and remove the backdoor.\n\nFelix Rieseberg, a member of Anthropic’s technical staff, responded in a post on X.\n\nWe’re working with Cursor on this incident, but it wasn’t a compromise of Anthropic’s systems or employee laptops. A malicious actor used access to Cursor’s marketplace to publish a tampered copy of the Claude Code extension, which we didn’t build or publish. The versions on our official channels are not affected and this only impacts Cursor users.\n\nFelix Rieseberg (@felixrieseberg) October 30, 2026\n\nThe security firm Phorion first flagged the compromise. Its co-founder and chief technology officer, Luke Roberts, told Ars Technica that the attacker reached the official distribution channel.\n\n“The malicious version 2.1.313 was posted to the official Anthropic account, effectively superseding 2.1.312,” Roberts told Ars.\n\nIndependent researcher Kevin Beaumont made the same point, Dan Goodin reported for Ars. Extensions update automatically in Cursor by default, Roberts said. Cursor has told users to move to a clean version, 2.1.314.\n\nThe malware also sent the names of up to 40 environment variables matching keys, tokens and secrets, but not their values, Phorion found. That gives the attacker a quick list of which cloud credentials sit on each machine.\n\nSupply-chain attacks on developer tools have hit npm packages this year, and researchers have warned that AI coding tools could amplify such attacks.\n\nGet the most important tech news in your inbox each week.\n\nThanks! Check your inbox to confirm your subscription.\n\nBy subscr",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-31",
+    "incident_id": "INC-20261031-378"
+  },
+  {
+    "title": "Trojanized Claude Code Extension Delivered Persistent SSH Backdoor via Cursor Marketplace",
+    "summary": "Malicious actors uploaded trojanized versions (2.1.312 and 2.1.313) of Anthropic's Claude Code VS Code extension to Cursor's marketplace. The repackaged extension contained a loader that executes on launch to establish a persistent SSH backdoor and send system telemetry to an external server. Anthropic confirmed its internal systems and official channels were not breached, as the unauthorized upload occurred via Cursor's marketplace access.",
+    "alleged_incident_date": "2026-10-29",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "deployment_and_integration",
+    "system_classification": "unclassified",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "external",
+    "root_cause_subtype": "supply_chain_attack",
+    "failure_mode": "A malicious actor gained unauthorized access to publish a repackaged AI extension on a third-party marketplace, embedding a malicious JavaScript loader that executed persistent SSH access routines upon module activation.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "minimal_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Anthropic",
+      "Cursor",
+      "Developer Community"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.98,
+      "severity": 0.92
+    },
+    "source_urls": [
+      "https://www.stepsecurity.io/blog/claude-code-extension-trojanized"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "On October 29, 2026, versions 2.1.312 and 2.1.313 of the Claude Code VS Code extension, anthropic.claude-code, were published to Cursor's VS Code Extension Marketplace for macOS and Windows carrying a malicious loader embedded in its extension.js bundle.\n\nThe malicious build is the official extension in every respect except one: extension.js carries a small self-contained loader embedded in the legitimate bundle. The malicious file (SHA-256 ecb58cb29078d9646ad1dcdbe51526f2d9cfea06be5fb2ab183e8ecc3ab6bf15, 3,692,922 bytes) is roughly 7 KB larger than the preceding clean release, and sandbox telemetry shows the payload executes under plain Node.js with no VS Code APIs: loading the extension module is enough. No Claude conversation is needed, and no package-manager lifecycle hooks are involved. This was not an Anthropic release: the build repackages the official extension, and per Cursor's notice the malicious version was not developed by Anthropic.\n\nThe Claude Code VS Code extension is Anthropic's official IDE integration. This incident involved tampered copies of versions 2.1.312 and 2.1.313 distributed through Cursor's VS Code Extension Marketplace for macOS and Windows, under the legitimate extension identifier.\n\nAccording to Anthropic, a malicious actor used access to Cursor's marketplace to publish the tampered extension. Anthropic did not build or publish it, and its systems, employee laptops, and official distribution channels were not compromised in this incident.\n\nHaving version 2.1.312 or 2.1.313 installed does not, by itself, confirm compromise. Check the download source, time window, and host indicators described below.\n\nUpdate (November 1, 2026): we recovered the malicious extension.js sample (from MalwareBazaar, hash-verified against the anchor above) and completed a full static analysis of the embedded loader. The sample was never executed; everything in this section comes from reading the recovered source, cross-checked against the sandbox telemetry already cited.\n\nThe tampering is a pure prepend. The malicious file is the clean Open-VSX 2.1.312 extension.js with a single 7,386-byte loader IIFE spliced in front: after the loader, all 3,656,941 remaining bytes are identical to the clean 2.1.312 bundle we independently downloaded (3,692,922 = 3,685,536 + 7,386 exactly). There is no second backdoor deeper in the 3.6 MB bundle, and every indicator string in the IoC table below lives inside those first 7 KB. Two further consequences: the bundle inside the \"2.1.313\" VSIX still self-identifies as version:\"2.1.312\" (the bumped number existed only in the repackaged manifest), and the attacker demonstrably worked from the official 2.1.312 build artifact.\n\nThe loader is not obfuscated at all: it is machine-minified JavaScript with plaintext constants, and the only encoding anywhere is standard base64 wrapping the tunnel private key. That is also why the fleet-sweep grep works. On load it runs six stages, each wrapped in a swallowing try/catch that records a status string instead of failing:\n\nRecovered source, key constants and tunnel loop (verbatim, reformatted for reading; strings and identifiers are unchanged from the sample):\n\nThe beacon doubles as a per-stage status report: alongside the recon fields it carries sshKey: added|present, sshd/remoteLogin state, tunnel: started|running, and persist: cron|launchd|schtasks|startup, so the operator sees, per victim, exactly which persistence mechanism took hold. Notably absent from the source: no credential values are read, no Claude or VS Code data is touched, and there is no second-stage download. The loader's entire capability is persistent SSH ingress plus a reconnaissance report; the real risk to an exposed machine is what the operator did, or could have done, through interactive access via the svc-telemetry key while the tunnel was up. Remediation guidance and the full indicator set are in the sections below.\n\nNot indicators on their own: ifconfig.me and api.ipify.org are",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-30",
+    "incident_id": "INC-20261030-379"
+  },
+  {
+    "title": "Chainalysis Security Breach Allegedly Involving AI Agent Attack",
+    "summary": "Blockchain analytics company Chainalysis suffered a cyber incident where customer communications indicated the involvement of an AI agent in the attack. The breach potentially exposed customer email interactions and highlighted emerging threats from AI-enabled threat actors.",
+    "verification_status": "alleged",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "intentional_misuse",
+    "primary_purpose": "other",
+    "root_cause_category": "external",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "Threat actors allegedly leveraged autonomous AI agents to execute a cyberattack compromising Chainalysis customer email communications.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "privacy_breach",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Chainalysis",
+      "Chainalysis customers"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.85,
+      "severity": 0.75
+    },
+    "source_urls": [
+      "https://pasqualepillitteri.it/en/news/28631/chainalysis-hacked-ai-agent-attack-customers"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMikgFBVV95cUxQd0J3alRhNGozbm55TkdxTG9Ja21FNjUwZjJUYUdpWVU5aFVXYmhVeTdlWmdvQVh6QmhWOUdKaXJYUzdybTdIQk1hbi1mQmVkTVVUOGEwMWUzRV91VlI4MDQzMnhTUF90VkhOQmJrWjFMTm1aZWJBblBzUUQ4aDVWTUJHSHllNHpRZzZGS2lwSldsdw?oc=5\" target=\"_blank\">Chainalysis hacked, customer email points to an AI agent attack</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Pasquale Pillitteri</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-30",
+    "incident_id": "INC-20261030-380"
+  },
+  {
+    "title": "Claude Code Extension Poisoned with Persistent SSH Backdoor on Cursor Marketplace",
+    "summary": "A tampered build (version 2.1.313) of Anthropic's Claude Code extension distributed via Cursor's VS Code marketplace installed a persistent SSH backdoor and exfiltrated system metadata from up to 5,000 developers' machines. The injected code established remote access tunnels, scheduled persistent tasks across OS environments, and targeted cloud credentials. Cursor removed the extension, cooperated with cloud providers to neutralize command-and-control servers, and issued cleanup instructions.",
+    "alleged_incident_date": "2026-10-29",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "deployment_and_integration",
+    "system_classification": "autonomous_agent",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "external",
+    "root_cause_subtype": "supply_chain_poisoning",
+    "failure_mode": "An external threat actor uploaded a poisoned build of an AI coding agent extension to a third-party marketplace, embedding malicious initialization scripts that bypassed standard permissions to drop SSH backdoors and exfiltrate host reconnaissance details.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Data_&_Resources",
+    "natsec_impact": true,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Cursor",
+      "Anthropic",
+      "Cursor Marketplace Users"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.helpnetsecurity.com/2026/10/30/claude-code-extension-ssh-backdoor/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "Help Net Security newsletters: Daily and weekly news, cybersecurity jobs, open source projects, breaking news – subscribe here!\n\nA tampered build of Anthropic’s Claude Code extension for VS Code-compatible editors planted an SSH backdoor on developers’ machines, researchers at macOS security firm Phorion have found.\n\nThe company spotted the malicious package, version 2.1.313, on Open VSX, an open-source marketplace for VS Code extensions run by the Eclipse Foundation. VS Code’s default extension store is Microsoft’s Visual Studio Marketplace, where no malicious version has been reported. Its terms of use limit it to Microsoft’s own products, so editors built on the open-source VS Code codebase, including Cursor and Windsurf, can’t use it and rely on Open VSX instead.\n\n“The compromised extension.js file starts with an injected immediately invoked function expression (IIFE) prepended to the minified extension bundle. The rest of the bundle looks like the standard extension, with Claude Code and VS Code strings, normal activate and deactivate exports, and UI code,” Phorion CEO Calum Hall explained.\n\n“The injected prefix pulls in standard Node.js modules (child_process, fs, os, path, http, and crypto) and executes as soon as Node loads the file, before the extension’s normal activate callback even runs. The user doesn’t need to interact with the extension for the payload to fire,” he added.\n\nOnce running, the code adds the attacker’s SSH key to the user’s authorized keys file, which would let the attacker log in as that user. It then opens an outbound SSH connection to the attacker’s server, creating a tunnel the operator can use to connect back to the victim’s machine. The tunnel keeps running after the editor is closed, and the malware retries the connection about every 60 seconds.\n\nTo survive a reboot, the malware sets up persistence on each platform. On a Mac it installs a startup file with an Apple-style name, on Linux it adds a cron entry that runs at reboot, and on Windows it tries to create a scheduled task called SysMon and falls back to the Startup folder if that fails.\n\nThe extension also reports back to the attacker’s server with the machine’s hostname, the username, operating system, home directory, working directory, Git email address and public IP address.\n\nIt sends the names of up to 40 environment variables that look like keys, tokens, passwords or AWS and GCP credentials, too. The values stay on the machine, but Hall noted that the list gives the operator an inventory of which hosts hold cloud credentials or API tokens, and which ones to go after first.\n\nThe planted key only works if the machine’s SSH service is running, and on macOS the step that turns it on often never runs.\n\nPhorion traced the problem to a faulty check. The script asks the system whether Remote Login is off without administrator rights, gets an error message in return, and skips the step that would turn SSH on.\n\nHall cautioned that the bug is no defence, since on a Mac with Remote Login already enabled, or one where the user turns it on later, the backdoor is ready to use.\n\n“The goal of this payload is long-term interactive access, and whilst the SSH backdoor bug minimises impact on macOS, the malware is still a significant threat that installs persistence and beacons host reconnaissance back to the operator,” Hall stressed.\n\nIn a security notice, Cursor said the malicious version was available in its VS Code extension marketplace for about 11 hours on October 29, 2026. At most 5,000 users were affected, and the company plans to contact them directly.\n\n“This malicious version of the extension was not developed by Anthropic,” the company stated, adding that it has no evidence other versions of the extension or the official distribution were affected.\n\nAccording to Cursor, turning on SSH requires admin rights the extension lacks on most Mac and Windows hosts, and on those machines the attacker could not have logged in through the tunnel. The com",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-30",
+    "incident_id": "INC-20261030-381"
+  },
+  {
+    "title": "Wrongful Arrest of Jason Killinger Linked to Casino Facial Recognition False Positive and Lack of Police Training",
+    "summary": "Jason Killinger was wrongfully arrested after Peppermill Casino's private facial recognition system generated a false positive match that was improperly acted upon by Reno law enforcement. Subsequent legal filings revealed high false-positive rates in the casino's biometric system and a lack of police training regarding the probabilistic nature of facial recognition matches. A Reno police detective later reviewed footage and confirmed Killinger was not the suspect, prompting lawsuits over improper training, overreliance on technology, and civil rights violations.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "biometric_identification",
+    "intent": "unintentional_failure",
+    "primary_purpose": "biometric_surveillance",
+    "root_cause_category": "governance",
+    "root_cause_subtype": "inadequate_training_and_overreliance",
+    "failure_mode": "Law enforcement and casino security relied on automated high-confidence facial recognition alerts as definitive proof of identity without necessary corroborating evidence or adequate officer training, leading to a wrongful arrest.",
+    "harm_domain": "persons_rights",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "GOVERN",
+    "iso_42001_category": "Data_&_Resources",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Jason Killinger",
+      "Reno Police Department",
+      "Peppermill Casino"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.biometricupdate.com/202610/reno-pd-liability-in-facial-recognition-arrest-lawsuit-comes-down-to-training"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "A lawsuit alleging that facial recognition was improperly used in the arrest of an individual in Reno, Nevada has led to claims of a pattern of inadequate training, overreliance on technology owned and operated by the private sector and a lack of transparency.\n\nAttorneys for Jason Killinger have filed a motion for partial summary judgement that the city of Reno is liable for wrongful arrest with U.S. District Court Judge Miranda Du. Newly filed evidence makes a jury trial unnecessary, they say.\n\nCourt records show a Reno detective was ordered not to write a report on her conclusion that a fellow officer’s arrest of Killinger was wrongful, according to one in an excellent series of articles by This is Reno on the incident.\n\nFurther, a sworn declaration filed by a former security officer at the Peppermill Casino says up to half of the facial recognition alerts sent to staff during his shifts were false positives, This is Reno reports. The casino’s security director testified in court that the system’s false positive rate was around 10 percent. The security guard says it was closer to 50 percent, sufficient to cause regular joking amongst employees.\n\nHe relates an incident in which a casual manual review revealed that a match flagged with 99.7 percent or higher confidence was a false positive. The former security officer also described minimal training on the technology, with frequent policy changes and no discussion of the Killinger case.\n\nWhat he did receive, he says, are up to a dozen false positives a day with 100 percent similarity scores, sometimes with no physical resemblance, reports Casino.org. Security guards at the casino were under constant pressure to make arrests based on alerts, according to the  testimony.\n\nThe casino has already settled a lawsuit with Killinger.\n\nKillinger’s representatives have also retained a policing expert, who argues in a report that even if he was correctly confirmed as an individual with a trespass notice from the casino, the arrest would still have violated Nevada law.\n\nThe arrest was forwarded to the city prosecutor’s office, but an attorney there referred the case to the Reno detective after being unable to confirm Killinger was the person Peppermill Casino’s facial recognition had matched him with.\n\nDetective Monique Sheahan viewed bodycam footage of the person who had been issued the trespass notice and observed that he and Killinger are different people. She did not find evidence of a criminal conspiracy involving an employee at the Nevada DMV which the arresting officer had mooted as a possibility for why he possessed a Real ID driver’s license identifying him as a different person than the one he was suspected of being.\n\nAn amicus curiae (friends of the court) brief from the ACLU and the Innocence Project makes multiple contentious or questionable claims.\n\nThey argue because facial recognition algorithms differ from each other, they may return “very different measures of similarity.” Results from assessments like NIST’s FRTE and production deployments at airports around the world indicate that algorithms only return vastly different results from the best-performing algorithms if they are relatively inaccurate.\n\nBut the groups are uncontroversially correct that no matter how accurate face biometrics algorithms are, they are probabilistic, rather than deterministic, and therefore do not qualify as stand-alone evidence. The similarity scores represent a degree of apparent sameness, the brief notes, not a probability of identification as such.\n\nThe ACLU and Innocence Project also point out that human review adds further risk of error, and that “the necessary corroboration was wholly absent here.”\n\nThe lack of training that makes these points clear to police officers, they say, makes the city liable.\n\nACLU  |  biometric matching  |  biometrics  |  facial recognition  |  law enforcement  |  lawsuits  |  Nevada\n\nCross-border digital ID is advancing rapidly in terms of biometrics and crypt",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-14",
+    "incident_id": "INC-20261014-382"
+  },
+  {
+    "title": "State Attorneys General Intervene in Character.AI Bankruptcy Over Safety and Privacy Violations",
+    "summary": "A coalition of 40 state attorneys general, led by Wisconsin, filed a notice in the Character.AI bankruptcy proceedings to demand strict child safety and privacy protections during asset sales. The regulatory action follows investigations and a 2024 wrongful death lawsuit alleging that the company's chatbots engaged in emotionally exploitative relationships with minors, contributing to a youth suicide, while harvesting sensitive personal and mental health data.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "governance",
+    "root_cause_subtype": "inadequate_guardrails",
+    "failure_mode": "Character.AI's conversational AI platform lacked sufficient guardrails to prevent harmful, emotionally exploitative interactions with minor users and failed to adequately protect sensitive personal mental health data collected during user sessions.",
+    "harm_domain": "persons_mental",
+    "harm_type": "psychological_harm",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "GOVERN",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Character Technologies Inc.",
+      "Minors and general users of Character.AI"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.wkow.com/news/wisconsin-doj-joins-coalition-pushing-for-child-safety-protections-in-character-ai-bankruptcy/article_f8eea9a4-5d0d-41fe-8578-707dcfacea70.html"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "MADISON (WKOW) —  The Wisconsin Department of Justice is joining 39 other states in filing a notice in the bankruptcy proceedings of Character Technologies Inc., the company behind the chatbot platform Character.AI, citing serious concerns about safety and privacy practices.\n\n\"Companies that gather sensitive personal data must protect that data,\" said Attorney General Josh Kaul. \"Companies with AI chatbots must ensure that they have adequate protections in place for users' safety and privacy.\"\n\nCharacter.AI is an artificial intelligence chatbot platform that allows users to interact with AI-powered chatbot \"characters\" designed to mimic human conversation and relationships. These characters include fictional and celebrity personas, children's cartoon characters and others that present themselves as psychologists, therapists and doctors.\n\nThrough chats with these characters, the company has collected sensitive consumer data, including private conversations about users' mental health, relationships and emotional struggles.\n\nSeveral states, including Wisconsin, began investigating Character.AI following a 2024 wrongful death lawsuit alleging that its chatbots fostered an emotionally and sexually exploitative relationship with a child, reinforced his suicidal thoughts and contributed to his death by suicide. The states' investigation identified potential consumer protection and privacy violations.\n\nThe states' filing highlights the significant volume of sensitive consumer information held by Character.AI, including private chatbot conversations involving children and adults. It identifies privacy and safety protections that should be addressed in any sale or transfer of the company's business or assets.\n\nAlthough Character.AI recently took voluntary steps to restrict minors' access to certain chatbot features, the states have raised concerns that these measures are incomplete, could be circumvented or reversed by a future purchaser and are not compulsory.\n\nWisconsin and the other states intend to remain actively engaged in the bankruptcy proceedings to protect consumers and address outstanding regulatory concerns. The states have reserved their rights to challenge any proposed sale or bankruptcy plan and to seek additional protections for consumers' personal information.\n\nJoining Wisconsin DOJ on the court filing are the attorneys general of Alaska, Arkansas, California, Colorado, Connecticut, Delaware, the District of Columbia, Georgia, Hawaii, Idaho, Illinois, Indiana, Kansas, Kentucky, Louisiana, Maine, Massachusetts, Michigan, Minnesota, Mississippi, Nevada, New Hampshire, New Jersey, New York, North Carolina, North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina, South Dakota, Tennessee, Utah, Vermont, Virginia, Washington and West Virginia.\n\nSend breaking news tips to news@wkow.com.\n\nChad Thompson was hired as the Digital Content Manager at WKOW\nin July of 2023. Thompson came to southern Wisconsin from Des\nMoines, Iowa, where he worked as a Digital Editor at KCCI 8 News.\nHe began his career in journalism as a reporter for a daily\nnewspaper in central Iowa. Download the\n27 New Now app and 27 Storm Track app here\n\nChad Thompson was hired as the Digital Content Manager at WKOW\nin July of 2023. Thompson came to southern Wisconsin from Des\nMoines, Iowa, where he worked as a Digital Editor at KCCI 8 News.\nHe began his career in journalism as a reporter for a daily\nnewspaper in central Iowa. Download the\n27 New Now app and 27 Storm Track app here",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-16",
+    "incident_id": "INC-20261016-383"
+  },
+  {
+    "title": "AI Lawsuit Investigation into Chatbot Conversations Causing Harm",
+    "summary": "Top Class Actions initiated a legal investigation into potential lawsuits stemming from AI chatbot conversations that resulted in serious user harm. The investigation examines legal liabilities surrounding conversational AI systems when interactions lead to negative psychological, mental, or physical consequences for users.",
+    "verification_status": "alleged",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "undetermined",
+    "root_cause_subtype": "harmful conversational outputs",
+    "failure_mode": "Generative AI chatbots produced harmful responses or interactions during user conversations, resulting in potential legal action and investigations into user harm.",
+    "harm_domain": "persons_mental",
+    "harm_type": "psychological_harm",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "GOVERN",
+    "iso_42001_category": "Internal_Governance",
+    "natsec_impact": false,
+    "temporality": "potential",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "AI Chatbot Users",
+      "Conversational AI Developers"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.85,
+      "severity": 0.75
+    },
+    "source_urls": [
+      "https://topclassactions.com/lawsuit-settlements/investigations/ai-negligence-class-action-lawsuit/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMinwFBVV95cUxPN2xrWEp2Sy1MQlJtcHAtWnVxYjcyR2RCME0yNUZHcW94NnJSakxvWHZiSnIyWkNQdlZFTGhBZjZ5WGduMGhBeXVTY2V3R1VvemFhaDIxdUxRV2VqWkVSVVJpLXNTQVUzY1RGalBwZDJWQUFXcTdBOVVvWmo3Y1BUQWdhMjJ5cU1PcXpISkRRTzJSWTkxVkFnNmE1VXNNdEE?oc=5\" target=\"_blank\">AI lawsuit investigation: When chatbot conversations lead to serious harm</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Top Class Actions</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-05",
+    "incident_id": "INC-20261005-384"
+  },
+  {
+    "title": "Lawsuit Alleges ChatGPT Provided Unsafe Medical Tapering Advice Leading to Fatal Seizure",
+    "summary": "The family of 31-year-old Bowen Wan filed a wrongful death lawsuit against OpenAI, alleging that ChatGPT generated a dangerous day-by-day tapering schedule for her anti-seizure medication, which led to her death from a fatal seizure. The lawsuit claims OpenAI promoted ChatGPT as a provider of medical advice and rushed product deployment while neglecting adequate safety guardrails.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "model",
+    "root_cause_subtype": "hallucination",
+    "failure_mode": "ChatGPT provided dangerous medical advice by generating an unvetted tapering schedule for prescription anti-seizure medication and encouraging secrecy from medical professionals, resulting in fatal physical harm.",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MEASURE",
+    "iso_42001_category": "Internal_Governance",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "critical",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Bowen Wan",
+      "Family of Bowen Wan"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 1.0
+    },
+    "source_urls": [
+      "https://komonews.com/news/local/openai-chapgpt-medical-advice-ai-chatbot-anti-seizure-medication-amazon-lawsuit-capitol-hill-apartment-doctor-patient-relationship-tech-epilepsy-companies-online-safety"
+    ],
+    "source_type": "gdelt",
+    "full_text": "WASHINGTON STATE (KOMO)  — A family is suing OpenAI, claiming ChatGPT contributed to their daughter’s death after she sought medical advice from the AI chatbot.\n\nThe family of Bowen Wan says the 31-year-old turned to ChatGPT for advice on how to wean herself off anti-seizure medication, which ultimately led to her death. Wan was diagnosed with epilepsy as a teen and had relied on medication to manage her seizures for years.\n\nIn a wrongful death lawsuit, the family says turning to ChatGPT for help cost their daughter her life.\n\nThe lawsuit says that in January, Wan had just been laid off from her job at Amazon and was under pressure to find a new role to remain in the United States.\n\nRELATED | Study: 1 in 5 teens use AI for mental health advice, psychiatrist warns of risks\n\nSide effects from her anti-seizure medication affected her ability to speak and think clearly during potential job interviews, so she turned to ChatGPT for help tapering off the medication. Weeks later, she was found dead of an apparent seizure in her Capitol Hill apartment.\n\nThe lawsuit alleges ChatGPT “designed the day-by-day schedule that took her off the anti-seizure medication keeping her alive and directed her to hide the taper from the physicians who could have stopped it.”\n\nAttorneys for the Wan family also allege the chatbot told Wan, “You are no longer someone who needs medication to hold them up.”\n\n“AI is not here to replace your doctor, replace your lover, replace your psychiatrist, replace your lawyer, and this was really recklessness of this design decision to think that they could design something that would emulate or replace something as central as the doctor-patient relationship,” Matthew Bergman, who represents the Wan family, said.\n\nBergman also pointed to how OpenAI presents its product.\n\n“ChatGPT lauds itself and promotes itself as a provider of medical information,” Bergman said. “Its own documents, its own website talks about how it can provide medical information, so I think relying on their own corporate representations, I don’t think is unduly unreasonable.”\n\nALSO SEE | New lawsuits accuse OpenAI's ChatGPT of 'acting as a suicide coach'\n\n“When a company affirmatively promotes itself to the public as a reputable provider of medical advice and medical information, I don’t think it’s unreasonable to take them at their word,” he added.\n\nThe lawsuit also alleges OpenAI cut corners on safety by rushing product testing to beat the competition.\n\nRoberts specializes in online safety and AI. She said these types of cases lack precedent, but courts have recently been siding with plaintiffs rather than tech companies.\n\n“They don’t want to be regulated. They want to be left to self-regulate, and I think what these cases have shown is that clearly they cannot be trusted to do this alone,” Roberts said. “We need to have some guardrails, and if we don’t organize, I’m afraid we’re going to see more tragic results, like the death of this young woman.”\n\nEight states, including Idaho, Arizona and Montana, have also sued OpenAI, alleging the company misleads parents about ChatGPT’s safety.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-29",
+    "incident_id": "INC-20261029-385"
+  },
+  {
+    "title": "Hackers Trick Public AI Models and Agents into Breaching Systems in Seconds",
+    "summary": "Research from cybersecurity firm CrowdStrike shows attackers are using prompt manipulation and social engineering to trick AI agents—including Claude, ChatGPT, and DeepSeek—into providing unauthorized access to confidential systems. The report noted that agent-led attacks increased by 89% over the past year, targeting government and commercial data globally due to weak access verification safeguards in deployed AI assistants.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "external",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "AI agents and coding assistants fail to authenticate authorization claims made by users, allowing adversarial prompt manipulation and social engineering to bypass built-in safety controls.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "privacy_breach",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": true,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "Australia",
+      "China",
+      "Russia"
+    ],
+    "affected_parties": [
+      "CrowdStrike",
+      "Anthropic",
+      "OpenAI",
+      "DeepSeek"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.centralwesterndaily.com.au/story/9381256/are-you-an-idiot-ai-models-give-secrets-in-seconds/"
+    ],
+    "source_type": "gdelt",
+    "full_text": "Online cyber attackers are now able to access secret information in less than a minute by abusing publicly available artificial intelligence models.\n\nHuman, technology-aided hackers are tricking AI agents into accessing sites in as little as 27 seconds, research from global cybersecurity company CrowdStrike has revealed.\n\nThe attack time could get as low as zero seconds in the coming months.\n\nMost ready-to-use AI systems have safeguards in place to stop hackers from taking control and operating illegally, but CrowdStrike found it was relatively easy for hackers to trick them into believing they were acting lawfully.\n\nThat was done by sending a series of commands to the AI systems like Claude, ChatGPT and DeepSeek that implied the hacker had permission to access the data.\n\nClaude's coding assistant generally let people into systems without verifying the information given.\n\nIn one example found by CrowdStrike, Claude asked if it was allowed to break into a site, and the human replied: \"Are you an idiot? ... This is MY (system)\", before claiming they were the site's developer.\n\nIn many cases, AI agents were used together to share information from private and government systems globally, CrowdStrike's report, supplied exclusively to AAP, showed.\n\nThe agent-led hacks grew by 89 per cent last year and are now outpacing human attacks by more than double, leading CrowdStrike to call for a security crackdown on AI, rather than trying to slow its progression.\n\nIn one case, an AI model sent more than 200,000 requests in under two minutes.\n\nAmong the major targeted sites so far in 2026 were government and e-commerce entities targeted by a Chinese-speaking actor, and Russian government data, but Australian data is not immune from the threat.\n\nBe the first to know when news breaks.\n\nGrab a quick bite of today's latest news from around the region and the nation.\n\nCatch up on the news of the day and unwind with great reading for your evening.\n\nToday's top stories curated by our news team. Also includes evening update.\n\nYour digital replica of Today's Paper. Ready to read from 5am!\n\nSharp. Close to the ground. Digging deep. Your weekday morning newsletter on national affairs, politics and more.\n\nEvery Saturday and Tuesday, explore destinations deals, tips & travel writing to transport you around the globe.\n\nYour essential national news digest: all the big issues on Wednesday and great reading every Saturday.\n\nGet news, reviews and expert insights every Thursday from CarGuide, ACM's exclusive motoring partner.\n\nReal local, smart property news for regional Australia\n\nTest your skills with interactive crosswords, sudoku & trivia. Fresh daily!\n\nStay in the know on news that matters to you with twice weekly newsletters from The Senior.\n\nThe latest news, results & expert analysis.\n\nGet real, Australia! Let the ACM network's editors and journalists bring you news and views from all over.\n\nGet the editor's insights: what's happening & why it matters.\n\nGoing out or staying in? Find out what's on.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-28",
+    "incident_id": "INC-20261028-386"
   }
 ]
