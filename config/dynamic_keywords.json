@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Adaptive dynamic keyword pool learned from validated AI incidents. Automatically maintained with daily decay and TTL.",
-    "last_updated": "2026-11-01",
+    "last_updated": "2026-11-02",
     "decay_rate_daily": 0.05,
     "min_weight_threshold": 0.2,
     "max_ttl_days": 21,
@@ -13,65 +13,65 @@
         "term": "Anthropic",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 6,
+        "hit_count": 8,
         "first_seen": "2026-10-28",
-        "last_hit": "2026-11-01"
+        "last_hit": "2026-11-02"
       },
       {
         "term": "Cursor",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 3,
+        "hit_count": 7,
         "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "Government Agencies",
-        "type": "subject",
-        "weight": 0.857,
-        "hit_count": 4,
-        "first_seen": "2026-10-26",
-        "last_hit": "2026-10-30"
-      },
-      {
-        "term": "unauthorized attacker compromised",
+        "term": "Malicious actors published",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "distribution pipeline",
+        "term": "poisoned extension package",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "Cursor extension",
+        "term": "impersonating Claude Code",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "publishing malicious",
+        "term": "third-party marketplace",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "Claude Code",
+        "term": "embedded JavaScript loader",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
+      },
+      {
+        "term": "attempted",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       }
     ],
     "autonomous_agents_cyber": [
@@ -79,72 +79,72 @@
         "term": "Anthropic",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 2,
+        "hit_count": 3,
         "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "Chainalysis",
-        "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
-      },
-      {
-        "term": "Chainalysis customers",
-        "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
-      },
-      {
-        "term": "Threat actors allegedly",
+        "term": "utilized",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "leveraged autonomous",
+        "term": "external team",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "customer email communications",
+        "term": "discover and exploit",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "Cursor",
+        "term": "gaining unauthorized access",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
+      },
+      {
+        "term": "internal corporate communications",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
+      },
+      {
+        "term": "administrative",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
+      },
+      {
+        "term": "Dallas Fire Department",
         "type": "subject",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
-      },
-      {
-        "term": "Cursor Marketplace",
-        "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       }
     ],
     "biometrics_police_surveillance": [
       {
         "term": "Jason Killinger",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-01",
         "last_hit": "2026-11-01"
@@ -152,7 +152,7 @@
       {
         "term": "Reno Police Department",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-01",
         "last_hit": "2026-11-01"
@@ -160,7 +160,7 @@
       {
         "term": "Peppermill Casino",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-01",
         "last_hit": "2026-11-01"
@@ -168,7 +168,7 @@
       {
         "term": "Law enforcement",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-01",
         "last_hit": "2026-11-01"
@@ -176,7 +176,7 @@
       {
         "term": "casino security relied",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-01",
         "last_hit": "2026-11-01"
@@ -184,7 +184,7 @@
       {
         "term": "automated high-confidence facial",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-01",
         "last_hit": "2026-11-01"
@@ -192,7 +192,7 @@
       {
         "term": "recognition alerts",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-01",
         "last_hit": "2026-11-01"
@@ -200,7 +200,7 @@
       {
         "term": "definitive proof",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-01",
         "last_hit": "2026-11-01"
@@ -210,7 +210,7 @@
       {
         "term": "California Highway Patrol",
         "type": "subject",
-        "weight": 0.624,
+        "weight": 0.508,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -218,7 +218,7 @@
       {
         "term": "CHP Officers",
         "type": "subject",
-        "weight": 0.624,
+        "weight": 0.508,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -226,7 +226,7 @@
       {
         "term": "vehicle",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.508,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -234,7 +234,7 @@
       {
         "term": "automated driving",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.508,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -242,7 +242,7 @@
       {
         "term": "detect and avoid",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.508,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -250,7 +250,7 @@
       {
         "term": "moving police vehicle",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.508,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -258,7 +258,7 @@
       {
         "term": "while the human",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.508,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -266,7 +266,7 @@
       {
         "term": "driver fell asleep",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.508,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -274,134 +274,134 @@
     ],
     "multimodal_media_deepfakes": [
       {
-        "term": "Sherrod Brown",
+        "term": "Researchers",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-31",
-        "last_hit": "2026-10-31"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "James Talarico",
-        "type": "subject",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-10-31",
-        "last_hit": "2026-10-31"
-      },
-      {
-        "term": "Haya Akbik",
-        "type": "subject",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-10-31",
-        "last_hit": "2026-10-31"
-      },
-      {
-        "term": "Malicious foreign actors",
+        "term": "Large language",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-31",
-        "last_hit": "2026-10-31"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "generative",
+        "term": "exhibit sycophancy",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-31",
-        "last_hit": "2026-10-31"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "manipulation",
+        "term": "reliably detect errors",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-31",
-        "last_hit": "2026-10-31"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "synthesize deepfakes",
+        "term": "answering engineering",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-31",
-        "last_hit": "2026-10-31"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "fake video reports",
+        "term": "statics problems",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-10-31",
-        "last_hit": "2026-10-31"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
+      },
+      {
+        "term": "uncritical validation",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
+      },
+      {
+        "term": "erroneous inputs",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       }
     ],
     "social_chatbots_harm_governance": [
       {
-        "term": "Character Technologies Inc",
+        "term": "Bowen Wan",
         "type": "subject",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "platform lacked sufficient",
+        "term": "OpenAI",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
+      },
+      {
+        "term": "ChatGPT generated",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "prevent harmful",
+        "term": "schedule instructing",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "minor",
+        "term": "epilepsy",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "failed",
+        "term": "taper off life-preserving",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "adequately protect sensitive",
+        "term": "anti-seizure medication",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       },
       {
-        "term": "personal mental health",
+        "term": "advised her",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
-      },
-      {
-        "term": "collected during",
-        "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-02",
+        "last_hit": "2026-11-02"
       }
     ]
   }

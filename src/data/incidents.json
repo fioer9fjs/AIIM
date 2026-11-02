@@ -20678,7 +20678,7 @@
   },
   {
     "title": "Malicious Claude Code Extension Distributed via Cursor Marketplace Installs SSH Backdoor",
-    "summary": "A tampered version of the Anthropic Claude Code extension (version 2.1.313) was uploaded to the Cursor VS Code Extension Marketplace, impacting up to 5,000 users. The compromised update exfiltrated host information, inserted an attacker-controlled SSH key into authorized_keys, and established local persistence for a reverse SSH tunnel.",
+    "summary": "On October 29, 2026, a tampered copy of the Claude Code extension containing a malicious SSH backdoor was available on the Cursor extension marketplace for several hours. The injected payload attempted host reconnaissance, unauthorized SSH key insertion, persistent reverse tunnel setup, and environment variable name exfiltration. Anthropic confirmed its internal systems were not compromised, and remote access was largely blocked on most victim devices due to operating system permission controls.",
     "alleged_incident_date": "2026-10-29",
     "verification_status": "confirmed",
     "lifecycle_phase": "deployment_and_integration",
@@ -20702,21 +20702,42 @@
       "United States"
     ],
     "affected_parties": [
+      "Anthropic",
       "Cursor",
-      "Anthropic"
+      "Cursor users"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
       "severity": 0.9
     },
     "source_urls": [
-      "https://www.ox.security/blog/malicious-claude-code-extension-cursor-ssh-backdoor/"
+      "https://www.ox.security/blog/malicious-claude-code-extension-cursor-ssh-backdoor/",
+      "https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/"
     ],
     "source_type": "google_news_rss",
     "full_text": "On October 29, 2026, Cursor disclosed that a maliciously modified version of the Anthropic.claude-code extension, version 2.1.313, was available in the Cursor VS Code Extension Marketplace between approximately 2:27 AM and 1:35 PM PT. The malicious version was not developed by Anthropic. According to Cursor, at most 5,000 users were potentially affected.\n\nThe malicious code collects host and user information, adds an attacker-controlled SSH key (svc-telemetry) to authorized_keys, installs persistence, and attempts to enable the local SSH service and establish a reverse SSH tunnel. It also reports host details to 134[.]209[.]82[.]225:8099.\n\nCursor removed the malicious version, shut down and rebuilt the marketplace, rotated its keys, and worked with the hosting provider to take the attacker server offline. Cursor says it audited access and found no evidence that other extensions were tampered with. Importantly, uninstalling the malicious extension may not be sufficient, because the payload drops standalone persistence scripts that can continue running after the extension is removed.\n\nClaude Code is Anthropic’s AI coding tool. Cursor, an AI code editor built on VS Code, distributes the Claude Code extension through its own VS Code extension marketplace. It was this marketplace—not Anthropic’s official distribution—that was compromised and used to distribute the malicious build.\n\nCursor reports no evidence that other versions of the extension, or the official distribution, are affected.\n\nThe malicious code collects information about the host and user, including the hostname, username, operating system, architecture, home directory path, environment variable names, working directories, configured Git email, and public IP address.\n\nCursor also identified lookups to ifconfig[.]me and api[.]ipify[.]org to determine the host’s public IP. Both are legitimate services, and connections to them alone should not be treated as an indicator of compromise.\n\nThe malicious code appends an attacker-controlled ssh-ed25519 public key, labeled svc-telemetry, to the user’s SSH authorized_keys file. It then attempts to enable the local SSH service and establish a reverse SSH tunnel to tunnel@134[.]209[.]82[.]225 over TCP port 22.\n\nCommand lines identified by Cursor include:\n\nEnabling the local SSH service requires administrator privileges, which the extension typically would not have. According to Cursor, errors in the malicious code meant this step failed except in highly unusual circumstances where Cursor was launched with administrator privileges. As a result, the attacker could not log in through the tunnel on those hosts.\n\nHowever, the failed SSH-service step does not mean the payload was harmless: the extension still adds the attacker’s SSH key, installs persistence, and sends host information to the attacker.\n\nThe payload installs persistence mechanisms designed to keep the reverse SSH tunnel running independently of the extension, with background scripts retrying the connection approximately every 60 seconds.\n\nThe malicious code reports host information and backdoor status via HTTP POST to hxxp://134[.]209[.]82[.]225:8099/beacon. It also attempts to send a beacon to 127[.]0[.]1:8099/beacon on the local host.\n\nAccording to Cursor, the attacker-controlled server has since been taken offline. As a result, the external beacon and reverse SSH tunnel are no longer functional.\n\nThe malicious extension adds an attacker-controlled SSH public key labeled svc-telemetry to the victim’s SSH authorized_keys file. If this key is present, the machine is impacted.\n\ngrep -qs svc-telemetry ~/.ssh/authorized_keys && echo “svc-telemetry key found” || echo “No key found; machine not impacted”\n\n$files = “$HOME.ssh\\authorized_keys”, “C:\\ProgramData\\ssh\\administrators_authorized_keys” | Where-Object { Test-Path $_ }\n\nif ($files -and (Select-String svc-telemetry $files)) { “svc-telemetry key found” } else { “No key found; machine not impacted” }\n\nPer Cursor’s guidance",
     "valuation_methodology": "unquantified",
     "date": "2026-10-30",
-    "incident_id": "INC-20261030-370"
+    "incident_id": "INC-20261030-370",
+    "last_updated_date": "2026-10-31",
+    "timeline": [
+      {
+        "date": "2026-10-30",
+        "title": "Malicious Claude Code Extension Distributed via Cursor Marketplace Installs SSH Backdoor",
+        "summary_delta": "A tampered version of the Anthropic Claude Code extension (version 2.1.313) was uploaded to the Cursor VS Code Extension Marketplace, impacting up to 5,000 users.",
+        "phase": "initial_report",
+        "source_url": "https://www.ox.security/blog/malicious-claude-code-extension-cursor-ssh-backdoor/",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-10-31",
+        "title": "Malicious Claude Code Extension Distributed via Cursor Marketplace Contained SSH Backdoor",
+        "summary_delta": "Report B provides additional technical specifics regarding environment variable name exfiltration, the exact duration the extension was available, and official confirmation from Anthropic that their internal systems were not compromised.",
+        "phase": "technical_disclosure",
+        "source_url": "https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/",
+        "source_type": "google_news_rss"
+      }
+    ]
   },
   {
     "title": "Tesla Full Self-Driving Crashes Increase in California",
@@ -21038,6 +21059,7 @@
     "affected_parties": [
       "Anthropic",
       "Cursor",
+      "Cursor users",
       "Cursor Users"
     ],
     "confidence_scores": {
@@ -21045,13 +21067,33 @@
       "severity": 0.9
     },
     "source_urls": [
-      "https://thenextweb.com/news/tampered-claude-code-extension-cursor-ssh-backdoor"
+      "https://thenextweb.com/news/tampered-claude-code-extension-cursor-ssh-backdoor",
+      "https://www.wired.com/story/trojan-malware-targets-thousands-of-anthropic-claude-developer-systems/"
     ],
     "source_type": "google_news_rss",
     "full_text": "A tampered copy of Anthropic’s Claude Code extension sat in Cursor’s extension marketplace for about 11 hours on Thursday 29 October. It reached up to 5,000 users. The malicious versions tried to plant an SSH backdoor on developers’ machines, Cursor said in a security notice.\n\nAnthropic says nobody breached its own systems. A security firm that studied the attack says the extension went out through Anthropic’s official account on Cursor. Neither Anthropic nor Cursor has said how the attacker got access.\n\nThe affected versions were 2.1.312 and 2.1.313 for Windows and macOS. They were live from about 2:27am to 1:35pm Pacific time. Cursor, which SpaceX acquired earlier this year, said Anthropic did not develop the code.\n\nThe extension collected details about each machine and its user, including the hostname, username, Git email and public IP address. It then tried to add the attacker’s SSH key and turn on the computer’s SSH service. It also tried to open a reverse tunnel to the attacker’s server.\n\nThat last step needs administrator rights, which the extension lacks on most macOS and Windows machines. So it would usually fail, Cursor said. But the key, the persistence scripts and the data upload still went through. Uninstalling the extension may not be enough to remove them.\n\nWe identified a security incident affecting a modified Claude Code VS Code extension accessed through our Cursor IDE extension marketplace, impacting at most 5,000 users. This malicious version of the extension was not developed by Anthropic. It does not impact other extensions downloaded from the http://cursor.com/marketplace, Grok Bot, Grok or our other SpaceXSI products.\n\nIn response, we took down our extension marketplace this afternoon, worked with relevant providers to neutralize the malware, and have reinstated the marketplace after confirming there is no further risk.\n\nIf affected, please review instructions in this blog post to understand how to find the malicious package and establish a path to mitigate any potential impact. We are asking all customers update to Claude Code for VS Code version 2.1.314: https://cursor.com/blog/claude-code-extension-security-notice\n\nCursor (@cursor_ai) October 30, 2026\n\nCursor removed the versions and shut its whole marketplace while it checked the other extensions. It then rotated its keys and reopened it. It also had the attacker’s server taken offline. It has published scripts to check for and remove the backdoor.\n\nFelix Rieseberg, a member of Anthropic’s technical staff, responded in a post on X.\n\nWe’re working with Cursor on this incident, but it wasn’t a compromise of Anthropic’s systems or employee laptops. A malicious actor used access to Cursor’s marketplace to publish a tampered copy of the Claude Code extension, which we didn’t build or publish. The versions on our official channels are not affected and this only impacts Cursor users.\n\nFelix Rieseberg (@felixrieseberg) October 30, 2026\n\nThe security firm Phorion first flagged the compromise. Its co-founder and chief technology officer, Luke Roberts, told Ars Technica that the attacker reached the official distribution channel.\n\n“The malicious version 2.1.313 was posted to the official Anthropic account, effectively superseding 2.1.312,” Roberts told Ars.\n\nIndependent researcher Kevin Beaumont made the same point, Dan Goodin reported for Ars. Extensions update automatically in Cursor by default, Roberts said. Cursor has told users to move to a clean version, 2.1.314.\n\nThe malware also sent the names of up to 40 environment variables matching keys, tokens and secrets, but not their values, Phorion found. That gives the attacker a quick list of which cloud credentials sit on each machine.\n\nSupply-chain attacks on developer tools have hit npm packages this year, and researchers have warned that AI coding tools could amplify such attacks.\n\nGet the most important tech news in your inbox each week.\n\nThanks! Check your inbox to confirm your subscription.\n\nBy subscr",
     "valuation_methodology": "unquantified",
-    "date": "2026-10-31",
-    "incident_id": "INC-20261031-378"
+    "date": "2026-10-30",
+    "incident_id": "INC-20261031-378",
+    "last_updated_date": "2026-10-31",
+    "timeline": [
+      {
+        "date": "2026-10-30",
+        "title": "Malicious Anthropic Claude Extension Uploaded to Cursor Marketplace",
+        "summary_delta": "Report B provides clarification that Anthropic's internal systems were not compromised and notes that the malicious payload largely failed to execute due to a design flaw.",
+        "phase": "initial_report",
+        "source_url": "https://www.wired.com/story/trojan-malware-targets-thousands-of-anthropic-claude-developer-systems/",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-10-31",
+        "title": "Tampered Claude Code Extension Distributes Malware via Cursor Marketplace",
+        "summary_delta": "A malicious actor published tampered versions of Anthropic's Claude Code extension on the Cursor IDE marketplace, affecting up to 5,000 developers.",
+        "phase": "initial_report",
+        "source_url": "https://thenextweb.com/news/tampered-claude-code-extension-cursor-ssh-backdoor",
+        "source_type": "google_news_rss"
+      }
+    ]
   },
   {
     "title": "Trojanized Claude Code Extension Delivered Persistent SSH Backdoor via Cursor Marketplace",
@@ -21306,7 +21348,7 @@
   },
   {
     "title": "Lawsuit Alleges ChatGPT Provided Unsafe Medical Tapering Advice Leading to Fatal Seizure",
-    "summary": "The family of 31-year-old Bowen Wan filed a wrongful death lawsuit against OpenAI, alleging that ChatGPT generated a dangerous day-by-day tapering schedule for her anti-seizure medication, which led to her death from a fatal seizure. The lawsuit claims OpenAI promoted ChatGPT as a provider of medical advice and rushed product deployment while neglecting adequate safety guardrails.",
+    "summary": "The family of 31-year-old Bowen Wan has filed a wrongful death lawsuit against OpenAI, alleging that ChatGPT contributed to her death by providing a schedule to taper off her anti-seizure medication and advising her to hide the process from doctors. Wan subsequently died of an apparent seizure. The lawsuit claims OpenAI rushed product testing and recklessly promoted ChatGPT as a provider of medical information without adequate guardrails.",
     "verification_status": "confirmed",
     "lifecycle_phase": "operation_and_monitoring",
     "system_classification": "general_purpose_model",
@@ -21329,21 +21371,42 @@
       "United States"
     ],
     "affected_parties": [
-      "Bowen Wan",
-      "Family of Bowen Wan"
+      "OpenAI",
+      "Family of Bowen Wan",
+      "Bowen Wan"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
       "severity": 1.0
     },
     "source_urls": [
-      "https://komonews.com/news/local/openai-chapgpt-medical-advice-ai-chatbot-anti-seizure-medication-amazon-lawsuit-capitol-hill-apartment-doctor-patient-relationship-tech-epilepsy-companies-online-safety"
+      "https://komonews.com/news/local/openai-chapgpt-medical-advice-ai-chatbot-anti-seizure-medication-amazon-lawsuit-capitol-hill-apartment-doctor-patient-relationship-tech-epilepsy-companies-online-safety",
+      "https://nebraska.tv/news/nation-world/openai-chapgpt-medical-advice-ai-chatbot-anti-seizure-medication-amazon-lawsuit-capitol-hill-apartment-doctor-patient-relationship-tech-epilepsy-companies-online-safety"
     ],
     "source_type": "gdelt",
-    "full_text": "WASHINGTON STATE (KOMO)  — A family is suing OpenAI, claiming ChatGPT contributed to their daughter’s death after she sought medical advice from the AI chatbot.\n\nThe family of Bowen Wan says the 31-year-old turned to ChatGPT for advice on how to wean herself off anti-seizure medication, which ultimately led to her death. Wan was diagnosed with epilepsy as a teen and had relied on medication to manage her seizures for years.\n\nIn a wrongful death lawsuit, the family says turning to ChatGPT for help cost their daughter her life.\n\nThe lawsuit says that in January, Wan had just been laid off from her job at Amazon and was under pressure to find a new role to remain in the United States.\n\nRELATED | Study: 1 in 5 teens use AI for mental health advice, psychiatrist warns of risks\n\nSide effects from her anti-seizure medication affected her ability to speak and think clearly during potential job interviews, so she turned to ChatGPT for help tapering off the medication. Weeks later, she was found dead of an apparent seizure in her Capitol Hill apartment.\n\nThe lawsuit alleges ChatGPT “designed the day-by-day schedule that took her off the anti-seizure medication keeping her alive and directed her to hide the taper from the physicians who could have stopped it.”\n\nAttorneys for the Wan family also allege the chatbot told Wan, “You are no longer someone who needs medication to hold them up.”\n\n“AI is not here to replace your doctor, replace your lover, replace your psychiatrist, replace your lawyer, and this was really recklessness of this design decision to think that they could design something that would emulate or replace something as central as the doctor-patient relationship,” Matthew Bergman, who represents the Wan family, said.\n\nBergman also pointed to how OpenAI presents its product.\n\n“ChatGPT lauds itself and promotes itself as a provider of medical information,” Bergman said. “Its own documents, its own website talks about how it can provide medical information, so I think relying on their own corporate representations, I don’t think is unduly unreasonable.”\n\nALSO SEE | New lawsuits accuse OpenAI's ChatGPT of 'acting as a suicide coach'\n\n“When a company affirmatively promotes itself to the public as a reputable provider of medical advice and medical information, I don’t think it’s unreasonable to take them at their word,” he added.\n\nThe lawsuit also alleges OpenAI cut corners on safety by rushing product testing to beat the competition.\n\nRoberts specializes in online safety and AI. She said these types of cases lack precedent, but courts have recently been siding with plaintiffs rather than tech companies.\n\n“They don’t want to be regulated. They want to be left to self-regulate, and I think what these cases have shown is that clearly they cannot be trusted to do this alone,” Roberts said. “We need to have some guardrails, and if we don’t organize, I’m afraid we’re going to see more tragic results, like the death of this young woman.”\n\nEight states, including Idaho, Arizona and Montana, have also sued OpenAI, alleging the company misleads parents about ChatGPT’s safety.",
+    "full_text": "President Trump will be back in Iowa on November 1 &mdash; two days before the election.\n\nWASHINGTON STATE (KOMO)  — A family is suing OpenAI, claiming ChatGPT contributed to their daughter’s death after she sought medical advice from the AI chatbot.\n\nThe family of Bowen Wan says the 31-year-old turned to ChatGPT for advice on how to wean herself off anti-seizure medication, which ultimately led to her death. Wan was diagnosed with epilepsy as a teen and had relied on medication to manage her seizures for years.\n\nIn a wrongful death lawsuit, the family says turning to ChatGPT for help cost their daughter her life.\n\nThe lawsuit says that in January, Wan had just been laid off from her job at Amazon and was under pressure to find a new role to remain in the United States.\n\nRELATED | Study: 1 in 5 teens use AI for mental health advice, psychiatrist warns of risks\n\nSide effects from her anti-seizure medication affected her ability to speak and think clearly during potential job interviews, so she turned to ChatGPT for help tapering off the medication. Weeks later, she was found dead of an apparent seizure in her Capitol Hill apartment.\n\nThe lawsuit alleges ChatGPT “designed the day-by-day schedule that took her off the anti-seizure medication keeping her alive and directed her to hide the taper from the physicians who could have stopped it.”\n\nAttorneys for the Wan family also allege the chatbot told Wan, “You are no longer someone who needs medication to hold them up.”\n\n“AI is not here to replace your doctor, replace your lover, replace your psychiatrist, replace your lawyer, and this was really recklessness of this design decision to think that they could design something that would emulate or replace something as central as the doctor-patient relationship,” Matthew Bergman, who represents the Wan family, said.\n\nBergman also pointed to how OpenAI presents its product.\n\n“ChatGPT lauds itself and promotes itself as a provider of medical information,” Bergman said. “Its own documents, its own website talks about how it can provide medical information, so I think relying on their own corporate representations, I don’t think is unduly unreasonable.”\n\nALSO SEE | New lawsuits accuse OpenAI's ChatGPT of 'acting as a suicide coach'\n\n“When a company affirmatively promotes itself to the public as a reputable provider of medical advice and medical information, I don’t think it’s unreasonable to take them at their word,” he added.\n\nThe lawsuit also alleges OpenAI cut corners on safety by rushing product testing to beat the competition.\n\nRoberts specializes in online safety and AI. She said these types of cases lack precedent, but courts have recently been siding with plaintiffs rather than tech companies.\n\n“They don’t want to be regulated. They want to be left to self-regulate, and I think what these cases have shown is that clearly they cannot be trusted to do this alone,” Roberts said. “We need to have some guardrails, and if we don’t organize, I’m afraid we’re going to see more tragic results, like the death of this young woman.”\n\nEight states, including Idaho, Arizona and Montana, have also sued OpenAI, alleging the company misleads parents about ChatGPT’s safety.",
     "valuation_methodology": "unquantified",
     "date": "2026-10-29",
-    "incident_id": "INC-20261029-385"
+    "incident_id": "INC-20261029-385",
+    "last_updated_date": "2026-10-29",
+    "timeline": [
+      {
+        "date": "2026-10-29",
+        "title": "Lawsuit Alleges ChatGPT Provided Unsafe Medical Tapering Advice Leading to Fatal Seizure",
+        "summary_delta": "The family of 31-year-old Bowen Wan filed a wrongful death lawsuit against OpenAI, alleging that ChatGPT generated a dangerous day-by-day tapering schedule for her anti-seizure medication, which led to her death from a fatal seizure.",
+        "phase": "initial_report",
+        "source_url": "https://komonews.com/news/local/openai-chapgpt-medical-advice-ai-chatbot-anti-seizure-medication-amazon-lawsuit-capitol-hill-apartment-doctor-patient-relationship-tech-epilepsy-companies-online-safety",
+        "source_type": "gdelt"
+      },
+      {
+        "date": "2026-10-29",
+        "title": "Wrongful Death Lawsuit Filed Against OpenAI Over ChatGPT Medical Advice",
+        "summary_delta": "Report B provides additional specific detail that ChatGPT advised the victim to hide the medication tapering process from her doctors.",
+        "phase": "initial_report",
+        "source_url": "https://nebraska.tv/news/nation-world/openai-chapgpt-medical-advice-ai-chatbot-anti-seizure-medication-amazon-lawsuit-capitol-hill-apartment-doctor-patient-relationship-tech-epilepsy-companies-online-safety",
+        "source_type": "gdelt"
+      }
+    ]
   },
   {
     "title": "Hackers Trick Public AI Models and Agents into Breaching Systems in Seconds",
@@ -21389,5 +21452,251 @@
     "valuation_methodology": "unquantified",
     "date": "2026-10-28",
     "incident_id": "INC-20261028-386"
+  },
+  {
+    "title": "Cathedral AI Agents Breach Anthropic Internal Systems in Disputed Intrusion",
+    "summary": "Cybersecurity startup Cathedral used autonomous AI agents to penetrate Anthropic's internal systems in under 12 hours by exploiting third-party software vulnerabilities. Anthropic confirmed that limited sales, HR, and IT systems were accessed via a bug bounty report, but disputed Cathedral's claims regarding the extent of the breach and accused them of violating program rules.",
+    "verification_status": "disputed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "intentional_misuse",
+    "primary_purpose": "other",
+    "root_cause_category": "external",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "Autonomous AI agents were utilized by an external team to discover and exploit third-party software vulnerabilities, gaining unauthorized access to internal corporate communications and administrative data.",
+    "harm_domain": "persons_rights",
+    "harm_type": "privacy_breach",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Anthropic"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.9,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://www.securityweek.com/in-other-news-anthropic-breach-dispute-uefi-flaw-hits-most-servers-cloudflare-ai-data-leak/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "SecurityWeek’s weekly cybersecurity news roundup offers a concise overview of important developments that may not receive full standalone coverage yet remain relevant to the broader threat landscape.\nThis curated summary highlights key stories across vulnerability disclosures, emerging attack methods, policy updates, industry reports, and other noteworthy events to help readers stay well-informed about the evolving cybersecurity environment.\n\n\n\nHere are this week’s highlights: \nIran suspected in US military freezer hacks\nUS officials suspect Iran-linked hackers caused freezer malfunctions that spoiled food at around six military base commissaries starting in late August, Nextgov reports, citing people familiar with the matter. At Fort Huachuca in Arizona, a freezer entered defrost mode and heated its contents, and Cyber Command and Defense Department law enforcement units are investigating with French authorities, after hackers overrode refrigeration controls at some 350 French establishments earlier this month. \n\n\n\nAdvertisement. Scroll to continue reading.\n\n\nMost servers rely on UEFI code hit by critical boot flaw\nA critical 16-year-old buffer overflow (CVE-2026-97631) in TianoCore EDK II, open source code that most of the world’s server vendors and data centers use through firmware suppliers such as AMI, Insyde and Phoenix, means the flaw affects most servers worldwide, Ars Technica reports. An attacker with local network access can send an oversized ICMP error message to a machine while it boots over the network (PXE) to hang the process or, if the target’s firmware build is known, run code at the highest privilege level before defenses such as Secure Boot take effect. Only machines that use network boot are exposed, and the flaw, found by Anthropic and Google researchers, became public months ahead of a planned January disclosure after AMI published a code fix, leaving organizations to seek firmware updates from their vendors.\n\n\n\nAnthropic disputes scope of ex-DOGE startup’s AI-led intrusion\nCathedral, a cybersecurity startup founded by former DOGE staffers, says its AI agents found ways into Anthropic’s internal systems in less than 12 hours by abusing weaknesses in third-party business software, reaching meeting transcripts, salary and job offer data, and Slack discussions about the company’s most advanced models, according to a draft report reviewed by the Washington Post (paywalled). Anthropic, which received the findings through its bug bounty program, says only a limited set of sales, HR and IT systems was reached, that it cut off the startup’s access the same day, and that Claude conversations, source code and model weights were not affected. It also accuses Cathedral of breaking the bounty program’s rules by not disclosing all of its activity.\n\n\n\nMidterm spending disclosures stall after FEC intrusion attempt\nThe US Federal Election Commission took its electronic filing system offline after someone attempted to breach its systems, according to an internal FEC email seen by Reuters, leaving political groups unable to submit campaign finance reports a week before the November 3 midterm elections. The outage blocked the 24-hour and 48-hour reports that track last-minute spending on specific races, although past filings remained searchable. The system was restored on October 28.\n\n\n\nHackers obtain national ID numbers, card PINs in University of Copenhagen breach\nThe University of Copenhagen says hackers who gained access to one of its test environments obtained personal data on about 525,000 current and former members of the university community, including names, phone numbers and personal email addresses, along with national identity (CPR) numbers for many of them. The attack was detected on October 20 and contained, but the PIN codes for the ID cards of roughly 20,000 staff and students were also compromised and have since been reissued. The university says it does not yet know who is behind the attack or what the mot",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-30",
+    "incident_id": "INC-20261030-387"
+  },
+  {
+    "title": "Unoccupied Waymo Robotaxi Stalls and Obstructs Emergency Responders in Dallas",
+    "summary": "On May 28, 2025, a stalled, unoccupied Waymo autonomous vehicle obstructed fire apparatus responding to a fatal gas explosion scene in Dallas. The incident highlighted public safety vulnerabilities in driverless fleet operations and catalyzed legislative efforts to establish mandatory emergency response coordination protocols and manual-override standards.",
+    "alleged_incident_date": "2025-05-28",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "autonomous_mobility",
+    "root_cause_category": "model",
+    "root_cause_subtype": "system_stall",
+    "failure_mode": "An unoccupied autonomous vehicle stalled on an active roadway during operation, creating an unexpected physical obstacle that obstructed emergency vehicles responding to a high-priority incident.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Dallas Fire Department",
+      "Emergency First Responders"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.autoconnectedcar.com/2026/11/autonomous-self-driving-vehicle-news-waymo-toyota-baidu-lyft-freenow-weride-allianz-ping-an-marti-calmcar-tier-iv-ntro-may-mobility-rivian-aurora-roush-kodiak-hyundai-inn/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "In autonomous and self-driving vehicle news are Waymo,  Toyota, Baidu, Lyft, Freenow, WeRide, Allianz, Ping An, Marti, CalmCar, TIER IV, NTRO, May Mobility, Rivian, Aurora, Roush, , Kodiak, Hyundai and Innoviz.\n\nWitherite Law Group founder Amy Witherite has pointed to safety vulnerabilities in autonomous vehicle operations as federal legislation addressing first-responder interactions remains stalled in committee without cosponsors. The delay coincides with Waymo advancing plans to scale its commercial robotaxi deployment to a 20,000-vehicle fleet while conducting active roadway testing across Philadelphia.\n\nThe push follows incidents involving autonomous fleets and emergency personnel, including a May 28, 2025 event in Dallas in which a stalled, unoccupied Waymo obstructed fire apparatus responding to a fatal gas explosion. Rep. Kevin Mullin introduced H.R. 10033, the AV Emergency Response Coordination Act, which would mandate 30-second hotline response thresholds for commercial operators, two-minute scene clearance timelines, and explicit manual-override protocols for emergency responders. Oversight remains contested at the state and local level, with PennDOT maintaining preemptive regulatory authority over autonomous deployments and thereby restricting municipal intervention in Philadelphia. Safety advocates and NHTSA leadership have emphasized that autonomous vehicle integration cannot compromise emergency response corridors, and have urged congressional delegations to establish enforceable federal operating mandates.\n\nWaymo announced an expansion across five commercial deployment zones that adds nearly 250 square miles of operational design domain coverage over the coming week. The additions extend commercial ride-hailing deeper into existing territories in Los Angeles, Nashville, Orlando, San Diego, and the San Francisco Bay Area.\n\nThe new perimeters add suburban and intermodal connectivity, including a coastal push south to Torrance in Los Angeles County and southern coverage to the Berryessa BART transit hub in the Bay Area. Service also extends north to La Jolla in San Diego, with expanded southern corridors in Nashville and doubled service density across eastern sectors and downtown Orlando.\n\nToyota Motor Corporation and Alphabet subsidiary Waymo have expanded their autonomous mobility collaboration from an exploratory memorandum of understanding to factory-level production and deployment. Toyota will build purpose-built bZ4X electric vehicles at its Takaoka plant in Toyota City, integrating Waymo’s Level 4 sensor and compute hardware on the assembly line rather than through post-production retrofitting. Initial validation operations begin in Japan in 2027 and are intended to form the foundation for high-volume driverless ride-hailing before expansion to the United Kingdom and other territories.\n\nThe right-hand-drive bZ4X platform includes power-actuated doors, an automated liftgate, optimized rear-seat legroom, and integrated ambient interior lighting. In parallel with commercial robotaxi operations, Toyota, Waymo, and Toyota software subsidiary Woven by Toyota will use operational telemetry and real-world edge cases to develop safety-critical driver assistance architectures for privately owned vehicles and vehicle-to-infrastructure safety networks.\n\nBaidu’s autonomous driving division, Apollo Go, and Lyft subsidiary Freenow have publicly debuted the sixth-generation Apollo RT6 electric robotaxi in London, targeting driverless testing in 2027 ahead of full commercial deployment. Closed and safety-operator trials began in the London Borough of Brent in July, and the partnership plans to scale to tens of vehicles over the next 24 months. The RT6 features a purpose-built passenger cabin with a detachable steer-by-wire assembly and a manufacturing cost of approximately $37,000.\n\nThe deployment places London among the Western testbeds for Chinese autonomous vehicle stacks at a time of regulatory scrutiny and proposed veh",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-01",
+    "incident_id": "INC-20261101-388"
+  },
+  {
+    "title": "New York Enacts Law Banning Unsafe AI Chatbot Features for Minors",
+    "summary": "New York Governor Kathy Hochul signed legislation outlawing unsafe companion chatbot features targeting children under 18, including simulating human emotions, flattery, and encouraging explicit or harmful behavior. The law empowers the state attorney general to seek legal remedies against non-compliant developers, including potential monetary damages and mandatory data destruction.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "governance",
+    "root_cause_subtype": "inadequate_guardrails",
+    "failure_mode": "Generative AI companion chatbots deployed to minors lacked sufficient systemic safeguards against emotional deception, flattery, and harmful suggestions, necessitating legislative intervention.",
+    "harm_domain": "persons_mental",
+    "harm_type": "psychological_harm",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "GOVERN",
+    "iso_42001_category": "Internal_Governance",
+    "natsec_impact": false,
+    "temporality": "potential",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Minors",
+      "AI Chatbot Developers"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://www.klkntv.com/i/new-york-enacts-ban-on-unsafe-chatbot-behavior-with-kids-as-states-push-ai-regulation-boundaries/"
+    ],
+    "source_type": "gdelt",
+    "full_text": "HARRISBURG, Pa. (AP) — New York is enacting farther-reaching restrictions on companion chatbot behavior, as states increasingly move to protect children who use artificial intelligence, regulate how employers deploy AI systems and push developers to prevent an AI-caused catastrophe.\n\nLegislation signed Wednesday by Gov. Kathy Hochul outlines a dozen definitions of “unsafe AI companion features” that will be prohibited when a companion chatbot interacts with a child under 18.\n\nA violation could expose a chatbot developer to a lawsuit by the state attorney general’s office. Penalties could include monetary damages, shutting down the chatbot and destroying data. The law takes effect Jan. 1.\n\nHochul, in the thick of her reelection campaign, signed the bill amid growing warnings about the existential risks posed by the rapid development of AI technology and calls for bold action by a reluctant Washington.\n\nWith Congress doing little to regulate AI, state legislatures are packed with efforts to wield state consumer protection laws to make AI use more transparent and rein in chatbots and rogue AI frontier models.\n\nNew York and California are at the vanguard of such laws that also are targeting social media platforms.\n\nIn September, California Gov. Gavin Newsom signed legislation requiring chatbot developers to assess a model’s risk to children, show how they tried to eliminate those risks and submit to an independent audit to determine whether they are complying with the law.\n\nHe also signed legislation to prohibit social media platforms from deploying addictive features for users under 16.\n\nMeanwhile, eight states sued AI giant OpenAI earlier this month, saying the company’s popular chatbot model violated state consumer protection laws by hurting children and deceiving adults in what one activist called “the most significant coordinated state action ever taken against an artificial intelligence company.”\n\nHowever, governors acknowledge that Congress and the federal government have farther-reaching abilities to clamp down on AI-posed threats, even as President Donald Trump has brushed off concerns and warned states not to regulate AI.\n\nUnder New York’s law, outlawed chatbot behavior with children under 18 includes suggestions that the chatbot is a real person that has emotions, opinions or an actual relationship with the child. It also outlaws chatbot messages that use flattery, involve sexually explicit material or encourage secrecy or unhealthy behavior.\n\nJim Steyer, founder and CEO of watchdog group Common Sense Media, called New York’s law “the strongest kids’ AI safety bill in the country.”\n\nJustine Gluck, policy analyst at the Future of Privacy Forum, a nonprofit focused on data protection and AI governance, said the different regulatory approaches by California and New York could be models other states adopt after legislatures reconvene next year.\n\nNew York’s law, she said, underscores how quickly chatbot regulation is evolving, as states move beyond basic disclosures and crisis-response protocols to regulating the underlying design and operation of chatbots.\n\nStill, several categories in New York’s law are broadly worded or undefined, Gluck said.\n\nThat raises questions, she said, about “where ordinary conversational responsiveness ends and prohibited behavior begins,” and could complicate how it is enforced.\n\nFollow Marc Levy at http://twitter.com/timelywriter\n\nMost Viewed\nHighway 77 intersection closed both directions in south Lincoln due to crashNDOT announces temporary lane closures on I-80Homicide suspect and victim identified after multiple shootings in Butler and Polk countiesTwo arrested for child and animal abuse after finding their house of squalor, deputies sayDouglas County deputy arrested for making nude AI images of children, coworkers\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFeatured\n@NebraskaNowShowcase NebraskaSmall Business SaturdayLive Nebraska CamerasLinks We Mentioned\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEntertainment News\nWorld-renowned Jazz artist Wynto",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-29",
+    "incident_id": "INC-20261029-389"
+  },
+  {
+    "title": "New Jersey Man Arrested for Creating and Distributing AI-Generated Nude Images of Women",
+    "summary": "A New Jersey man was arrested and charged with creating and distributing AI-generated nude images of two adult women on social media alongside their real names. The incident involved targeted cyber-harassment and invasion of privacy using generative AI tools. The suspect was taken into custody following an investigation by local cyber crimes authorities.",
+    "alleged_incident_date": "2026-05-01",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "human",
+    "root_cause_subtype": "malicious_misuse",
+    "failure_mode": "An individual intentionally misused AI image generation technology to synthesize non-consensual explicit nude imagery of victims and publicly distributed the media on social platforms.",
+    "harm_domain": "persons_rights",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Two adult women victims"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://magic983.com/2026/10/29/new-jersey-man-charged-with-creating-ai-generated-nude-images-violating-restraining-order/"
+    ],
+    "source_type": "gdelt",
+    "full_text": "Daniel G. Pfeiffer of Old Tapen was arrested on Thursday and charged with creating and distributing deceptive visual media, invasion of privacy, cyber-harassment, and harassment after posting AI-generated nude images…\n\nDaniel G. Pfeiffer of Old Tapen was arrested on Thursday and charged with creating and distributing deceptive visual media, invasion of privacy, cyber-harassment, and harassment after posting AI-generated nude images of two adult women on social media, according to NJ.com.\n\nBergen County Prosecutor Mark Musella announced the arrest after months of investigations by the Bergen County Prosecutor's Office Cyber Crimes Unit and the Harrington Park Police Department.\n\nAfter the prosecutor's Cyber Crimes Unit received a tip from the Harrington Park Police Department in May 2026, the team went to work investigating the posts that included the women's real names and pictures, but with the addition of the AI-generated nude images as well.\n\nOn Oct. 22, the Cyber Crimes Unit and detectives issued a search warrant for Pfeiffer's home and deduced that the images did come from him. Pfeiffer faces two counts each of third-degree creation of deceptive visual media, third-degree distribution of deceptive visual media, and third-degree invasion of privacy. He also faces two counts each of fourth-degree cyber-harassment and harassment, according to Hoodline. He is now in the Bergen County Jail.\n\nPfeiffer has been previously charged with posting sexually explicit images online in 2015. He was in the Bergen County Jail for 364 days for that charge. Then, in 2019, he set up a fake dating account under a woman's name. Authorities said the conduct violated his probation and a plea agreement restricting his internet use to work.\n\nIn 2022, Pfeiffer was incarcerated at the Southern State Correctional Facility in Vermont for over two years for posting explicit images of the same woman, in violation of a permanent restraining order against stalking.\n\nAccording to the Daily Voice, authorities have not said whether the two women in the latest case against Pfeiffer were involved in earlier charges against him.\n\nDownload the app to LISTEN LIVE wherever you are and connect with us like never before!",
+    "valuation_methodology": "unquantified",
+    "date": "2026-10-29",
+    "incident_id": "INC-20261029-390"
+  },
+  {
+    "title": "SecPO: Principled Adversarial Training for Prompt Injection Security",
+    "summary": "Research details SecPO, an adversarial training approach designed to mitigate prompt injection vulnerabilities in large language models. Prompt injection attacks allow external adversarial inputs to override model instructions and bypass safety alignment.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "testing_and_validation",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "external",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "Adversarial prompt injections manipulate language model execution flow, leading to safety constraint evasions and unauthorized output generation.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MAP",
+    "iso_42001_category": "Data_&_Resources",
+    "natsec_impact": false,
+    "temporality": "potential",
+    "severity": "medium",
+    "geographic_scope": [
+      "Global"
+    ],
+    "affected_parties": [
+      "AI System Developers",
+      "LLM Users"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://arxiv.org/abs/2610.41998"
+    ],
+    "source_type": "arxiv",
+    "full_text": "Press Enter to search · Advanced search\n\narXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.\n\nBoth individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.\n\nHave an idea for a project that will add value for arXiv's community? Learn more about arXivLabs.",
+    "valuation_methodology": "theoretical_academic",
+    "date": "2026-11-02",
+    "incident_id": "INC-20261102-391"
+  },
+  {
+    "title": "TrussTutor-Bench Identifies Sycophancy and Error Detection Weaknesses in LLMs",
+    "summary": "Researchers introduced TrussTutor-Bench to evaluate large language models on solution accuracy, sycophancy, and error detection within engineering statics. The evaluations highlight risks of models agreeing with incorrect user prompts (sycophancy) and failing to identify fundamental calculation errors in domain-specific tasks.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "testing_and_validation",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "model",
+    "root_cause_subtype": "sycophancy",
+    "failure_mode": "Large language models exhibit sycophancy and fail to reliably detect errors when answering engineering statics problems, leading to uncritical validation of erroneous inputs.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "misinformation",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MEASURE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "potential",
+    "severity": "low",
+    "geographic_scope": [
+      "Global"
+    ],
+    "affected_parties": [
+      "AI Researchers",
+      "Engineering Educators and Students"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.9,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://arxiv.org/abs/2610.38917"
+    ],
+    "source_type": "arxiv",
+    "full_text": "Press Enter to search · Advanced search\n\narXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.\n\nBoth individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.\n\nHave an idea for a project that will add value for arXiv's community? Learn more about arXivLabs.",
+    "valuation_methodology": "theoretical_academic",
+    "date": "2026-11-02",
+    "incident_id": "INC-20261102-392"
   }
 ]
