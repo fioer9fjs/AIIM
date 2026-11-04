@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Adaptive dynamic keyword pool learned from validated AI incidents. Automatically maintained with daily decay and TTL.",
-    "last_updated": "2026-11-03",
+    "last_updated": "2026-11-04",
     "decay_rate_daily": 0.05,
     "min_weight_threshold": 0.2,
     "max_ttl_days": 21,
@@ -12,7 +12,7 @@
       {
         "term": "Anthropic",
         "type": "subject",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 8,
         "first_seen": "2026-10-28",
         "last_hit": "2026-11-02"
@@ -20,7 +20,7 @@
       {
         "term": "Cursor",
         "type": "subject",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 7,
         "first_seen": "2026-11-01",
         "last_hit": "2026-11-02"
@@ -28,7 +28,7 @@
       {
         "term": "Malicious actors published",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-02",
         "last_hit": "2026-11-02"
@@ -36,7 +36,7 @@
       {
         "term": "poisoned extension package",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-02",
         "last_hit": "2026-11-02"
@@ -44,7 +44,7 @@
       {
         "term": "impersonating Claude Code",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-02",
         "last_hit": "2026-11-02"
@@ -52,7 +52,7 @@
       {
         "term": "third-party marketplace",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-02",
         "last_hit": "2026-11-02"
@@ -60,7 +60,7 @@
       {
         "term": "embedded JavaScript loader",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-02",
         "last_hit": "2026-11-02"
@@ -68,7 +68,7 @@
       {
         "term": "attempted",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-02",
         "last_hit": "2026-11-02"
@@ -78,7 +78,7 @@
       {
         "term": "Anthropic",
         "type": "subject",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 3,
         "first_seen": "2026-11-01",
         "last_hit": "2026-11-02"
@@ -86,7 +86,7 @@
       {
         "term": "US Defense Sector",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-03",
         "last_hit": "2026-11-03"
@@ -94,7 +94,7 @@
       {
         "term": "Foreign Ministries",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-03",
         "last_hit": "2026-11-03"
@@ -102,7 +102,7 @@
       {
         "term": "Telecommunications Providers",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-03",
         "last_hit": "2026-11-03"
@@ -110,7 +110,7 @@
       {
         "term": "State-sponsored threat actors",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-03",
         "last_hit": "2026-11-03"
@@ -118,7 +118,7 @@
       {
         "term": "weaponized multi-agent",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-03",
         "last_hit": "2026-11-03"
@@ -126,7 +126,7 @@
       {
         "term": "frameworks and LLMs",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-03",
         "last_hit": "2026-11-03"
@@ -134,7 +134,7 @@
       {
         "term": "single human operator",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-03",
         "last_hit": "2026-11-03"
@@ -144,7 +144,7 @@
       {
         "term": "Jason Killinger",
         "type": "subject",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-11-01",
         "last_hit": "2026-11-01"
@@ -152,7 +152,7 @@
       {
         "term": "Reno Police Department",
         "type": "subject",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-11-01",
         "last_hit": "2026-11-01"
@@ -160,7 +160,7 @@
       {
         "term": "Peppermill Casino",
         "type": "subject",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-11-01",
         "last_hit": "2026-11-01"
@@ -168,7 +168,7 @@
       {
         "term": "Law enforcement",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-11-01",
         "last_hit": "2026-11-01"
@@ -176,7 +176,7 @@
       {
         "term": "casino security relied",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-11-01",
         "last_hit": "2026-11-01"
@@ -184,7 +184,7 @@
       {
         "term": "automated high-confidence facial",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-11-01",
         "last_hit": "2026-11-01"
@@ -192,7 +192,7 @@
       {
         "term": "recognition alerts",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-11-01",
         "last_hit": "2026-11-01"
@@ -200,7 +200,7 @@
       {
         "term": "definitive proof",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-11-01",
         "last_hit": "2026-11-01"
@@ -210,7 +210,7 @@
       {
         "term": "California Highway Patrol",
         "type": "subject",
-        "weight": 0.393,
+        "weight": 0.289,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -218,7 +218,7 @@
       {
         "term": "CHP Officers",
         "type": "subject",
-        "weight": 0.393,
+        "weight": 0.289,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -226,7 +226,7 @@
       {
         "term": "vehicle",
         "type": "incident",
-        "weight": 0.393,
+        "weight": 0.289,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -234,7 +234,7 @@
       {
         "term": "automated driving",
         "type": "incident",
-        "weight": 0.393,
+        "weight": 0.289,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -242,7 +242,7 @@
       {
         "term": "detect and avoid",
         "type": "incident",
-        "weight": 0.393,
+        "weight": 0.289,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -250,7 +250,7 @@
       {
         "term": "moving police vehicle",
         "type": "incident",
-        "weight": 0.393,
+        "weight": 0.289,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -258,7 +258,7 @@
       {
         "term": "while the human",
         "type": "incident",
-        "weight": 0.393,
+        "weight": 0.289,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -266,7 +266,7 @@
       {
         "term": "driver fell asleep",
         "type": "incident",
-        "weight": 0.393,
+        "weight": 0.289,
         "hit_count": 1,
         "first_seen": "2026-10-29",
         "last_hit": "2026-10-29"
@@ -276,7 +276,7 @@
       {
         "term": "Breton-speaking community",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-03",
         "last_hit": "2026-11-03"
@@ -284,7 +284,7 @@
       {
         "term": "Finistre municipality",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-03",
         "last_hit": "2026-11-03"
@@ -292,7 +292,7 @@
       {
         "term": "machine translation",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-03",
         "last_hit": "2026-11-03"
@@ -300,7 +300,7 @@
       {
         "term": "produced inaccurate Breton",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-03",
         "last_hit": "2026-11-03"
@@ -308,7 +308,7 @@
       {
         "term": "language text",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-03",
         "last_hit": "2026-11-03"
@@ -316,7 +316,7 @@
       {
         "term": "public cultural signs",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-03",
         "last_hit": "2026-11-03"
@@ -324,7 +324,7 @@
       {
         "term": "installed",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-03",
         "last_hit": "2026-11-03"
@@ -332,7 +332,7 @@
       {
         "term": "without review",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-03",
         "last_hit": "2026-11-03"
@@ -342,7 +342,7 @@
       {
         "term": "Bowen Wan",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-02",
         "last_hit": "2026-11-02"
@@ -350,7 +350,7 @@
       {
         "term": "OpenAI",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-02",
         "last_hit": "2026-11-02"
@@ -358,7 +358,7 @@
       {
         "term": "ChatGPT generated",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-02",
         "last_hit": "2026-11-02"
@@ -366,7 +366,7 @@
       {
         "term": "schedule instructing",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-02",
         "last_hit": "2026-11-02"
@@ -374,7 +374,7 @@
       {
         "term": "epilepsy",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-02",
         "last_hit": "2026-11-02"
@@ -382,7 +382,7 @@
       {
         "term": "taper off life-preserving",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-02",
         "last_hit": "2026-11-02"
@@ -390,7 +390,7 @@
       {
         "term": "anti-seizure medication",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-02",
         "last_hit": "2026-11-02"
@@ -398,7 +398,7 @@
       {
         "term": "advised her",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-02",
         "last_hit": "2026-11-02"
