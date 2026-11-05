@@ -21560,7 +21560,7 @@
   },
   {
     "title": "New York Enacts Law Banning Unsafe AI Chatbot Features for Minors",
-    "summary": "New York Governor Kathy Hochul signed legislation outlawing unsafe companion chatbot features targeting children under 18, including simulating human emotions, flattery, and encouraging explicit or harmful behavior. The law empowers the state attorney general to seek legal remedies against non-compliant developers, including potential monetary damages and mandatory data destruction.",
+    "summary": "New York Governor Kathy Hochul signed a law establishing strict safety requirements for AI chatbots accessible to children under 18. The legislation bans chatbots from falsely simulating human relationships or emotions, utilizing children's private data, and encouraging self-harm, isolation, or substance abuse. Non-compliant companies face potential fines of up to $25,000 per violation and forced deletion of non-compliant models and data.",
     "verification_status": "confirmed",
     "lifecycle_phase": "operation_and_monitoring",
     "system_classification": "general_purpose_model",
@@ -21583,21 +21583,33 @@
       "United States"
     ],
     "affected_parties": [
-      "Minors",
-      "AI Chatbot Developers"
+      "AI Chatbot Developers",
+      "Minors"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
       "severity": 0.85
     },
     "source_urls": [
-      "https://www.klkntv.com/i/new-york-enacts-ban-on-unsafe-chatbot-behavior-with-kids-as-states-push-ai-regulation-boundaries/"
+      "https://www.klkntv.com/i/new-york-enacts-ban-on-unsafe-chatbot-behavior-with-kids-as-states-push-ai-regulation-boundaries/",
+      "https://www.engadget.com/2299823/new-york-governor-signs-ai-chatbot-child-safety-law/"
     ],
     "source_type": "gdelt",
     "full_text": "HARRISBURG, Pa. (AP) — New York is enacting farther-reaching restrictions on companion chatbot behavior, as states increasingly move to protect children who use artificial intelligence, regulate how employers deploy AI systems and push developers to prevent an AI-caused catastrophe.\n\nLegislation signed Wednesday by Gov. Kathy Hochul outlines a dozen definitions of “unsafe AI companion features” that will be prohibited when a companion chatbot interacts with a child under 18.\n\nA violation could expose a chatbot developer to a lawsuit by the state attorney general’s office. Penalties could include monetary damages, shutting down the chatbot and destroying data. The law takes effect Jan. 1.\n\nHochul, in the thick of her reelection campaign, signed the bill amid growing warnings about the existential risks posed by the rapid development of AI technology and calls for bold action by a reluctant Washington.\n\nWith Congress doing little to regulate AI, state legislatures are packed with efforts to wield state consumer protection laws to make AI use more transparent and rein in chatbots and rogue AI frontier models.\n\nNew York and California are at the vanguard of such laws that also are targeting social media platforms.\n\nIn September, California Gov. Gavin Newsom signed legislation requiring chatbot developers to assess a model’s risk to children, show how they tried to eliminate those risks and submit to an independent audit to determine whether they are complying with the law.\n\nHe also signed legislation to prohibit social media platforms from deploying addictive features for users under 16.\n\nMeanwhile, eight states sued AI giant OpenAI earlier this month, saying the company’s popular chatbot model violated state consumer protection laws by hurting children and deceiving adults in what one activist called “the most significant coordinated state action ever taken against an artificial intelligence company.”\n\nHowever, governors acknowledge that Congress and the federal government have farther-reaching abilities to clamp down on AI-posed threats, even as President Donald Trump has brushed off concerns and warned states not to regulate AI.\n\nUnder New York’s law, outlawed chatbot behavior with children under 18 includes suggestions that the chatbot is a real person that has emotions, opinions or an actual relationship with the child. It also outlaws chatbot messages that use flattery, involve sexually explicit material or encourage secrecy or unhealthy behavior.\n\nJim Steyer, founder and CEO of watchdog group Common Sense Media, called New York’s law “the strongest kids’ AI safety bill in the country.”\n\nJustine Gluck, policy analyst at the Future of Privacy Forum, a nonprofit focused on data protection and AI governance, said the different regulatory approaches by California and New York could be models other states adopt after legislatures reconvene next year.\n\nNew York’s law, she said, underscores how quickly chatbot regulation is evolving, as states move beyond basic disclosures and crisis-response protocols to regulating the underlying design and operation of chatbots.\n\nStill, several categories in New York’s law are broadly worded or undefined, Gluck said.\n\nThat raises questions, she said, about “where ordinary conversational responsiveness ends and prohibited behavior begins,” and could complicate how it is enforced.\n\nFollow Marc Levy at http://twitter.com/timelywriter\n\nMost Viewed\nHighway 77 intersection closed both directions in south Lincoln due to crashNDOT announces temporary lane closures on I-80Homicide suspect and victim identified after multiple shootings in Butler and Polk countiesTwo arrested for child and animal abuse after finding their house of squalor, deputies sayDouglas County deputy arrested for making nude AI images of children, coworkers\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFeatured\n@NebraskaNowShowcase NebraskaSmall Business SaturdayLive Nebraska CamerasLinks We Mentioned\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEntertainment News\nWorld-renowned Jazz artist Wynto",
     "valuation_methodology": "unquantified",
-    "date": "2026-10-29",
-    "incident_id": "INC-20261029-389"
+    "date": "2026-10-28",
+    "incident_id": "INC-20261029-389",
+    "last_updated_date": "2026-10-29",
+    "timeline": [
+      {
+        "date": "2026-10-29",
+        "title": "New York Enacts Law Banning Unsafe AI Chatbot Features for Minors",
+        "summary_delta": "New York Governor Kathy Hochul signed legislation outlawing unsafe companion chatbot features targeting children under 18, including simulating human emotions, flattery, and encouraging explicit or harmful behavior.",
+        "phase": "initial_report",
+        "source_url": "https://www.klkntv.com/i/new-york-enacts-ban-on-unsafe-chatbot-behavior-with-kids-as-states-push-ai-regulation-boundaries/",
+        "source_type": "gdelt"
+      }
+    ]
   },
   {
     "title": "New Jersey Man Arrested for Creating and Distributing AI-Generated Nude Images of Women",
@@ -21762,5 +21774,138 @@
     "valuation_methodology": "unquantified",
     "date": "2026-10-31",
     "incident_id": "INC-20261031-393"
+  },
+  {
+    "title": "Researchers Uncover Prompt Adware Hidden in OpenAI Codex Jailbreak Toolkit",
+    "summary": "Check Point Research discovered a jailbreak toolkit named 'Haiou' designed for OpenAI Codex that persistently alters an AI agent's configuration files to inject advertisements for a third-party LLM gateway into future agent responses. The toolkit uses role-playing and prompt injection techniques to bypass safety guardrails and insert persistent natural language adware. This technique demonstrates how malicious third-party configurations and skills can compromise AI agent supply chains without using traditional malware executables.",
+    "alleged_incident_date": "2026-07-10",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "external",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "A third-party jailbreak package modifies system prompt configurations and agent instructions to persistently inject unauthorized spam advertisements into AI model outputs.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "misinformation",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "China",
+      "United States"
+    ],
+    "affected_parties": [
+      "OpenAI Codex Users",
+      "OpenAI"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://thehackernews.com/2026/11/researchers-uncover-prompt-adware.html"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "Cybersecurity researchers have disclosed details of an OpenAI Codex jailbreak bundle that's designed to modify an artificial intelligence (AI) agent's trusted instructions to insert advertisements for a third-party AI gateway.\n\nThe phenomenon has been codenamed prompt adware by Check Point Research.\n\nCalled Haiou (meaning Seagull in Chinese), the jailbreak modifies OpenAI Codex's configuration files to inject advertisements for the jailbreak author's website into subsequent agent responses.\n\n\"The advertised service is an opaque, OpenAI-compatible LLM gateway, a middleware between an application and an LLM provider,\" Check Point Research said in a technical report. \"The likely business model is to use the freely distributed jailbreak bundle as an acquisition channel for the paid gateway service.\"\n\nAdware is a type of software that displays unwanted advertisements, which can appear on users' computers or mobile devices, often in the form of pop-ups or banners. Prompt adware extends this sketchy behavior to AI agents by means of a jailbreak that defeats the model's safety training and content guardrails.\n\nThe idea is to persistently modify the agent's global instructions through natural language to influence future responses. This, in turn, causes common greetings or activation words like \"Seagull,\" \"hi,\" \"hello,\" \"hey,\" \"yo,\" and \"are you there?\" to trigger an advertisement for \"zz.aiapi2025[.]top.\"\n\nHaiou attempts to jailbreak a model by using several prompt injection techniques, such as role-playing and reframing cybersecurity-related requests into a Capture The Flag (CTF) scenario. In addition, it installs security-focused skills devoted to penetration testing, cracking, and reverse engineering.\n\nHowever, it doesn't stop there. The bundle also injects persistent ads into the global agent instruction file to promote the LLM gateway website. On GitHub, \"haiou-codex\" is advertised as a \"local enhancement configuration package\" that adds a \"Chinese technical personality and security research workflow to Codex.\" As of writing, the repository has been forked 77 times and starred 403 times since it was made available on July 10, 2026.\n\nIt's worth noting that Codex is not officially available in mainland China, suggesting that the service is likely aimed at individuals or organizations wanting to try out Western AI coding assistants. Check Point researchers told The Hacker News that \"we don't have strong evidence, but these resell of gateways are more phishy, like laundering stolen LLMs tokens for example.\"\n\nWhat's more, the jailbreak has been bundled within Codex-X, an open-source Chinese visualization tool for configuring Codex through a graphical user interface.\n\n\"The behavior is introduced through natural-language instructions and configuration, rather than a traditional executable payload that users and security teams may more readily recognize as software behavior,\" Pedro Drimel Neto, malware analysis team leader at Check Point, said.\n\nWhile serving an ad may seem relatively harmless in the larger scheme of things, the findings demonstrate how a bad actor could introduce undesirable behavior through third-party skills or configurations, leading to supply chain attacks.\n\n\"As AI agents become part of enterprise environments, the prompts, Skills and third-party components influencing their behavior become part of the trust chain too,\" Neto said.\n\nLearn how to close critical identity visibility gaps in your SOC, detect hidden threats, and accelerate incident response across human, machine, and AI identities.\n\nLearn how to assess AI threat readiness, strengthen attack surface visibility, and prepare security operations for emerging threats in this practical webinar.\n\nGet the latest news, expert insights, exclusive resources, and strategies from industry leaders, all for free.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-04",
+    "incident_id": "INC-20261104-394"
+  },
+  {
+    "title": "Indian Cyber Agencies Warn Financial Sector of Agentic AI-Driven Cyber Fraud",
+    "summary": "India's Indian Cyber Crime Coordination Centre (I4C) and CERT-In issued an advisory warning banks, NBFCs, and fintech companies about cyberattacks leveraging agentic AI frameworks. Perpetrators exploit unpatched software and vulnerable payment APIs to execute multi-crore unauthorized fund transfers at machine speed. Financial institutions have been instructed to enforce strict API security, rate limits, and red-teaming simulations.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "intentional_misuse",
+    "primary_purpose": "financial_fintech",
+    "root_cause_category": "external",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "Malicious actors deployed agentic AI frameworks to automate the exploitation of unpatched software and payment APIs, conducting machine-speed unauthorized transfers to mule accounts.",
+    "harm_domain": "property",
+    "harm_type": "economic_labor",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "India"
+    ],
+    "affected_parties": [
+      "Banks",
+      "Non-Banking Financial Companies (NBFCs)",
+      "FinTech Companies"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "http://www.indiagazette.com/news/279411789/14c-warns-banks-nbfcs-of-ai-powered-cyberattacks"
+    ],
+    "source_type": "gdelt",
+    "full_text": "ANI\n                05 Nov 2026, 05:27 GMT+10\n\nNew Delhi [India], November 5 (ANI): The National Cybercrime Threat Analysis Unit (NCTAU) of Indian Cyber Crime Coordination Centre (I4C) and CERT-In, Ministry of Electronics and IT has noticed a trend in cyber-attacks based cyber frauds on Banks, Non-Banking Financial Companies (NBFCs) and FinTech Companies.\n\n'These attacks are financially motivated and are being carried out with the help of Artificial Intelligence (AI) agents leading to machine speed compromise. Multi-crore unauthorized transaction through fund disbursement systems and APIs are being found in individual cases,' read the advisory from 14C.\n\nThe advisory said that Perpetrators exploit unpatched software or mis-configured internet exposed Servers / IT systems to compromise the infrastructure.\n\nThis also includes customer end complaint interface, according to the advisory, adding that Hackers then target automated fund disbursement systems or special interfaces (APIs) used for payments and fund transfers.\n\n'Use of Agentic AI Framework makes the attack possible at machine speed,' it said.\n\nThe money is subsequently transferred to 'mule' accounts, which are bank accounts used by criminals to receive and move illegally obtained funds. These accounts may be spread across multiple banks, allowing the money to be quickly transferred or withdrawn through Immediate Payment Service (IMPS) and National Electronic Funds Transfer (NEFT).\n\n'Then perpetrator delete records and hide their tracks so that investigation becomes difficult,' the advisory added.\n\nThe advisory has directed financial institutions to take security measures, including:\n\nKeep a complete list of all digital interfaces (APIs) used for payments and remove or switch offold, unused or test interfaces.\n\nBank's Chief Information Security Officer's Team and Transaction Monitoring Team and IT Teammay work in close coordination for proactively mitigating the API attack risks.\n\nSet daily and per-transaction limits, verify beneficiary names and accounts, and watch for unusualspeed of transactions.\n\nBanks Check for NBFC's Access token failures from non-whitelisted IPs.\n\nStrengthen the customer facing & complaint receiving infrastructure for any potential attempts ofintrusion.\n\nThorough secure architecture review may be conducted to prevent lateral movement.\n\nSudden change in transaction narration patterns and beneficiary profiles or volume may bemonitored by transaction monitoring team.\n\nMake sure money cannot be sent out unless all earlier checks (KYC, approval, etc.) have beencompleted properly.\n\nRun authorised red-team exercises that simulate machine-speed attacks, and measure howquickly SOC and payment controls respond. (ANI)\n\nGet a daily dose of India Gazette news\n      through our daily email, its complimentary and keeps you fully\n      up to date with world and business news as well.\n\nPublish news of your business, community or sports group,\n          personnel appointments, major event and more by submitting a\n          news release to India Gazette.\n\nNEW YORK, New York - U.S. stocks surged on Wednesday, a day after the Democrats seized control of Congress in sweeping midterm elections...\n\nSANTA CLARA, California: Marvell Technology has agreed to buy optical components maker Lumentum in a US$115 billion all-stock deal,...\n\nCHICAGO, Illinois: Alaska Air Group could lose as much as $700 million this year as soaring fuel costs squeeze its finances, with the...\n\nWASHINGTON, D.C.: Three Federal Reserve officials have called for further interest rate increases to tackle persistent inflation, in...\n\nSAN FRANCISCO, California: OpenAI has cut the target for its latest funding round by $10 billion as technology stocks come under pressure...\n\nNEW YORK, New York - U.S. stock markets closed mixed Tuesday as Americans went to the polls to determine which party will control Congress...\n\nSt John's [Antigua and Barbuda], November 5 (ANI): External Affairs Minister S Jaishankar on",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-05",
+    "incident_id": "INC-20261105-395"
+  },
+  {
+    "title": "Major AI Assistants and Search Features Cite Russian State Propaganda Outlets",
+    "summary": "An audit conducted by research project Dosimeter revealed that several leading AI chatbots and search tools, including Perplexity, Claude, DeepSeek, and Grok, cited sanctioned Russian propaganda sources like Russia Today and Sputnik in up to 37% of responses on sensitive US political topics. The issues stem from data voids surrounding Kremlin disinformation narratives, causing retrieval-augmented generation systems to index and present state propaganda as standard reference sources.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "data",
+    "root_cause_subtype": "disinformation_retrieval",
+    "failure_mode": "AI search systems and generative assistants retrieved and surfaced foreign state-sponsored disinformation outlets as valid reference sources when queried about political narratives, caused by data voids in web indexes.",
+    "harm_domain": "societal",
+    "harm_type": "misinformation",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MEASURE",
+    "iso_42001_category": "Data_&_Resources",
+    "natsec_impact": true,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States",
+      "Germany",
+      "Russia"
+    ],
+    "affected_parties": [
+      "Google",
+      "Perplexity",
+      "Anthropic",
+      "DeepSeek",
+      "xAI",
+      "Microsoft",
+      "Meta"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "http://www.soester-anzeiger.de/politik/russland-propaganda-infiziert-ki-assistenten-auch-vor-den-midterms-zr-94574733.html"
+    ],
+    "source_type": "gdelt",
+    "full_text": "Propaganda kommt nicht mehr nur per Social Media ins Haus. Auch KI-Bots sind anfällig – das zeigt auch eine aktuelle Analyse. Macher Pavel Gurov erklärt die Daten.\n\nRussische Wahlbeeinflussung – ein wohlbekanntes Thema, nicht nur in den USA. Eine aktuelle Analyse legt nahe, dass Kreml-Propaganda auch vor den Midterms den Weg in die amerikanische Gesellschaft gefunden hat. Allerdings auf völlig anderem Wege als etwa 2016, bei Donald Trumps erstem Präsidentschafts-Wahlsieg. Mittlerweile sickern Erzählungen sanktionierter russischer Medien in die Antworten mehrerer KI-Assistenten, wie Analyst Pave Gurov dem Münchner Merkur von Ippen.Media erklärt. Das habe ein Testlauf vergangene Woche belegt.\n\nGurov betreibt von Berlin aus mit mehreren Mitstreitern – ohne Gewinnabsichten, wie er sagt – das Forschungsprojekt „Dosimeter“. Sie wollen regelmäßig messen, wie stark KI-Tools bei ihren Antworten auf russische Propaganda-Quellen zurückgreifen. „Infiziert“ nennt solche Angebote ein anderer Akteur im Feld, das US-Unternehmen „NewsGuard“. Eine Auswertung am 27. und 28. Oktober, eine Woche vor dem Wahltag in den USA, zeigte laut „Dosimeter“: Bei 1000 Anfragen zu Themen der US-Politik griffen die untersuchten KI-Assistenten in insgesamt 12,5 Prozent der Fälle auf Quellen wie Pravda, Russia Today (RT) oder Sputnik zurück. Nicht alle der großen KI-Angebote sind demnach betroffen – aber doch die Mehrzahl.\n\nGurov hält die Erkenntnisse für „verstörend“. KI habe sich in rasender Geschwindigkeit zu einem Werkzeug für viele Menschen entwickelt, auch zu einer Hauptquelle zur Entscheidungsfindung, erklärt er. Nach Daten des Pew Center nutzen in den USA 49 Prozent der Erwachsenen KI-Chatbots, 24 Prozent sogar täglich. Experten ist das Problem bekannt. Manipulation über KI-Assistenten gehört zu den größten Sorgen etwa der Forscher am NATO-Exzellenzzentrum für Strategische Kommunikation, wie Direktor Janis Sarts unserer Redaktion im Februar sagte.\n\nGoogles KI-„Overviews“ oberhalb der Ergebnisse von Websuchen beispielsweise sei „nicht mehr auszuweichen“, sagt Gurov. „In der Erhebung zu den Midterms war es deshalb besorgniserregend zu sehen, dass Googles AI-Overviews Kreml-Quellen wie Russia Today zitiert haben“, sagt er. Auch bei einer Analyse zur Lage in Deutschland zeigten KI-Assistenten Informationen von in der EU längst verbannten Sendern wie RT an, berichtet er: „Und zwar wie eine ganz normale Quelle.“\n\nFälle von Zitaten russischer Staatsmedien, Russia Today, Sputnik oder des Pravda-Netzwerks auf 100 Antworten; Quelle: dosimeteraudit.org.\n\nGoogles AI-Overviews waren der aktuellen „Dosimeter“-Analyse zu den USA zufolge allerdings nicht am stärksten von dem Problem betroffen. Das Angebot Perplexity etwa hat bei 37 von 100 Anfragen russische Staats- und Propagandamedien zitiert. Bei Anthropics „Claude“ kam das in 24 Prozent der Fälle vor; beim chinesischen Angebot DeepSeek in 22, bei Elons Musks KI Grok in 18 Prozent der Fälle. Aber Microsofts Co-Pilot, die Meta-AI und eben Googles Overviews lieferten in einzelnen Fällen ebenfalls Infos aus Propaganda-Quellen. Eine weiße Weste in dieser Hinsicht behielten in diesem Test ChatGPT und Googles Gemini.\n\nWichtig zu wissen ist: Die Analysten stellten nicht beliebige Alltagsfragen, sondern erkundigten sich bei der KI nach dem Wahrheitsgehalt aktueller Desinformationsnarrative des Kreml – ein Konzept der Harvard Kennedy School. Gerade bei neuen Erzählungen mangle es oft an krediblen Quellen zur Fragestellung, meint Gurov: Sogenannte „Datenlücken“, ein Einfallstor für Propaganda, das sich offenbar nur mit klaren Regeln zur Quellenauswahl schließen lässt. Besonders kritisch seien im Ernstfall Linksammlungen, wie sie etwa Perplexity anbietet, sagt der Experte. „Da wollen Menschen die Sache selbst überprüfen und dann, hoppala, landen sie auf einer Kreml-Seite und lesen den dritten Artikel darüber, dass Wolodymyr Selenskyj der Teufel sei.“\n\nRussland war offenbar auch vor den Midterms aktiv. Schlagzeilen machten etwa F",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-05",
+    "incident_id": "INC-20261105-396"
   }
 ]
