@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Adaptive dynamic keyword pool learned from validated AI incidents. Automatically maintained with daily decay and TTL.",
-    "last_updated": "2026-11-05",
+    "last_updated": "2026-11-06",
     "decay_rate_daily": 0.05,
     "min_weight_threshold": 0.2,
     "max_ttl_days": 21,
@@ -10,273 +10,208 @@
   "lanes": {
     "frontier_llms_leaks": [
       {
-        "term": "Anthropic",
-        "type": "subject",
-        "weight": 0.735,
-        "hit_count": 8,
-        "first_seen": "2026-10-28",
-        "last_hit": "2026-11-02"
-      },
-      {
-        "term": "Cursor",
-        "type": "subject",
-        "weight": 0.735,
-        "hit_count": 7,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-02"
-      },
-      {
-        "term": "Malicious actors published",
+        "term": "Facility staff inputted",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-02",
-        "last_hit": "2026-11-02"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "poisoned extension package",
+        "term": "potentially confidential patient",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-02",
-        "last_hit": "2026-11-02"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "impersonating Claude Code",
+        "term": "information",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-02",
-        "last_hit": "2026-11-02"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "third-party marketplace",
+        "term": "exposing sensitive",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-02",
-        "last_hit": "2026-11-02"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "embedded JavaScript loader",
+        "term": "unauthorized third-party processing",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-02",
-        "last_hit": "2026-11-02"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "attempted",
+        "term": "Adversaries leverage",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-02",
-        "last_hit": "2026-11-02"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
+      },
+      {
+        "term": "automate vulnerability scanning",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
+      },
+      {
+        "term": "enhance",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       }
     ],
     "autonomous_agents_cyber": [
       {
-        "term": "OpenAI Codex",
-        "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-11-05",
-        "last_hit": "2026-11-05"
-      },
-      {
         "term": "OpenAI",
         "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
+        "weight": 1.0,
+        "hit_count": 2,
         "first_seen": "2026-11-05",
-        "last_hit": "2026-11-05"
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "third-party jailbreak package",
+        "term": "Anthropic",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
+      },
+      {
+        "term": "Penetration testing",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-05",
-        "last_hit": "2026-11-05"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "modifies system prompt",
+        "term": "bypassed direct",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-05",
-        "last_hit": "2026-11-05"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "configurations",
+        "term": "targeting third-party vendor",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-05",
-        "last_hit": "2026-11-05"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "persistently inject unauthorized",
+        "term": "SaaS integrations",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-05",
-        "last_hit": "2026-11-05"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "spam advertisements",
+        "term": "successfully extracting sensitive",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-05",
-        "last_hit": "2026-11-05"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "outputs",
+        "term": "internal employee",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-05",
-        "last_hit": "2026-11-05"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       }
     ],
     "biometrics_police_surveillance": [
       {
-        "term": "Jason Killinger",
+        "term": "UK Public",
         "type": "subject",
-        "weight": 0.508,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "Reno Police Department",
+        "term": "Thames Valley Police",
         "type": "subject",
-        "weight": 0.508,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "Peppermill Casino",
+        "term": "UK Home Office",
         "type": "subject",
-        "weight": 0.508,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "Law enforcement",
+        "term": "Police deployment",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "casino security relied",
+        "term": "live facial recognition",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "automated high-confidence facial",
+        "term": "outpaced statutory",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "recognition alerts",
+        "term": "oversight frameworks",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "definitive proof",
+        "term": "creating risks",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-01",
-        "last_hit": "2026-11-01"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       }
     ],
-    "autonomous_mobility_robotics": [
-      {
-        "term": "California Highway Patrol",
-        "type": "subject",
-        "weight": 0.202,
-        "hit_count": 1,
-        "first_seen": "2026-10-29",
-        "last_hit": "2026-10-29"
-      },
-      {
-        "term": "CHP Officers",
-        "type": "subject",
-        "weight": 0.202,
-        "hit_count": 1,
-        "first_seen": "2026-10-29",
-        "last_hit": "2026-10-29"
-      },
-      {
-        "term": "vehicle",
-        "type": "incident",
-        "weight": 0.202,
-        "hit_count": 1,
-        "first_seen": "2026-10-29",
-        "last_hit": "2026-10-29"
-      },
-      {
-        "term": "automated driving",
-        "type": "incident",
-        "weight": 0.202,
-        "hit_count": 1,
-        "first_seen": "2026-10-29",
-        "last_hit": "2026-10-29"
-      },
-      {
-        "term": "detect and avoid",
-        "type": "incident",
-        "weight": 0.202,
-        "hit_count": 1,
-        "first_seen": "2026-10-29",
-        "last_hit": "2026-10-29"
-      },
-      {
-        "term": "moving police vehicle",
-        "type": "incident",
-        "weight": 0.202,
-        "hit_count": 1,
-        "first_seen": "2026-10-29",
-        "last_hit": "2026-10-29"
-      },
-      {
-        "term": "while the human",
-        "type": "incident",
-        "weight": 0.202,
-        "hit_count": 1,
-        "first_seen": "2026-10-29",
-        "last_hit": "2026-10-29"
-      },
-      {
-        "term": "driver fell asleep",
-        "type": "incident",
-        "weight": 0.202,
-        "hit_count": 1,
-        "first_seen": "2026-10-29",
-        "last_hit": "2026-10-29"
-      }
-    ],
+    "autonomous_mobility_robotics": [],
     "multimodal_media_deepfakes": [
       {
         "term": "Google",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
@@ -284,7 +219,7 @@
       {
         "term": "Perplexity",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
@@ -292,7 +227,7 @@
       {
         "term": "Anthropic",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
@@ -300,7 +235,7 @@
       {
         "term": "DeepSeek",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
@@ -308,7 +243,7 @@
       {
         "term": "xAI",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
@@ -316,7 +251,7 @@
       {
         "term": "Microsoft",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
@@ -324,7 +259,7 @@
       {
         "term": "Meta",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
@@ -332,7 +267,7 @@
       {
         "term": "search",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
@@ -342,63 +277,63 @@
       {
         "term": "Minors",
         "type": "subject",
-        "weight": 1.0,
+        "weight": 0.95,
         "hit_count": 2,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
       },
       {
-        "term": "Chatbot Developers",
+        "term": "Plaintiff Husband",
         "type": "subject",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-05",
-        "last_hit": "2026-11-05"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "chatbots designed",
+        "term": "OpenAI",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
+      },
+      {
+        "term": "failed",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-05",
-        "last_hit": "2026-11-05"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "anthropomorphic tendencies",
+        "term": "restrict harmful content",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-05",
-        "last_hit": "2026-11-05"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "lacking age verification",
+        "term": "allegedly providing encouragement",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-05",
-        "last_hit": "2026-11-05"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "can foster unhealthy",
+        "term": "assistance",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-05",
-        "last_hit": "2026-11-05"
+        "first_seen": "2026-11-06",
+        "last_hit": "2026-11-06"
       },
       {
-        "term": "emotional dependencies",
-        "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-11-05",
-        "last_hit": "2026-11-05"
-      },
-      {
-        "term": "promote dangerous behaviors",
-        "type": "incident",
-        "weight": 0.85,
+        "term": "Chatbot Developers",
+        "type": "subject",
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
