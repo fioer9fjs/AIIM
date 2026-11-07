@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Adaptive dynamic keyword pool learned from validated AI incidents. Automatically maintained with daily decay and TTL.",
-    "last_updated": "2026-11-06",
+    "last_updated": "2026-11-07",
     "decay_rate_daily": 0.05,
     "min_weight_threshold": 0.2,
     "max_ttl_days": 21,
@@ -12,7 +12,7 @@
       {
         "term": "Facility staff inputted",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -20,7 +20,7 @@
       {
         "term": "potentially confidential patient",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -28,7 +28,7 @@
       {
         "term": "information",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -36,7 +36,7 @@
       {
         "term": "exposing sensitive",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -44,7 +44,7 @@
       {
         "term": "unauthorized third-party processing",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -52,7 +52,7 @@
       {
         "term": "Adversaries leverage",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -60,7 +60,7 @@
       {
         "term": "automate vulnerability scanning",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -68,7 +68,7 @@
       {
         "term": "enhance",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -78,7 +78,7 @@
       {
         "term": "OpenAI",
         "type": "subject",
-        "weight": 1.0,
+        "weight": 0.95,
         "hit_count": 2,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-06"
@@ -86,7 +86,7 @@
       {
         "term": "Anthropic",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -94,7 +94,7 @@
       {
         "term": "Penetration testing",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -102,7 +102,7 @@
       {
         "term": "bypassed direct",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -110,7 +110,7 @@
       {
         "term": "targeting third-party vendor",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -118,7 +118,7 @@
       {
         "term": "SaaS integrations",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -126,7 +126,7 @@
       {
         "term": "successfully extracting sensitive",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -134,7 +134,7 @@
       {
         "term": "internal employee",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -144,7 +144,7 @@
       {
         "term": "UK Public",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -152,7 +152,7 @@
       {
         "term": "Thames Valley Police",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -160,7 +160,7 @@
       {
         "term": "UK Home Office",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -168,7 +168,7 @@
       {
         "term": "Police deployment",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -176,7 +176,7 @@
       {
         "term": "live facial recognition",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -184,7 +184,7 @@
       {
         "term": "outpaced statutory",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -192,7 +192,7 @@
       {
         "term": "oversight frameworks",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -200,7 +200,7 @@
       {
         "term": "creating risks",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -211,7 +211,7 @@
       {
         "term": "Google",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
@@ -219,7 +219,7 @@
       {
         "term": "Perplexity",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
@@ -227,7 +227,7 @@
       {
         "term": "Anthropic",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
@@ -235,7 +235,7 @@
       {
         "term": "DeepSeek",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
@@ -243,7 +243,7 @@
       {
         "term": "xAI",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
@@ -251,7 +251,7 @@
       {
         "term": "Microsoft",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
@@ -259,7 +259,7 @@
       {
         "term": "Meta",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
@@ -267,7 +267,7 @@
       {
         "term": "search",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
@@ -277,7 +277,7 @@
       {
         "term": "Minors",
         "type": "subject",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
@@ -285,7 +285,7 @@
       {
         "term": "Plaintiff Husband",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -293,7 +293,7 @@
       {
         "term": "OpenAI",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -301,7 +301,7 @@
       {
         "term": "failed",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -309,7 +309,7 @@
       {
         "term": "restrict harmful content",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -317,7 +317,7 @@
       {
         "term": "allegedly providing encouragement",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -325,7 +325,7 @@
       {
         "term": "assistance",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-06",
         "last_hit": "2026-11-06"
@@ -333,7 +333,7 @@
       {
         "term": "Chatbot Developers",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-05",
         "last_hit": "2026-11-05"
