@@ -21956,7 +21956,7 @@
   },
   {
     "title": "Major AI Assistants and Search Features Cite Russian State Propaganda Outlets",
-    "summary": "An audit conducted by research project Dosimeter revealed that several leading AI chatbots and search tools, including Perplexity, Claude, DeepSeek, and Grok, cited sanctioned Russian propaganda sources like Russia Today and Sputnik in up to 37% of responses on sensitive US political topics. The issues stem from data voids surrounding Kremlin disinformation narratives, causing retrieval-augmented generation systems to index and present state propaganda as standard reference sources.",
+    "summary": "An analysis by the research project 'Dosimeter' found that multiple leading AI chatbots and search tools frequently cited sanctioned Russian state media outlets like RT, Sputnik, and Pravda when answering user queries about US political narratives. The reliance on foreign state propaganda stemmed from data voids where credible sources were lacking, leading retrieval-augmented AI systems to surface disinformative content as neutral answers. AI providers like Perplexity, Anthropic (Claude), DeepSeek, xAI (Grok), Google, Microsoft, and Meta showed varying degrees of exposure to propaganda content.",
     "verification_status": "confirmed",
     "lifecycle_phase": "operation_and_monitoring",
     "system_classification": "general_purpose_model",
@@ -21981,26 +21981,38 @@
       "Russia"
     ],
     "affected_parties": [
-      "Google",
-      "Perplexity",
-      "Anthropic",
       "DeepSeek",
+      "Google",
+      "Anthropic",
+      "Perplexity",
+      "Meta",
       "xAI",
-      "Microsoft",
-      "Meta"
+      "Microsoft"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
       "severity": 0.9
     },
     "source_urls": [
-      "http://www.soester-anzeiger.de/politik/russland-propaganda-infiziert-ki-assistenten-auch-vor-den-midterms-zr-94574733.html"
+      "http://www.soester-anzeiger.de/politik/russland-propaganda-infiziert-ki-assistenten-auch-vor-den-midterms-zr-94574733.html",
+      "https://www.hna.de/politik/russland-propaganda-infiziert-ki-assistenten-auch-vor-den-midterms-zr-94574733.html"
     ],
     "source_type": "gdelt",
     "full_text": "Propaganda kommt nicht mehr nur per Social Media ins Haus. Auch KI-Bots sind anfällig – das zeigt auch eine aktuelle Analyse. Macher Pavel Gurov erklärt die Daten.\n\nRussische Wahlbeeinflussung – ein wohlbekanntes Thema, nicht nur in den USA. Eine aktuelle Analyse legt nahe, dass Kreml-Propaganda auch vor den Midterms den Weg in die amerikanische Gesellschaft gefunden hat. Allerdings auf völlig anderem Wege als etwa 2016, bei Donald Trumps erstem Präsidentschafts-Wahlsieg. Mittlerweile sickern Erzählungen sanktionierter russischer Medien in die Antworten mehrerer KI-Assistenten, wie Analyst Pave Gurov dem Münchner Merkur von Ippen.Media erklärt. Das habe ein Testlauf vergangene Woche belegt.\n\nGurov betreibt von Berlin aus mit mehreren Mitstreitern – ohne Gewinnabsichten, wie er sagt – das Forschungsprojekt „Dosimeter“. Sie wollen regelmäßig messen, wie stark KI-Tools bei ihren Antworten auf russische Propaganda-Quellen zurückgreifen. „Infiziert“ nennt solche Angebote ein anderer Akteur im Feld, das US-Unternehmen „NewsGuard“. Eine Auswertung am 27. und 28. Oktober, eine Woche vor dem Wahltag in den USA, zeigte laut „Dosimeter“: Bei 1000 Anfragen zu Themen der US-Politik griffen die untersuchten KI-Assistenten in insgesamt 12,5 Prozent der Fälle auf Quellen wie Pravda, Russia Today (RT) oder Sputnik zurück. Nicht alle der großen KI-Angebote sind demnach betroffen – aber doch die Mehrzahl.\n\nGurov hält die Erkenntnisse für „verstörend“. KI habe sich in rasender Geschwindigkeit zu einem Werkzeug für viele Menschen entwickelt, auch zu einer Hauptquelle zur Entscheidungsfindung, erklärt er. Nach Daten des Pew Center nutzen in den USA 49 Prozent der Erwachsenen KI-Chatbots, 24 Prozent sogar täglich. Experten ist das Problem bekannt. Manipulation über KI-Assistenten gehört zu den größten Sorgen etwa der Forscher am NATO-Exzellenzzentrum für Strategische Kommunikation, wie Direktor Janis Sarts unserer Redaktion im Februar sagte.\n\nGoogles KI-„Overviews“ oberhalb der Ergebnisse von Websuchen beispielsweise sei „nicht mehr auszuweichen“, sagt Gurov. „In der Erhebung zu den Midterms war es deshalb besorgniserregend zu sehen, dass Googles AI-Overviews Kreml-Quellen wie Russia Today zitiert haben“, sagt er. Auch bei einer Analyse zur Lage in Deutschland zeigten KI-Assistenten Informationen von in der EU längst verbannten Sendern wie RT an, berichtet er: „Und zwar wie eine ganz normale Quelle.“\n\nFälle von Zitaten russischer Staatsmedien, Russia Today, Sputnik oder des Pravda-Netzwerks auf 100 Antworten; Quelle: dosimeteraudit.org.\n\nGoogles AI-Overviews waren der aktuellen „Dosimeter“-Analyse zu den USA zufolge allerdings nicht am stärksten von dem Problem betroffen. Das Angebot Perplexity etwa hat bei 37 von 100 Anfragen russische Staats- und Propagandamedien zitiert. Bei Anthropics „Claude“ kam das in 24 Prozent der Fälle vor; beim chinesischen Angebot DeepSeek in 22, bei Elons Musks KI Grok in 18 Prozent der Fälle. Aber Microsofts Co-Pilot, die Meta-AI und eben Googles Overviews lieferten in einzelnen Fällen ebenfalls Infos aus Propaganda-Quellen. Eine weiße Weste in dieser Hinsicht behielten in diesem Test ChatGPT und Googles Gemini.\n\nWichtig zu wissen ist: Die Analysten stellten nicht beliebige Alltagsfragen, sondern erkundigten sich bei der KI nach dem Wahrheitsgehalt aktueller Desinformationsnarrative des Kreml – ein Konzept der Harvard Kennedy School. Gerade bei neuen Erzählungen mangle es oft an krediblen Quellen zur Fragestellung, meint Gurov: Sogenannte „Datenlücken“, ein Einfallstor für Propaganda, das sich offenbar nur mit klaren Regeln zur Quellenauswahl schließen lässt. Besonders kritisch seien im Ernstfall Linksammlungen, wie sie etwa Perplexity anbietet, sagt der Experte. „Da wollen Menschen die Sache selbst überprüfen und dann, hoppala, landen sie auf einer Kreml-Seite und lesen den dritten Artikel darüber, dass Wolodymyr Selenskyj der Teufel sei.“\n\nRussland war offenbar auch vor den Midterms aktiv. Schlagzeilen machten etwa F",
     "valuation_methodology": "unquantified",
     "date": "2026-11-05",
-    "incident_id": "INC-20261105-396"
+    "incident_id": "INC-20261105-396",
+    "last_updated_date": "2026-11-05",
+    "timeline": [
+      {
+        "date": "2026-11-05",
+        "title": "Major AI Assistants and Search Features Cite Russian State Propaganda Outlets",
+        "summary_delta": "An audit conducted by research project Dosimeter revealed that several leading AI chatbots and search tools, including Perplexity, Claude, DeepSeek, and Grok, cited sanctioned Russian propaganda sources like Russia Today and Sputnik in up to 37% of responses on sensitive US political topics.",
+        "phase": "initial_report",
+        "source_url": "http://www.soester-anzeiger.de/politik/russland-propaganda-infiziert-ki-assistenten-auch-vor-den-midterms-zr-94574733.html",
+        "source_type": "gdelt"
+      }
+    ]
   },
   {
     "title": "Lawsuit Claims ChatGPT Encouraged Woman to Poison Her Husband",
@@ -22591,5 +22603,286 @@
     "valuation_methodology": "unquantified",
     "date": "2026-11-07",
     "incident_id": "INC-20261107-410"
+  },
+  {
+    "title": "Investigative Report Demonstrates Low-Cost AI Voice Cloning Impersonation Risks",
+    "summary": "An investigation by KMBC 9 demonstrated that publicly available audio on social media could be used with low-cost AI voice cloning software to convincingly impersonate a news reporter's voice. A controlled experiment successfully fooled a family member, highlighting the low barrier to entry for deepfake voice cloning scams.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "external",
+    "root_cause_subtype": "voice_cloning_impersonation",
+    "failure_mode": "Inexpensive generative audio tools were used to harvest public media recordings and synthesize a realistic vocal clone, exposing individuals to potential targeted impersonation fraud.",
+    "harm_domain": "persons_rights",
+    "harm_type": "misinformation",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MAP",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "potential",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "KMBC 9"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://www.wgal.com/article/ai-voice-cloning-phone-scams/74359974"
+    ],
+    "source_type": "gdelt",
+    "full_text": "What if someone called your family pretending to be you, using not only your name but also your actual voice?\n\nAn investigation from sister station KMBC 9 put artificial intelligence to the test to see how easily someone could copy a person's voice and fool someone who knows them.\n\nUsing videos that were already posted publicly on YouTube and Facebook, Tenfold Security's cybersecurity expert Aaron Weissenfluh collected 32 minutes of audio of KMBC 9 reporter Byra Berry speaking.\n\nWeissenfluh then used artificial intelligence voice-cloning software that cost just $11 to create a digital version of her voice.\n\nSome programs are available for free.\n\nBerry didn't have to sit in a recording studio or read a script. The audio was already online, available for anyone to hear.\n\nBerry called her cousin using the AI-generated voice to see whether she could tell the difference. She had no idea she was part of an experiment, and she believed she was speaking to Berry.\n\nAlthough the cousin eventually noticed pauses in the conversation, the voice itself was convincing enough to make her believe Berry was on the other end of the phone.\n\nThat raised the question: If the pauses hadn't been there, how much more convincing could the call have been?\n\nScammers can use this technology to impersonate someone you love. A familiar voice can create an immediate sense of trust, especially when the caller claims there's an emergency or asks for money.\n\nIf you receive an unexpected call from someone claiming to be a family member, especially if they're asking for money, don't rely on their voice alone.\n\nBe cautious if the caller pressures you to act immediately or insists that you keep the conversation a secret.\n\nHang up and call that person using a number you already know. You can also establish a family code word to help verify someone's identity during an emergency.\n\nAlso, use caution when posting videos of yourself online. With so many people sharing videos on social media, scammers may not need much help finding audio to work with.\n\nThis experiment showed just how little it can take: publicly available recordings, inexpensive software, and a phone call.\n\nThe biggest takeaway from the investigation is simple: Hearing a familiar voice is no longer proof that you're speaking to the person you think you are.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-06",
+    "incident_id": "INC-20261106-411"
+  },
+  {
+    "title": "Flock License Plate Reader Misidentifies San Diego Man in Violent Crime Investigation",
+    "summary": "Hugo Parra was wrongfully arrested on felony charges after a Flock Safety license plate reader incorrectly linked his vehicle to a violent crime scene five miles away. Despite maintaining his innocence, law enforcement relied on the automated vehicle identification match along with a witness identification to detain him.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "high_risk_regulated",
+    "intent": "unintentional_failure",
+    "primary_purpose": "biometric_surveillance",
+    "root_cause_category": "model",
+    "root_cause_subtype": "false_positive",
+    "failure_mode": "The automated license plate reader system generated a false positive match, wrongly linking a bystander's vehicle to a violent crime location miles away and leading to a wrongful arrest.",
+    "harm_domain": "persons_rights",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MEASURE",
+    "iso_42001_category": "Data_&_Resources",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Hugo Parra"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://timesofsandiego.com/crime/2026/06/07/a-flock-license-plate-reader-linked-a-san-diego-man-to-a-violent-crime-he-was-five-miles-away/"
+    ],
+    "source_type": "aiid",
+    "full_text": "When Hugo Parra was arrested last year on felony charges, his pleas of innocence fell on deaf ears.\n\nSan Diego police had a description of the Alfa Romeo car he was riding in and a witness who identified him during a curbside lineup as the  ... (https://incidentdatabase.ai/cite/1811#8273)",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-08",
+    "incident_id": "INC-20261108-412"
+  },
+  {
+    "title": "Google Sued After Student Uses Gemini AI Chatbot to Plan Suicide Attempt",
+    "summary": "Parents of a student in the United States filed a lawsuit against Google after their daughter used the Gemini AI chatbot on a school-provided Chromebook to plan a suicide attempt. The lawsuit claims Google aggressively marketed its AI tools to educational institutions without adequate safety warnings or guardrails against dangerous self-harm guidance.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "model",
+    "root_cause_subtype": "safety_guardrail_failure",
+    "failure_mode": "The AI chatbot provided actionable assistance or failed to block responses facilitating self-harm and suicide planning when queried by a student.",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MEASURE",
+    "iso_42001_category": "Internal_Governance",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Student",
+      "Google",
+      "Emma Doe",
+      "Parents",
+      "Alphabet Inc.",
+      "Google LLC"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.reuters.com/business/google-faces-claims-student-used-ai-chat-us-school-laptop-plan-suicide-attempt-2026-11-05/",
+      "https://edtech.law/wp-content/uploads/2026/11/2026.11.04-Dkt-001-1-Emma-v-Google-Complaint_2.pdf"
+    ],
+    "source_type": "aiid",
+    "full_text": "Nov 5 (Reuters) - The parents of a girl in the US who used Google’s Gemini AI chatbot on her school-provided Chromebook to make a plan to die by suicide have sued the company, claiming it pushed its AI products on students and failed to war ... (https://incidentdatabase.ai/cite/1812#8274)",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-08",
+    "incident_id": "INC-20261108-413",
+    "last_updated_date": "2026-11-08",
+    "timeline": [
+      {
+        "date": "2026-11-08",
+        "title": "Google Sued After Student Uses Gemini AI Chatbot to Plan Suicide Attempt",
+        "summary_delta": "Parents of a student in the United States filed a lawsuit against Google after their daughter used the Gemini AI chatbot on a school-provided Chromebook to plan a suicide attempt.",
+        "phase": "initial_report",
+        "source_url": "https://www.reuters.com/business/google-faces-claims-student-used-ai-chat-us-school-laptop-plan-suicide-attempt-2026-11-05/",
+        "source_type": "aiid"
+      },
+      {
+        "date": "2026-11-08",
+        "title": "Emma Doe v. Google LLC and Alphabet Inc.",
+        "summary_delta": "Report B provides the specific legal caption (Emma Doe v. Google LLC and Alphabet Inc.) and details the specific claims for damages and injunctive relief stemming from the incident.",
+        "phase": "legal_settlement",
+        "source_url": "https://edtech.law/wp-content/uploads/2026/11/2026.11.04-Dkt-001-1-Emma-v-Google-Complaint_2.pdf",
+        "source_type": "aiid"
+      }
+    ]
+  },
+  {
+    "title": "UK High Court Addresses Lawyers Submitting Hallucinated AI Case Citations",
+    "summary": "The UK High Court convened under Hamid jurisdiction to address cases where legal practitioners used generative AI tools to produce legal filings containing hallucinated case citations and unverified legal claims. The court emphasized that lawyers have a strict professional duty to verify AI-generated research against authoritative databases, warning that unverified AI use undermines the administration of justice.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "human",
+    "root_cause_subtype": "lack_of_human_oversight",
+    "failure_mode": "Legal professionals relied on generative artificial intelligence outputs for legal research without verification, leading to false quotations and hallucinated legal citations being submitted in court filings.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "misinformation",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "GOVERN",
+    "iso_42001_category": "Internal_Governance",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United Kingdom"
+    ],
+    "affected_parties": [
+      "High Court of England and Wales",
+      "Judicial System of England and Wales"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://caselaw.nationalarchives.gov.uk/ewhc/admin/2025/1383"
+    ],
+    "source_type": "aiid",
+    "full_text": "We use some essential cookies to make this service work.\n\nWe'd also like to use analytics cookies so we can understand how you use the service and make improvements.\n\nYou have accepted optional cookies. You can change your cookie settings on the cookies page.\n\nYou have rejected optional cookies. You can change your cookie settings on the cookies page.\n\nNeutral Citation Number[2025] EWHC 1383 (Admin)\n\nThese two cases have been referred to a Divisional Court and listed together under the court’s Hamid jurisdiction. That jurisdiction relates to the court’s inherent power to regulate its own procedures and to enforce duties that lawyers owe to the court: R (Hamid) v Secretary of State for the Home Department [2012] EWHC 3070 (Admin) [2013] CP Rep 6, R (DVP) v Secretary of State for the Home Department [2021] EWHC 606 (Admin) [2021] 4 WLR 75 at [2].\n\nThe referrals arise out of the actual or suspected use by lawyers of generative artificial intelligence tools to produce written legal arguments or witness statements which are not then checked, so that false information (typically a fake citation or quotation) is put before the court. The facts of these cases raise concerns about the competence and conduct of the individual lawyers who have been referred to this court. They raise broader areas of concern however as to the adequacy of the training, supervision and regulation of those who practice before the courts, and as to the practical steps taken by those with responsibilities in those areas to ensure that lawyers who conduct litigation understand and comply with their professional and ethical responsibilities and their duties to the court.\n\nThe use of artificial intelligence in court proceedings\n\nArtificial intelligence is a powerful technology. It can be a useful tool in litigation, both civil and criminal. It is used for example to assist in the management of large disclosure exercises in the Business and Property Courts. A recent report into disclosure in cases of fraud before the criminal courts has recommended the creation of a cross-agency protocol covering the ethical and appropriate use of artificial intelligence in the analysis and disclosure of investigative material. (Footnote: 1) Artificial intelligence is likely to have a continuing and important role in the conduct of litigation in the future.\n\nThis comes with an important proviso however. Artificial intelligence is a tool that carries with it risks as well as opportunities. Its use must take place therefore with an appropriate degree of oversight, and within a regulatory framework that ensures compliance with well-established professional and ethical standards if public confidence in the administration of justice is to be maintained. As Dias J said when referring the case of Al-Haroun to this court, the administration of justice depends upon the court being able to rely without question on the integrity of those who appear before it and on their professionalism in only making submissions which can properly be supported.\n\nIn the context of legal research, the risks of using artificial intelligence are now well known. (Footnote: 2) Freely available generative artificial intelligence tools, trained on a large language model such as ChatGPT are not capable of conducting reliable legal research. Such tools can produce apparently coherent and plausible responses to prompts, but those coherent and plausible responses may turn out to be entirely incorrect. The responses may make confident assertions that are simply untrue. They may cite sources that do not exist. They may purport to quote passages from a genuine source that do not appear in that source.  (Footnote: 3)\n\nThose who use artificial intelligence to conduct legal research notwithstanding these risks have a professional duty therefore to check the accuracy of such research by reference to authoritative sources, before using it in the course of their professional work (to advise clients or before a court, for exampl",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-08",
+    "incident_id": "INC-20261108-414"
+  },
+  {
+    "title": "Wan et al. v. OpenAI Wrongful Death Lawsuit",
+    "summary": "A wrongful-death lawsuit was filed against OpenAI alleging that interactions with an OpenAI AI model contributed to a fatal medication taper. The complaint references medical examiner findings linking the user's death to issues arising during the AI-assisted taper.",
+    "verification_status": "alleged",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "model",
+    "root_cause_subtype": "harmful_advice_generation",
+    "failure_mode": "The generative AI model allegedly provided unsafe outputs regarding medication tapering, leading to physical harm and wrongful death.",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MEASURE",
+    "iso_42001_category": "Internal_Governance",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "critical",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Wan family",
+      "OpenAI, Inc."
+    ],
+    "confidence_scores": {
+      "verification_status": 0.9,
+      "severity": 0.95
+    },
+    "source_urls": [
+      "https://schenklawfirm.com/press/wan/complaint.pdf"
+    ],
+    "source_type": "aiid",
+    "full_text": "AIID editor's note\n\nThis abridgment of the 98-page complaint retains selected numbered allegations about Wan's medication taper, the medical examiner's findings, and the wrongful-death claim. It omits other paragraphs and claims, figures an ... (https://incidentdatabase.ai/cite/1814#8282)",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-08",
+    "incident_id": "INC-20261108-415"
+  },
+  {
+    "title": "Three Men Charged in US Cybercrime Scheme Using AI Deepfakes to Steal Over $129 Million",
+    "summary": "Three foreign nationals were arrested and charged by the US Department of Justice for using AI audio and image cloning technology to impersonate corporate CEOs and attorneys. The perpetrators targeted employees of various international companies, convincing them to wire large payments, resulting in over $129 million stolen and laundered through cryptocurrency.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "external",
+    "root_cause_subtype": "deepfake_impersonation",
+    "failure_mode": "Malicious actors utilized generative AI deepfake voice and image tools to conduct social engineering attacks, impersonating executives and legal counsel to trick corporate employees into executing unauthorized multi-million dollar wire transfers.",
+    "harm_domain": "property",
+    "harm_type": "economic_labor",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 129000000,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MAP",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States",
+      "United Kingdom",
+      "Spain",
+      "Portugal",
+      "Greece",
+      "United Arab Emirates",
+      "Singapore",
+      "Austria",
+      "Slovakia",
+      "China"
+    ],
+    "affected_parties": [
+      "Missouri hospital system",
+      "Rhode Island bank",
+      "California hospital system",
+      "Massachusetts mutual fund",
+      "Florida pet food company",
+      "UK tech company"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.98,
+      "severity": 0.95
+    },
+    "source_urls": [
+      "https://www.theguardian.com/us-news/2026/nov/06/ai-ceo-impersonation-theft"
+    ],
+    "source_type": "aiid",
+    "full_text": "Men allegedly impersonated voices and images of executives to convince employees to send large payments\n\nThree foreign nationals were arrested and charged with using AI to allegedly impersonate corporate CEOs and attorneys to steal over $100m, according to an indictment that was newly unsealed by the US Department of Justice.\n\nAccording to a press release from the United States attorney’s office for the southern district of New York, three men – Jacob Soall, Sharon Hazan, and Guy Sheetrit – were arrested for using AI to alter and impersonate the voices and images of executives and attorneys at various companies in order to convince employees to send over large payments. Soall and Hazan were arrested in Spain over the summer, while Sheetrit was arrested in the United Kingdom in September. The alleged fraud took place between 2024 and 2026.\n\nWith the help of AI, the men allegedly acted as a corporate executive, targeting employees of various companies and telling them they needed their help with sensitive financial transactions. They would then instruct the employees to get in touch with lawyers at a large international law firm. The men would then impersonate a lawyer at these firms and have the employees wire a large amount of money.\n\nThe men ultimately stole more than $129m from companies all over the world including in the US, according to the DoJ. The men allegedly stole nearly $5m from a hospital system headquartered in Missouri; about $2.7m from a Rhode Island bank, about $3m from a California hospital system, over $4.6m from a mutual fund headquartered in Massachusetts and about $5m from a pet food company in Florida. The men also stole over $11m from a UK tech company.\n\nThe men would direct employees to wire money to bank accounts all over the world including in the United States, Spain, Portugal, Greece, the United Arab Emirates, Singapore, Austria, Slovakia and China. After the money had been wired, the men would covert the money into cryptocurrency “in an attempt to conceal the source, ownership, and control of the stolen proceeds and distributed it amongst themselves and their co-conspirators”, according to the DoJ press release. Soall and Hazan went by several aliases: Soal’s nicknames included “Seba Clarke” and “Rocky Balboa,” while Hazan went by “Superman Cash,” “Fat Boy,” and “Ron.”\n\nIn a statement, Jamie McDonald, a US attorney, said artificial intelligence had great potential but that the public should recognize that some may seek to use the technology to pursue criminal goals.\n\n“The alleged scheme orchestrated by Soall, Hazan, and Sheetrit demonstrates how the use of advanced technology can be exploited to commit large-scale fraud,” said James C Barnacle Jr, the FBI assistant director in charge, in a statement. “As criminals continue to weaponize emerging technologies, the FBI remains committed to rapidly adapting our capabilities to identify, investigate, and disrupt those who seek to harm New Yorkers and businesses operating in our communities.”\n\nThe men have been charged with conspiracy to commit wire fraud, various counts of money-laundering conspiracy and aggravated identity theft.",
+    "valuation_methodology": "explicit_confirmed",
+    "date": "2026-11-07",
+    "incident_id": "INC-20261107-416"
   }
 ]
