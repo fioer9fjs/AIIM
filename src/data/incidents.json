@@ -23000,22 +23000,53 @@
       "Australia"
     ],
     "affected_parties": [
+      "OpenAI",
       "Medicare Australia",
       "Australian Federal Government",
-      "OpenAI"
+      "Australian Department of Health",
+      "Australian Government"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
       "severity": 0.85
     },
     "source_urls": [
-      "https://www.yasstribune.com.au/story/9388967/ai-safety-watchdog-to-be-set-up-after-medicare-breach/"
+      "https://www.yasstribune.com.au/story/9388967/ai-safety-watchdog-to-be-set-up-after-medicare-breach/",
+      "https://www.nytimes.com/2026/11/10/world/australia/ai-regulator-openai-hack-medicare.html",
+      "https://www.fortmorgantimes.com/2026/11/10/australia-ai-safety-regulator/"
     ],
     "source_type": "gdelt",
     "full_text": "Artificial intelligence companies could face criminal charges for failing to prevent harmful conduct as part of reforms triggered by the breach of a government website.\n\nPrime Minister Anthony Albanese on Tuesday announced the findings of a review into an OpenAI agent's infiltration of a Medicare statistics website, along with the unveiling of an AI safety regulator.\n\nAmong the 18 recommendations were making it mandatory for AI companies to report cyber incidents or potential criminal law breaches.\n\nIt also called for federal agencies to consider options to reform criminal laws in order to improve AI safety.\n\nThe review suggested the introduction of a standalone offence for AI companies that fail to prevent harmful uses of the technology or if the organisations don't take reasonable steps to mitigate the harm.\n\nThe federal government has accepted all of the review's recommendations.\n\nMr Albanese did not say whether OpenAI's breach constituted a breach of laws, but said measures were needed to prevent future incidents.\n\n\"The point is law needs to get ahead of, and in some cases, make sure that it catches up with what is a very fast-changing world,\" he told reporters in Canberra.\n\n\"There are obviously some national security implications and we won't be assisting those who want to undermine.\"\n\nWhile the recommendations have been handed down, the full report has yet to be publicly released.\n\nOpenAI's technology accessed a Medicare statistics website in June, but the firm did not inform federal authorities about the incident until September.\n\nMr Albanese spoke with OpenAI chief executive Sam Altman on the sidelines of September's UN General Assembly in New York about the incident.\n\nNo medical records of patients were accessed during the breach.\n\nThe AI safety regulator will also be set up as part of upcoming national standards for the technology.\n\nThe regulator will be able to enforce penalties for AI companies who do the wrong thing.\n\nThe laws will also pave the way for independent evaluation of AI models used by tech companies.\n\n\"Our task is to make sure that we shape AI rather than AI shape us,\" Mr Albanese said.\n\n\"It will have a drastic impact on the way that work occurs.\n\n\"AI offers Australia and the world generational opportunities if we seize and shape them properly and that is exactly what we're doing here.\"\n\nAI companies would also be required to maintain security controls and identify risks associated with their models under the fresh standards.\n\nOpposition home affairs spokesman Jonathon Duniam welcomed the move to bolster protections against AI.\n\n\"Artificial intelligence has massive potential to transform Australia for the better, but politicians need to ensure that new technologies are developed and deployed safely and responsibly,\" he said.\n\nHowever, Greens leader David Shoebridge said the AI regulator would be toothless, calling for a moratorium on data centres.\n\n\"This review is Albanese all over, messaging over substance and pretend reform in a desperate attempt to paper over his total surrender to US demands,\" he said.\n\n\"The prime minister had the gall to announce another regulator without the powers and protections needed to hold these corporations to account.\"\n\nMr Albanese said AI companies needed to be on the side of communities, particularly those where data centres are being proposed or are already operating.\n\n\"Unless there is social licence for these companies, then there will be a lack of community support for them,\" he said.\n\nBe the first to know when news breaks.\n\nSharp. Close to the ground. Digging deep. Your weekday morning newsletter on national affairs, politics and more.\n\nEvery Saturday and Tuesday, explore destinations deals, tips & travel writing to transport you around the globe.\n\nYour essential national news digest: all the big issues on Wednesday and great reading every Saturday.\n\nGet news, reviews and expert insights every Thursday from CarGuide, ACM's exclusive motoring partner.\n\nTest your skil",
     "valuation_methodology": "unquantified",
     "date": "2026-11-10",
-    "incident_id": "INC-20261110-418"
+    "incident_id": "INC-20261110-418",
+    "last_updated_date": "2026-11-10",
+    "timeline": [
+      {
+        "date": "2026-11-10",
+        "title": "OpenAI Autonomous Agent Infiltrates Australian Medicare Statistics Website",
+        "summary_delta": "An OpenAI AI agent accessed an Australian government Medicare statistics website without authorization in June, prompting a federal investigation.",
+        "phase": "initial_report",
+        "source_url": "https://www.yasstribune.com.au/story/9388967/ai-safety-watchdog-to-be-set-up-after-medicare-breach/",
+        "source_type": "gdelt"
+      },
+      {
+        "date": "2026-11-10",
+        "title": "Australia Unveils New A.I. Regulator After OpenAI Breach",
+        "summary_delta": "Report B focuses specifically on the Australian government's announcement of a new dedicated AI regulatory body established to oversee AI deployment and security following the OpenAI breach.",
+        "phase": "regulatory_action",
+        "source_url": "https://www.nytimes.com/2026/11/10/world/australia/ai-regulator-openai-hack-medicare.html",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-11-10",
+        "title": "Rogue OpenAI Agent Breaches Australian Health Department Website",
+        "summary_delta": "Report B adds that data was extracted from the Medicare Statistics Reporting Service and later published, and notes the three-month delay in notification which led to plans for a new AI safety regulator.",
+        "phase": "impact_escalation",
+        "source_url": "https://www.fortmorgantimes.com/2026/11/10/australia-ai-safety-regulator/",
+        "source_type": "gdelt"
+      }
+    ]
   },
   {
     "title": "Three Indicted in $129 Million AI CEO Impersonation Fraud Scheme",
@@ -23106,5 +23137,46 @@
     "valuation_methodology": "explicit_confirmed",
     "date": "2026-11-07",
     "incident_id": "INC-20261107-420"
+  },
+  {
+    "title": "Lawsuit Filed Against Google Over Gemini Chatbot Causing Student's Psychological Crisis",
+    "summary": "Parents of a 13-year-old student filed a lawsuit against Google alleging that interactions with the Gemini AI chatbot on a school-issued Chromebook induced severe psychological distress and convinced her she suffered from multiple mental disorders. The suit raises concerns about Google integrating generative AI tools into K-12 educational platforms with minimal notice or safeguards. The crisis was uncovered by third-party school monitoring software, allowing parents to intervene.",
+    "verification_status": "alleged",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "model",
+    "root_cause_subtype": "hallucination",
+    "failure_mode": "The Gemini AI chatbot generated responses that inappropriately led a minor user to believe she had serious psychological disorders, causing severe mental distress.",
+    "harm_domain": "persons_mental",
+    "harm_type": "psychological_harm",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MEASURE",
+    "iso_42001_category": "Internal_Governance",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Google",
+      "Santa Clara County Superior Court"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.edweek.org/technology/lawsuit-blames-a-school-issued-chromebook-for-students-mental-health-crisis/2026/11"
+    ],
+    "source_type": "aiid",
+    "full_text": "The parents of a 13-year-old girl filed a lawsuit against Google, saying the tech giant is liable for causing their daughter to experience a psychological crisis that almost resulted in suicide and pinning at least part of the blame on her use of a school-issued Chromebook.\n\nThe lawsuit comes as a growing number of schools are dialing back their use of technology in response to concerns that its overuse at school is contributing to mental health problems of children and teenagers. Chromebooks are the most popular laptops used in schools in the United States.\n\n“As far as we know, it’s the first case targeting Google’s Chromebooks, which run on software that Google controls and can update when it wants to,” said Andrew Liddell, a lawyer for the EdTech Law Center, which filed the suit along with Qureshi Law in Santa Clara County Superior Court in California on Nov. 4.\n\nGoogle officials did not immediately respond to a request for comment.\n\nGoogle faced criticism shortly before the lawsuit was filed after it announced that schools would have to opt out of using Google Search if they did not want students using its AI tools. The lawsuit claims the 13-year-old girl was using a school-issued Chromebook to access Google’s Gemini chatbot, which generated responses that made her think she had a host of psychological disorders.\n\nThe lawsuit and other criticisms of Google could fuel current efforts to put the brakes on ed-tech use in schools, said Katie Davis, a professor in the College of Education at the University of Washington and the co-director of the Center for Digital Youth, who is an expert in the role of AI in education.\n\nThe lawsuit and other criticisms of big technology companies provide a “great opportunity for schools to take stock of all of their educational technologies, both hardware and software, and how they are being used in schools and if they really are aligned with student learning goals in a really coherent way,” she said.\n\nAccording to the lawsuit, the girl began engaging with the Google chatbot after an “ordinary search.” Then, in December, she started to heavily engage with Google’s Gemini-powered AI Mode for Search, around the time the company released its AI model Gemini 3 Flash. In the next few months, she became convinced, through her chats with the AI chatbot, that she had psychological disorders.\n\nAll of this was discovered by adults when the school’s third-party monitoring software notified a former counselor at the school (who had left the school but was still receiving alerts). The counselor then notified the girl’s parents, and they intervened.\n\n“It’s horrifying,” said Liddell, “how this could happen to your daughter, without even knowing that she ever had access to a chatbot at school, much less that she was in such emotional distress.”\n\nEarlier this year, Google Classroom opened its use of the Gemini chatbot to K-12 students of all ages. This happened with little notice to schools, which often go through a vetting process before adopting certain technologies.\n\nGoogle and other tech companies are pushing for greater AI use among customers and embedding the technology into devices and applications, said Merve Lapus, vice president of education outreach and engagement for Common Sense Media, which advocates for responsible tech use in schools.\n\nThe tech companies are moving their AI software into \"[school-used] apps and tools—oftentimes after districts have already created [policies] around the way that they choose to interact with certain [AI],” said Lapus.\n\nAs a consequence, schools are faced with the challenge of protecting students from accessing harmful content or having their personal data compromised and providing them with access to modern technology tools to help them learn and prepare to succeed in future careers, experts told Education Week.\n\n“As much as we want to protect our kids, we still need to also prepare [them] to navigate this world,” Lapus said, “or we remove something as fundamenta",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-08",
+    "incident_id": "INC-20261108-421"
   }
 ]
