@@ -2187,8 +2187,8 @@
   {
     "incident_id": "INC-20261016-310",
     "title": "Tesla in Self-Driving Mode Collides with CHP Cruiser in Fairfield",
-    "summary": "A Tesla operating on driver assistance features collided with a parked California Highway Patrol cruiser that had its emergency lights activated and was surrounded by flares and cones. The 22-year-old driver admitted to investigators that he was asleep while the vehicle's automated systems were in control, resulting in serious injuries to two officers.",
-    "full_text": "The California Highway Patrol released this image of one of its vehicles following a collision with a Tesla. (CHP)\n\nThe California Highway Patrol hopes that newly released dashcam video serves as a wake-up call for drivers who take dangerous chances with their automated driver assistance systems.\n\nOn Thursday, the state law enforcement agency posted the video showing multiple angles of a wreck on I-80, between San Francisco and Sacramento, involving a Tesla and one of its patrol vehicles. CHP’s statement indicated that the two state officers who were in the vehicle at the time were seriously injured in the crash.\n\nThe collision happened as the officers were on the scene of another crash and were helping divert traffic into the slow lane, CHP explained. The agency explained the cruiser’s emergency lights were activated, and road flares and cones surrounded the scene. Despite all that, the video shows the Tesla coming up behind the law enforcement vehicle and crashing into the back of it.\n\nRELATED: Man fishing when attacked, killed by alligator at Florida park, officials say\n\nThe driver of the Tesla told investigators that he was sleeping at the time of the crash and that the vehicle’s self-driving features were in control.\n\n\"Despite its name, full self-driving is not fully autonomous,\" CHP reminded drivers in its post. \"Technology does not relieve drivers of their responsibility to safely operate their vehicles.\"\n\nAuthorities did not release the name of the driver, who was identified only as a 22-year-old man from Sacramento, nor did they indicate if he will face charges in connection with the collision.\n\nAs of Friday, the officers had been released from the hospital.\n\nThe Source: Information for this article was taken from California Highway Patrol, Payless Towing, and  KTVU. This story was reported from Orlando.",
+    "summary": "A Tesla operating on Full Self-Driving (FSD) drove through a road closure and struck a stationary California Highway Patrol car on Interstate 80, seriously injuring two officers inside. The 22-year-old driver stated he was asleep at the wheel with FSD engaged at the time of the crash. The incident highlights recurring concerns regarding Tesla's driver-monitoring safeguards and system recognition of emergency scenes.",
+    "full_text": "Two California Highway Patrol officers are recovering from serious injuries after a Tesla drove into their patrol car at a crash scene on Interstate 80 in Fairfield. The 22-year-old driver told investigators he was asleep with Tesla’s “Full Self-Driving” engaged.\n\nCHP released dashcam video of the impact on Thursday. It’s the latest Tesla to plow into an emergency scene, a failure federal regulators started investigating five years ago.\n\nThe crash happened just before midnight on Tuesday, October 13, on eastbound I-80 west of Air Base Parkway. Officers were there for an earlier fatal crash: about an hour before, a 19-year-old from San Pablo lost control of his Honda Civic and was hit by a Chevrolet Tahoe. He didn’t survive.\n\nFour lanes were already shut down behind flares and cones when the Tesla showed up at freeway speed, per CHP. It went through the closure and into a Dodge Charger patrol car with both officers sitting in it. Cameras on the Charger and on another vehicle at the scene caught the impact.\n\nThe Tesla driver, from Sacramento, walked away with minor injuries. Both crashes are still under investigation.\n\nIn its statement, CHP stressed that FSD is a driver-assistance feature that requires the person behind the wheel to stay alert and in control: “Technology does not relieve drivers of their responsibility to safely operate their vehicles.”\n\nCHP hasn’t released the Tesla model or the software version. And for now, the driver’s word is the only evidence FSD was on. Tesla’s vehicle logs will settle that.\n\nWe’ve been here before. In August 2021, NHTSA opened an investigation after a series of Teslas on Autopilot crashed into stopped police cars and fire trucks, many of them at night with flares, cones, and flashing lights on scene. That probe ended with Tesla’s December 2023 recall of more than 2 million vehicles, fixed with an over-the-air update that added more driver-attention alerts.\n\nFSD hasn’t solved it either. In June 2024, a Tesla on FSD hit a parked Fullerton police car while officers were handling, again, a fatal crash. That driver admitted to being on his phone.\n\nA nighttime lane closure lit up with flares is about as clear a “stop or move over” signal as a road can give. If FSD was engaged in Fairfield, it drove straight into one at highway speed.\n\nFSD (Supervised) uses the cabin camera to make sure the driver is watching the road. It’s supposed to nag, then disengage, when someone isn’t paying attention. A driver who’s actually asleep shouldn’t get very far.\n\nSo either he hadn’t been asleep for long, or the camera didn’t catch it. We don’t know which yet. But Tesla has been relaxing that monitoring, not tightening it. We recently reported that Tesla drivers can easily bypass the monitoring system, even a simple dollar bill placed in front of the camera can nullify it.\n\nLast December, Elon Musk claimed FSD drivers can now text and drive “depending on context of surrounding traffic.” Texting while driving is illegal in California.\n\nThe driver is responsible. If he fell asleep at the wheel at freeway speed, he nearly killed two cops who were already cleaning up after a fatal crash, and he should face the consequences. CHP is right about that.\n\nBut as usual, I have to emphasize Tesla’s responsibility here.  Tesla doesn’t get to wash its hands of this. It sells a product called “Full Self-Driving” in the US, it agreed to drop that name in Europe this month after German regulators called it misleading, and its CEO tells owners they can text with it. When you tell people the car drives itself, some of them believe you. A 22-year-old driving home at midnight is exactly who believes you.\n\nIt's an established principle of design that the company making a product must make it safe, and that includes ways that users might easily and readily work around safeguards or written instructions.  Its obvious that Tesla has a legal responsibility to detect sleeping drivers, and they have the means to do so.  In fact, it's not ",
     "date": "2026-10-16",
     "verification_status": "confirmed",
     "severity": "high",
@@ -2221,13 +2221,13 @@
       "United States"
     ],
     "affected_parties": [
-      "California Highway Patrol",
-      "Injured Officers",
-      "Struck Police Officers",
-      "Tesla Driver",
-      "Injured Police Officers",
       "Injured CHP Officers",
+      "Struck Police Officers",
+      "Injured Officers",
+      "Tesla Driver",
       "CHP Officers",
+      "Injured Police Officers",
+      "California Highway Patrol",
       "Two CHP officers"
     ],
     "source_urls": [
@@ -2235,7 +2235,8 @@
       "https://www.cbsnews.com/sacramento/news/i80-fairfield-tesla-full-self-driving-chp-crash-video/",
       "https://www.foxla.com/news/dashcam-tesla-driver-claims-he-was-asleep-self-driving-before-hitting-chp-cruiser-injuring-2",
       "https://kmph.com/news/local/chp-tesla-driver-says-he-fell-asleep-in-full-self-driving-before-hitting-chp-cruiser",
-      "https://www.sfgate.com/bayarea/article/driving-tesla-asleep-officers-22480723.php"
+      "https://www.sfgate.com/bayarea/article/driving-tesla-asleep-officers-22480723.php",
+      "https://electrek.co/2026/10/16/tesla-fsd-crash-chp-patrol-car-driver-asleep-fairfield/"
     ],
     "related_incidents": [],
     "created_at": "2026-10-17T06:41:34.951825+00:00",
@@ -2253,6 +2254,14 @@
         "summary_delta": "A Tesla operating on driver assistance features collided with a parked California Highway Patrol cruiser that had its emergency lights activated and was surrounded by flares and cones.",
         "phase": "initial_report",
         "source_url": "https://abc7news.com/post/video-driver-asleep-tesla-driving-mode-plows-scene-crash-80-fairfield/19942866/",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-10-16",
+        "title": "Tesla on Full Self-Driving Allegedly Crashes into Highway Patrol Car, Injuring Two Officers",
+        "summary_delta": "Report B explicitly identifies the specific system mode ('Full Self-Driving' / FSD), the location (Interstate 80 and a road closure), and highlights broader concerns regarding Tesla's driver-monitoring safeguards.",
+        "phase": "technical_disclosure",
+        "source_url": "https://electrek.co/2026/10/16/tesla-fsd-crash-chp-patrol-car-driver-asleep-fairfield/",
         "source_type": "google_news_rss"
       },
       {
@@ -2630,11 +2639,13 @@
       "United States"
     ],
     "affected_parties": [
+      "Waymo",
       "Waymo LLC",
       "National Highway Traffic Safety Administration (NHTSA)"
     ],
     "source_urls": [
-      "https://startupfortune.com/waymo-expands-to-20-cities-as-nhtsa-opens-new-school-bus-safety-probe/"
+      "https://startupfortune.com/waymo-expands-to-20-cities-as-nhtsa-opens-new-school-bus-safety-probe/",
+      "https://www.reuters.com/legal/litigation/us-opens-probe-into-2895-waymo-vehicles-over-school-bus-safety-violations-2026-11-09/"
     ],
     "related_incidents": [],
     "created_at": "2026-10-15T06:56:23.517351+00:00",
@@ -2643,7 +2654,26 @@
     "nist_ai_rmf_function": "MAP",
     "iso_42001_category": "System_Impact",
     "impact_scope": "cumulative_macro_trend",
-    "valuation_methodology": "unquantified"
+    "valuation_methodology": "unquantified",
+    "last_updated_date": "2026-11-09",
+    "timeline": [
+      {
+        "date": "2026-10-15",
+        "title": "NHTSA Opens Safety Probe Into Waymo Robotaxis Passing Stopped School Buses",
+        "summary_delta": "Federal regulators opened an investigation into Waymo robotaxis after multiple incidents of vehicles passing stopped school buses in Atlanta and accumulating traffic citations in Austin.",
+        "phase": "initial_report",
+        "source_url": "https://startupfortune.com/waymo-expands-to-20-cities-as-nhtsa-opens-new-school-bus-safety-probe/",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-11-09",
+        "title": "US Opens Investigation into Waymo Over School Bus Safety Violations",
+        "summary_delta": "Report B provides subsequent media coverage of the ongoing US regulatory probe into Waymo regarding school bus safety violations.",
+        "phase": "investigation",
+        "source_url": "https://www.reuters.com/legal/litigation/us-opens-probe-into-2895-waymo-vehicles-over-school-bus-safety-violations-2026-11-09/",
+        "source_type": "google_news_rss"
+      }
+    ]
   },
   {
     "incident_id": "INC-20261015-308",
@@ -9937,74 +9967,74 @@
       "United States"
     ],
     "affected_parties": [
-      "Australian Government (Services Australia)",
-      "U.S. Department of Commerce",
       "OpenAI Foundation",
-      "Australian Federal Government (Medicare)",
-      "Anthropic",
-      "Department of Health (Medicare)",
-      "Medicare",
-      "OpenAI Group PBC",
-      "Medicare (Australia)",
-      "Australian Government Department of Home Affairs",
-      "Department of Finance",
-      "Hugging Face",
-      "US Department of Education",
-      "Victorian Department of Health",
-      "Australian Department of Home Affairs",
+      "Australian Federal Government",
       "Australian Signals Directorate",
-      "UK Government",
-      "Australian Government Medicare Database",
-      "Australian Government Medicare Platform",
-      "Data USA",
-      "Australian Medicare",
-      "U.S. Department of Education",
-      "RubyGems",
-      "National Data Commissioner's Office",
-      "OpenAI",
-      "Australian Broadcasting Corporation",
-      "U.S. Census Bureau",
-      "Services Australia",
       "Australian Institute of Health and Welfare",
-      "Government websites",
-      "Service Australia",
-      "Australian government",
-      "Australian Government Services Australia",
-      "University Websites",
-      "Services Australia (Medicare)",
-      "Australia's Medicare system",
-      "New South Wales Bureau of Crime Statistics and Research",
-      "Medicare Australia",
-      "Australian Government Health Department",
-      "Legal Advocates for Safe Science & Technology (LASST)",
-      "University websites",
-      "Australian Government Medicare Statistics Reporting Service",
-      "US Government",
-      "U.S. Securities and Exchange Commission",
-      "Australian Department of Health",
-      "Australian Cyber Security Centre",
-      "Government Websites",
-      "U.S. Department of Justice",
-      "Australian Senate",
-      "NSW Department of Climate Change, Energy, the Environment and Water",
-      "US Securities and Exchange Commission",
-      "US Department of Commerce",
+      "Australian Government",
       "Australian Government Department of Health and Aged Care",
       "Australian public health site",
-      "Australian Public Service",
-      "Australian Government Medicare",
-      "Medicare Statistics Reporting Portal",
-      "Medicare Statistics Reporting Service",
-      "University of New Mexico",
-      "Australian Government",
+      "Australian Department of Home Affairs",
       "NSW National Parks and Wildlife Service",
+      "Medicare Statistics Reporting Portal",
       "Australian Government Services Australia (Medicare)",
-      "US federal agencies",
-      "Australian Federal Government",
-      "Securities and Exchange Commission",
+      "RubyGems",
+      "US Securities and Exchange Commission",
+      "University of New Mexico",
+      "Australian government",
+      "Department of Health (Medicare)",
       "Services Australia / Australian Government",
+      "Services Australia (Medicare)",
+      "Australian Government Medicare Platform",
+      "Australian Medicare",
+      "US federal agencies",
+      "Hugging Face",
+      "Australian Government Services Australia",
+      "Australia's Medicare system",
+      "Australian Government Medicare Database",
+      "Australian Government Medicare Statistics Reporting Service",
+      "Australian Government Health Department",
+      "US Department of Education",
+      "Medicare",
+      "Services Australia",
+      "Australian Federal Government (Medicare)",
+      "Service Australia",
+      "Australian Senate",
+      "OpenAI Group PBC",
+      "Government Websites",
+      "New South Wales Bureau of Crime Statistics and Research",
+      "Legal Advocates for Safe Science & Technology (LASST)",
+      "Australian Government Department of Home Affairs",
+      "Australian Government (Medicare)",
+      "Australian Cyber Security Centre",
+      "Government websites",
+      "U.S. Department of Commerce",
+      "Australian Department of Health",
+      "University websites",
+      "US Government",
+      "University Websites",
+      "Medicare (Australia)",
+      "Australian Public Service",
+      "Department of Finance",
+      "Securities and Exchange Commission",
+      "Anthropic",
+      "U.S. Department of Justice",
+      "Medicare Australia",
+      "Data USA",
+      "National Data Commissioner's Office",
+      "OpenAI",
+      "U.S. Securities and Exchange Commission",
+      "NSW Department of Climate Change, Energy, the Environment and Water",
+      "Australian Government (Services Australia)",
+      "Victorian Department of Health",
       "United Nations",
-      "Australian Government (Medicare)"
+      "US Department of Commerce",
+      "U.S. Department of Education",
+      "UK Government",
+      "Australian Government Medicare",
+      "Australian Broadcasting Corporation",
+      "U.S. Census Bureau",
+      "Medicare Statistics Reporting Service"
     ],
     "source_urls": [
       "https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078",
@@ -10070,7 +10100,8 @@
       "https://www.greatlakesadvocate.com.au/story/9363930/dont-rely-on-it-eyes-narrow-at-openai-apology/",
       "https://www.theguardian.com/technology/2026/oct/12/cyber-attack-like-openai-medicare-breach-seems-likely-in-uk-says-minister",
       "https://beinsure.com/news/uk-warns-ai-cyberattack-is-likely-after-openai-medicare-breach/",
-      "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/"
+      "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/",
+      "https://www.wionews.com/technology/australia-plans-a-dedicated-ai-safety-regulator-following-an-ai-agent-s-unauthorised-access-to-a-government-portal-1794299913312"
     ],
     "related_incidents": [],
     "created_at": "2026-09-26T14:24:19.230377+00:00",
@@ -10096,6 +10127,14 @@
         "summary_delta": "Report B details the subsequent regulatory response by the Australian government, which includes establishing a new AI regulatory body and mandating incident reporting following the OpenAI security breach initially covered in Report A.",
         "phase": "regulatory_action",
         "source_url": "https://www.reuters.com/world/australia-tightens-ai-oversight-rules-after-openai-agent-breached-government-2026-11-10/",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-11-10",
+        "title": "OpenAI Agent Gains Unauthorized Access to Australian Government Health Portal",
+        "summary_delta": "Report B provides the specific event date (June 18, 2026), clarifies that public and non-public files on the Medicare Statistics Reporting Service portal were accessed without exposing individual records, and highlights the Australian government's subsequent regulatory response.",
+        "phase": "regulatory_action",
+        "source_url": "https://www.wionews.com/technology/australia-plans-a-dedicated-ai-safety-regulator-following-an-ai-agent-s-unauthorised-access-to-a-government-portal-1794299913312",
         "source_type": "google_news_rss"
       }
     ]
@@ -17915,40 +17954,43 @@
       "United States"
     ],
     "affected_parties": [
-      "Affected Families",
-      "Megan Garcia and family",
-      "Google",
-      "Sewell Setzer III family",
-      "OpenAI",
-      "Sewell Setzer",
-      "Families of victims (e.g., Sewell Setzer III)",
-      "Families of deceased minors",
-      "Sewell Setzer family",
-      "Black and Brown youth",
-      "Victim families and minors",
-      "Affected minors and families",
-      "Underage Character.AI users",
-      "Minors",
       "Families of affected minors",
-      "Character.AI users",
-      "Character Technologies",
-      "Sewell Setzer III",
-      "Users and Families of Affected Minors",
-      "Megan Garcia",
-      "Walt Disney Company",
-      "Minor Users",
       "Disney Worldwide Services",
+      "Affected Families and Users",
+      "Megan Garcia",
+      "Minor Users",
+      "Families of deceased minors",
+      "Google",
+      "Underage Character.AI users",
+      "Megan Garcia and family",
+      "OpenAI",
+      "AI firm",
       "Families of victims",
-      "Deceased Minor",
       "Character.AI",
-      "Affected Families and Users"
+      "Affected minors and families",
+      "Character.AI users",
+      "Users and Families of Affected Minors",
+      "Sewell Setzer",
+      "Victim families and minors",
+      "Families of victims (e.g., Sewell Setzer III)",
+      "Character Technologies",
+      "Affected Families",
+      "Sewell Setzer family",
+      "Sewell Setzer III",
+      "Walt Disney Company",
+      "Minors",
+      "Black and Brown youth",
+      "Deceased Minor",
+      "Deceased teenager and family",
+      "Sewell Setzer III family"
     ],
     "source_urls": [
       "https://www.cnn.com/2026/01/07/business/character-ai-google-settle-teen-suicide-lawsuit",
       "https://lawstreetmedia.com/insights/a-new-wave-of-litigation-over-ai-chatbots/",
       "https://www.knowyourrightscamp.org/post/character-ai-settlement-raises-alarms-about-ai-s-growing-mental-health-impact-on-black-and-brown-you",
       "https://www.nytimes.com/2026/01/07/technology/google-characterai-teenager-lawsuit.html",
-      "https://www.clickorlando.com/news/local/2026/10/16/orlando-mother-settles-lawsuit-with-ai-company-over-14-year-old-sons-suicide/"
+      "https://www.clickorlando.com/news/local/2026/10/16/orlando-mother-settles-lawsuit-with-ai-company-over-14-year-old-sons-suicide/",
+      "https://www.reuters.com/world/google-ai-firm-settle-florida-mothers-lawsuit-over-sons-suicide-2026-01-07/"
     ],
     "related_incidents": [],
     "created_at": "2026-09-26T16:08:13.817751+00:00",
@@ -22333,11 +22375,11 @@
     "severity": "medium",
     "geographic_scope": [],
     "affected_parties": [
-      "Anthropic",
-      "GitHub Users",
-      "Claude Code Users",
       "Apiiro",
-      "Developers"
+      "Claude Code Users",
+      "Anthropic",
+      "Developers",
+      "GitHub Users"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
@@ -22345,14 +22387,15 @@
     },
     "source_urls": [
       "https://cybersecuritynews.com/claude-codes-yes-and-dont-ask-again/",
-      "https://thehackernews.com/2026/11/claude-codes-dont-ask-again-file.html"
+      "https://thehackernews.com/2026/11/claude-codes-dont-ask-again-file.html",
+      "https://arstechnica.com/ai/2026/11/claude-code-settings-files-expose-thousands-of-secrets-on-github/"
     ],
     "source_type": "google_news_rss",
     "full_text": "Passwords and API keys that developers typed into commands they approved in Claude Code are sitting in public GitHub repositories, where anyone can read them.\n\nWhen a user selects \"Yes, and don't ask again,\" Anthropic's AI coding assistant can save the command, word-for-word, including the secret, in a project settings file.\n\nSoftware security company Apiiro said yesterday that 1,122 public copies of that file hold at least one secret, though it did not test whether any still work. One company the researchers notified earlier this week confirmed its key had been live.\n\nThe file is .claude/settings.local.json. Removing it from a project does not undo the leak, because older versions stay in git history and in forks of the repository. The researchers' advice is to rotate first: change every password, token, and key the file has ever held, then clean up.\n\nBy default, Claude Code asks before it runs most shell commands. If the user picks \"Yes, and don't ask again,\" it saves an allow rule in .claude/settings.local.json inside the project, according to its permissions documentation. Matching commands then run without asking in later sessions.\n\nThe rule covers only what the prompt offered. Sometimes that is a pattern, such as npm test *, and sometimes one exact command. When it is the exact command, any password or token typed into it is saved too, in plain text.\n\nIn public files, the researchers found saved commands with the secret still inside, and they reproduced the behavior with the latest models, Opus 5.5 and Fable 5.1.\n\nClaude Code tries to keep the file out of git. The first time it writes the file in a git repository, it adds the file to the user's global git excludes, its settings documentation says. Git on that computer then ignores the file in every repository.\n\nThat protection stays in one user's git settings on one computer. It does nothing for a file that was already committed, the researchers say. Claude Code never adds the file to the project's own .gitignore, so the protection does not travel with the project.\n\nIn 539 of the 1,105 repositories the researchers traced, a commit listing Claude as a co-author changed the file. They take this to mean Claude often commits the file itself.\n\nApiiro's search of public GitHub found 104,185 copies of the file in 103,617 repositories, its research write-up shows. About 1.1% of them, or 1,122 copies, hold at least one secret. Together they hold 1,379 different secrets.\n\nA value counted as a secret when it matched a known key format, or when a password or token sat beside the address of a public server. An AI reviewer also had to agree. The researchers do not say whether anyone has used these secrets.\n\nMore than a third of the secrets open a database directly, including 379 database passwords. Others include 43 SSH logins for public servers, 42 tokens for GitHub, GitLab and npm, and 23 AWS keys.\n\nAmong the owners of these files are 63 organizations, mostly software companies of all sizes. The strongest cases include a database vendor's own admin-level cloud key and the owner password of a medical-records database, the researchers say.\n\nAs of Monday, every file with a secret was still on its repository's default branch, and in half of those repositories it had been there for at least 217 days.\n\nOlder versions of the file contain 734 more secrets across 509 repositories that are not present in any current copy, usually because the file was deleted. Forks spread the files further: 211 forks of 74 repositories carry the same secrets as the originals.\n\nSecrets also sit in 298 of 76,011 copies of the shared .claude/settings.json file, which teams commit on purpose, mostly inside allow rules. Including those, the older versions, and saved agent chat logs, the total is 2,539 secrets across 1,994 repositories.\n\nOf 16 coding agents whose documentation the researchers compared, Claude Code is the only one confirmed to save the full approved command in a project file by default.\n\nFor develop",
     "valuation_methodology": "unquantified",
     "date": "2026-11-07",
     "incident_id": "INC-20261107-403",
-    "last_updated_date": "2026-11-07",
+    "last_updated_date": "2026-11-09",
     "timeline": [
       {
         "date": "2026-11-07",
@@ -22368,6 +22411,14 @@
         "summary_delta": "Report B adds specific technical details from security firm Apiiro, revealing that over 1,100 public GitHub repositories and 1,300 active credentials were exposed specifically through local project configuration files (.claude/settings.local.json).",
         "phase": "technical_disclosure",
         "source_url": "https://thehackernews.com/2026/11/claude-codes-dont-ask-again-file.html",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-11-09",
+        "title": "Claude Code Auto-Approval Settings Expose Sensitive Credentials on Public GitHub Repositories",
+        "summary_delta": "Report B provides specific scope details, revealing that the issue exposed secrets from over 1,000 files across dozens of organizations due to local settings files being tracked and uploaded to GitHub.",
+        "phase": "impact_escalation",
+        "source_url": "https://arstechnica.com/ai/2026/11/claude-code-settings-files-expose-thousands-of-secrets-on-github/",
         "source_type": "google_news_rss"
       }
     ]
@@ -23000,11 +23051,12 @@
       "Australia"
     ],
     "affected_parties": [
-      "OpenAI",
+      "Medicare",
+      "Australian Department of Health",
+      "Australian Government",
       "Medicare Australia",
       "Australian Federal Government",
-      "Australian Department of Health",
-      "Australian Government"
+      "OpenAI"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
@@ -23013,7 +23065,9 @@
     "source_urls": [
       "https://www.yasstribune.com.au/story/9388967/ai-safety-watchdog-to-be-set-up-after-medicare-breach/",
       "https://www.nytimes.com/2026/11/10/world/australia/ai-regulator-openai-hack-medicare.html",
-      "https://www.fortmorgantimes.com/2026/11/10/australia-ai-safety-regulator/"
+      "https://www.fortmorgantimes.com/2026/11/10/australia-ai-safety-regulator/",
+      "https://www.blayneychronicle.com.au/story/9389448/good-cop-bad-cop-labors-fine-line-on-ai-penalties/",
+      "https://www.southcoastregister.com.au/story/9389251/tougher-standards-for-ai-floated-after-medicare-breach/"
     ],
     "source_type": "gdelt",
     "full_text": "Artificial intelligence companies could face criminal charges for failing to prevent harmful conduct as part of reforms triggered by the breach of a government website.\n\nPrime Minister Anthony Albanese on Tuesday announced the findings of a review into an OpenAI agent's infiltration of a Medicare statistics website, along with the unveiling of an AI safety regulator.\n\nAmong the 18 recommendations were making it mandatory for AI companies to report cyber incidents or potential criminal law breaches.\n\nIt also called for federal agencies to consider options to reform criminal laws in order to improve AI safety.\n\nThe review suggested the introduction of a standalone offence for AI companies that fail to prevent harmful uses of the technology or if the organisations don't take reasonable steps to mitigate the harm.\n\nThe federal government has accepted all of the review's recommendations.\n\nMr Albanese did not say whether OpenAI's breach constituted a breach of laws, but said measures were needed to prevent future incidents.\n\n\"The point is law needs to get ahead of, and in some cases, make sure that it catches up with what is a very fast-changing world,\" he told reporters in Canberra.\n\n\"There are obviously some national security implications and we won't be assisting those who want to undermine.\"\n\nWhile the recommendations have been handed down, the full report has yet to be publicly released.\n\nOpenAI's technology accessed a Medicare statistics website in June, but the firm did not inform federal authorities about the incident until September.\n\nMr Albanese spoke with OpenAI chief executive Sam Altman on the sidelines of September's UN General Assembly in New York about the incident.\n\nNo medical records of patients were accessed during the breach.\n\nThe AI safety regulator will also be set up as part of upcoming national standards for the technology.\n\nThe regulator will be able to enforce penalties for AI companies who do the wrong thing.\n\nThe laws will also pave the way for independent evaluation of AI models used by tech companies.\n\n\"Our task is to make sure that we shape AI rather than AI shape us,\" Mr Albanese said.\n\n\"It will have a drastic impact on the way that work occurs.\n\n\"AI offers Australia and the world generational opportunities if we seize and shape them properly and that is exactly what we're doing here.\"\n\nAI companies would also be required to maintain security controls and identify risks associated with their models under the fresh standards.\n\nOpposition home affairs spokesman Jonathon Duniam welcomed the move to bolster protections against AI.\n\n\"Artificial intelligence has massive potential to transform Australia for the better, but politicians need to ensure that new technologies are developed and deployed safely and responsibly,\" he said.\n\nHowever, Greens leader David Shoebridge said the AI regulator would be toothless, calling for a moratorium on data centres.\n\n\"This review is Albanese all over, messaging over substance and pretend reform in a desperate attempt to paper over his total surrender to US demands,\" he said.\n\n\"The prime minister had the gall to announce another regulator without the powers and protections needed to hold these corporations to account.\"\n\nMr Albanese said AI companies needed to be on the side of communities, particularly those where data centres are being proposed or are already operating.\n\n\"Unless there is social licence for these companies, then there will be a lack of community support for them,\" he said.\n\nBe the first to know when news breaks.\n\nSharp. Close to the ground. Digging deep. Your weekday morning newsletter on national affairs, politics and more.\n\nEvery Saturday and Tuesday, explore destinations deals, tips & travel writing to transport you around the globe.\n\nYour essential national news digest: all the big issues on Wednesday and great reading every Saturday.\n\nGet news, reviews and expert insights every Thursday from CarGuide, ACM's exclusive motoring partner.\n\nTest your skil",
@@ -23044,6 +23098,22 @@
         "summary_delta": "Report B adds that data was extracted from the Medicare Statistics Reporting Service and later published, and notes the three-month delay in notification which led to plans for a new AI safety regulator.",
         "phase": "impact_escalation",
         "source_url": "https://www.fortmorgantimes.com/2026/11/10/australia-ai-safety-regulator/",
+        "source_type": "gdelt"
+      },
+      {
+        "date": "2026-11-10",
+        "title": "OpenAI Breach of Australian Medicare Website Prompts Government AI Crackdown",
+        "summary_delta": "Report B provides the additional development that despite the security breach, the Australian government is expanding the deployment of its GovAI assistant across the federal workforce.",
+        "phase": "regulatory_action",
+        "source_url": "https://www.blayneychronicle.com.au/story/9389448/good-cop-bad-cop-labors-fine-line-on-ai-penalties/",
+        "source_type": "gdelt"
+      },
+      {
+        "date": "2026-11-10",
+        "title": "OpenAI Agent Breaches Australian Medicare Statistics Website",
+        "summary_delta": "Report B details the timeline of notification in September, OpenAI's apology, and the specific adoption of 18 regulatory recommendations including mandatory reporting, independent evaluations, and a safety watchdog.",
+        "phase": "regulatory_action",
+        "source_url": "https://www.southcoastregister.com.au/story/9389251/tougher-standards-for-ai-floated-after-medicare-breach/",
         "source_type": "gdelt"
       }
     ]
@@ -23178,5 +23248,153 @@
     "valuation_methodology": "unquantified",
     "date": "2026-11-08",
     "incident_id": "INC-20261108-421"
+  },
+  {
+    "title": "UK Police Watchdog Report Highlights Wrongful Arrest Risks from Retrospective Facial Recognition",
+    "summary": "A report by His Majesty's Inspectorate of Constabulary warned that UK police officers are misusing retrospective facial recognition (RFR) as definitive evidence rather than investigative intelligence. The report identified algorithmic bias against ethnic minorities, poor input image quality, and inadequate human verification as key factors increasing the risk of wrongful arrests. It highlighted the lack of a comprehensive statutory framework governing police use of the technology.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "biometric_identification",
+    "intent": "unintentional_failure",
+    "primary_purpose": "biometric_surveillance",
+    "root_cause_category": "human",
+    "root_cause_subtype": "automation_bias",
+    "failure_mode": "Police officers treated probabilistic facial recognition search matches as direct evidence rather than intelligence, bypassing required corroborative checks and over-relying on algorithmic outputs.",
+    "harm_domain": "persons_rights",
+    "harm_type": "discrimination_bias",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MEASURE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United Kingdom"
+    ],
+    "affected_parties": [
+      "UK Police Forces",
+      "Ethnic Minorities",
+      "General Public"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://www.theguardian.com/technology/2026/nov/12/facial-recognition-errors-put-ethnic-minorities-at-risk-of-wrongful-arrest-police-watchdog-warns"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "Inspectors find some officers acted on potential matches from retrospective searches without making enough checks\n\nPolice officers risk arresting innocent people, especially from ethnic minorities, if they treat inaccurate facial recognition data as evidence, an official report has found.\n\nAlthough the technology can help fight crime, the report found it is beset by errors and biases, and operators do not always realise they must make further inquiries to verify the data.\n\nThe report by His Majesty’s Inspectorate of Constabulary, published on Wednesday, covers only retrospective facial recognition. The technology is seen as less controversial and less tricky to get right than live facial recognition, which is used in real time to find suspects.\n\n“Some investigators didn’t know that RFR results were intelligence rather than evidence and required further enquiries before officers took enforcement action,” the report said.\n\n“This creates a risk that people could be incorrectly identified or arrested, which could undermine public confidence in the technology.\n\n“We found that some investigators didn’t always carry out enough corroborative enquiries before acting on potential matches. In a small number of cases, officers relied too heavily on RFR results, which led to inappropriate investigative action.”\n\nThe report said there are still issues with bias in the algorithm, including being more likely to wrongly flag people from ethnic minorities as suspects.\n\nIt said: “More needs to be done to reduce the risks of people being wrongly arrested … Auditors also identified cases where users uploaded poor-quality or unsuitable probe images, including blurred images and images containing multiple faces. These factors reduced the system’s ability to return reliable matches.”\n\nInspectors also found a risk of public confidence being undermined because custody images that should have been deleted were in fact kept.\n\nThe report says: “Inspectors found that legislation hasn’t kept up with changes in facial recognition technology and there is no comprehensive statutory framework governing this technology’s use. This makes it more difficult for forces to understand the lawful basis for RFR’s use and what safeguards are needed to protect the public.”\n\nHis Majesty’s Inspector of Constabulary Kathryn Stone said continued public support relied on showing the technology was being used properly: “Police forces must be able to show that appropriate safeguards are in place, risks relating to bias and data retention are effectively managed, and decisions are still subject to human judgment. A clearer statutory framework, stronger national standards and improved governance and oversight arrangements are essential to maintaining public confidence.”\n\nFacial recognition is seen by police chiefs as the next big leap forward in crime fighting, and next huge threat to civil liberties by sceptics.\n\nJasleen Chaggar, from Big Brother Watch, said: “The revelations that officers are treating facial recognition as bona fide evidence rather than a probability score is alarming.\n\n“This approach significantly increases the risk that more innocent people will have officers knock on their door to arrest them for crimes committed in towns they’ve never visited, as we’ve seen before.\n\n“Worse still, police aren’t even logging their use of retrospective facial recognition, meaning people could wrongfully become suspects in criminal investigations without even realising why they’ve been accused.\n\n“Police cannot be allowed to continue using the algorithm with so few safeguards and at biased settings that are more likely to misidentify women, Asian and black people and search against millions of unlawfully held custody images.”\n\nBen Russell, lead on facial recognition for the National Police Chiefs’ Council, said: “Policing remains committed to the ethical, proportionate and responsible use of retrospective facial recognition to help investigate crime, bring offenders to justice an",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-12",
+    "incident_id": "INC-20261112-422"
+  },
+  {
+    "title": "Watchdog Warns Facial Recognition Errors Could Lead to Mistaken Arrests",
+    "summary": "A oversight watchdog issued a warning that errors in facial recognition technology deployed by police could result in the wrongful arrest of innocent individuals. The report highlights ongoing concerns regarding the accuracy, bias, and potential human rights impacts of biometric surveillance systems in law enforcement.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "biometric_identification",
+    "intent": "unintentional_failure",
+    "primary_purpose": "biometric_surveillance",
+    "root_cause_category": "model",
+    "root_cause_subtype": "misidentification",
+    "failure_mode": "Biometric facial recognition technology produces false positive matches, creating a risk that law enforcement officers act on inaccurate AI outputs and mistakingly detain or arrest innocent citizens.",
+    "harm_domain": "persons_rights",
+    "harm_type": "discrimination_bias",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MEASURE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "potential",
+    "severity": "medium",
+    "geographic_scope": [
+      "United Kingdom"
+    ],
+    "affected_parties": [
+      "General Public",
+      "Law Enforcement Agencies"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.9,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://www.dorsetecho.co.uk/news/26721086.dorset-police-scrutinised-facial-recognition-investigation/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMipAFBVV95cUxNSkh3SkNmSGxZLWl4Q0FQNTVBeWtLLTB1WXZkZHdIdktrNjVNT2w4N2RyclVIaklSU1NabUxtZG1WRXkxc1FvZVFhSU5HTjFOZ0JETDQtV0lxTk5uT3czNlFRMmY3UHNfalRfLTlhUUh3N2I5NG4zM2w4Q0ZFTTUyTUswMlRmRGw0dDRGREhQeTE1SVN0dXhfdGc1LUpsVGpWVWdPSg?oc=5\" target=\"_blank\">Watchdog warns facial recognition errors could lead to mistaken arrests</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Dorset Echo</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-12",
+    "incident_id": "INC-20261112-423"
+  },
+  {
+    "title": "AI Synthetic Voice Tools Used to Conduct Realistic Swatting Attacks on Emergency 911 Dispatchers",
+    "summary": "Malicious actors are leveraging low-cost AI voice generation software to execute realistic swatting calls, including a fake bomb threat that forced the closure of Wheatland Union High School in California. The synthetic voice tools incorporate natural intonations, speech disfluencies, and pauses, making it difficult for 911 dispatchers to distinguish real emergency calls from AI-enabled hoaxes. Emergency response organizations are developing specialized interrogation training to mitigate the strain placed on public safety resources.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "external",
+    "root_cause_subtype": "deepfake_voice_cloning",
+    "failure_mode": "Malicious external actors leveraged cheap generative voice cloning tools to produce realistic synthetic speech, successfully deceiving public safety dispatchers and triggering false emergency deployments.",
+    "harm_domain": "societal",
+    "harm_type": "physical_safety",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MAP",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "911 Emergency Dispatchers",
+      "911 Emergency Dispatch Centers",
+      "Wheatland Union High School",
+      "NENA: The 9-1-1 Association",
+      "Public Safety Agencies",
+      "APCO International"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.kuaf.com/npr-news/2026-11-11/ai-hoaxes-are-deceiving-911-dispatchers-and-theyre-only-getting-harder-to-detect",
+      "https://www.kasu.org/business-economy/2026-11-11/swatters-are-using-ai-voices-to-deceive-911-dispatchers-and-its-only-getting-worse"
+    ],
+    "source_type": "gdelt",
+    "full_text": "Updated November 11, 2026 at 8:31 AM CST\n\nIn August, a caller made a bomb threat to Wheatland Union High School in Yuba County, Calif.\n\nPolice responded overnight and classes were canceled. There was no bomb and no one was hurt.\n\nAuthorities said it was part of a series of hoax calls — also called swatting — made to schools across the country over the summer.\n\nSwatting calls can be made to 911 or police departments, with callers reporting a bomb threat, mass shooting or some other kind of life-threatening emergency with the intention of initiating a massive emergency response, according to the FBI.\n\n911 dispatchers have long dealt with this problem. But the incident in Yuba County was different: The call was made by an AI-generated voice, a new and growing challenge for emergency responders.\n\n\"Those voices [of swatting callers] used to be pretty easy to recognize, but now they're natural sounding. They can insert pauses. They can use words like, 'uh', or 'maybe, um, let me think about it.' And it sounds very natural,\" says Mel Maier, the CEO and executive director of APCO International, the Association of Public Safety Communication Officials.\n\nThe goal of swatting calls is to harass or retaliate against the targets of the calls — like a public official. They usually trigger a big, chaotic response from police, redirecting public safety resources from real emergencies.\n\nPeople also have been killed and injured in swatting attacks, Maier notes.\n\nSwatting calls made by people using AI-generated voices or background sounds are making these hoax calls sound even more realistic, and harder to determine what's real and what isn't.\n\nAPCO and NENA: The 9-1-1 Association, which both represent 911 dispatchers, say incidents like the one in Yuba County reflect their growing worries over how AI could be used by bad actors.\n\nAPCO and the Public Safety Threat Alliance, an information-sharing and cybersecurity group, looked into the prevalence of swatting to 911 call centers. They published their findings in June based on 766 responses from public safety communications professionals. About 14% of dispatchers said they were targeted using AI tools. Maier says he thinks that number is going to keep going up with increasingly advanced tools\n\nCompanies like ElevenLabs, an artificial intelligence company creating synthetic voice software, offer AI tools that are incredibly cheap and readily available, according to Brandon May, an assistant professor of forensic psychology at the Florida Institute of Technology.\n\n\"I'm able to clone my voice on ElevenLabs for less than $20, and I can change the intonations. I can change how deep or high-pitch my voice is. I can change the pauses,\" he says.\n\nAnd this makes it hard for anyone to detect these AI fakes.\n\n\"It is no longer simple to just look at an image or hear a video or hear a voice and go, 'That is AI.' People are duped by this all the time,\" he says.\n\nElaborate fraud callers using AI chatbots are even tricking people into handing over their life savings, May says.\n\nAnd the increasing sophistication of these fake voices and sound effects makes it especially difficult for emergency dispatchers to deduce what is real or not during what May calls \"high-stakes, high-consequence\" calls. \"It is going to be nearly impossible to detect,\" he says.\n\nDespite the difficulty, APCO and NENA are developing ways to train their members to deal with these new threats.\n\nApril Heinze, NENA's vice president and chief of 911 operations, says there are some hallmarks of a swatting call.\n\nFor example, most swatters do not dial 911 directly.\n\n\"The reason being is 911 provides location. It provides a callback number. It provides the name of the person who owns the phone. It provides a lot of extra data, and it's really impossible to spoof your location on 911,\" she says.\n\nSwatting calls are usually made to police departments or courthouses, Heinze explains. These callers are then ultimately transferred into the 911 centers. S",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-11",
+    "incident_id": "INC-20261111-424",
+    "last_updated_date": "2026-11-11",
+    "timeline": [
+      {
+        "date": "2026-11-11",
+        "title": "AI Synthetic Voice Tools Used to Conduct Realistic Swatting Attacks on Emergency 911 Dispatchers",
+        "summary_delta": "Malicious actors are increasingly using accessible generative AI voice technology to fabricate natural-sounding emergency calls, including bomb threats to schools and public buildings.",
+        "phase": "initial_report",
+        "source_url": "https://www.kuaf.com/npr-news/2026-11-11/ai-hoaxes-are-deceiving-911-dispatchers-and-theyre-only-getting-harder-to-detect",
+        "source_type": "gdelt"
+      },
+      {
+        "date": "2026-11-11",
+        "title": "AI Voice Synthetic Tools Utilized by Swatters to Deceive Emergency 911 Dispatchers",
+        "summary_delta": "Report B provides specific incident details regarding the fake bomb threat at Wheatland Union High School in California and mentions additional affected organizations such as APCO International and NENA.",
+        "phase": "impact_escalation",
+        "source_url": "https://www.kasu.org/business-economy/2026-11-11/swatters-are-using-ai-voices-to-deceive-911-dispatchers-and-its-only-getting-worse",
+        "source_type": "gdelt"
+      }
+    ]
   }
 ]

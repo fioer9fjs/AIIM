@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Adaptive dynamic keyword pool learned from validated AI incidents. Automatically maintained with daily decay and TTL.",
-    "last_updated": "2026-11-11",
+    "last_updated": "2026-11-12",
     "decay_rate_daily": 0.05,
     "min_weight_threshold": 0.2,
     "max_ttl_days": 21,
@@ -13,14 +13,14 @@
         "term": "OpenAI",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 4,
+        "hit_count": 5,
         "first_seen": "2026-11-10",
-        "last_hit": "2026-11-11"
+        "last_hit": "2026-11-12"
       },
       {
         "term": "Australian Government",
         "type": "subject",
-        "weight": 1.0,
+        "weight": 0.95,
         "hit_count": 3,
         "first_seen": "2026-11-10",
         "last_hit": "2026-11-11"
@@ -28,50 +28,50 @@
       {
         "term": "security breach involving",
         "type": "incident",
-        "weight": 1.0,
+        "weight": 0.95,
         "hit_count": 2,
         "first_seen": "2026-11-10",
         "last_hit": "2026-11-11"
       },
       {
-        "term": "OpenAI systems prompted",
+        "term": "Medicare Australia",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
+      },
+      {
+        "term": "Australian Federal Government",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
+      },
+      {
+        "term": "was involved",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-11",
-        "last_hit": "2026-11-11"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       },
       {
-        "term": "government regulatory intervention",
+        "term": "unauthorized access",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-11",
-        "last_hit": "2026-11-11"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       },
       {
-        "term": "enforce stricter",
+        "term": "Australian Medicare website",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-11",
-        "last_hit": "2026-11-11"
-      },
-      {
-        "term": "safety and governance",
-        "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-11-11",
-        "last_hit": "2026-11-11"
-      },
-      {
-        "term": "operations compromised",
-        "type": "incident",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-11-10",
-        "last_hit": "2026-11-10"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       }
     ],
     "autonomous_agents_cyber": [
@@ -79,139 +79,204 @@
         "term": "OpenAI",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 5,
+        "hit_count": 6,
         "first_seen": "2026-11-05",
-        "last_hit": "2026-11-11"
+        "last_hit": "2026-11-12"
       },
       {
         "term": "autonomous OpenAI",
         "type": "incident",
         "weight": 1.0,
-        "hit_count": 2,
+        "hit_count": 3,
         "first_seen": "2026-11-10",
-        "last_hit": "2026-11-11"
+        "last_hit": "2026-11-12"
       },
       {
-        "term": "exhibited misaligned behavior",
+        "term": "Anthropic",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
+      },
+      {
+        "term": "GitHub",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
+      },
+      {
+        "term": "Apiiro",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
+      },
+      {
+        "term": "Claude Code logs",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-11",
-        "last_hit": "2026-11-11"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       },
       {
-        "term": "autonomously accessing",
+        "term": "complete command strings",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-11",
-        "last_hit": "2026-11-11"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       },
       {
-        "term": "exfiltrating",
+        "term": "containing cleartext secrets",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-11",
-        "last_hit": "2026-11-11"
-      },
-      {
-        "term": "public-facing government health",
-        "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-11-11",
-        "last_hit": "2026-11-11"
-      },
-      {
-        "term": "portal without authorization",
-        "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-11-11",
-        "last_hit": "2026-11-11"
-      },
-      {
-        "term": "delayed incident notification",
-        "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-11-11",
-        "last_hit": "2026-11-11"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       }
     ],
     "biometrics_police_surveillance": [
       {
-        "term": "Hugo Parra",
+        "term": "General Public",
         "type": "subject",
-        "weight": 0.728,
-        "hit_count": 1,
-        "first_seen": "2026-11-09",
-        "last_hit": "2026-11-09"
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       },
       {
-        "term": "automated license",
-        "type": "incident",
-        "weight": 0.728,
+        "term": "UK Police Forces",
+        "type": "subject",
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-09",
-        "last_hit": "2026-11-09"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       },
       {
-        "term": "plate reader",
-        "type": "incident",
-        "weight": 0.728,
+        "term": "Ethnic Minorities",
+        "type": "subject",
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-09",
-        "last_hit": "2026-11-09"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       },
       {
-        "term": "false positive match",
+        "term": "Police officers treated",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-09",
-        "last_hit": "2026-11-09"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       },
       {
-        "term": "wrongly linking",
+        "term": "probabilistic facial recognition",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-09",
-        "last_hit": "2026-11-09"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       },
       {
-        "term": "violent crime location",
+        "term": "search matches",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-09",
-        "last_hit": "2026-11-09"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       },
       {
-        "term": "miles away",
+        "term": "direct evidence rather",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-09",
-        "last_hit": "2026-11-09"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       },
       {
-        "term": "wrongful arrest",
+        "term": "bypassing required corroborative",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-09",
-        "last_hit": "2026-11-09"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       }
     ],
-    "autonomous_mobility_robotics": [],
+    "autonomous_mobility_robotics": [
+      {
+        "term": "California Highway Patrol",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
+      },
+      {
+        "term": "driver fell",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
+      },
+      {
+        "term": "asleep while relying",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
+      },
+      {
+        "term": "Full Self-Driving",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
+      },
+      {
+        "term": "effectively ensure driver",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
+      },
+      {
+        "term": "avoid colliding",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
+      },
+      {
+        "term": "stationary emergency vehicle",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
+      },
+      {
+        "term": "freeway scene closure",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
+      }
+    ],
     "multimodal_media_deepfakes": [
       {
         "term": "KMBC 9",
         "type": "subject",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-11-09",
         "last_hit": "2026-11-09"
@@ -219,7 +284,7 @@
       {
         "term": "Inexpensive generative audio",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-11-09",
         "last_hit": "2026-11-09"
@@ -227,7 +292,7 @@
       {
         "term": "harvest public media",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-11-09",
         "last_hit": "2026-11-09"
@@ -235,7 +300,7 @@
       {
         "term": "recordings and synthesize",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-11-09",
         "last_hit": "2026-11-09"
@@ -243,7 +308,7 @@
       {
         "term": "realistic vocal clone",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-11-09",
         "last_hit": "2026-11-09"
@@ -251,7 +316,7 @@
       {
         "term": "exposing individuals",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-11-09",
         "last_hit": "2026-11-09"
@@ -259,7 +324,7 @@
       {
         "term": "potential targeted impersonation",
         "type": "incident",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-11-09",
         "last_hit": "2026-11-09"
@@ -267,7 +332,7 @@
       {
         "term": "Perplexity",
         "type": "subject",
-        "weight": 0.728,
+        "weight": 0.624,
         "hit_count": 1,
         "first_seen": "2026-11-09",
         "last_hit": "2026-11-09"
@@ -277,66 +342,66 @@
       {
         "term": "Google",
         "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
+        "weight": 1.0,
+        "hit_count": 2,
         "first_seen": "2026-11-11",
-        "last_hit": "2026-11-11"
+        "last_hit": "2026-11-12"
       },
       {
-        "term": "Gemini",
+        "term": "firm",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
+      },
+      {
+        "term": "chatbot interacted",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-11",
-        "last_hit": "2026-11-11"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       },
       {
-        "term": "chatbot generated responses",
+        "term": "vulnerable user without",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-11",
-        "last_hit": "2026-11-11"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       },
       {
-        "term": "inappropriately led",
+        "term": "effective safety guardrails",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-11",
-        "last_hit": "2026-11-11"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       },
       {
-        "term": "minor",
+        "term": "against self-harm topics",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-11",
-        "last_hit": "2026-11-11"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       },
       {
-        "term": "believe she had",
+        "term": "lawsuit following",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-11",
-        "last_hit": "2026-11-11"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       },
       {
-        "term": "serious psychological disorders",
-        "type": "incident",
+        "term": "911 Emergency Dispatchers",
+        "type": "subject",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-11",
-        "last_hit": "2026-11-11"
-      },
-      {
-        "term": "causing severe mental",
-        "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-11-11",
-        "last_hit": "2026-11-11"
+        "first_seen": "2026-11-12",
+        "last_hit": "2026-11-12"
       }
     ]
   }
