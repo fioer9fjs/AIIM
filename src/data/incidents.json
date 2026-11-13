@@ -13956,7 +13956,7 @@
   {
     "incident_id": "INC-20260901-354",
     "title": "Denver Chain-Reaction Crash Involving Stopped Waymo Autonomous Vehicle",
-    "summary": "An unoccupied Waymo autonomous vehicle stopped in a travel lane in Denver to yield to a pedestrian, prompting a chain-reaction rear-end collision involving two human-driven vehicles behind it. Affected drivers questioned why the vehicle stopped unexpectedly, while Waymo stated it was properly yielding to a pedestrian waiting to cross.",
+    "summary": "Body-camera footage captured Denver police officers attempting to question an unmanned Waymo autonomous vehicle following a chain-reaction crash. The absence of a human driver created operational challenges for law enforcement responding to the traffic collision. The incident highlights emerging regulatory and procedural gaps in law enforcement interactions with driverless vehicles after accidents.",
     "full_text": "UPDATE: Denver police tell CBS News Colorado that one driver was cited for following too closely.\n\nTwo drivers are questioning why a Waymo stopped in a travel lane Thursday before a chain-reaction crash near Denver Health.\n\nThe crash happened around 2:36 p.m. near West 8th Avenue and Delaware Street. Denver police said a driver traveling westbound on 8th Avenue struck another vehicle, pushing that vehicle into the back of a stopped, unoccupied Waymo. Police described the impact with the Waymo as a secondary collision.\n\nMark Kibler was driving the van directly behind the Waymo.\n\n\"This is my first time being near one,\" Kibler said.\n\nWaymo began testing its autonomous vehicles in Denver with human specialists behind the wheel before announcing in July that it was preparing to begin fully autonomous operations without a human specialist.\n\nKibler said the Waymo was traveling slowly ahead of him on 8th Avenue before coming to a stop as it approached Delaware Street.\n\n\"It just stopped! In the middle of the road! It just stopped,\" Kibler said. \"No traffic, nothing. No people walking across the street. It just stopped.\"\n\nKibler managed to stop his van before it hit the Waymo. He said cars were passing to go around. He initially thought someone was driving the vehicle and even honked his horn. Seconds later, Alfredo Arrieta was approaching from behind.\n\n\"I look up, and my airbags are going off,\" Arrieta said.\n\nPolice say Arrieta's car struck the back of Kibler's van, pushing the van into the Waymo.\n\nNo one was inside the autonomous vehicle.\n\n\"Insane. Like, why are you stopped?\" Arrieta said. \"It's a self-driving car on a busy street, but you're stopped, not even at an intersection. There's no stop sign anywhere.\"\n\nThere is no stop sign, traffic signal or marked crosswalk where the drivers said the Waymo stopped.\n\nOn Thursday evening, Waymo provided CBS Colorado with additional information about what its vehicle detected before the crash.\n\nA Waymo spokesperson said the autonomous vehicle steadily slowed as it approached the intersection and came to a complete stop to yield to a pedestrian waiting on the curb to cut across the street. Waymo said the pedestrian subsequently crossed the street without incident.\n\nKibler maintains he did not see anyone crossing the street when the Waymo stopped.\n\nThe drivers were left with minor injuries and damaged vehicles. Arrieta was also cited by Denver police.\n\n\"Like, how do I explain this to my insurance?\" he said.\n\n\"Now I call a lawyer and let them take care of it,\" Kibler said.\n\nDenver police told CBS Colorado the department has no record of another crash involving a Waymo vehicle in Denver. The company said it cooperated fully with Denver police at the scene. Denver police continue to investigate the cause of the initial collision.",
     "date": "2026-09-01",
     "verification_status": "confirmed",
@@ -13991,10 +13991,12 @@
     ],
     "affected_parties": [
       "Waymo",
+      "Denver Police Department",
       "Denver drivers"
     ],
     "source_urls": [
-      "https://www.cbsnews.com/colorado/news/denver-drivers-question-waymo-behavior-chain-reaction-crash/"
+      "https://www.cbsnews.com/colorado/news/denver-drivers-question-waymo-behavior-chain-reaction-crash/",
+      "https://www.9news.com/article/news/investigations/driverless-waymo-chain-reaction-crash/73-614350ee-4984-4676-80e3-1d0feb3bada5"
     ],
     "related_incidents": [],
     "created_at": "2026-10-22T07:14:39.412996+00:00",
@@ -14003,7 +14005,26 @@
     "nist_ai_rmf_function": "MAP",
     "iso_42001_category": "System_Impact",
     "impact_scope": "discrete_incident",
-    "valuation_methodology": "unquantified"
+    "valuation_methodology": "unquantified",
+    "last_updated_date": "2026-11-13",
+    "timeline": [
+      {
+        "date": "2026-09-01",
+        "title": "Denver Chain-Reaction Crash Involving Stopped Waymo Autonomous Vehicle",
+        "summary_delta": "An unoccupied Waymo autonomous vehicle stopped in a travel lane in Denver to yield to a pedestrian, prompting a chain-reaction rear-end collision involving two human-driven vehicles behind it.",
+        "phase": "initial_report",
+        "source_url": "https://www.cbsnews.com/colorado/news/denver-drivers-question-waymo-behavior-chain-reaction-crash/",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-11-13",
+        "title": "Denver Police Attempt to Question Driverless Waymo Vehicle After Chain-Reaction Crash",
+        "summary_delta": "Report B highlights body-camera footage released later showing Denver police officers attempting to question the unmanned Waymo vehicle following the chain-reaction crash, emphasizing procedural challenges for law enforcement.",
+        "phase": "follow_up",
+        "source_url": "https://www.9news.com/article/news/investigations/driverless-waymo-chain-reaction-crash/73-614350ee-4984-4676-80e3-1d0feb3bada5",
+        "source_type": "google_news_rss"
+      }
+    ]
   },
   {
     "incident_id": "INC-20260831-049",
@@ -23396,5 +23417,170 @@
         "source_type": "gdelt"
       }
     ]
+  },
+  {
+    "title": "Video Shows Aftermath of Crash Involving Waymo Autonomous Vehicle",
+    "summary": "A video surfaced showing the aftermath of a traffic collision involving a Waymo self-driving vehicle. Specific details regarding root causes, casualties, or extent of damage remain unspecified in the initial report.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "autonomous_mobility",
+    "root_cause_category": "undetermined",
+    "root_cause_subtype": "undetermined",
+    "failure_mode": "A Waymo autonomous vehicle was involved in a road traffic collision under circumstances that are unconfirmed in the provided source text.",
+    "harm_domain": "property",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Waymo"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.6
+    },
+    "source_urls": [
+      "https://www.9news.com/video/money/consumer/steve-on-your-side/video-shows-aftermath-of-crash-with-waymo/73-67a261dd-8d91-4119-b34c-4eb8c6c1f934"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMi2wFBVV95cUxNdnd5Nkk1N1htOE5YM21WQlJZSUV5VDNobHdzUEtleFJTM0QzR2dQdkV1X0FDYXNsbWRlanpmM1FMdlBmM21maHVhSjNIeGVmYzJhTmg3dGZ3V3MtTXFON1V0VkswdUVuMFlPdEhpSDFTcjZWazM1ZkVVdDFyVUpQLUlkbkFrVmZsQ0xRWjltbE1yeDdUMEx1ZGZ0QkJaYW1mTFVyTGlBbjNtMzBBV0p3M2hYWi1vU05HWHh3eUY0bU41X2xWNGtnUnhuMl9QU0tCM1VxX0ZkUW9zTms?oc=5\" target=\"_blank\">Video shows aftermath of crash with Waymo</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">9News</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-12",
+    "incident_id": "INC-20261112-425"
+  },
+  {
+    "title": "Thousands of Waymo Autonomous Vehicles Placed Under Safety Investigation",
+    "summary": "Federal safety regulators initiated an investigation into thousands of Waymo autonomous vehicles following reported safety incidents and driving behavior concerns. The inquiry focuses on evaluating the operational safety and software performance of the self-driving fleet. No specific monetary damages or casualties were detailed in the report.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "autonomous_mobility",
+    "root_cause_category": "undetermined",
+    "root_cause_subtype": "undetermined",
+    "failure_mode": "Autonomous driving software exhibited unexpected behaviors or potential traffic safety violations, prompting formal regulatory investigation.",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "potential",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Waymo"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://www.azcentral.com/story/money/cars/2026/11/12/federal-agency-investigates-waymo-school-bus-fix/92716371007/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMitgFBVV95cUxNTzVjZjRPQmZaSi1OMDJ1S0R3VkdXWkV4Zk8zUzU2ZkhuWlV5eWhEX05EY2dsNmhUWDBEOUplTVJLT0M2ZWVaNmRnRnVFSGF0ODBtT0VBcTZtMWRuMEZXWFVLZHlYb0dubGIzb3FZVzBmd1d4VWc5dmxpN3dUTl91MzFUTndHQXdwYUFfT3ZBS0hwOF8zZ2k5UEZOVERjcHloZ0NVdzI4Ym5PZDdpY2tQT3JlUHZSdw?oc=5\" target=\"_blank\">Thousands of Waymo vehicles are under investigation. Here's why</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">azcentral.com and The Arizona Republic</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-12",
+    "incident_id": "INC-20261112-426"
+  },
+  {
+    "title": "NHTSA Investigates Waymo Autonomous Vehicles for Passing Stopped School Buses",
+    "summary": "The National Highway Traffic Safety Administration (NHTSA) launched an investigation into Waymo after its autonomous vehicles were observed repeatedly passing stopped school buses. The incidents represent a safety failure in autonomous driving software to observe traffic laws protecting pedestrians and school children.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "autonomous_mobility",
+    "root_cause_category": "model",
+    "root_cause_subtype": "perception_failure",
+    "failure_mode": "Waymo's autonomous driving system failed to correctly detect or yield to stopped school buses, leading to illegal passing maneuvers during active traffic operation.",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Waymo",
+      "NHTSA"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.kvue.com/video/traffic/waymo-investigation-nhtsa-passing-school-buses/269-ab9ce49d-4bd8-4604-9d53-f50c479f98ba"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMivwFBVV95cUxNcUtNNGVEN0FaVDRUdnloQWJFWWE2YnEzY1dJdTJxcHY3OUpPOGpoZlFQaTkyNE84VV9hS0R3V3FqbENPTUFHUVJkRllRWVRWM24yUGdoZHhCRFBobF9WOVBfNGo4ZlVWN1Rab1NTclRCRTJ5VDNHUTdPR3dvOTJ2N0VHTHJ5S3RENGN6OENncUFYYzdfSkNucDgzajZvSDYySWRaQWdITnZUeFYtR0RiUm9UTTlGSDFFQkhiejRrMA?oc=5\" target=\"_blank\">Waymo under investigation by NHTSA after cars continue to pass stopped school buses</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">KVUE</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-12",
+    "incident_id": "INC-20261112-427"
+  },
+  {
+    "title": "Advocacy Groups Sue Top AI Developers to Halt Frontier Model Training Over Catastrophic Risks",
+    "summary": "A coalition of consumer and safety advocacy groups filed a lawsuit in San Francisco Superior Court seeking to halt the development and deployment of new AI models by Anthropic, Google, Meta, OpenAI, and SpaceX. The suit alleges that the companies are violating California unfair competition law by advancing increasingly autonomous AI models without adequate safety guardrails, posing existential and public safety risks.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "design_and_training",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "governance",
+    "root_cause_subtype": "inadequate_safety_guardrails",
+    "failure_mode": "Rapid advancement and deployment of general-purpose AI models without sufficient safety testing or controls, creating risks of autonomous misbehavior, cyberattacks, and loss of control.",
+    "harm_domain": "societal",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "GOVERN",
+    "iso_42001_category": "Internal_Governance",
+    "natsec_impact": true,
+    "temporality": "potential",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Anthropic",
+      "Google",
+      "Meta",
+      "OpenAI",
+      "SpaceX"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://www.abccolumbia.com/2026/11/12/advocacy-groups-sue-ai-giants-to-freeze-new-models-warning-of-catastrophic-risks/"
+    ],
+    "source_type": "gdelt",
+    "full_text": "(AP) — A coalition of online safety and consumer advocacy groups on Thursday sued five of the world’s leading artificial intelligence companies to halt further development, alleging the tech giants can’t prevent their own creations from causing “catastrophic” harm.\n\nThe lawsuit in San Francisco Superior Court follows a midterm election that could bring a moment of reckoning for the fast-moving AI industry, as Democrats who won back control of Congress stress the need to regulate the technology.\n\nThe filing, first reported on by The Associated Press, asks a judge to stop Anthropic, Google, Meta, OpenAI and SpaceXSI from developing or deploying new AI models, pointing to documented examples of cyberattacks and other harmful actions by AI systems and the companies’ own alarming acknowledgments that their technology has the potential to someday destroy humanity.\n\n“No other industry is allowed to treat its own development of unsafe products — much less ones that could kill us all — as inevitable,” reads the complaint from the Irreplaceable Education Fund, Public Citizen, Heat Initiative and the Alliance for Secure AI. “Plaintiffs bring this suit to stop Defendants from continuing their unlawful path to disaster.”\n\nThe AI industry has generated excitement and stock market gains, but also deep fears that the technology could go rogue and escape human control. Recent incidents of AI agents hacking government websites and companies — including when OpenAI’s ChatGPT hacked into another AI company on its own in July — have accelerated those concerns.\n\nPresident Donald Trump, a proponent of rapid AI development to keep the U.S. ahead of foreign competitors like China, has so far encouraged the companies to police themselves on matters of safety, though he has expressed openness to more guardrails. Congress also has stopped short of regulating the technology, but that may change with its Democratic takeover.\n\nSome CEOs of major AI companies, meanwhile, have voiced support for slowing development of the technology to give safety measures a chance to catch up. They also haven’t held back in recognizing the risks. Anthropic’s Dario Amodei, for example, last year said he thinks there’s a 1 in 4 chance AI’s future goes “really, really badly,” compared with a 3 in 4 chance it goes well. Elon Musk, the CEO of SpaceX, told Fox News in 2023 that AI could lead to “civilization destruction.”\n\nThe plaintiffs, all nonprofits, allege that the companies named in the lawsuit have violated a California unfair competition law by endangering public health and interfering with the use of property such as computer systems. They claim they’ve had to divert resources away from other planned work to address the acute harms threatened by each of the companies’ advancing AI models.\n\nThey also warn that the companies’ goals of creating AI systems that are broadly as smart as humans and can increasingly manage tasks and learn things autonomously could result in a permanent loss of control of the technology and heighten existential risks to humanity.\n\nThe companies named in Thursday’s lawsuit didn’t immediately respond to requests for comment.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-12",
+    "incident_id": "INC-20261112-428"
   }
 ]
