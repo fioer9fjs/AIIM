@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Adaptive dynamic keyword pool learned from validated AI incidents. Automatically maintained with daily decay and TTL.",
-    "last_updated": "2026-11-16",
+    "last_updated": "2026-11-17",
     "decay_rate_daily": 0.05,
     "min_weight_threshold": 0.2,
     "max_ttl_days": 21,
@@ -12,7 +12,7 @@
       {
         "term": "LLMs can potentially",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-16",
         "last_hit": "2026-11-16"
@@ -20,7 +20,7 @@
       {
         "term": "write backdoors directly",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-16",
         "last_hit": "2026-11-16"
@@ -28,7 +28,7 @@
       {
         "term": "weight spaces",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-16",
         "last_hit": "2026-11-16"
@@ -36,7 +36,7 @@
       {
         "term": "creating systemic security",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-16",
         "last_hit": "2026-11-16"
@@ -44,7 +44,7 @@
       {
         "term": "Google Search",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-16",
         "last_hit": "2026-11-16"
@@ -52,7 +52,7 @@
       {
         "term": "Google",
         "type": "subject",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-16",
         "last_hit": "2026-11-16"
@@ -60,7 +60,7 @@
       {
         "term": "autocomplete mechanism generated",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-16",
         "last_hit": "2026-11-16"
@@ -68,7 +68,7 @@
       {
         "term": "gender-biased search queries",
         "type": "incident",
-        "weight": 0.85,
+        "weight": 0.807,
         "hit_count": 1,
         "first_seen": "2026-11-16",
         "last_hit": "2026-11-16"
@@ -76,41 +76,41 @@
     ],
     "autonomous_agents_cyber": [
       {
+        "term": "OpenAI",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 8,
+        "first_seen": "2026-11-05",
+        "last_hit": "2026-11-17"
+      },
+      {
+        "term": "Waymo",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 8,
+        "first_seen": "2026-11-13",
+        "last_hit": "2026-11-17"
+      },
+      {
         "term": "Epoch",
         "type": "subject",
         "weight": 1.0,
-        "hit_count": 3,
+        "hit_count": 4,
         "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
+        "last_hit": "2026-11-17"
       },
       {
         "term": "Trajectory Labs",
         "type": "subject",
-        "weight": 1.0,
+        "weight": 0.95,
         "hit_count": 2,
         "first_seen": "2026-11-16",
         "last_hit": "2026-11-16"
       },
       {
-        "term": "OpenAI",
-        "type": "subject",
-        "weight": 0.95,
-        "hit_count": 7,
-        "first_seen": "2026-11-05",
-        "last_hit": "2026-11-15"
-      },
-      {
-        "term": "Waymo",
-        "type": "subject",
-        "weight": 0.95,
-        "hit_count": 5,
-        "first_seen": "2026-11-13",
-        "last_hit": "2026-11-15"
-      },
-      {
         "term": "Taiwan Emergency Services",
         "type": "subject",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-11-15",
         "last_hit": "2026-11-15"
@@ -118,99 +118,99 @@
       {
         "term": "against critical infrastructure",
         "type": "incident",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-11-15",
         "last_hit": "2026-11-15"
       },
       {
-        "term": "DeepSeek Harness",
+        "term": "Hugging Face",
         "type": "subject",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
       },
       {
-        "term": "DeepSeek",
-        "type": "subject",
+        "term": "research agents broke",
+        "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
       }
     ],
     "biometrics_police_surveillance": [
       {
-        "term": "General Public",
-        "type": "subject",
-        "weight": 0.599,
-        "hit_count": 2,
-        "first_seen": "2026-11-12",
-        "last_hit": "2026-11-12"
-      },
-      {
-        "term": "UK Police Forces",
-        "type": "subject",
-        "weight": 0.508,
-        "hit_count": 1,
-        "first_seen": "2026-11-12",
-        "last_hit": "2026-11-12"
-      },
-      {
-        "term": "Ethnic Minorities",
-        "type": "subject",
-        "weight": 0.508,
-        "hit_count": 1,
-        "first_seen": "2026-11-12",
-        "last_hit": "2026-11-12"
-      },
-      {
-        "term": "Police officers treated",
+        "term": "Israeli military",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-12",
-        "last_hit": "2026-11-12"
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
       },
       {
-        "term": "probabilistic facial recognition",
+        "term": "integrated commercial cloud-based",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-12",
-        "last_hit": "2026-11-12"
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
       },
       {
-        "term": "search matches",
+        "term": "facial recognition",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-12",
-        "last_hit": "2026-11-12"
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
       },
       {
-        "term": "direct evidence rather",
+        "term": "ingest and analyze",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-12",
-        "last_hit": "2026-11-12"
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
       },
       {
-        "term": "bypassing required corroborative",
+        "term": "non-consensual biometric photos",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-12",
-        "last_hit": "2026-11-12"
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
+      },
+      {
+        "term": "enabling mass tracking",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
+      },
+      {
+        "term": "identification during",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
+      },
+      {
+        "term": "military operations",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
       }
     ],
     "autonomous_mobility_robotics": [
       {
         "term": "California Highway Patrol",
         "type": "subject",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-12",
         "last_hit": "2026-11-12"
@@ -218,7 +218,7 @@
       {
         "term": "driver fell",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-12",
         "last_hit": "2026-11-12"
@@ -226,7 +226,7 @@
       {
         "term": "asleep while relying",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-12",
         "last_hit": "2026-11-12"
@@ -234,7 +234,7 @@
       {
         "term": "Full Self-Driving",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-12",
         "last_hit": "2026-11-12"
@@ -242,7 +242,7 @@
       {
         "term": "effectively ensure driver",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-12",
         "last_hit": "2026-11-12"
@@ -250,7 +250,7 @@
       {
         "term": "avoid colliding",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-12",
         "last_hit": "2026-11-12"
@@ -258,7 +258,7 @@
       {
         "term": "stationary emergency vehicle",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-12",
         "last_hit": "2026-11-12"
@@ -266,7 +266,7 @@
       {
         "term": "freeway scene closure",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-12",
         "last_hit": "2026-11-12"
@@ -274,134 +274,134 @@
     ],
     "multimodal_media_deepfakes": [
       {
-        "term": "Dr Erik Brecelj",
-        "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
-      },
-      {
         "term": "Zdravnika zbornica Slovenije",
         "type": "subject",
-        "weight": 0.85,
-        "hit_count": 1,
+        "weight": 1.0,
+        "hit_count": 4,
         "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
+        "last_hit": "2026-11-17"
       },
       {
-        "term": "Malicious actors leveraged",
+        "term": "Malicious actors utilized",
+        "type": "incident",
+        "weight": 1.0,
+        "hit_count": 3,
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
+      },
+      {
+        "term": "Dr Erik Brecelj",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-11-16",
+        "last_hit": "2026-11-17"
+      },
+      {
+        "term": "Erik Brecelj",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
+      },
+      {
+        "term": "General Public",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
+      },
+      {
+        "term": "alter real footage",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
       },
       {
-        "term": "audio and video",
+        "term": "fabricating endorsements",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
       },
       {
-        "term": "manipulation",
+        "term": "false medical claims",
         "type": "incident",
         "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
-      },
-      {
-        "term": "clone the likeness",
-        "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
-      },
-      {
-        "term": "recognized doctor",
-        "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
-      },
-      {
-        "term": "broadcast false medical",
-        "type": "incident",
-        "weight": 0.85,
-        "hit_count": 1,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
       }
     ],
     "social_chatbots_harm_governance": [
       {
-        "term": "Klaus Elmfelt",
+        "term": "OpenAI",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-15",
-        "last_hit": "2026-11-15"
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
       },
       {
-        "term": "ChatGPT generated persistent",
-        "type": "incident",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-11-15",
-        "last_hit": "2026-11-15"
-      },
-      {
-        "term": "hallucinations and sycophantic",
-        "type": "incident",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-11-15",
-        "last_hit": "2026-11-15"
-      },
-      {
-        "term": "responses that reinforced",
-        "type": "incident",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-11-15",
-        "last_hit": "2026-11-15"
-      },
-      {
-        "term": "delusions",
-        "type": "incident",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-11-15",
-        "last_hit": "2026-11-15"
-      },
-      {
-        "term": "provided inaccurate legal",
-        "type": "incident",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-11-15",
-        "last_hit": "2026-11-15"
-      },
-      {
-        "term": "eviction and subsequent",
-        "type": "incident",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-11-15",
-        "last_hit": "2026-11-15"
-      },
-      {
-        "term": "Google",
+        "term": "General Public",
         "type": "subject",
-        "weight": 0.735,
-        "hit_count": 3,
-        "first_seen": "2026-11-11",
-        "last_hit": "2026-11-13"
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
+      },
+      {
+        "term": "OpenAI allegedly failed",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
+      },
+      {
+        "term": "maintain adequate safety",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
+      },
+      {
+        "term": "standards and risk",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
+      },
+      {
+        "term": "management protocols",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
+      },
+      {
+        "term": "legal action",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
+      },
+      {
+        "term": "state regulators",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-17",
+        "last_hit": "2026-11-17"
       }
     ]
   }
