@@ -24620,5 +24620,166 @@
     "valuation_methodology": "unquantified",
     "date": "2026-11-14",
     "incident_id": "INC-20261114-452"
+  },
+  {
+    "title": "AI Deepfake Impersonation of Ioan Gruffudd Deceives Fan in Long-Term Romance Scam",
+    "summary": "An unknown bad actor used generative AI tools to produce hundreds of explicit and disturbing fake images and videos impersonating actor Ioan Gruffudd, convincing a fan she was in a year-long extramarital relationship with him. The deception was uncovered when the fan approached Gruffudd at a convention in Tennessee, though no financial fraud was committed. The actor reported the impersonation incident to law enforcement and issued a public warning to fans.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "external",
+    "root_cause_subtype": "deepfake impersonation",
+    "failure_mode": "Malicious actors utilized generative AI image and video models to fabricate synthetic likenesses and explicit media of an actor to deceive and emotionally manipulate a targeted individual via private messaging.",
+    "harm_domain": "persons_mental",
+    "harm_type": "psychological_harm",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MAP",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Unidentified victim",
+      "Ioan Gruffudd"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://www.thewrap.com/creative-content/movies/ioan-gruffudd-ai-scam-explicit-disturbing-images-fan-romance/",
+      "https://www.tmz.com/2026/11/09/ioan-gruffudd-criticizes-artificial-intelligence-scam/"
+    ],
+    "source_type": "aiid",
+    "full_text": "Ioan Gruffudd warned his fans online of an AI scammer using his likeness after one woman believed she was in an “extramarital relationship” with the actor after hundreds of telegram messages and AI-generated images were shared between the two over the course of a year.\n\nThe “Fantastic Four” actor was attending a Chattanooga Comic Con in Tennessee when the issue was brought to his attention.\n\n“Something incredibly distressing and disturbing has been brought to my attention,” the actor wrote in an Instagram post on Sunday. “A woman came to a convention I was recently attending and she was under the impression that she was in an extramarital relationship with me for over a year.”\n\nHe said the woman showed him hundreds of “explicit and disturbing” AI images and videos that someone claiming to be him had sent to her.\n\nThe woman was apparently targeted from an “Elsbeth” TV series Facebook page, where the scammer got her phone number and asked to communicate via Telegram. Gruffudd appeared on one episode of the CBS series as Angus Oliphant-Donnachaidh in 2025.\n\nThe actor warned that he never gives out his cell number to people that he does not know and asked his fans to take precaution.\n\n“If you believe you are speaking to me via message, Telegram, any social media pages that aren’t this page (@ioangruffudd), or any other means, this is not me,” he said.\n\nHe adds: “Please do not engage and never send money! I urge you to ignore and block all contact from anyone that claims to be me.”\n\nThe actor noted that he has reported this scam to the police for investigation and gave the cops the victim’s cell number. Gruffudd later clarified on his Instagram story that the woman never sent the scammer any money.\n\n“I’d like to make an important clarification — This has not been a financial scam,” he wrote. “No funds ever requested from her or sent by her.”\n\n“I clarify this as the victim specifically stated that this was the reason why she never questioned it and what made her believe that this was truly me. Please be careful out there,” he added.\n\nGruffudd has been married to Bianca Wallace since April 2025. They share a daughter, Mila Mae, who was born last November. He also shares two daughters with his ex-wife Alice Evans.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-16",
+    "incident_id": "INC-20261116-453",
+    "last_updated_date": "2026-11-16",
+    "timeline": [
+      {
+        "date": "2026-11-16",
+        "title": "AI Deepfake Impersonation of Ioan Gruffudd Deceives Fan in Long-Term Romance Scam",
+        "summary_delta": "An unknown bad actor used generative AI tools to produce hundreds of explicit and disturbing fake images and videos impersonating actor Ioan Gruffudd, convincing a fan she was in a year-long extramarital relationship with him.",
+        "phase": "initial_report",
+        "source_url": "https://www.thewrap.com/creative-content/movies/ioan-gruffudd-ai-scam-explicit-disturbing-images-fan-romance/",
+        "source_type": "aiid"
+      }
+    ]
+  },
+  {
+    "title": "Delivery Robot Collision with Bus in Tallinn Causes Passenger Injuries",
+    "summary": "An autonomous delivery robot operated by Starship Technologies and Bolt entered a pedestrian crossing on a red light in Tallinn, prompting a municipal bus to brake abruptly and collide with the robot. The sharp deceleration caused multiple bus passengers to fall, injuring up to nine people. Starship Technologies explained that poor lighting, illuminated advertising, and improper sensor light sensitivity led the robot to misread the traffic signal.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "autonomous_mobility",
+    "root_cause_category": "model",
+    "root_cause_subtype": "perception_error",
+    "failure_mode": "The robot's visual perception system misclassified a red pedestrian signal due to dark lighting conditions, background illumination from an advertisement, and altered sensor light sensitivity, leading it into the path of an oncoming bus.",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "Estonia"
+    ],
+    "affected_parties": [
+      "Tallinn Transport (TLT)",
+      "Bus passengers",
+      "Starship Technologies",
+      "Bolt"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://news.err.ee/1610179027/passengers-injured-after-collision-between-bus-and-delivery-robot-in-tallinn",
+      "https://news.err.ee/1610180470/starship-plans-software-changes-to-improve-delivery-robots-safety",
+      "https://www.tv3.ee/tv3telekanal/tv3-uudised/tv3-uudised-pakirobot-pohjustas-onnetuse-ja-pogenes-sundmuskohalt/"
+    ],
+    "source_type": "aiid",
+    "full_text": "Safety improvements to the autonomous delivery robots on Estonia's streets will be primarily software-based, said Starship Technologies, after one of its machines was involved in a collision with a bus earlier this week.\n\nA bus and a delivery robot collided in Tallinn on Monday evening, injuring several people after the driver braked sharply to avoid an accident.\n\nTallinn Transport (TLT) board member Andrei Novikov said the accident occurred during rush hour, when it was dark outside. A moving object suddenly appeared in front of the bus. \"I don't know whether the bus driver was immediately able to understand whether it was a delivery robot, an animal or, for example, a cyclist,\" he noted.\n\nHe said the bus driver acted correctly by hitting the brake. Novikov added that, judging by the camera footage from the bus (see below), the \"consequences would have been much worse\" if the stop had been more sudden.\n\nNovikov said that once the bus had stopped, the first thing the driver did was ask the passengers whether anyone needed help and whether an ambulance should be called. No one in the passenger compartment indicated that an ambulance was needed.\n\nThe driver then called TLT's control center and reported the situation. The driver asked what to do next. Together, they decided to continue operating the route, as the damage to the vehicle was minimal, none of the passengers needed an ambulance, it was rush hour and remaining stationary could have obstructed traffic throughout the area.\n\nNovikov said, after the collision, the bus driver did not want to continue his working day because of his emotional state. He was sent home and a replacement bus driver took over. TLT has now filed a police report. Later, TLT received a complaint from a passenger concerning their health condition.\n\nLauri Potsepp, a board member of the Estonian Motor Insurance Bureau, said a bus driver is liable for damage caused to others by the bus regardless of fault. Therefore, if a person falls on a bus because the bus brakes sharply, the passenger can claim compensation from the bus's motor insurance provider, regardless of who caused the accident.\n\n\"Once the insurer has compensated for the damage, it will be determined who caused the accident, meaning what each of the drivers should have done to prevent the accident,\" Potsepp explained.\n\nIf it turns out that the accident was caused by the delivery robot or its operator, the motor insurance provider may seek reimbursement from the robot's owner for the compensation paid to the victims.\n\nPotsepp added that, in addition to personal injuries, people's belongings may also have been damaged in such a situation. For example, clothing or a phone.\n\nIf a person does not know which insurer to submit a compensation claim to but knows the bus's registration number, they can find the insurer on the Motor Insurance Bureau's website.\n\n\"If they don't know the registration number, they can send an email to the Motor Insurance Bureau. We will determine who they can claim compensation from and direct the customer there,\" Potsepp said.\n\nPepe Aaviksoo, head of operations at Starship Technologies, said the company is currently conducting an internal investigation to find out exactly what happened during the accident. Once the company has completed its assessment, it will share the information with the public and the police.\n\nHowever, Aaviksoo could already say which improvements need to be made to prevent such situations. \"The robot is largely a software-based machine, and the improvements are primarily software-based,\" he explained.\n\nAaviksoo said that, generally, the robots move autonomously. However, there are cases where a robot is connected to an office-based team, which takes over control if necessary. This is done either for safety reasons or because of a specific incident.\n\nThe office team then assesses what happened in the particular situation. However, Aaviksoo explained that robots are not constantly monitored. \"This is sim",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-16",
+    "incident_id": "INC-20261116-454",
+    "last_updated_date": "2026-11-16",
+    "timeline": [
+      {
+        "date": "2026-11-16",
+        "title": "Delivery Robot Collision with Bus in Tallinn Causes Passenger Injuries",
+        "summary_delta": "An autonomous delivery robot operated by Starship Technologies and Bolt entered a pedestrian crossing on a red light in Tallinn, prompting a municipal bus to brake abruptly and collide with the robot.",
+        "phase": "initial_report",
+        "source_url": "https://news.err.ee/1610179027/passengers-injured-after-collision-between-bus-and-delivery-robot-in-tallinn",
+        "source_type": "aiid"
+      },
+      {
+        "date": "2026-11-16",
+        "title": "Starship Delivery Robot Collision with Bus in Tallinn Injures Passengers",
+        "summary_delta": "Report B adds that Starship Technologies initiated an internal investigation and announced planned software updates to prevent similar navigation incidents.",
+        "phase": "remediation",
+        "source_url": "https://news.err.ee/1610180470/starship-plans-software-changes-to-improve-delivery-robots-safety",
+        "source_type": "aiid"
+      }
+    ]
+  },
+  {
+    "title": "Surge in AI-Generated Child Sexual Abuse Material Reports",
+    "summary": "Reports of AI-generated child sexual abuse material (CSAM) escalated dramatically by over 8,400% between 2023 and 2025, according to research from the Childlight Global Child Safety Institute and the Internet Watch Foundation. The sharp rise is driven by generative AI tools, including photorealistic image models and 'nudify' apps, which enable malicious actors to create illicit imagery used for extortion and exploitation. Child safety advocates and organizations are urging governments and technology companies to implement robust detection, intervention, and preventive measures against technology-facilitated abuse.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "human",
+    "root_cause_subtype": "malicious_misuse",
+    "failure_mode": "Malicious actors weaponized generative image synthesis models and deepfake applications to produce photorealistic child sexual abuse material, leading to massive increases in online exploitation and blackmail.",
+    "harm_domain": "persons_rights",
+    "harm_type": "psychological_harm",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "prohibited",
+    "nist_ai_rmf_function": "MAP",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "critical",
+    "geographic_scope": [
+      "United States",
+      "United Kingdom",
+      "Canada"
+    ],
+    "affected_parties": [
+      "Children worldwide",
+      "National Center for Missing and Exploited Children",
+      "Internet Watch Foundation"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.98
+    },
+    "source_urls": [
+      "https://www.theguardian.com/technology/2026/nov/16/ai-related-child-sexual-abuse-material-rise-exploitation-deepfakes"
+    ],
+    "source_type": "aiid",
+    "full_text": "Calls for governments to recognise sexual exploitation of children as preventable public health emergency\n\nReports of artificial intelligence being used to sexually exploit children have risen by more than 8,400% in two years, research has found.\n\nA report by the Edinburgh-based Childlight – Global Child Safety Institute says AI-related child abuse material, including deepfakes using “nudify apps”, had risen from about 4,700 in 2023 to more than 400,000 in 2025.\n\nThe images, although fake, can be used to blackmail children to demand money or more images.\n\nThe research examined reports of material by tech companies to the US-based organisation the National Center for Missing and Exploited Children.\n\nProf Debi Fry, the global director of data at Childlight, said the findings showed the “shocking” level of child sexual exploitation.\n\nThe research focuses on east Asia and the Pacific, Latin America and the Caribbean, and North America. Previous studies have examined western Europe.\n\nFry said: “Our research reveals the shocking scale of child sexual exploitation and abuse and how rapidly the threats facing children are evolving, particularly online.\n\n“But the findings also show where governments can make a difference. By bringing together evidence from surveys, police records and other sources, we can build a clearer picture of the risks children face, identify weaknesses in protection systems and help target resources and interventions where they are needed most.”\n\nA report by the Internet Watch Foundation (IWF) last month found AI-generated child sexual abuse material was growing online, with the amount of illegal material investigated this year already exceeding the total for 2025.\n\nIWF analysts have found more photorealistic child sexual abuse material in the first half of 2026 than for the whole of the previous year. The UK-based NGO, which monitors abuse material globally, said it had assessed 6,310 AI images that met the legal definition of child sexual abuse, 40% higher than last year’s total of more than 4,500.\n\nThe problem had already risen in 2025, according to the IWF.\n\nChildlight estimates more than 300 million children worldwide are the victims of at least one form of technology-facilitated sexual exploitation or abuse ever year.\n\nIt also estimates that about one in four children will be subjected to at least one form of abuse before their 18th birthday. The research also looked at offline sexual abuse reporting.\n\nAlmost a third of girls, and more than one in 10 boys were subjected to in-person sexual abuse during childhood in North America, the research found. This includes crimes such as sexual assault, rape and “upskirting”.\n\nThe recorded rate of reports and notices involving child sexual abuse material rose by 63% in the US between 2024 and 2025, compared with 18% in Canada.\n\nFry said: “The speed at which artificial intelligence is changing the threat to children is deeply concerning. These figures show an extraordinary rise in reports of AI-generated child sexual abuse material in just two years.\n\n“While improved detection and reporting may explain some of that increase, the findings underline why governments and technology companies must act urgently to understand and prevent these emerging forms of abuse and remove material rapidly.”\n\nPaul Stanfield, the chief executive of Childlight, said: “Millions of children are being subjected to sexual exploitation and abuse, yet governments are too often working with an incomplete picture of where harm is happening and who is most at risk.\n\n“We cannot effectively prevent abuse or protect children without understanding its true scale and nature. But there is nothing inevitable about child sexual exploitation and abuse. We have the knowledge and tools to make a difference.\n\n“We are calling on governments to recognise this as a preventable public health emergency, invest in better evidence and turn that intelligence into action. With sustained leadership and international c",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-16",
+    "incident_id": "INC-20261116-455"
   }
 ]
