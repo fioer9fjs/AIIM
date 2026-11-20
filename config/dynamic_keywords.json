@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Adaptive dynamic keyword pool learned from validated AI incidents. Automatically maintained with daily decay and TTL.",
-    "last_updated": "2026-11-19",
+    "last_updated": "2026-11-20",
     "decay_rate_daily": 0.05,
     "min_weight_threshold": 0.2,
     "max_ttl_days": 21,
@@ -10,75 +10,99 @@
   "lanes": {
     "frontier_llms_leaks": [
       {
-        "term": "LLMs can potentially",
-        "type": "incident",
-        "weight": 0.624,
-        "hit_count": 1,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
-      },
-      {
-        "term": "write backdoors directly",
-        "type": "incident",
-        "weight": 0.624,
-        "hit_count": 1,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
-      },
-      {
-        "term": "weight spaces",
-        "type": "incident",
-        "weight": 0.624,
-        "hit_count": 1,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
-      },
-      {
-        "term": "creating systemic security",
-        "type": "incident",
-        "weight": 0.624,
-        "hit_count": 1,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
-      },
-      {
-        "term": "Google Search",
+        "term": "Cursor",
         "type": "subject",
-        "weight": 0.624,
-        "hit_count": 1,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-11-20",
+        "last_hit": "2026-11-20"
       },
       {
-        "term": "Google",
+        "term": "Claude Code",
         "type": "subject",
-        "weight": 0.624,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
+        "first_seen": "2026-11-20",
+        "last_hit": "2026-11-20"
       },
       {
-        "term": "autocomplete mechanism generated",
+        "term": "third-party breach enabled",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
+        "first_seen": "2026-11-20",
+        "last_hit": "2026-11-20"
       },
       {
-        "term": "gender-biased search queries",
+        "term": "deployment",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
+        "first_seen": "2026-11-20",
+        "last_hit": "2026-11-20"
+      },
+      {
+        "term": "malicious extension targeting",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-20",
+        "last_hit": "2026-11-20"
+      },
+      {
+        "term": "Claude Code integration",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-20",
+        "last_hit": "2026-11-20"
+      },
+      {
+        "term": "within Cursor",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-20",
+        "last_hit": "2026-11-20"
+      },
+      {
+        "term": "Anthropic",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-20",
+        "last_hit": "2026-11-20"
       }
     ],
     "autonomous_agents_cyber": [
       {
+        "term": "OpenAI",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 10,
+        "first_seen": "2026-11-05",
+        "last_hit": "2026-11-20"
+      },
+      {
+        "term": "Waymo",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 9,
+        "first_seen": "2026-11-13",
+        "last_hit": "2026-11-20"
+      },
+      {
+        "term": "State of California",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-11-20",
+        "last_hit": "2026-11-20"
+      },
+      {
         "term": "Starship Technologies",
         "type": "subject",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 3,
         "first_seen": "2026-11-18",
         "last_hit": "2026-11-18"
@@ -86,7 +110,7 @@
       {
         "term": "Bus passengers",
         "type": "subject",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 3,
         "first_seen": "2026-11-18",
         "last_hit": "2026-11-18"
@@ -94,7 +118,7 @@
       {
         "term": "Tallinn Transport TLT",
         "type": "subject",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-11-18",
         "last_hit": "2026-11-18"
@@ -102,181 +126,92 @@
       {
         "term": "oncoming bus",
         "type": "incident",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-11-18",
         "last_hit": "2026-11-18"
       },
       {
-        "term": "OpenAI",
-        "type": "subject",
-        "weight": 0.857,
-        "hit_count": 8,
-        "first_seen": "2026-11-05",
-        "last_hit": "2026-11-17"
-      },
-      {
-        "term": "Waymo",
-        "type": "subject",
-        "weight": 0.857,
-        "hit_count": 8,
-        "first_seen": "2026-11-13",
-        "last_hit": "2026-11-17"
-      },
-      {
-        "term": "Epoch",
-        "type": "subject",
-        "weight": 0.857,
-        "hit_count": 4,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-17"
-      },
-      {
-        "term": "Trajectory Labs",
-        "type": "subject",
-        "weight": 0.735,
-        "hit_count": 2,
-        "first_seen": "2026-11-16",
-        "last_hit": "2026-11-16"
+        "term": "was exploited",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-20",
+        "last_hit": "2026-11-20"
       }
     ],
     "biometrics_police_surveillance": [
       {
-        "term": "Israeli military",
-        "type": "incident",
-        "weight": 0.728,
-        "hit_count": 1,
-        "first_seen": "2026-11-17",
-        "last_hit": "2026-11-17"
-      },
-      {
-        "term": "integrated commercial cloud-based",
-        "type": "incident",
-        "weight": 0.728,
-        "hit_count": 1,
-        "first_seen": "2026-11-17",
-        "last_hit": "2026-11-17"
-      },
-      {
-        "term": "facial recognition",
-        "type": "incident",
-        "weight": 0.728,
-        "hit_count": 1,
-        "first_seen": "2026-11-17",
-        "last_hit": "2026-11-17"
-      },
-      {
-        "term": "ingest and analyze",
-        "type": "incident",
-        "weight": 0.728,
-        "hit_count": 1,
-        "first_seen": "2026-11-17",
-        "last_hit": "2026-11-17"
-      },
-      {
-        "term": "non-consensual biometric photos",
-        "type": "incident",
-        "weight": 0.728,
-        "hit_count": 1,
-        "first_seen": "2026-11-17",
-        "last_hit": "2026-11-17"
-      },
-      {
-        "term": "enabling mass tracking",
-        "type": "incident",
-        "weight": 0.728,
-        "hit_count": 1,
-        "first_seen": "2026-11-17",
-        "last_hit": "2026-11-17"
-      },
-      {
-        "term": "identification during",
-        "type": "incident",
-        "weight": 0.728,
-        "hit_count": 1,
-        "first_seen": "2026-11-17",
-        "last_hit": "2026-11-17"
-      },
-      {
-        "term": "military operations",
-        "type": "incident",
-        "weight": 0.728,
-        "hit_count": 1,
-        "first_seen": "2026-11-17",
-        "last_hit": "2026-11-17"
-      }
-    ],
-    "autonomous_mobility_robotics": [
-      {
-        "term": "California Highway Patrol",
+        "term": "Clearview",
         "type": "subject",
-        "weight": 0.202,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-12",
-        "last_hit": "2026-11-12"
+        "first_seen": "2026-11-20",
+        "last_hit": "2026-11-20"
       },
       {
-        "term": "driver fell",
-        "type": "incident",
-        "weight": 0.202,
+        "term": "Harris County Commissioners",
+        "type": "subject",
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-12",
-        "last_hit": "2026-11-12"
+        "first_seen": "2026-11-20",
+        "last_hit": "2026-11-20"
       },
       {
-        "term": "asleep while relying",
+        "term": "Facial recognition matches",
         "type": "incident",
-        "weight": 0.202,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-12",
-        "last_hit": "2026-11-12"
+        "first_seen": "2026-11-20",
+        "last_hit": "2026-11-20"
       },
       {
-        "term": "Full Self-Driving",
+        "term": "untargeted web-scraped databases",
         "type": "incident",
-        "weight": 0.202,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-12",
-        "last_hit": "2026-11-12"
+        "first_seen": "2026-11-20",
+        "last_hit": "2026-11-20"
       },
       {
-        "term": "effectively ensure driver",
+        "term": "produce false leads",
         "type": "incident",
-        "weight": 0.202,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-12",
-        "last_hit": "2026-11-12"
+        "first_seen": "2026-11-20",
+        "last_hit": "2026-11-20"
       },
       {
-        "term": "avoid colliding",
+        "term": "risk being",
         "type": "incident",
-        "weight": 0.202,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-12",
-        "last_hit": "2026-11-12"
+        "first_seen": "2026-11-20",
+        "last_hit": "2026-11-20"
       },
       {
-        "term": "stationary emergency vehicle",
+        "term": "definitive evidence",
         "type": "incident",
-        "weight": 0.202,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-12",
-        "last_hit": "2026-11-12"
+        "first_seen": "2026-11-20",
+        "last_hit": "2026-11-20"
       },
       {
-        "term": "freeway scene closure",
+        "term": "privacy violations",
         "type": "incident",
-        "weight": 0.202,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-12",
-        "last_hit": "2026-11-12"
+        "first_seen": "2026-11-20",
+        "last_hit": "2026-11-20"
       }
     ],
+    "autonomous_mobility_robotics": [],
     "multimodal_media_deepfakes": [
       {
         "term": "Malicious actors utilized",
         "type": "incident",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 4,
         "first_seen": "2026-11-17",
         "last_hit": "2026-11-18"
@@ -284,7 +219,7 @@
       {
         "term": "Ioan Gruffudd",
         "type": "subject",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-11-18",
         "last_hit": "2026-11-18"
@@ -292,7 +227,7 @@
       {
         "term": "deceive and emotionally",
         "type": "incident",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-11-18",
         "last_hit": "2026-11-18"
@@ -300,7 +235,7 @@
       {
         "term": "deepfake impersonation",
         "type": "incident",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-11-18",
         "last_hit": "2026-11-18"
@@ -308,7 +243,7 @@
       {
         "term": "Zdravnika zbornica Slovenije",
         "type": "subject",
-        "weight": 0.857,
+        "weight": 0.735,
         "hit_count": 4,
         "first_seen": "2026-11-16",
         "last_hit": "2026-11-17"
@@ -316,7 +251,7 @@
       {
         "term": "Dr Erik Brecelj",
         "type": "subject",
-        "weight": 0.857,
+        "weight": 0.735,
         "hit_count": 2,
         "first_seen": "2026-11-16",
         "last_hit": "2026-11-17"
@@ -324,7 +259,7 @@
       {
         "term": "Erik Brecelj",
         "type": "subject",
-        "weight": 0.857,
+        "weight": 0.735,
         "hit_count": 2,
         "first_seen": "2026-11-17",
         "last_hit": "2026-11-17"
@@ -332,7 +267,7 @@
       {
         "term": "Unidentified victim",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-18",
         "last_hit": "2026-11-18"
@@ -342,7 +277,7 @@
       {
         "term": "Children worldwide",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-18",
         "last_hit": "2026-11-18"
@@ -350,7 +285,7 @@
       {
         "term": "Internet Watch Foundation",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-18",
         "last_hit": "2026-11-18"
@@ -358,7 +293,7 @@
       {
         "term": "Malicious actors weaponized",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-18",
         "last_hit": "2026-11-18"
@@ -366,7 +301,7 @@
       {
         "term": "generative image synthesis",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-18",
         "last_hit": "2026-11-18"
@@ -374,7 +309,7 @@
       {
         "term": "deepfake",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-18",
         "last_hit": "2026-11-18"
@@ -382,7 +317,7 @@
       {
         "term": "produce photorealistic child",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-18",
         "last_hit": "2026-11-18"
@@ -390,7 +325,7 @@
       {
         "term": "sexual abuse material",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-18",
         "last_hit": "2026-11-18"
@@ -398,7 +333,7 @@
       {
         "term": "massive increases",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.728,
         "hit_count": 1,
         "first_seen": "2026-11-18",
         "last_hit": "2026-11-18"

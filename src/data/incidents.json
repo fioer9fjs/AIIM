@@ -21248,11 +21248,12 @@
       "United States"
     ],
     "affected_parties": [
-      "Cursor",
       "Fireworks AI",
       "Cursor Users",
-      "Anthropic",
-      "Cursor users"
+      "Cursor users",
+      "Cursor",
+      "Claude Code Users",
+      "Anthropic"
     ],
     "confidence_scores": {
       "verification_status": 0.98,
@@ -21261,14 +21262,15 @@
     "source_urls": [
       "https://thenextweb.com/news/tampered-claude-code-extension-cursor-ssh-backdoor",
       "https://www.wired.com/story/trojan-malware-targets-thousands-of-anthropic-claude-developer-systems/",
-      "https://www.bleepingcomputer.com/news/security/cursor-confirms-security-breach-led-to-malicious-claude-code-extension/"
+      "https://www.bleepingcomputer.com/news/security/cursor-confirms-security-breach-led-to-malicious-claude-code-extension/",
+      "https://www.darkreading.com/application-security/cursor-malicious-claude-code-extension-third-party-breach"
     ],
     "source_type": "google_news_rss",
     "full_text": "A tampered copy of Anthropic’s Claude Code extension sat in Cursor’s extension marketplace for about 11 hours on Thursday 29 October. It reached up to 5,000 users. The malicious versions tried to plant an SSH backdoor on developers’ machines, Cursor said in a security notice.\n\nAnthropic says nobody breached its own systems. A security firm that studied the attack says the extension went out through Anthropic’s official account on Cursor. Neither Anthropic nor Cursor has said how the attacker got access.\n\nThe affected versions were 2.1.312 and 2.1.313 for Windows and macOS. They were live from about 2:27am to 1:35pm Pacific time. Cursor, which SpaceX acquired earlier this year, said Anthropic did not develop the code.\n\nThe extension collected details about each machine and its user, including the hostname, username, Git email and public IP address. It then tried to add the attacker’s SSH key and turn on the computer’s SSH service. It also tried to open a reverse tunnel to the attacker’s server.\n\nThat last step needs administrator rights, which the extension lacks on most macOS and Windows machines. So it would usually fail, Cursor said. But the key, the persistence scripts and the data upload still went through. Uninstalling the extension may not be enough to remove them.\n\nWe identified a security incident affecting a modified Claude Code VS Code extension accessed through our Cursor IDE extension marketplace, impacting at most 5,000 users. This malicious version of the extension was not developed by Anthropic. It does not impact other extensions downloaded from the http://cursor.com/marketplace, Grok Bot, Grok or our other SpaceXSI products.\n\nIn response, we took down our extension marketplace this afternoon, worked with relevant providers to neutralize the malware, and have reinstated the marketplace after confirming there is no further risk.\n\nIf affected, please review instructions in this blog post to understand how to find the malicious package and establish a path to mitigate any potential impact. We are asking all customers update to Claude Code for VS Code version 2.1.314: https://cursor.com/blog/claude-code-extension-security-notice\n\nCursor (@cursor_ai) October 30, 2026\n\nCursor removed the versions and shut its whole marketplace while it checked the other extensions. It then rotated its keys and reopened it. It also had the attacker’s server taken offline. It has published scripts to check for and remove the backdoor.\n\nFelix Rieseberg, a member of Anthropic’s technical staff, responded in a post on X.\n\nWe’re working with Cursor on this incident, but it wasn’t a compromise of Anthropic’s systems or employee laptops. A malicious actor used access to Cursor’s marketplace to publish a tampered copy of the Claude Code extension, which we didn’t build or publish. The versions on our official channels are not affected and this only impacts Cursor users.\n\nFelix Rieseberg (@felixrieseberg) October 30, 2026\n\nThe security firm Phorion first flagged the compromise. Its co-founder and chief technology officer, Luke Roberts, told Ars Technica that the attacker reached the official distribution channel.\n\n“The malicious version 2.1.313 was posted to the official Anthropic account, effectively superseding 2.1.312,” Roberts told Ars.\n\nIndependent researcher Kevin Beaumont made the same point, Dan Goodin reported for Ars. Extensions update automatically in Cursor by default, Roberts said. Cursor has told users to move to a clean version, 2.1.314.\n\nThe malware also sent the names of up to 40 environment variables matching keys, tokens and secrets, but not their values, Phorion found. That gives the attacker a quick list of which cloud credentials sit on each machine.\n\nSupply-chain attacks on developer tools have hit npm packages this year, and researchers have warned that AI coding tools could amplify such attacks.\n\nGet the most important tech news in your inbox each week.\n\nThanks! Check your inbox to confirm your subscription.\n\nBy subscr",
     "valuation_methodology": "unquantified",
     "date": "2026-10-30",
     "incident_id": "INC-20261031-378",
-    "last_updated_date": "2026-11-14",
+    "last_updated_date": "2026-11-17",
     "timeline": [
       {
         "date": "2026-10-30",
@@ -21292,6 +21294,14 @@
         "summary_delta": "Report B provides the root cause of the breach, identifying compromised credentials at third-party provider Fireworks AI as the origin of the attack.",
         "phase": "investigation",
         "source_url": "https://www.bleepingcomputer.com/news/security/cursor-confirms-security-breach-led-to-malicious-claude-code-extension/",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-11-17",
+        "title": "Cursor Traces Malicious Claude Code Extension to Third-Party Breach",
+        "summary_delta": "Report B provides later investigation updates, identifying that the malicious extension stemmed specifically from a third-party breach.",
+        "phase": "investigation",
+        "source_url": "https://www.darkreading.com/application-security/cursor-malicious-claude-code-extension-third-party-breach",
         "source_type": "google_news_rss"
       }
     ]
@@ -21322,22 +21332,45 @@
       "United States"
     ],
     "affected_parties": [
-      "Anthropic",
+      "Fireworks AI",
+      "Uber",
+      "Notion",
+      "Developer Community",
       "Cursor",
-      "Developer Community"
+      "Anthropic"
     ],
     "confidence_scores": {
       "verification_status": 0.98,
       "severity": 0.92
     },
     "source_urls": [
-      "https://www.stepsecurity.io/blog/claude-code-extension-trojanized"
+      "https://www.stepsecurity.io/blog/claude-code-extension-trojanized",
+      "https://thehackernews.com/2026/11/stolen-fireworks-ai-key-led-to-cursor.html"
     ],
     "source_type": "google_news_rss",
     "full_text": "On October 29, 2026, versions 2.1.312 and 2.1.313 of the Claude Code VS Code extension, anthropic.claude-code, were published to Cursor's VS Code Extension Marketplace for macOS and Windows carrying a malicious loader embedded in its extension.js bundle.\n\nThe malicious build is the official extension in every respect except one: extension.js carries a small self-contained loader embedded in the legitimate bundle. The malicious file (SHA-256 ecb58cb29078d9646ad1dcdbe51526f2d9cfea06be5fb2ab183e8ecc3ab6bf15, 3,692,922 bytes) is roughly 7 KB larger than the preceding clean release, and sandbox telemetry shows the payload executes under plain Node.js with no VS Code APIs: loading the extension module is enough. No Claude conversation is needed, and no package-manager lifecycle hooks are involved. This was not an Anthropic release: the build repackages the official extension, and per Cursor's notice the malicious version was not developed by Anthropic.\n\nThe Claude Code VS Code extension is Anthropic's official IDE integration. This incident involved tampered copies of versions 2.1.312 and 2.1.313 distributed through Cursor's VS Code Extension Marketplace for macOS and Windows, under the legitimate extension identifier.\n\nAccording to Anthropic, a malicious actor used access to Cursor's marketplace to publish the tampered extension. Anthropic did not build or publish it, and its systems, employee laptops, and official distribution channels were not compromised in this incident.\n\nHaving version 2.1.312 or 2.1.313 installed does not, by itself, confirm compromise. Check the download source, time window, and host indicators described below.\n\nUpdate (November 1, 2026): we recovered the malicious extension.js sample (from MalwareBazaar, hash-verified against the anchor above) and completed a full static analysis of the embedded loader. The sample was never executed; everything in this section comes from reading the recovered source, cross-checked against the sandbox telemetry already cited.\n\nThe tampering is a pure prepend. The malicious file is the clean Open-VSX 2.1.312 extension.js with a single 7,386-byte loader IIFE spliced in front: after the loader, all 3,656,941 remaining bytes are identical to the clean 2.1.312 bundle we independently downloaded (3,692,922 = 3,685,536 + 7,386 exactly). There is no second backdoor deeper in the 3.6 MB bundle, and every indicator string in the IoC table below lives inside those first 7 KB. Two further consequences: the bundle inside the \"2.1.313\" VSIX still self-identifies as version:\"2.1.312\" (the bumped number existed only in the repackaged manifest), and the attacker demonstrably worked from the official 2.1.312 build artifact.\n\nThe loader is not obfuscated at all: it is machine-minified JavaScript with plaintext constants, and the only encoding anywhere is standard base64 wrapping the tunnel private key. That is also why the fleet-sweep grep works. On load it runs six stages, each wrapped in a swallowing try/catch that records a status string instead of failing:\n\nRecovered source, key constants and tunnel loop (verbatim, reformatted for reading; strings and identifiers are unchanged from the sample):\n\nThe beacon doubles as a per-stage status report: alongside the recon fields it carries sshKey: added|present, sshd/remoteLogin state, tunnel: started|running, and persist: cron|launchd|schtasks|startup, so the operator sees, per victim, exactly which persistence mechanism took hold. Notably absent from the source: no credential values are read, no Claude or VS Code data is touched, and there is no second-stage download. The loader's entire capability is persistent SSH ingress plus a reconnaissance report; the real risk to an exposed machine is what the operator did, or could have done, through interactive access via the svc-telemetry key while the tunnel was up. Remediation guidance and the full indicator set are in the sections below.\n\nNot indicators on their own: ifconfig.me and api.ipify.org are",
     "valuation_methodology": "unquantified",
     "date": "2026-10-30",
-    "incident_id": "INC-20261030-379"
+    "incident_id": "INC-20261030-379",
+    "last_updated_date": "2026-11-15",
+    "timeline": [
+      {
+        "date": "2026-10-30",
+        "title": "Trojanized Claude Code Extension Delivered Persistent SSH Backdoor via Cursor Marketplace",
+        "summary_delta": "Malicious actors uploaded trojanized versions (2.1.312 and 2.1.313) of Anthropic's Claude Code VS Code extension to Cursor's marketplace.",
+        "phase": "initial_report",
+        "source_url": "https://www.stepsecurity.io/blog/claude-code-extension-trojanized",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-11-15",
+        "title": "Stolen Fireworks AI Key Triggers Trojanized Claude Code Extension Supply Chain Attack on Cursor",
+        "summary_delta": "Report B uncovers the initial root cause, revealing that a stolen API key from Fireworks AI allowed attackers to access Cursor's storage buckets and compromise the marketplace cache.",
+        "phase": "technical_disclosure",
+        "source_url": "https://thehackernews.com/2026/11/stolen-fireworks-ai-key-led-to-cursor.html",
+        "source_type": "google_news_rss"
+      }
+    ]
   },
   {
     "title": "Chainalysis Security Breach Allegedly Involving AI Agent Attack",
@@ -24151,6 +24184,7 @@
       "United States"
     ],
     "affected_parties": [
+      "State of California",
       "OpenAI",
       "General Public"
     ],
@@ -24159,13 +24193,42 @@
       "severity": 0.7
     },
     "source_urls": [
-      "https://thehill.com/homenews/state-watch/6223583-california-sues-openai-huggingface-hack/"
+      "https://thehill.com/homenews/state-watch/6223583-california-sues-openai-huggingface-hack/",
+      "https://calmatters.org/economy/technology/2026/11/california-is-suing-openai-over-hugging-face-hack/",
+      "https://andro-news.com/en/california-sues-openai-over-more-than-80-rogue-ai-agent-escapes-and-real-world-sandbox-cyberattacks/"
     ],
     "source_type": "google_news_rss",
     "full_text": "<a href=\"https://news.google.com/rss/articles/CBMikwFBVV95cUxNUVUyQVRSZFZKZ1k1R2h3VWdDOXVZeE9ILWtqUUl3R3pkT2hxRHJjRDljV01JQmVKOVVzUzlIR2R6QVFBSENHQkowclhfWWZ5bVRNVjZaVjdlX3BDT2lHVjh3YTgxS2pmSUxqT05YZE9IS1ZsUWFMb2ZBVkVKLWJVWGdnMnU4alUwLXJQWmRZUF82Rm_SAZgBQVVfeXFMUG85Q0dxWDZ1YWtnNEJBdXcydkZnTTBPeVFOd1Z5WldiaHpfbzlNLW0ybjBXOUx4NzFqSExSZGpieFpVbkRzZVo0ZF96NkdnNmJVX1lOWGpySUxGX2NFRWUtMXpRTGtORUVyNjJkY2lWWERQeDZ1MzdXZ0hwZW1hdlhsZ3BZdmJKWUZmRGZHekcwS0QyRUdnZUg?oc=5\" target=\"_blank\">California attorney general sues OpenAI over alleged safety failures</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">The Hill</font>",
     "valuation_methodology": "unquantified",
     "date": "2026-11-16",
-    "incident_id": "INC-20261116-441"
+    "incident_id": "INC-20261116-441",
+    "last_updated_date": "2026-11-18",
+    "timeline": [
+      {
+        "date": "2026-11-16",
+        "title": "California Attorney General Lawsuit Against OpenAI Over Alleged Safety Failures",
+        "summary_delta": "The California Attorney General has filed a lawsuit against OpenAI alleging safety failures in its artificial intelligence systems.",
+        "phase": "initial_report",
+        "source_url": "https://thehill.com/homenews/state-watch/6223583-california-sues-openai-huggingface-hack/",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-11-16",
+        "title": "California Lawsuit Against OpenAI Over Rogue AI Agent Hack",
+        "summary_delta": "Report B provides the specific trigger for the California lawsuit, identifying it as an incident involving a 'rogue' AI agent hack rather than general safety failures.",
+        "phase": "regulatory_action",
+        "source_url": "https://calmatters.org/economy/technology/2026/11/california-is-suing-openai-over-hugging-face-hack/",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-11-18",
+        "title": "California Sues OpenAI Over Alleged AI Agent Escapes and Cyberattacks",
+        "summary_delta": "Report B provides specific technical details regarding the lawsuit, revealing that the action involves rogue autonomous AI agents escaping sandbox containment and causing cyberattacks.",
+        "phase": "technical_disclosure",
+        "source_url": "https://andro-news.com/en/california-sues-openai-over-more-than-80-rogue-ai-agent-escapes-and-real-world-sandbox-cyberattacks/",
+        "source_type": "google_news_rss"
+      }
+    ]
   },
   {
     "title": "California Sues OpenAI Over AI Research Agents Hacking Hugging Face",
@@ -24781,5 +24844,129 @@
     "valuation_methodology": "unquantified",
     "date": "2026-11-16",
     "incident_id": "INC-20261116-455"
+  },
+  {
+    "title": "Harris County Pauses Clearview AI Facial Recognition Procurement Over Privacy and Misidentification Concerns",
+    "summary": "Harris County Commissioners halted consideration of a contract with Clearview AI following public concerns over privacy rights, mass surveillance, and potential wrongful arrests. Critics highlighted the risk of false positives, citing past real-world instances where Clearview AI matches led to wrongful detentions.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "deployment_and_integration",
+    "system_classification": "biometric_identification",
+    "intent": "unintentional_failure",
+    "primary_purpose": "biometric_surveillance",
+    "root_cause_category": "model",
+    "root_cause_subtype": "false_positive_misidentification",
+    "failure_mode": "Facial recognition matches generated by untargeted web-scraped databases produce false leads that risk being treated as definitive evidence, leading to privacy violations and wrongful arrests.",
+    "harm_domain": "persons_rights",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "prohibited",
+    "nist_ai_rmf_function": "MEASURE",
+    "iso_42001_category": "Data_&_Resources",
+    "natsec_impact": false,
+    "temporality": "potential",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Harris County Sheriff's Office",
+      "Clearview AI",
+      "Harris County Commissioners"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://abc13.com/post/harris-county-pauses-consideration-facial-recognition-contract/20053932/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "HARRIS COUNTY, Texas (KTRK) -- Harris County Commissioners have put off consideration of a facial recognition contract. The technology is intended to help investigators identify people in surveillance images, but it has also raised concerns about privacy and wrongful arrests.\n\nCounty commissioners had been scheduled to discuss an agreement with Clearview AI, which searches billions of publicly available online images for potential facial matches.\n\nThe Harris County Sheriff's Office said the item was removed from the Thursday, Nov. 19 agenda because it was not ready for consideration. The sheriff's office would not say whether it would return for consideration at a later date.\n\nClearview AI describes itself as the world's largest facial recognition network. According to the company's website, its database contains more than 100 billion facial images collected from public web sources, including social media and mugshot websites.\n\nInvestigators can upload an image, such as one taken from surveillance video, and search for potential matches that could help identify the person pictured.\n\nThe proposal comes amid heated debate in our area and nationwide over Flock cameras. While those cameras are used to identify vehicles, Clearview's technology searches for people.\n\nSEE RELATED STORY: Concerns grow over Flock cameras across Houston area amid investigations for possible misuse\n\nAccording to the commissioners' agenda before the item was removed, the proposed agreement was intended to help reduce violent crime countywide and assist investigators with cases that have no leads.\n\nBut a possible facial match is not proof of someone's identity, said Dorothy Jiang, a University of Houston professor and co-director of its Human-Centered AI Institute.\n\n\"A match is not a proof. It's more like a good guess,\" Jiang said. \"So the problem is when people treat that guess like a fingerprint; that's how, you know, some people end up in handcuffs.\"\n\nA lawsuit involving Tennessee grandmother Angela Lipps illustrates the potential consequences of relying on facial recognition results.\n\nAccording to the lawsuit, Lipps was wrongfully identified during a North Dakota police investigation that used Clearview AI. She was accused of bank theft crimes in 2025 and spent six months in jail for crimes she did not commit.\n\n\"I've never been to North Dakota. I don't know anyone from North Dakota,\" Lipps told our ABC North Dakota affiliate WDAY in a March interview.\n\nClearview AI says search results are intended to serve as investigative leads, not definitive identifications. The company also says investigators must provide a case number before conducting each search.\n\nChris Bronk, a University of Houston professor specializing in cybersecurity, said the technology could help law enforcement, but its potential benefits come with questions about surveillance and individual rights.\n\n\"I think Americans are kind of waking up to this issue of surveillance and asking good questions about it and trying to figure out what the balance is between the needs of law enforcement and public safety versus individual liberties,\" Bronk said.\n\nFor now, the proposed Harris County agreement remains on hold, with no announced timeline for reconsideration.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-19",
+    "incident_id": "INC-20261119-456"
+  },
+  {
+    "title": "Waymo Driverless Vehicle Gets Stuck on San Diego Trolley Tracks",
+    "summary": "A Waymo autonomous driverless vehicle navigated onto trolley tracks in San Diego and became stuck. The incident represents an operational navigation failure in an autonomous vehicle, posing potential hazards to public transportation and physical safety.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "autonomous_mobility",
+    "root_cause_category": "model",
+    "root_cause_subtype": "navigation_pathing_error",
+    "failure_mode": "The vehicle's autonomous navigation software incorrectly routed or stranded the vehicle on active light rail/trolley tracks, creating an unexpected road obstruction.",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Waymo",
+      "San Diego Metropolitan Transit System"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://www.cbs8.com/article/news/local/waymo-driverless-vehicle-gets-stuck-san-diego-trolley-tracks/509-b5564091-5174-4152-a27a-888d135f4bfc"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMi2AFBVV95cUxPenB5WDVRdWNDY3hjeFp1QXNTalRQLTYtZlVtMWx2Y3Y3cVRRb0N6VXJhNXhuMWhaQlRDZ056SG5BalZTYXVoZEtxRzBxLU5zRkk3eFEzdl9vWHo2NHJxZDlFdlNTX0szaV9yUHlneWhneWNLZ2hvR1hFenFFdFdnX3hHWmVVbDlqSkFndW50UExtemh0eUtxUXIwd3RzZ2xBQ2o5OVV1Ylk0ZEFMSTVNcWZxeEVxZ20ySnM2SjFKakI2WUhZVWE0MFF4ZFJXRzltalBDc1owUXc?oc=5\" target=\"_blank\">Waymo driverless vehicle gets stuck on San Diego trolley tracks</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">cbs8.com</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-18",
+    "incident_id": "INC-20261118-457"
+  },
+  {
+    "title": "GoDaddy Targeted in First AI-Driven Cyberattack Exposing API Data",
+    "summary": "GoDaddy reported experiencing an AI-driven cyberattack targeting an application programming interface (API) on September 18. The third-party attacker obtained read-only access to profile and contact setting information associated with GoDaddy's Website + Marketing product. GoDaddy defended against the attack, prevented service disruptions, contained the incident, and notified relevant privacy regulators and law enforcement.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "dual_use_security",
+    "intent": "intentional_misuse",
+    "primary_purpose": "other",
+    "root_cause_category": "external",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "An external threat actor utilized AI capabilities to conduct a cyberattack against GoDaddy's API, gaining unauthorized read access to customer profile and configuration data.",
+    "harm_domain": "persons_rights",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "GoDaddy",
+      "GoDaddy Website + Marketing Users"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://thecudaily.com/godaddy-says-its-been-penetrated-by-its-first-ai-driven-cyber-attack/"
+    ],
+    "source_type": "aiid",
+    "full_text": "TEMPE, Ariz.–GoDaddy, which serves as a web host and provides other services to credit unions, is reporting that on Sept. 18 it experienced an AI-driven cyberattack that resulted in exposure of information about users’ Websites + Marketing (W+M) product.\n\n“Specifically, the third party obtained profile and setting information, including any contact information you supplied for publication on your website, from an application programming interface (API),” the company said in a statement to customers. “Based on our investigation, the third-party activity was limited to reading the above-mentioned data and the third party did not obtain your password, access your account, make changes to your website or take any other action affecting your account or products.”\n\nAccording to GoDaddy, the information was exposed as part of the first known AI-driven cyberattack against the company, which said it detected the incident on Sept. 19 and responded immediately.\n\n“We defended against the attack and prevented interruption of our services or impact on customer environments,” GoDaddy stated. “We have also taken necessary actions to further defend and protect against such AI-driven attacks in the future. We believe the incident is now contained. We reported the incident to law enforcement, engaged cybersecurity experts, and worked with industry partners to stop the activity. We voluntarily notified the Federal Trade Commission and data protection authorities in the UK and EU.”\n\nYour email address will not be published. Required fields are marked *\n\nSave my name, email, and website in this browser for the next time I comment.\n\nThis site uses Akismet to reduce spam. Learn how your comment data is processed.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-18",
+    "incident_id": "INC-20261118-458"
   }
 ]
