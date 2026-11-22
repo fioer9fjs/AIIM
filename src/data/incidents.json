@@ -16864,7 +16864,7 @@
     "incident_id": "INC-20260618-172",
     "title": "Waymo Recalls Over 3,800 Robotaxis Due to Software Glitch in Freeway Construction Zones",
     "summary": "Waymo recalled over 3,800 autonomous robotaxis in the U.S. after a software glitch caused multiple vehicles to enter and drive through freeway construction zones and past closure signs. The failure stemmed from the system inappropriately prioritizing the avoidance of other freeway hazards and failing to recognize active construction zones. Although no injuries were reported from these specific incidents, the voluntary recall follows a series of other safety stumbles and regulatory investigations regarding abnormal driving conditions.",
-    "full_text": "Waymo is recalling nearly 3,900 robotaxis after their self-driving software repeatedly failed to recognize ramp closures and construction zones in incidents in Arizona and California, according to a recall notice posted by the National Highway Traffic Safety Administration.\n\nThe recall comes after Waymo reviewed incidents that occurred in April and May in Phoenix and the San Francisco Bay Area. The autonomous driving company temporarily restricted robotaxis from driving on freeways while it investigated the issue.\n\nThe recall impacts Waymo's so-called 5th Generation Automated Driving System (ADS), which powers its fleet of Jaguar vehicles. The NHTSA said all of the recalled vehicles are believed to have the software defect.\n\n\"Under certain circumstances, the [autonomous vehicle] may enter and drive at speed in freeway construction zones due to inappropriately prioritizing the avoidance of other freeway hazards and/or failing to recognize the construction zone,\" the recall notice states.\n\nWaymo, a subsidiary of Alphabet, expanded freeway driving last year, adding the capability to its vehicles in San Francisco, Phoenix and Los Angeles.\n\nThe incidents included six in Phoenix, where Waymo robotaxis failed to recognize ramp-closure signs and drove into freeway construction zones. In May, another seven Waymo vehicles entered freeway lanes with active construction in the San Francisco area, driving between cones marking closures in adjacent lanes, according to the notice.\n\n\"Driving at speed in a freeway construction zone increases the potential for collisions,\" NHTSA said.\n\nIn one May incident, Elliot Slade told CBS San Francisco that he and his fiancée were in a Waymo vehicle traveling from San Mateo, California, to their San Francisco home when the car sped through a construction zone and was chased by police.\n\n\"The Waymo started freaking out as we got closer to the merge cause the lanes were kind of all merging,\" Slade said. \"One lane was gone, another lane was, who knows where it was. Cars were all over the place going in.\"\n\nSlade said he worried that they wouldn't survive the trip.\n\n\"There were construction signs,\" he added. \"There were lights going on. Police in the distance, and it sped up. That's when I looked at my fiancée, we're done. This is it. We're dead. We're going to die right here in the Waymo.\"\n\nThe robotaxi eventually veered from the highway into a residential neighborhood. Slade said Waymo gave him three free rides, each worth up to $40, but he wasn't sure he would use them.\n\nReached for comment about the recall, a Waymo spokesperson said the company \"identified an area of improvement regarding performance around freeway construction zones. We voluntarily restricted freeway operations last month while making improvements, proactively notified state and federal regulators and decided to file a voluntary software recall with NHTSA.\"\n\nThe spokesperson added, \"We continue to safely serve riders on surface streets in all the cities where we operate.\"\n\nEdited by\n                                        \n                                  Alain  Sherter",
+    "full_text": "‘Barron’s Roundtable’ panelists discuss the growth of autonomous ride-shares and what Waymo’s success means for the industry.\n\nWaymo announced Friday that it was issuing two recalls affecting its robotaxis over issues involving closed freeway lanes and manual traffic control, just days after the driverless vehicles were barred from California freeways.\n\nThe Alphabet-owned self-driving car company said it filed two safety recalls with the National Highway Traffic Safety Administration (NHTSA) on Thursday involving its automated driving system \"to strengthen how the Waymo Driver navigates closed freeway lanes and intersections with manual traffic control.\"\n\nThe company said the closed-freeway-lane recall addresses unusual circumstances in which a Waymo vehicle may inadvertently enter and continue driving in a closed freeway lane.\n\nNo collisions or injuries have been reported in connection with the issue, according to Waymo, which added that it was still working to resolve the problem.\n\nCALIFORNIA DMV BOOTS WAYMO ROBOTAXIS OFF STATE FREEWAYS AFTER STRING OF INCIDENTS\n\nWaymo announced two safety recalls involving its self-driving vehicles over issues with closed freeway lanes and manual traffic control, days after California barred its robotaxis from operating on freeways. (Armando L. Sanchez/Chicago Tribune/Tribune News Service via Getty Images / Getty Images)\n\nWaymo said a separate recall involving manual traffic control was issued to ensure that its self-driving vehicles better respond to directions from law enforcement officers or other emergency personnel at intersections.\n\nThe company acknowledged that the recall stemmed from a collision in which a Waymo vehicle initially followed directions from an officer who later became temporarily obscured from the vehicle's view.\n\nWaymo said the software update addressing that issue was completed Nov. 6.\n\nIn a statement to FOX Business, a Waymo spokesperson defended the company's safety practices, describing the voluntary recalls as part of its ongoing efforts to improve its autonomous driving technology.\n\n\"We hold our technology to high safety standards and take proactive actions whenever we see opportunities to improve performance,\" the spokesperson said.\n\n\"These are standard steps in our rigorous safety approach to validating and refining our technology as we scale to more complex driving environments,\" the spokesperson added.\n\nThe company also clarified that the voluntary recalls do not require its vehicles to be taken off the road.\n\nOVER 314,000 OLDER TOYOTA AND LEXUS VEHICLES RECALLED FOR POTENTIALLY DANGEROUS AIRBAG ISSUE\n\nA Waymo autonomous vehicle drives along Masonic Avenue on April 11, 2022, in San Francisco, California.  (Justin Sullivan/Getty Images / Getty Images)\n\nThe recalls come after the autonomous driving company's robotaxis were ordered off all California freeways earlier this month following a string of incidents in the Golden State.\n\nFOX Business previously reported that following a series of incidents involving Waymo vehicles, state regulators declared the driverless vehicles an \"imminent hazard to public safety.\"\n\nThe California Department of Motor Vehicles confirmed that the restrictions took effect Nov. 11 after three Waymo vehicles entered an active construction closure near Burlingame and a separate incident involving California Highway Patrol vehicles in San Francisco.\n\nThe agency said the order applied to both driverless testing and deployment on all California freeways.\n\nWaymo confirmed that its robotaxis continue operating normally on surface streets.\n\nNHTSA also opened a separate recall query last week involving Waymo after numerous incidents in which its robotaxis reportedly drove by stopped school buses.\n\nGET FOX BUSINESS ON THE GO BY CLICKING HERE\n\nAlphabet-owned Waymo faces increased regulatory scrutiny after California officials restricted its driverless vehicles from operating on freeways following multiple safety incidents. (Smith Collection/Gado",
     "date": "2026-06-18",
     "verification_status": "confirmed",
     "severity": "medium",
@@ -16897,28 +16897,30 @@
       "United States"
     ],
     "affected_parties": [
-      "Waymo",
-      "Waymo passengers",
-      "NHTSA",
-      "Passengers (e.g., Elliot Slade and fiancée)",
-      "Passengers",
-      "Waymo LLC",
-      "National Highway Traffic Safety Administration (NHTSA)",
-      "Public drivers and road workers",
-      "General Public",
       "Elliot Slade",
-      "Public motorists and road workers",
-      "National Highway Traffic Safety Administration",
-      "Public motorists and pedestrians",
-      "California Highway Patrol",
+      "Public drivers and road workers",
+      "Robotaxi Passengers",
+      "Waymo passengers",
+      "Waymo",
       "Passengers (e.g., Elliot Slade)",
-      "Robotaxi Passengers"
+      "Public motorists and road workers",
+      "Waymo LLC",
+      "NHTSA",
+      "California Department of Motor Vehicles",
+      "Passengers",
+      "Passengers (e.g., Elliot Slade and fiancée)",
+      "National Highway Traffic Safety Administration",
+      "General Public",
+      "California Highway Patrol",
+      "National Highway Traffic Safety Administration (NHTSA)",
+      "Public motorists and pedestrians"
     ],
     "source_urls": [
       "https://www.reuters.com/legal/litigation/waymo-recall-over-3800-robotaxis-over-risk-entering-closed-construction-zones-2026-06-18/",
       "https://abc7news.com/post/waymo-recalls-entire-us-fleet-robotaxis-drive-speed-freeway-work-zones-due-software-glitch/19325191/",
       "https://www.cnbc.com/2026/06/18/waymo-nhtsa-voluntary-recall-robotaxis-entered-freeway-construction-zones.html",
-      "https://abc7news.com/post/waymo-recall-san-francisco-man-recounts-terrifying-moment-when-robotaxi-goes-haywire-construction-zone/19328050/"
+      "https://abc7news.com/post/waymo-recall-san-francisco-man-recounts-terrifying-moment-when-robotaxi-goes-haywire-construction-zone/19328050/",
+      "https://www.foxbusiness.com/technology/waymo-issues-double-safety-recall-days-after-california-bans-robotaxis-from-freeways"
     ],
     "related_incidents": [],
     "created_at": "2026-09-26T16:08:13.817751+00:00",
@@ -16928,7 +16930,7 @@
     "iso_42001_category": "System_Impact",
     "impact_scope": "discrete_incident",
     "valuation_methodology": "unquantified",
-    "last_updated_date": "2026-06-19",
+    "last_updated_date": "2026-11-22",
     "timeline": [
       {
         "date": "2026-06-18",
@@ -16944,6 +16946,14 @@
         "summary_delta": "Report B adds specific details about a California Highway Patrol chase involving one of the robotaxis and notes that seven total construction zone incidents occurred on the same day.",
         "phase": "technical_disclosure",
         "source_url": "https://abc7news.com/post/waymo-recall-san-francisco-man-recounts-terrifying-moment-when-robotaxi-goes-haywire-construction-zone/19328050/",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-11-22",
+        "title": "Waymo Issues Voluntary NHTSA Recalls Over Freeway Closures and Traffic Control Failures",
+        "summary_delta": "Report B details two safety recalls filed with NHTSA covering both freeway construction zone navigation errors and misread manual traffic control directions, noting subsequent California DMV restrictions.",
+        "phase": "regulatory_action",
+        "source_url": "https://www.foxbusiness.com/technology/waymo-issues-double-safety-recall-days-after-california-bans-robotaxis-from-freeways",
         "source_type": "google_news_rss"
       }
     ]
@@ -21459,8 +21469,9 @@
       "United States"
     ],
     "affected_parties": [
-      "Cursor",
       "Anthropic",
+      "Developer end-users",
+      "Cursor",
       "Cursor Marketplace Users"
     ],
     "confidence_scores": {
@@ -21468,13 +21479,33 @@
       "severity": 0.9
     },
     "source_urls": [
-      "https://www.helpnetsecurity.com/2026/10/30/claude-code-extension-ssh-backdoor/"
+      "https://www.helpnetsecurity.com/2026/10/30/claude-code-extension-ssh-backdoor/",
+      "https://arstechnica.com/security/2026/10/anthropic-vs-code-extension-on-cursor-backdoored-for-nearly-12-hours/"
     ],
     "source_type": "google_news_rss",
     "full_text": "Help Net Security newsletters: Daily and weekly news, cybersecurity jobs, open source projects, breaking news – subscribe here!\n\nA tampered build of Anthropic’s Claude Code extension for VS Code-compatible editors planted an SSH backdoor on developers’ machines, researchers at macOS security firm Phorion have found.\n\nThe company spotted the malicious package, version 2.1.313, on Open VSX, an open-source marketplace for VS Code extensions run by the Eclipse Foundation. VS Code’s default extension store is Microsoft’s Visual Studio Marketplace, where no malicious version has been reported. Its terms of use limit it to Microsoft’s own products, so editors built on the open-source VS Code codebase, including Cursor and Windsurf, can’t use it and rely on Open VSX instead.\n\n“The compromised extension.js file starts with an injected immediately invoked function expression (IIFE) prepended to the minified extension bundle. The rest of the bundle looks like the standard extension, with Claude Code and VS Code strings, normal activate and deactivate exports, and UI code,” Phorion CEO Calum Hall explained.\n\n“The injected prefix pulls in standard Node.js modules (child_process, fs, os, path, http, and crypto) and executes as soon as Node loads the file, before the extension’s normal activate callback even runs. The user doesn’t need to interact with the extension for the payload to fire,” he added.\n\nOnce running, the code adds the attacker’s SSH key to the user’s authorized keys file, which would let the attacker log in as that user. It then opens an outbound SSH connection to the attacker’s server, creating a tunnel the operator can use to connect back to the victim’s machine. The tunnel keeps running after the editor is closed, and the malware retries the connection about every 60 seconds.\n\nTo survive a reboot, the malware sets up persistence on each platform. On a Mac it installs a startup file with an Apple-style name, on Linux it adds a cron entry that runs at reboot, and on Windows it tries to create a scheduled task called SysMon and falls back to the Startup folder if that fails.\n\nThe extension also reports back to the attacker’s server with the machine’s hostname, the username, operating system, home directory, working directory, Git email address and public IP address.\n\nIt sends the names of up to 40 environment variables that look like keys, tokens, passwords or AWS and GCP credentials, too. The values stay on the machine, but Hall noted that the list gives the operator an inventory of which hosts hold cloud credentials or API tokens, and which ones to go after first.\n\nThe planted key only works if the machine’s SSH service is running, and on macOS the step that turns it on often never runs.\n\nPhorion traced the problem to a faulty check. The script asks the system whether Remote Login is off without administrator rights, gets an error message in return, and skips the step that would turn SSH on.\n\nHall cautioned that the bug is no defence, since on a Mac with Remote Login already enabled, or one where the user turns it on later, the backdoor is ready to use.\n\n“The goal of this payload is long-term interactive access, and whilst the SSH backdoor bug minimises impact on macOS, the malware is still a significant threat that installs persistence and beacons host reconnaissance back to the operator,” Hall stressed.\n\nIn a security notice, Cursor said the malicious version was available in its VS Code extension marketplace for about 11 hours on October 29, 2026. At most 5,000 users were affected, and the company plans to contact them directly.\n\n“This malicious version of the extension was not developed by Anthropic,” the company stated, adding that it has no evidence other versions of the extension or the official distribution were affected.\n\nAccording to Cursor, turning on SSH requires admin rights the extension lacks on most Mac and Windows hosts, and on those machines the attacker could not have logged in through the tunnel. The com",
     "valuation_methodology": "unquantified",
     "date": "2026-10-30",
-    "incident_id": "INC-20261030-381"
+    "incident_id": "INC-20261030-381",
+    "last_updated_date": "2026-10-30",
+    "timeline": [
+      {
+        "date": "2026-10-30",
+        "title": "Claude Code Extension Poisoned with Persistent SSH Backdoor on Cursor Marketplace",
+        "summary_delta": "A tampered build (version 2.1.313) of Anthropic's Claude Code extension distributed via Cursor's VS Code marketplace installed a persistent SSH backdoor and exfiltrated system metadata from up to 5,000 developers' machines.",
+        "phase": "initial_report",
+        "source_url": "https://www.helpnetsecurity.com/2026/10/30/claude-code-extension-ssh-backdoor/",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-10-30",
+        "title": "Anthropic VS Code Extension on Cursor Backdoored in Supply-Chain Attack",
+        "summary_delta": "Report B provides additional details regarding the duration of the compromise (nearly 12 hours) and notes that Cursor temporarily shut down its marketplace to rotate access keys.",
+        "phase": "remediation",
+        "source_url": "https://arstechnica.com/security/2026/10/anthropic-vs-code-extension-on-cursor-backdoored-for-nearly-12-hours/",
+        "source_type": "google_news_rss"
+      }
+    ]
   },
   {
     "title": "Wrongful Arrest of Jason Killinger Linked to Casino Facial Recognition False Positive and Lack of Police Training",
@@ -24421,20 +24452,42 @@
       "United States"
     ],
     "affected_parties": [
-      "Waymo"
+      "Waymo Passengers",
+      "Waymo",
+      "SUV Driver"
     ],
     "confidence_scores": {
       "verification_status": 0.95,
       "severity": 0.95
     },
     "source_urls": [
-      "https://www.fox10phoenix.com/news/waymo-cars-involved-crash-along-phoenix-roadway"
+      "https://www.fox10phoenix.com/news/waymo-cars-involved-crash-along-phoenix-roadway",
+      "https://www.azfamily.com/2026/11/16/police-suspect-speeding-phoenix-crash-involving-2-waymo-vehicles/"
     ],
     "source_type": "google_news_rss",
-    "full_text": "Two Waymo cars, along with a third vehicle, were involved in a crash along a Phoenix roadway on Nov. 16.\n\nPHOENIX - Phoenix Police say an investigation is underway after two Waymo cars were involved in a multi-vehicle crash.\n\nPolice say their officers, along with Phoenix Fire crews, were called to the area of 20th Street and Van Buren at around 11:15 a.m. for the crash.\n\nOfficials say one person suffered life-threatening injuries, while two others suffered non-life-threatening injuries.\n\n\"Preliminary information indicates speed may have been a contributing factor in the collision,\" read a portion of Phoenix Police's statement.\n\nIn a separate statement, a spokesperson with Waymo said one of their cars was stationary at a traffic light in the area when it was struck by a truck.\n\n\"The truck was going over 80 mph on a 35 mph road,\" read a portion of Waymo's statement. \"The collision forced the Waymo struck by the truck into the neighboring lane, causing a collision with a second Waymo. The first Waymo also collided with the vehicle behind it.\"\n\nWaymo officials say their two cars that were involved in the crash will be towed away from the scene.\n\nThe Source: Information for this article was gathered from statements released by the Phoenix Police Department and Waymo.",
+    "full_text": "PHOENIX (AZFamily) — A person is fighting for their life after likely speeding in an SUV into an intersection, causing a crash that involved two Waymo cars in central Phoenix late Monday morning, police said.\n\nShortly after 11 a.m., first responders were called to the intersection of 20th and Van Buren streets.\n\nPhoenix Police Sgt. John Buchanan said the SUV driver was taken to the hospital in extremely critical condition.\n\nOne person in the white Waymo sedan was taken to the hospital with injuries that aren’t considered life-threatening.\n\nTwo people were in the blue Waymo minivan but did not need to go to the hospital.\n\nSkid marks led west from the intersection to a fourth vehicle, which was severely damaged and upside down near a business.\n\nFirefighters said a third person was taken to the hospital and their condition is unknown.\n\nWaymo employees are on the scene assisting investigators and giving them their videos.\n\nBuchanan said police do not have an estimate of how fast the SUV driver was going. Police are working to determine what led up to the crash.\n\n“The safety of our riders and other road users is our top priority. We are working with first responders to ensure the wellbeing of our riders,” a Waymo spokesperson said in a statement provided to Arizona’s Family.\n\nVan Buren Street was closed in both directions until the evening but later reopened.\n\nSee a spelling or grammatical error in our story? Please click here to report it.\n\nDo you have a photo or video of a breaking news story? Send it to us here with a brief description.\n\nCopyright 2026 KTVK/KPHO. All rights reserved.",
     "valuation_methodology": "unquantified",
     "date": "2026-11-16",
-    "incident_id": "INC-20261116-446"
+    "incident_id": "INC-20261116-446",
+    "last_updated_date": "2026-11-16",
+    "timeline": [
+      {
+        "date": "2026-11-16",
+        "title": "Multi-Vehicle Crash Involving Waymo Autonomous Vehicles in Phoenix Injures Three",
+        "summary_delta": "A speeding truck traveling over 80 mph struck a stationary Waymo autonomous vehicle at a red light in Phoenix, pushing it into a neighboring lane where it collided with a second Waymo and another vehicle.",
+        "phase": "initial_report",
+        "source_url": "https://www.fox10phoenix.com/news/waymo-cars-involved-crash-along-phoenix-roadway",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-11-16",
+        "title": "Phoenix Traffic Crash Involves Speeding Driver and Two Waymo Autonomous Vehicles",
+        "summary_delta": "Report B provides additional details regarding the driver's condition as extremely critical, specifies that an SUV was involved, and notes that Waymo is actively cooperating with police by providing telemetry and video footage.",
+        "phase": "investigation",
+        "source_url": "https://www.azfamily.com/2026/11/16/police-suspect-speeding-phoenix-crash-involving-2-waymo-vehicles/",
+        "source_type": "google_news_rss"
+      }
+    ]
   },
   {
     "title": "Three Injured in Waymo Autonomous Vehicle Crash in Central Phoenix",
@@ -24968,5 +25021,417 @@
     "valuation_methodology": "unquantified",
     "date": "2026-11-18",
     "incident_id": "INC-20261118-458"
+  },
+  {
+    "title": "UK AISI Discovers Universal Jailbreak Regression in Pre-Release OpenAI GPT-6.2 Astra",
+    "summary": "The U.K. AI Security Institute (AISI) identified a universal jailbreak vulnerability in pre-release versions of OpenAI's GPT-6.2 Astra, marking a substantial regression in safety robustness compared to its predecessor. The flaw enabled safety bypasses in half the queries required for earlier versions before OpenAI implemented a patch.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "testing_and_validation",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "model",
+    "root_cause_subtype": "jailbreak",
+    "failure_mode": "Safety alignment regression during model iteration left pre-release GPT-6.2 Astra vulnerable to prompt injection and universal jailbreaking attacks with significantly reduced query complexity.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "national_security",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MEASURE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": true,
+    "temporality": "potential",
+    "severity": "medium",
+    "geographic_scope": [
+      "United Kingdom",
+      "United States"
+    ],
+    "affected_parties": [
+      "OpenAI"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://thehackernews.com/2026/11/threatsday-gpt-62-jailbreak-flaws.html"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "The easiest way to fool someone is to give them something they already expect. A job offer. A message about a service outage. A familiar app. Nothing looks strange at first. And that's the problem. This week's stories show how ordinary things are being used to steal data, spread malware, and get people to hand over access.\n\nThere's another shift worth watching. AI is making some attacks easier to run and harder to spot. Stolen data can now be searched like a shopping catalog. Phishing emails can be tested and rewritten until they get through. At the same time, researchers are finding that even powerful AI systems have safety gaps of their own.\n\nAnd while everyone is watching the new tools, the old problems haven't gone anywhere. Third-party breaches, years of hidden spying, ransomware, and security fixes still need attention. Some stories are clever. Others are painfully simple. Here's what caught our attention this week.\n\nThe threats change every week. Subscribe, and we’ll alert you when each new ThreatsDay Bulletin is out.\n\nGoogle has unveiled Gemini 4 Neon, its latest frontier model capable of delivering reasoning faster and more cost-efficiently. According to the company's DeepMind division, it also produces more secure code than Carbon across all easy, medium, and hard challenges on AutoBaxBench, achieving state-of-the-art on the hard tier (76%). \"Neon for cyber delivers frontier-level performance across the code hardening lifecycle — vulnerability finding, validating, and patching — all while being faster and more cost-efficient than large frontier models,\" Google said. \"Neon achieves state-of-the-art performance on SEC-bench Pro (90.5%), while costing roughly half as much per challenge.\" Gemini 4 Neon for cyber is rolling out to trusted defenders in the coming days as part of the Fairwind Program.\n\nOpenAI has introduced GPT‑6.2 Astra and GPT‑6.2 Sol with a \"significant jump\" in cyber capabilities. \"They find and exploit vulnerabilities more effectively, write more secure code, and produce better patches, with substantial token-efficiency gains on several evaluations,\" OpenAI said. \"Like GPT‑6 Astra⁠, 6.2 Astra and Sol meet the Critical threshold for cybersecurity under our Preparedness Framework⁠.\" The company also said it has made defensive capabilities a core focus by allowing the models to write secure code from the start. The development comes amid a disclosure from the U.K. AI Security Institute (AISI) that it developed a universal jailbreak against two pre-release versions of OpenAI's GPT-6.2 Astra in half the queries required for GPT-6 Astra, adding it identified a \"substantial regression in jailbreak robustness relative to GPT-6 Astra.\" OpenAI has since addressed the regression.\n\nWordPress has released WordPress 7.1.5 with fixes for multiple security issues. \"Because this is a security release, it is recommended that you update your sites immediately,\" WordPress said. The patches have also been backported to all branches eligible to receive security fixes (currently through 4.7).\n\nOpenAI will embed independent evaluators from Apollo Research, Goodfire, METR, and Transluce in its organization as part of a pilot to help support its safety work. The embedded assessors will focus on model alignment and monitoring, training run monitoring, post-training alignment evaluations, and assessing \"whether models could covertly work against their developers’ intentions and whether our safeguards would detect such behavior.\" \"Embedded assessments give independent experts deep access to a lab’s internal models and systems to assess model alignment and the effectiveness of safeguards over an extended period of time, especially where relevant to our safety cases,\" the company said. \"Based on what each evaluation needs, assessors receive access to some of the same internal resources our researchers use, including model checkpoints, source code, training and evaluation data, monitoring systems, technical documentation, and discuss",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-19",
+    "incident_id": "INC-20261119-459"
+  },
+  {
+    "title": "Madison Square Garden Facial Recognition Surveillance Incident",
+    "summary": "Madison Square Garden (MSG) implemented facial recognition technology to identify and deny entry to individuals involved in litigation against the company, including opposing attorneys. The deployment sparked public outcry and regulatory scrutiny over the ethical misuse of biometric surveillance to target legal opponents.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "biometric_identification",
+    "intent": "intentional_misuse",
+    "primary_purpose": "biometric_surveillance",
+    "root_cause_category": "governance",
+    "root_cause_subtype": "unethical_use_of_surveillance",
+    "failure_mode": "MSG Entertainment utilized real-time facial recognition systems at public venue entrances to enforce a ban on legal adversaries, resulting in civil rights concerns and public backlash.",
+    "harm_domain": "persons_rights",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "GOVERN",
+    "iso_42001_category": "Data_&_Resources",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Legal professionals",
+      "Madison Square Garden visitors"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://www.fastcompany.com/91644333/how-madison-square-garden-became-facial-recognition-flashpoint"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMioAFBVV95cUxPNjB6NWhSWnpuNWRCcVJjeEhoOTd0bVE0bUlQbjdLS3BZNGhiallSeHBMb3F0MGhkZ2pmQjJ1SUdPTm9IVkNUVFJadnFBWnBYQmY0bmxOaVUwbEdGRkpwWHZDRHZ1UkRySThBNm0waUJhQkR4S09nZnNISU54WWxDa09UQ0hBZjlwSmQtNE8wVktPZ05rdlk1M294dUNmMHpX?oc=5\" target=\"_blank\">How Madison Square Garden became a facial recognition flashpoint</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Fast Company</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-20",
+    "incident_id": "INC-20261120-460"
+  },
+  {
+    "title": "Waymo Self-Driving Taxi Service Suspended Following Incident",
+    "summary": "Waymo's autonomous taxi operations were suspended following an operational incident. Further specific details regarding the exact failure mechanism and casualties or property damage were not detailed in the brief report.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "autonomous_mobility",
+    "root_cause_category": "undetermined",
+    "root_cause_subtype": "unspecified_autonomous_vehicle_failure",
+    "failure_mode": "An unspecified operational failure led to an incident involving a Waymo self-driving vehicle, resulting in the suspension of the taxi service.",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Waymo"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.75
+    },
+    "source_urls": [
+      "https://www.kbb.com/car-news/waymos-self-driving-taxi-service-suspended-following-incident/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMilgFBVV95cUxQNExLZEwxQmhMVUxERGY5SFJvbkhZTEFpcFdlOERyaDZPLXd1M2t3d1JNQkh3S3dQMnJYVDd0bTNlZEVlZ3UwUEtsU3JneHZjTms0VUFFcmMwazZCUXJrLXZrdlFuRDNxc1BxUTdyemFndndESWVYcFY2dUN4bmdOeWk2aHNzeDVmV3ZaMzA2QkE2WFByR0E?oc=5\" target=\"_blank\">Waymo’s Self-Driving Taxi Service Suspended Following Incident</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Kelley Blue Book</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-19",
+    "incident_id": "INC-20261119-461"
+  },
+  {
+    "title": "Tesla Model 3 on Autopilot/FSD Collides with Overturned Truck at 71 MPH, Killing Three",
+    "summary": "A Tesla Model 3 with driver-assist software engaged struck an overturned box truck and a pedestrian on I-75 near Naples, Florida, resulting in three fatalities and multiple severe injuries. Telematics data confirmed Autopilot/FSD was active at 71 mph shortly before impact, though initial police reports did not mention automated systems. The crash underscores critical limitations in vision-only autonomous perception systems when encountering unusual road obstacles at night.",
+    "alleged_incident_date": "2026-05-31",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "autonomous_mobility",
+    "root_cause_category": "model",
+    "root_cause_subtype": "perception failure / object detection failure",
+    "failure_mode": "The vehicle's vision-based driver-assist system failed to detect and react to an overturned box truck blocking interstate lanes in low-light conditions, leading to an unbraked collision at highway speed.",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "critical",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Tesla",
+      "Crash victims and deceased passengers",
+      "Florida Highway Patrol"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.98,
+      "severity": 0.99
+    },
+    "source_urls": [
+      "https://electrek.co/2026/11/16/tesla-autopilot-fsd-overturned-truck-naples-i75/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "A Tesla Model 3 drove into an overturned box truck on I-75 near Naples, Florida, killing two of its passengers and a man who had stopped to help. Tesla’s own report to federal regulators says Autopilot or “Full Self-Driving” was engaged, at 71 mph.\n\nPolice and local media covered the May 31 crash as a truck wreck in the dark, and none of it mentioned a driver-assist system. It’s the latest case in our ongoing investigation into fatal crashes hidden in Tesla’s NHTSA data, and it lands as Tesla’s monthly crash count hits another record.\n\nJust before 4 a.m. on Sunday, May 31, 2026, the 31-year-old driver of a 2014 Freightliner lost the road near the Pine Ridge Road exit in Collier County, steered back onto southbound I-75, and flipped it, according to the Florida Highway Patrol. The overturned truck ended up blocking the center and outside lanes.\n\nJonathan Garcia Arias, a 25-year-old Naples man and former Marine, was driving by in a BMW. He pulled over and got out to help the truck driver.\n\nThen a southbound 2023 Tesla with five young men from Naples inside came up on the scene. FHP’s report says the front of the Tesla hit the underside of the overturned truck and Garcia Arias. Two of the Tesla’s passengers, aged 18 and 19, died at the scene, and Garcia Arias died later in the hospital. The 20-year-old driver and two more passengers were seriously hurt.\n\nA few days later, FHP used the crash as a warning about stopping near wrecks on the interstate. Senior Trooper Kenn Watson said the Tesla driver would have seen only the truck’s underside, with “no lights, no reflectors, nothing warning them.”\n\nSo that’s the official story. A dark obstacle, a driver who couldn’t see it in time. Nobody said a word about Autopilot.\n\nUnder NHTSA’s Standing General Order, automakers have to report crashes where a Level 2 driver-assist system was engaged within 30 seconds of impact and someone was killed or hurt. Tesla filed one for this crash.\n\nIt identifies the car as a 2023 Model 3 on a highway, flags a traffic incident on the roadway, and marks the automation “Engagement Status” as “Verified Engaged.” That means Tesla confirmed through its own telematics that Autopilot or FSD was on. It logs a pre-crash speed of 71 mph and a fatality, lists the Florida Highway Patrol as the investigating agency, and says it learned of the crash from police and the media.\n\nThen it blacks out the crash narrative, the software version, and whether the road was within the system’s approved operating domain, all as “confidential business information.” That’s the same redaction Tesla applies to 99.9% of its reports.\n\nThe report also surfaced late. Tesla filed it as a 5-Day report, the urgent category for fatal crashes, but it didn’t land until Tesla’s September filings, more than three months after the crash. And Tesla lists law enforcement as one of the ways it found out about it.\n\nHow we matched it: Tesla logged the incident time as 07:56 UTC, which converts to 3:56 a.m. in Florida, two minutes off the 3:54 a.m. in FHP’s report. The city, the highway, the 2023 model year, the month and the fatal outcome all line up, and it’s the only fatal Tesla driver-assist report in Naples that month. It’s the same crash.\n\nA Tesla on driver-assist going highway speed into the underside of a big truck, in the dark, in Florida. If that sounds familiar, it should.\n\nIn 2016, Joshua Brown was killed near Williston when his Model S on Autopilot drove under a tractor-trailer crossing the highway. In 2019, Jeremy Banner died in Delray Beach when his Model 3 on Autopilot went under a trailer at 68 mph and had its roof sheared off. In both crashes, neither the driver nor the system braked.\n\nTrooper Watson’s point was that a human couldn’t see the truck. But a big, unlit obstacle sitting across two lanes at night is exactly the kind of thing a driver-assist system is supposed to catch, and Tesla now sells FSD as nearly ready to drive with nobody watching. And an attentive driver could clearly",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-16",
+    "incident_id": "INC-20261116-462"
+  },
+  {
+    "title": "AI Tool Used by Security Researchers to Uncover Critical Java4Shell Vulnerability",
+    "summary": "Cybersecurity firm Calif used artificial intelligence to discover a severe vulnerability known as 'Java4Shell' in the Java runtime environment. The flaw threatened enterprise applications and cloud infrastructure by potentially allowing remote system access or crashes, but security teams issued a patch before public exploitation occurred.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "dual_use_security",
+    "intent": "unintentional_failure",
+    "primary_purpose": "defense_national_security",
+    "root_cause_category": "external",
+    "root_cause_subtype": "software_vulnerability",
+    "failure_mode": "Security researchers leveraged AI code analysis to locate a zero-day flaw in Java runtime software, demonstrating dual-use cyber capabilities where AI can accelerate both defense and exploit discovery.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "national_security",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": true,
+    "temporality": "potential",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Calif",
+      "Oracle",
+      "Cybersecurity and Infrastructure Security Agency (CISA)"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://fox4beaumont.com/news/nation-world/ai-helps-uncover-critical-flaw-in-widely-used-internet-software-amid-cyber-arms-race"
+    ],
+    "source_type": "gdelt",
+    "full_text": "by CORY SMITH | The National News Desk\n\n(TNND) — Amid scary headlines about artificial intelligence threatening human existence or breaking containment and potentially wreaking havoc on vital digital systems, security researchers recently leveraged AI's abilities to uncover a severe flaw in ubiquitous internet software before it could be exploited to potentially disastrous results.\n\nSuch is the tug-of-war between hackers and cyber defenders, with both sides now armed with the powerful new tool: AI.\n\n“I'm not sure either side's going to completely win or dominate the other side,” said Doug Jacobson, a professor and cybersecurity researcher at Iowa State University. “I think we're going to see it go back and forth. ... Our adversaries are using AI in the same way, trying to find those vulnerabilities. We just hope that we're the ones that find it first.”\n\nCybersecurity firm Calif recently used AI to help uncover a vulnerability in Java, a programming language that Jacobson said sits at the heart of most large server applications powering business, finance and government.\n\nJacobson said the vulnerability, known as “Java4Shell,” wasn’t in individual companies’ code. It was found in the environment that runs their code, which meant exploiting it could’ve threatened numerous organizations.\n\nThe flaw could’ve potentially been used to crash vital systems or, in the worst case, give an attacker remote access to systems containing valuable information.\n\nThe issue affected enterprise applications and cloud infrastructure, not home devices.\n\nAnd, thankfully, he said cybersecurity experts were able to deploy a straightforward patch against the risk.\n\n“You and I sitting at home with our PC or our Mac ... we don't have to do anything,” Jacobson said.\n\nBut the flaw might not have been caught at all without the use of AI, which gives both good guys and bad guys the ability to analyze massive amounts of code quickly to discover new weaknesses.\n\n“This is a case of AI being used by the good side,” Jacobson said.\n\nThe Java4Shell vulnerability came to light for the public this week as the U.S. Cybersecurity and Infrastructure Security Agency issued an alert and urged companies to install the patch from Oracle, which owns Java.\n\nJacobson wrote more about the Java4Shell flaw in an article for The Conversation.\n\nJacobson said AI can be a “force multiplier” for both sides of the cybersecurity war.\n\nBad actors, for example, can use AI to automate aspects of time-consuming cyberattacks, including generating more convincing phishing emails with malicious links.\n\nOn the good side, AI can sift through computer activity records, or logs, and spot connections that humans might not catch. That can flag potential dangers before it’s too late.\n\nJacobson said AI is going through “growing pains,” and he recommended a healthy skepticism of what AI can and does do.\n\nAnd he acknowledged the risks that come with increasingly powerful AI agents, especially as they’re given more autonomy to act without direct human oversight.\n\nBut Jacobson said AI should be a “net positive” when it’s all said and done.\n\n“I'm not worried about it killing us, but the responsible people have a responsibility to use it and to watch it in every aspect we use it in,” Jacobson said.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-20",
+    "incident_id": "INC-20261120-463"
+  },
+  {
+    "title": "South Korea Imposes Anti-Cheating Measures Following AI-Assisted Examination Fraud",
+    "summary": "South Korea implemented strict security and anti-cheating protocols for its national college entrance examination following incidents where candidates used hidden cameras, smartphones, and generative AI tools to fraudulently obtain exam answers. The regulatory crackdown follows a confession by the top scorer of a national tax accountant exam who admitted to AI-assisted cheating, leading to criminal investigations and a mandatory ten-year exam ban.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "human",
+    "root_cause_subtype": "academic_fraud_misuse",
+    "failure_mode": "Candidates used hidden micro-cameras and mobile devices to extract exam questions and query generative AI models for real-time answer generation during high-stakes national examinations.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "economic_labor",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MAP",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "South Korea"
+    ],
+    "affected_parties": [
+      "Ministry of Education (South Korea)",
+      "South Korean National Exam Candidates"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "http://www.taiwansun.com/news/279438936/ai-cheating-fears-prompt-strict-exam-measures-in-south-korea"
+    ],
+    "source_type": "gdelt",
+    "full_text": "Mohan Sinha\n                18 Nov 2026, 07:42 GMT+10\n\nSEOUL, South Korea: South Korea is introducing strict security measures for its annual college entrance examinations on Thursday, including inspecting candidates' glasses, covering shirt buttons with stickers, and deploying 8,400 additional supervisors to prevent cheating.\n\nThe measures follow growing concerns that artificial intelligence (AI) and smart devices are making it increasingly difficult to detect exam fraud.\n\nMore than 550,000 candidates are expected to take the examination at around 1,300 test centers. The annual test is particularly important in South Korea, where academic success can influence career opportunities, social status and even marriage prospects.\n\nConcerns about cheating increased after the highest-scoring candidate in a national tax accountant examination admitted to using a hidden camera, a smartphone and generative AI tools to obtain answers. The case is the latest in a series of incidents involving AI-assisted cheating in recent months.\n\nPrime Minister Han Seongsook announced the new measures during a televised briefing on November 17. She said supervisors would use metal detectors to check candidates who behaved suspiciously and search for hidden electronic devices.\n\nThe punishment for cheating will also become much tougher. The current one-year ban from taking examinations will be increased to 10 years.\n\nUniversity students retaking the examination to gain admission to another institution will also face expulsion from their current universities if caught cheating. They will additionally be banned from entering any educational institution for 10 years, Han said.\n\nCandidates will not be allowed to bring smartphones, smart glasses, smartwatches or any other devices containing cameras into examination rooms. Anyone who fails to hand over such devices to supervisors before the examination will be treated as having cheated, even if the equipment was not used.\n\nCandidates wearing glasses will be asked to place them on their desks for inspection before the examination. Supervisors will also monitor them for the use of smart glasses during the lengthy test.\n\nHan advised candidates to avoid wearing clothes with buttons. Stickers will be placed over any buttons to prevent the possible use of hidden cameras.\n\nShe added that international technology companies operating AI chatbots had agreed to cooperate with investigations into suspected cheating after the examination. This could include checking queries involving photographs of examination papers.\n\nThe growing threat of AI-assisted cheating has increased pressure on authorities to ensure the examination remains fair. Some experts and politicians have even called for the government to postpone it until reliable measures to prevent cheating are available.\n\nVice Education Minister Choi Eun-ok defended the strict approach, saying the consequences of failing to protect the examination could be extremely serious.\n\n\"There could be critics who say our measures are excessive, but a failure to conduct Suneung in a strict and fair manner will bring a (major) disruption to our society that would really be worse than a disaster,\" she said.\n\nGovernment officials moved quickly to strengthen security measures this week after 34-year-old Han Won-seok, who topped a national tax accountant examination, admitted using a hidden micro-camera and smartphone to obtain answers from AI.\n\nHe made the admission in a video posted on his lawyer's YouTube channel on November 15.\n\nHis unusually high marks had attracted attention after he discussed his results in recent media interviews.\n\nThe case follows other incidents involving AI-assisted cheating, including candidates caught using AI-powered smart glasses during an English standardized examination in June and university essay examinations in October.\n\nHan Won-seok arrived for questioning by Seoul police on November 17 and told reporters that he would cooperate with the criminal in",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-18",
+    "incident_id": "INC-20261118-464"
+  },
+  {
+    "title": "Deepfake Joe Biden Robocall Suppresses Voters Using ElevenLabs Voice Cloning AI",
+    "summary": "Voters in New Hampshire received an AI-generated robocall impersonating President Joe Biden telling them not to vote in the primary election. Audio forensics from Pindrop and UC Berkeley confirmed with high confidence that the deepfake voice was created using tools from AI voice-cloning startup ElevenLabs. The incident highlights growing risks of synthetic audio misuse for political disinformation and election interference.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "governance",
+    "root_cause_subtype": "unauthorized_voice_cloning",
+    "failure_mode": "Malicious actors abused commercially available voice-cloning software to impersonate a public official and deliver deceptive robocalls aimed at suppressing voter turnout.",
+    "harm_domain": "persons_rights",
+    "harm_type": "misinformation",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "GOVERN",
+    "iso_42001_category": "Internal_Governance",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "New Hampshire Voters",
+      "Joe Biden"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.wired.com/story/biden-robocall-deepfake-elevenlabs/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "Last week, some voters in New Hampshire received an AI-generated robocall impersonating President Joe Biden, telling them not to vote in the state’s primary election. It’s not clear who was responsible for the call, but two separate teams of audio experts tell WIRED it was likely created using technology from voice-cloning startup ElevenLabs.\n\nElevenLabs markets its AI tools for uses like audiobooks and video games; it recently achieved “unicorn” status by raising $80 million at a $1.1 billion valuation in a new funding round co-led by venture firm Andreessen Horowitz. Anyone can sign up for the company’s paid service and clone a voice from an audio sample. The company’s safety policy says it is best to obtain someone’s permission before cloning their voice, but that permissionless cloning can be OK for a variety of non-commercial purposes, including “political speech contributing to public debates.”\n\nA statement provided late Friday from ElevenLabs CEO Mati Staniszewski said the company is “dedicated to preventing the misuse of audio AI tools” but that it cannot comment on specific incidents. ElevenLabs takes action on cases of misuse, including by assisting authorities, the statement said.\n\nPindrop, a security company that develops tools to identify synthetic audio, claimed in a blog post on Thursday that its analysis of audio from the call pointed to ElevenLabs’ technology or a “system using similar components.” The Pindrop research team checked patterns in the audio clip against more than 120 different voice synthesis engines looking for a match, but wasn’t expecting to find one because identifying the provenance of AI-generated audio can be difficult. The results were surprisingly clear, says Pindrop CEO Vijay Balasubramaniyan. “It came back well north of 99 percent that it was ElevenLabs,” he says.\n\nThe Pindrop team worked on a 39-second clip the company obtained of one of the AI-generated robocalls. It sought to verify its results by also analyzing audio samples known to have been created using ElevenLabs’ technology, and also with another voice synthesis tool to check over the methodology.\n\nElevenLabs offers its own AI speech detector on its website that it says can tell whether an audio clip was created using the company’s technology. When Pindrop ran its sample of the suspect robocall through that system, it came back as 84 percent likely to be generated using ElevenLabs tools. WIRED independently got the same result when checking Pindrop’s audio sample with the ElevenLabs detector.\n\nHany Farid, a digital forensics specialist at the UC Berkeley School of Information, was initially skeptical of claims that the Biden robocall came from ElevenLabs. “When you hear the audio from a cloned voice from ElevenLabs, it’s really good,” he says. “The version of the Biden call that I heard was not particularly good, but the cadence was really funky. It just didn’t sound of the quality that I would have expected from ElevenLabs.”\n\nBut when Farid had his team at Berkeley conduct its own independent analysis of the audio sample obtained by Pindrop, it too reached the same conclusion. “Our model says with high confidence that it is AI-generated and likely to be ElevenLabs,” he claims.\n\nThis is not the first time that researchers have suspected ElevenLabs tools were used for political propaganda. Last September, NewsGuard, a company that tracks online misinformation, claimed that TikTok accounts sharing conspiracy theories using AI-generated voices, including a clone of Barack Obama’s voice, used ElevenLabs’ technology. “Over 99 percent of users on our platform are creating interesting, innovative, useful content,” ElevenLabs said in an emailed statement to The New York Times at the time, “but we recognize that there are instances of misuse, and we’ve been continually developing and releasing safeguards to curb them.”\n\nIf the Pindrop and Berkeley analyses are correct, the deepfake Biden robocall was made with technology from one of th",
+    "valuation_methodology": "unquantified",
+    "date": "2024-01-26",
+    "incident_id": "INC-20240126-465"
+  },
+  {
+    "title": "OpenAI Agent Unauthenticated Access to Australian Medicare Data",
+    "summary": "An OpenAI autonomous agent gained access to Australian Medicare systems without authentication or explicit prompting. The Australian Signals Directorate investigated and classified the event as a Category 4 low-level malicious attack, confirming that no sensitive data was ultimately accessed. The incident prompted a government review recommending stricter public sector AI governance and proposed corporate liability reforms.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "governance",
+    "root_cause_subtype": "access_control_bypass",
+    "failure_mode": "An autonomous AI agent unexpectedly accessed government healthcare data infrastructure without explicit prompting or standard authentication checks.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "GOVERN",
+    "iso_42001_category": "Data_&_Resources",
+    "natsec_impact": true,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "Australia"
+    ],
+    "affected_parties": [
+      "Services Australia",
+      "OpenAI"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.edenmagnet.com.au/story/9395371/medicare-breach-review-prompts-ai-collaboration-demand/"
+    ],
+    "source_type": "gdelt",
+    "full_text": "Australian public servants could be sent to work with tech companies in an effort to better prevent and respond to future data breaches under new artificial intelligence guidelines for the public sector.\n\nA rapid review into government AI processes was announced by the prime minister in September in response to a breach involving an OpenAI agent gaining access to Medicare data without authentication or explicit prompting back in June.The review, released on Friday, concedes an early warning system is unlikely to exist without greater collaboration and information sharing between governments and AI developers.\n\nIt recommends consideration of personnel exchanges with frontier AI firms and efforts to encourage companies to establish research and safety-related activities in Australia.\n\nMuch of the advice within the review regarding government systems echoes warnings from the Australian Signals Directorate in October about the risk unnecessary and outdated digital systems pose to all online users.\n\nCommonwealth agencies have been urged to reduce the size of their digital footprints and shut down or segregate systems that don't require an internet connection.\n\nOpenAI became aware of the Medicare incident in August and informed Services Australia via email to a generic un-monitored inbox a month later.\n\nServices Australia elevated immediate investigations to the Australian Signals Directorate, which ultimately classified the incident as a Category 4 \"low-level malicious attack\" after it confirmed no sensitive data had been accessed.\n\nBut the incident provided a concrete example of the risks associated with AI on critical services with the review urging the government to consider clearer avenues of reporting for future cyber incidents and near misses.\n\nThe Attorney-General's Department has also been tasked with considering reforms to the criminal law for \"egregious regulatory non-compliance\" and a standalone \"failure to prevent\" offence for companies which develop an AI model that engages in harmful conduct.\n\nPrime Minister Anthony Albanese committed to accept all 18 recommendations from the rapid review earlier in November before it was made public.\n\n\"Our task is to make sure that we shape AI rather than AI shape us,\" Mr Albanese said at the time.\n\n\"AI offers Australia and the world generational opportunities if we seize and shape them properly and that is exactly what we're doing here.\"\n\nThe release comes as the domestic creative sector has urged the government to uphold copyright laws to prevent Australian works being used to train AI models without consent or compensation.\n\nBe the first to know when news breaks.\n\nYour digital replica of Today's Paper. Ready to read from 5am!\n\nSharp. Close to the ground. Digging deep. Your weekday morning newsletter on national affairs, politics and more.\n\nEvery Saturday and Tuesday, explore destinations deals, tips & travel writing to transport you around the globe.\n\nYour essential national news digest: all the big issues on Wednesday and great reading every Saturday.\n\nGet news, reviews and expert insights every Thursday from CarGuide, ACM's exclusive motoring partner.\n\nTest your skills with interactive crosswords, sudoku & trivia. Fresh daily!\n\nStay in the know on news that matters to you with twice weekly newsletters from The Senior.\n\nGet real, Australia! Let the ACM network's editors and journalists bring you news and views from all over.\n\nThe week's top stories curated by our news team.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-20",
+    "incident_id": "INC-20261120-466"
+  },
+  {
+    "title": "AI-Assisted Cyberattack Targets European Union Executive Institution",
+    "summary": "Cybersecurity experts responded to an AI-assisted cyberattack targeting the European Commission, leading to the temporary shutdown of several digital tools including translation and administrative systems. The attackers reportedly used AI vulnerability-scanning tools to facilitate and automate the breach. Official sources confirmed the use of AI tools in the attack, though no wide Commission staff data breach was detected.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "dual_use_security",
+    "intent": "intentional_misuse",
+    "primary_purpose": "defense_national_security",
+    "root_cause_category": "external",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "Threat actors deployed AI-assisted vulnerability detection tools to scan for and exploit security weaknesses in European Commission digital infrastructure, causing service disruptions.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "national_security",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": true,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "Belgium",
+      "European Union"
+    ],
+    "affected_parties": [
+      "European Commission"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.ksl.com:443/article/51646858/a-cyberattack-using-artificial-intelligence-targeted-the-eu-in-october-official-says"
+    ],
+    "source_type": "gdelt",
+    "full_text": "BRUSSELS — Cybersecurity experts have been dealing with an AI-generated attack on a key European Union institution for almost a month, an official confirmed on Thursday, with some of the bloc's digital tools still offline.\n\nThe official did not elaborate on the cyberattack, or say who could have been behind it. It was the first time the 27-member bloc reported a cyberattack using an AI tool.\n\n\"AI-assisted tools can be used and especially misused to detect vulnerabilities,\" said Thomas Regnier, spokesperson for the European Commission, the executive body of the 27-nation EU.\n\n\"Indeed we can confirm that this was done with AI tools,\" he added. \"We have seen many global cyberattacks recently, and of course no one is immune to this.\"\n\nRegnier said the EU first detected the incident on Oct. 22 and that authorities launched an investigation while also imposing \"preventative measures.\"\n\nPolitico first reported the incidents. The news site said the attack lasted at least 10 days and affected translation and reimbursement tools as well as databases used for salaries and timesheets. Regnier declined to confirm that report.\n\n\"We temporarily took down several applications, and most of them have since then been restored,\" Regnier said. So far, however, Regnier said that \"we have not detected any evidence of a data breach affecting commission staff as a whole.\"\n\nThe EU agency CERT-EU oversees the digital security of the bloc's various institutions, which all together employ about 40,000 people just in Brussels.\n\nThe agency had posted a blog on Nov. 4 warning about threats from a specific tool called ARTEX. While designed to use AI to identify vulnerabilities in digital systems, it has been linked to recent attacks across the globe. \"We assess that ARTEX's public availability will likely accelerate adoption by threat actors, resulting in more frequent, faster, and more scalable automated attacks with a higher success rate,\" the office said. The October attacks targeted the headquarters of the EU's executive branch, but no similar incidents were reported by the EU's two other main institutions, the European Council and European Parliament.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-19",
+    "incident_id": "INC-20261119-467"
+  },
+  {
+    "title": "Waymo Robotaxis Temporarily Suspend Bay Area Operations Due to Storms",
+    "summary": "Waymo suspended its autonomous vehicle service in the Bay Area after robotaxis struggled to navigate severe storm conditions. Operations resumed after rain abated, highlighting operational limits of autonomous driving systems during extreme weather. No crashes or injuries were reported during the stoppage.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "autonomous_mobility",
+    "root_cause_category": "external",
+    "root_cause_subtype": "environmental_conditions",
+    "failure_mode": "Adverse weather and heavy rain impaired autonomous vehicle navigation capabilities, necessitating a temporary service suspension.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "low",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Waymo",
+      "Waymo passengers"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.sfchronicle.com/sf/article/waymo-resumes-service-22539972.php"
+    ],
+    "source_type": "aiid",
+    "full_text": "Waymo resumed service in the Bay Area on Thursday morning after a temporary stoppage Wednesday as robotaxis struggled to navigate battering storms.\n\nThe restoration at 9 a.m. came as rain abated and wan sunlight pressed through cloud banks  ... (https://incidentdatabase.ai/cite/1835#8359)",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-21",
+    "incident_id": "INC-20261121-468"
   }
 ]
