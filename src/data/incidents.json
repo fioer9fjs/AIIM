@@ -10788,13 +10788,17 @@
       "Iran"
     ],
     "affected_parties": [
+      "Iranian civilians",
       "US Government",
-      "Civilians",
+      "Iranian school civilians",
+      "United States Department of Defense",
+      "Shajareh Tayyebeh Primary School students and staff",
       "Military Strike Victims",
-      "Iranian school civilians"
+      "Civilians"
     ],
     "source_urls": [
-      "http://www.bignewsnetwork.com/news/279318804/trump-vows-not-to-slow-ai-despite-industry-warnings"
+      "http://www.bignewsnetwork.com/news/279318804/trump-vows-not-to-slow-ai-despite-industry-warnings",
+      "https://time.com/article/2026/11/18/palantir-military-targeting/"
     ],
     "related_incidents": [],
     "created_at": "2026-09-23T07:55:47.777851+00:00",
@@ -10803,7 +10807,26 @@
     "nist_ai_rmf_function": "MANAGE",
     "iso_42001_category": "Operational_Security",
     "impact_scope": "discrete_incident",
-    "valuation_methodology": "unquantified"
+    "valuation_methodology": "unquantified",
+    "last_updated_date": "2026-11-18",
+    "timeline": [
+      {
+        "date": "2026-09-20",
+        "title": "US President Vows to Accelerate AI Development and Announces AI Force",
+        "summary_delta": "US President Donald Trump announced plans to form an 'AI Force' and appoint an 'AI czar' while vowing not to slow AI development, contrasting with warnings from tech executives about existential risks, cyberattacks, and bioterrorism.",
+        "phase": "initial_report",
+        "source_url": "http://www.bignewsnetwork.com/news/279318804/trump-vows-not-to-slow-ai-despite-industry-warnings",
+        "source_type": "gdelt"
+      },
+      {
+        "date": "2026-11-18",
+        "title": "U.S. Military AI-Assisted Strike Hits Iranian Primary School, Killing Over 150 Civilians",
+        "summary_delta": "Report B provides specific technical details about the military strike, identifying the use of Palantir's AI targeting software, the specific location in Minab, Iran, and the exact event date.",
+        "phase": "technical_disclosure",
+        "source_url": "https://time.com/article/2026/11/18/palantir-military-targeting/",
+        "source_type": "google_news_rss"
+      }
+    ]
   },
   {
     "incident_id": "INC-20240914-140",
@@ -25055,13 +25078,25 @@
       "severity": 0.85
     },
     "source_urls": [
-      "https://thehackernews.com/2026/11/threatsday-gpt-62-jailbreak-flaws.html"
+      "https://thehackernews.com/2026/11/threatsday-gpt-62-jailbreak-flaws.html",
+      "https://venturebeat.com/security/openais-pre-release-gpt-6-2-astra-was-easier-to-jailbreak-than-its-predecessor-uk-government-testers-found"
     ],
     "source_type": "google_news_rss",
     "full_text": "The easiest way to fool someone is to give them something they already expect. A job offer. A message about a service outage. A familiar app. Nothing looks strange at first. And that's the problem. This week's stories show how ordinary things are being used to steal data, spread malware, and get people to hand over access.\n\nThere's another shift worth watching. AI is making some attacks easier to run and harder to spot. Stolen data can now be searched like a shopping catalog. Phishing emails can be tested and rewritten until they get through. At the same time, researchers are finding that even powerful AI systems have safety gaps of their own.\n\nAnd while everyone is watching the new tools, the old problems haven't gone anywhere. Third-party breaches, years of hidden spying, ransomware, and security fixes still need attention. Some stories are clever. Others are painfully simple. Here's what caught our attention this week.\n\nThe threats change every week. Subscribe, and we’ll alert you when each new ThreatsDay Bulletin is out.\n\nGoogle has unveiled Gemini 4 Neon, its latest frontier model capable of delivering reasoning faster and more cost-efficiently. According to the company's DeepMind division, it also produces more secure code than Carbon across all easy, medium, and hard challenges on AutoBaxBench, achieving state-of-the-art on the hard tier (76%). \"Neon for cyber delivers frontier-level performance across the code hardening lifecycle — vulnerability finding, validating, and patching — all while being faster and more cost-efficient than large frontier models,\" Google said. \"Neon achieves state-of-the-art performance on SEC-bench Pro (90.5%), while costing roughly half as much per challenge.\" Gemini 4 Neon for cyber is rolling out to trusted defenders in the coming days as part of the Fairwind Program.\n\nOpenAI has introduced GPT‑6.2 Astra and GPT‑6.2 Sol with a \"significant jump\" in cyber capabilities. \"They find and exploit vulnerabilities more effectively, write more secure code, and produce better patches, with substantial token-efficiency gains on several evaluations,\" OpenAI said. \"Like GPT‑6 Astra⁠, 6.2 Astra and Sol meet the Critical threshold for cybersecurity under our Preparedness Framework⁠.\" The company also said it has made defensive capabilities a core focus by allowing the models to write secure code from the start. The development comes amid a disclosure from the U.K. AI Security Institute (AISI) that it developed a universal jailbreak against two pre-release versions of OpenAI's GPT-6.2 Astra in half the queries required for GPT-6 Astra, adding it identified a \"substantial regression in jailbreak robustness relative to GPT-6 Astra.\" OpenAI has since addressed the regression.\n\nWordPress has released WordPress 7.1.5 with fixes for multiple security issues. \"Because this is a security release, it is recommended that you update your sites immediately,\" WordPress said. The patches have also been backported to all branches eligible to receive security fixes (currently through 4.7).\n\nOpenAI will embed independent evaluators from Apollo Research, Goodfire, METR, and Transluce in its organization as part of a pilot to help support its safety work. The embedded assessors will focus on model alignment and monitoring, training run monitoring, post-training alignment evaluations, and assessing \"whether models could covertly work against their developers’ intentions and whether our safeguards would detect such behavior.\" \"Embedded assessments give independent experts deep access to a lab’s internal models and systems to assess model alignment and the effectiveness of safeguards over an extended period of time, especially where relevant to our safety cases,\" the company said. \"Based on what each evaluation needs, assessors receive access to some of the same internal resources our researchers use, including model checkpoints, source code, training and evaluation data, monitoring systems, technical documentation, and discuss",
     "valuation_methodology": "unquantified",
-    "date": "2026-11-19",
-    "incident_id": "INC-20261119-459"
+    "date": "2026-11-18",
+    "incident_id": "INC-20261119-459",
+    "last_updated_date": "2026-11-19",
+    "timeline": [
+      {
+        "date": "2026-11-19",
+        "title": "UK AISI Discovers Universal Jailbreak Regression in Pre-Release OpenAI GPT-6.2 Astra",
+        "summary_delta": "The U.K.",
+        "phase": "initial_report",
+        "source_url": "https://thehackernews.com/2026/11/threatsday-gpt-62-jailbreak-flaws.html",
+        "source_type": "google_news_rss"
+      }
+    ]
   },
   {
     "title": "Madison Square Garden Facial Recognition Surveillance Incident",
@@ -25106,7 +25141,7 @@
   },
   {
     "title": "Waymo Self-Driving Taxi Service Suspended Following Incident",
-    "summary": "Waymo's autonomous taxi operations were suspended following an operational incident. Further specific details regarding the exact failure mechanism and casualties or property damage were not detailed in the brief report.",
+    "summary": "The California Department of Motor Vehicles suspended Waymo's permission to operate autonomous vehicles on highways following multiple safety incidents, including vehicles driving into a closed construction zone and attempting to pass highway patrol officers managing traffic. Regulators cited an immediate threat to public safety, requiring Waymo to demonstrate safe handling of construction and emergency scenarios before resuming unstaffed highway driving.",
     "verification_status": "confirmed",
     "lifecycle_phase": "operation_and_monitoring",
     "system_classification": "autonomous_agent",
@@ -25129,6 +25164,8 @@
       "United States"
     ],
     "affected_parties": [
+      "California Highway Patrol",
+      "California Department of Motor Vehicles",
       "Waymo"
     ],
     "confidence_scores": {
@@ -25136,13 +25173,33 @@
       "severity": 0.75
     },
     "source_urls": [
-      "https://www.kbb.com/car-news/waymos-self-driving-taxi-service-suspended-following-incident/"
+      "https://www.kbb.com/car-news/waymos-self-driving-taxi-service-suspended-following-incident/",
+      "https://www.az-online.de/politik/kalifornien-verbietet-waymo-fahrten-auf-autobahnen-zr-94598014.html"
     ],
     "source_type": "google_news_rss",
-    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMilgFBVV95cUxQNExLZEwxQmhMVUxERGY5SFJvbkhZTEFpcFdlOERyaDZPLXd1M2t3d1JNQkh3S3dQMnJYVDd0bTNlZEVlZ3UwUEtsU3JneHZjTms0VUFFcmMwazZCUXJrLXZrdlFuRDNxc1BxUTdyemFndndESWVYcFY2dUN4bmdOeWk2aHNzeDVmV3ZaMzA2QkE2WFByR0E?oc=5\" target=\"_blank\">Waymo’s Self-Driving Taxi Service Suspended Following Incident</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Kelley Blue Book</font>",
+    "full_text": "Nach zwei VorfÃ¤llen mit autonomen Fahrzeugen des Unternehmens Waymo hat die kalifornische VerkehrsbehÃ¶rde deren Einsatz auf Autobahnen untersagt.\n\nDie autonomen Fahrzeuge von Waymo dÃ¼rfen auf sÃ¤mtlichen Autobahnen Kaliforniens nicht mehr fahren. Das teilte die KraftfahrzeugbehÃ¶rde des Bundesstaates, das Department of Motor Vehicles (DMV), am Dienstag mit. In einer E-Mail an Newsweek erklÃ¤rte die BehÃ¶rde am Dienstag, die BeschrÃ¤nkungen seien am 11. November in Kraft getreten. Sie verwies auf eine âunmittelbare Gefahr fÃ¼r die Ã¶ffentliche Sicherheitâ nach zwei jÃ¼ngsten VorfÃ¤llen mit Robotaxis des Unternehmens in der Bay Area.\n\nDieser Artikel von Jennifer Radcliffe und Gray R. Thomas entstand in Kooperation mit newsweek.com.\n\nBei einem der VorfÃ¤lle fuhren nach Angaben der kalifornischen KraftfahrzeugbehÃ¶rde drei Waymo-Fahrzeuge auf dem Highway 101 nahe Burlingame in einen wegen laufender Bauarbeiten gesperrten Bereich. Trotz ergriffener KorrekturmaÃnahmen und auferlegter BeschrÃ¤nkungen kam die BehÃ¶rde nach eigenen Angaben zu dem Schluss, dass Waymo-Fahrzeuge eine Gefahr fÃ¼r die Ã¶ffentliche Sicherheit darstellten, weil sie âwiederholt in Bereiche mit laufenden Bauarbeiten eindringenâ.\n\nEin weiterer Vorfall betraf laut DMV Fahrzeuge der California Highway Patrol (CHP) auf dem Highway 280 in San Francisco. Ein in sozialen Medien vielfach angesehenes Video eines Autofahrers zeigt, wie ein Waymo-Fahrzeug versucht, an CHP-Beamten vorbeizufahren, wÃ¤hrend diese den Verkehr auf der Autobahn gezielt verlangsamen wollten. Ein Waymo-Sprecher erklÃ¤rte am Dienstag gegenÃ¼ber Newsweek, das Unternehmen arbeite mit dem kalifornischen DMV und weiteren Vertretern des Bundesstaates daran, den Autobahnbetrieb wieder aufzunehmen. Er betonte, bei den VorfÃ¤llen nahe der Baustelle auf dem Highway 101 habe es weder Verletzte noch ZusammenstÃ¶Ãe gegeben.\n\nDer Anbieter autonomer Fahrdienste erklÃ¤rte, er habe seinen Autobahnbetrieb auch in anderen MÃ¤rkten vorÃ¼bergehend eingeschrÃ¤nkt, um âunsere Leistung zu bewertenâ. Waymo ist derzeit in 15 StÃ¤dten in den USA tÃ¤tig und setzt bei seiner Expansion auf ein mehrstufiges Verfahren, das Versuche auf abgesperrten Teststrecken und schrittweise Tests auf Ã¶ffentlichen StraÃen umfasst. Nach Angaben eines Unternehmenssprechers waren die autonomen Fahrzeuge bereits jahrelang auf kalifornischen Autobahnen unterwegs, bevor Waymo im vergangenen November begann, dort Fahrten fÃ¼r die Ãffentlichkeit anzubieten.\n\nDas Unternehmen plant, seine Fahrzeuge weiterhin auf Autobahnen zu testen, wobei ein âgeschulter Spezialist fÃ¼r autonomes Fahrenâ im Wagen sitzen soll. Seit Waymo-Fahrzeuge landesweit auf den StraÃen unterwegs sind, sind in sozialen Medien auch Videos aufgetaucht, die zeigen, wie die autonomen Fahrzeuge VerkehrsverstÃ¶Ãe begehen, zwischen BahnÃ¼bergÃ¤ngen stecken bleiben und wÃ¤hrend eines Stromausfalls an Kreuzungen stehen bleiben.\n\nElon Musk Ã¤uÃerte sich, nachdem die beliebte neunjÃ¤hrige Katze KitKat im Oktober vergangenen Jahres von einem fahrerlosen Fahrzeug Ã¼berfahren worden war, mit den Worten: âEs stimmt, viele Haustiere werden durch autonomes Fahren gerettet werden.â Bevor Waymo den Autobahnbetrieb wieder aufnehmen kann, muss das Unternehmen nachweisen, dass seine Fahrzeuge Baustellenbereiche, Einsatzstellen von Rettungs- und SicherheitskrÃ¤ften sowie andere komplexe Verkehrssituationen sicher bewÃ¤ltigen kÃ¶nnen. Waymo erklÃ¤rte, âSicherheit ist die Grundlage all unseres Handelnsâ, und plant, wÃ¤hrend des gesamten Verfahrens mit den AufsichtsbehÃ¶rden des Bundesstaates zusammenzuarbeiten, um seine autonomen Autos wieder auf die Autobahn zu bringen.",
     "valuation_methodology": "unquantified",
     "date": "2026-11-19",
-    "incident_id": "INC-20261119-461"
+    "incident_id": "INC-20261119-461",
+    "last_updated_date": "2026-11-19",
+    "timeline": [
+      {
+        "date": "2026-11-19",
+        "title": "Waymo Self-Driving Taxi Service Suspended Following Incident",
+        "summary_delta": "Waymo's autonomous taxi operations were suspended following an operational incident.",
+        "phase": "initial_report",
+        "source_url": "https://www.kbb.com/car-news/waymos-self-driving-taxi-service-suspended-following-incident/",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-11-19",
+        "title": "California DMV Suspends Waymo Autonomous Highway Operations Over Safety Incidents",
+        "summary_delta": "Report B provides the specific regulatory context, identifying the California DMV as the suspending authority and detailing the specific safety incidents involving construction zones and highway patrol officers.",
+        "phase": "regulatory_action",
+        "source_url": "https://www.az-online.de/politik/kalifornien-verbietet-waymo-fahrten-auf-autobahnen-zr-94598014.html",
+        "source_type": "gdelt"
+      }
+    ]
   },
   {
     "title": "Tesla Model 3 on Autopilot/FSD Collides with Overturned Truck at 71 MPH, Killing Three",
@@ -25378,6 +25435,7 @@
       "European Union"
     ],
     "affected_parties": [
+      "European Union",
       "European Commission"
     ],
     "confidence_scores": {
@@ -25385,13 +25443,33 @@
       "severity": 0.9
     },
     "source_urls": [
-      "https://www.ksl.com:443/article/51646858/a-cyberattack-using-artificial-intelligence-targeted-the-eu-in-october-official-says"
+      "https://www.ksl.com:443/article/51646858/a-cyberattack-using-artificial-intelligence-targeted-the-eu-in-october-official-says",
+      "https://www.wlky.com/article/cyberattack-artificial-intelligence-targeted-eu-october/74476095"
     ],
     "source_type": "gdelt",
     "full_text": "BRUSSELS — Cybersecurity experts have been dealing with an AI-generated attack on a key European Union institution for almost a month, an official confirmed on Thursday, with some of the bloc's digital tools still offline.\n\nThe official did not elaborate on the cyberattack, or say who could have been behind it. It was the first time the 27-member bloc reported a cyberattack using an AI tool.\n\n\"AI-assisted tools can be used and especially misused to detect vulnerabilities,\" said Thomas Regnier, spokesperson for the European Commission, the executive body of the 27-nation EU.\n\n\"Indeed we can confirm that this was done with AI tools,\" he added. \"We have seen many global cyberattacks recently, and of course no one is immune to this.\"\n\nRegnier said the EU first detected the incident on Oct. 22 and that authorities launched an investigation while also imposing \"preventative measures.\"\n\nPolitico first reported the incidents. The news site said the attack lasted at least 10 days and affected translation and reimbursement tools as well as databases used for salaries and timesheets. Regnier declined to confirm that report.\n\n\"We temporarily took down several applications, and most of them have since then been restored,\" Regnier said. So far, however, Regnier said that \"we have not detected any evidence of a data breach affecting commission staff as a whole.\"\n\nThe EU agency CERT-EU oversees the digital security of the bloc's various institutions, which all together employ about 40,000 people just in Brussels.\n\nThe agency had posted a blog on Nov. 4 warning about threats from a specific tool called ARTEX. While designed to use AI to identify vulnerabilities in digital systems, it has been linked to recent attacks across the globe. \"We assess that ARTEX's public availability will likely accelerate adoption by threat actors, resulting in more frequent, faster, and more scalable automated attacks with a higher success rate,\" the office said. The October attacks targeted the headquarters of the EU's executive branch, but no similar incidents were reported by the EU's two other main institutions, the European Council and European Parliament.",
     "valuation_methodology": "unquantified",
     "date": "2026-11-19",
-    "incident_id": "INC-20261119-467"
+    "incident_id": "INC-20261119-467",
+    "last_updated_date": "2026-11-19",
+    "timeline": [
+      {
+        "date": "2026-11-19",
+        "title": "AI-Assisted Cyberattack Targets European Union Executive Institution",
+        "summary_delta": "Cybersecurity experts responded to an AI-assisted cyberattack targeting the European Commission, leading to the temporary shutdown of several digital tools including translation and administrative systems.",
+        "phase": "initial_report",
+        "source_url": "https://www.ksl.com:443/article/51646858/a-cyberattack-using-artificial-intelligence-targeted-the-eu-in-october-official-says",
+        "source_type": "gdelt"
+      },
+      {
+        "date": "2026-11-19",
+        "title": "AI-Assisted Cyberattack Targets European Union Systems",
+        "summary_delta": "Report B provides the specific timeline details, noting the incident occurred in October, was detected specifically on October 22, and prompted preventative application shutdowns.",
+        "phase": "investigation",
+        "source_url": "https://www.wlky.com/article/cyberattack-artificial-intelligence-targeted-eu-october/74476095",
+        "source_type": "gdelt"
+      }
+    ]
   },
   {
     "title": "Waymo Robotaxis Temporarily Suspend Bay Area Operations Due to Storms",
@@ -25433,5 +25511,292 @@
     "valuation_methodology": "unquantified",
     "date": "2026-11-21",
     "incident_id": "INC-20261121-468"
+  },
+  {
+    "title": "Waymo Self-Driving Car Involved in Collision with Miami Police Cruiser",
+    "summary": "A Waymo autonomous vehicle and a Miami police cruiser were involved in a severe crash at an intersection in Miami, Florida. The collision caused significant front-end damage to both vehicles and resulted in one Waymo passenger being hospitalized. The specific cause and circumstances of the crash remain under investigation.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "autonomous_mobility",
+    "root_cause_category": "undetermined",
+    "root_cause_subtype": "undetermined collision",
+    "failure_mode": "A Waymo self-driving car collided with a Miami police car during public road operation under undetermined circumstances.",
+    "harm_domain": "property",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Miami Police Department",
+      "Waymo"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.9,
+      "severity": 0.75
+    },
+    "source_urls": [
+      "https://www.miamiherald.com/news/local/community/miami-dade/little-havana/article318204589.html",
+      "https://www.nbcmiami.com/news/local/1-hospitalized-after-crash-involving-cruiser-and-waymo-in-miami-police-say/3891558/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "According to Miami Police, at around 10:30 a.m., a cruiser and the autonomous vehicle were involved in a crash in the area of Northwest 17th Avenue and Seventh Street.\n\nA crash involving a Miami police cruiser and a Waymo sent one person to the hospital on Sunday, authorities said.\n\nAccording to Miami Police, at around 10:30 a.m., a cruiser and the autonomous vehicle were involved in a crash in the area of Northwest 17th Avenue and Seventh Street.\n\nVideo shows the cruiser with severe front-end damage, as well as the Waymo.\n\nPolice said one person who was inside the Waymo was taken to the hospital.\n\nDetails of the crash remain limited.\n\nNBC6 has reached out to Waymo for information on the incident.\n\nLast Sunday, a Waymo was struck by another vehicle that was drifting in the intersection of Northwest 27th Street and 12th Street, the company said.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-22",
+    "incident_id": "INC-20261122-469",
+    "last_updated_date": "2026-11-22",
+    "timeline": [
+      {
+        "date": "2026-11-22",
+        "title": "Waymo Self-Driving Car Involved in Collision with Miami Police Cruiser",
+        "summary_delta": "A Waymo autonomous vehicle was involved in a crash with a Miami police car on a Sunday morning.",
+        "phase": "initial_report",
+        "source_url": "https://www.miamiherald.com/news/local/community/miami-dade/little-havana/article318204589.html",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-11-22",
+        "title": "Waymo Autonomous Vehicle Collides with Miami Police Cruiser, Hospitalizing Passenger",
+        "summary_delta": "Report B provides additional details revealing that the collision was severe enough to hospitalize a Waymo passenger and caused significant front-end damage to both vehicles.",
+        "phase": "impact_escalation",
+        "source_url": "https://www.nbcmiami.com/news/local/1-hospitalized-after-crash-involving-cruiser-and-waymo-in-miami-police-say/3891558/",
+        "source_type": "google_news_rss"
+      }
+    ]
+  },
+  {
+    "title": "Tesla Full Self-Driving Vehicle Almost Collides with Car in Parking Lot During Hands-On Test",
+    "summary": "Tech creator Linus Sebastian tested Tesla's Full Self-Driving (FSD) software and experienced an operational failure where the vehicle attempted to steer directly into another car in a parking lot, forcing driver intervention. The test highlighted risks of driver overreliance and system limitations, including camera blinding from sunlight and navigation loops.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "high_risk_regulated",
+    "intent": "unintentional_failure",
+    "primary_purpose": "autonomous_mobility",
+    "root_cause_category": "model",
+    "root_cause_subtype": "perception_failure",
+    "failure_mode": "Tesla's FSD software miscalculated distance and path trajectory within a parking lot, nearly causing a low-speed collision with another vehicle before the human driver took manual control.",
+    "harm_domain": "property",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MEASURE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "potential",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Tesla"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://www.thecooldown.com/green-tech/tesla-full-self-driving-parking-crash/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "© 2025 THE COOL DOWN COMPANY. All Rights Reserved. Do not sell or share my personal information. Reach us at hello@thecooldown.com.\n\nA Tesla skeptic who borrowed a colleague's car for a month found plenty to praise about its driver-assistance software. But a parking-lot scare highlighted why drivers still need to remain alert.\n\nIn a YouTube video, content creator Linus Sebastian, host of Linus Tech Tips (@LinusTechTips), documented his test of Tesla's subscription-based \"Full Self-Driving\" package, assessing its value and capabilities.\n\nSebastian described the software as Level 2 driver assistance, emphasizing that he remained responsible for the vehicle.\n\n\"I'm supposed to be ready to take control at a moment's notice,\" he explained during a trip with passengers. \"And that has come up.\"\n\nThe Tesla's first-day performance included a smooth merge through construction, with temporary road markings appearing on its screen.\n\nSebastian later had to take over when the Tesla approached another vehicle in a parking lot, ending his chance of completing the first day without intervening.\n\n💡These best-sellers from Quince deliver affordable, sustainable luxury for all\n\n\"It just like tried to freaking plow me into another car in the parking lot,\" he said.\n\nDespite the parking-lot scare, Sebastian praised other aspects of the Tesla's driving, including yielding to a bus signaling to leave its stop and navigating a busy four-way stop.\n\nThe car also brought him to the wrong house, repeatedly circled a parking lot, and took an unwanted freeway detour.\n\nSebastian suspected direct sunlight was responsible when the system refused to engage on another occasion. A warning indicated that multiple cameras were blocked or blinded.\n\nThroughout the test, Sebastian kept recording and remained prepared to intervene. When a passenger suggested playing a board game during the ride, he said he would be \"laser focused.\"\n\nHe also took control when the Tesla continued looping through a parking lot.\n\nViewers suggested ways to address some of the difficulties, including Sebastian's trouble getting the car into his preferred spot. One YouTube commenter recommended selecting an empty parking space on the screen after using the brake to disengage self-driving.\n\n\"It parks better than I do,\" the commenter wrote.\n\nTwo other commenters said Sebastian could set the route by choosing the place's name or the button marked \"+\" for waypoints. They attributed a navigation-input issue elsewhere in the video to his selection of a map pin, which displayed the location without making it the destination.\n\nSebastian also warned about how quickly a smooth ride could build trust.\n\n\"I can really see how you could be lulled into a false sense of security and just, you know, like people have done, just sleep behind the wheel of your Tesla because it seems to just magically take you wherever you want to go,\" he said after the Tesla navigated construction.\n\nIn the end, Sebastian couldn't help but praise Full Self-Driving. He called it the vehicle's best feature, citing a moment when the system slowed to prevent a nighttime collision with a scooter rider not wearing reflective gear that he admitted he didn't see.\n\n\"It just stopped at a green light for no apparent reason,\" Sebastian marveled about the crash-saving experience. \"It was pretty cool.\"\n\nGet TCD's free newsletters for easy tips, smart advice, and a chance to earn $5,000 toward home upgrades. To see more stories like this one, change your Google preferences here.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-22",
+    "incident_id": "INC-20261122-470"
+  },
+  {
+    "title": "Waymo Files Second Freeway-Closure Voluntary Software Recall",
+    "summary": "Waymo issued its second voluntary software recall in five months related to how its autonomous vehicles respond to freeway closures. The recall addresses software failure modes encountered during high-speed driverless navigation. No injuries were reported, but software updates were deployed to remediate navigation behavior.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "autonomous_mobility",
+    "root_cause_category": "model",
+    "root_cause_subtype": "edge_case_handling_failure",
+    "failure_mode": "Autonomous driving software inappropriately responded to roadway conditions near freeway closures, necessitating a formal recall and safety update.",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "potential",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Waymo"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://eletric-vehicles.com/waymo/waymo-files-second-freeway-closure-recall-in-5-months-amid-freeway-ban/",
+      "https://www.reuters.com/legal/litigation/waymo-recalls-self-driving-cars-over-closed-freeway-lanes-manual-traffic-control-2026-11-20/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMizgFBVV95cUxQTlhWdHBVZmpJb2tVT2NkNzBsSlE3V190NnozVjVsdTc3NGJhYlY1ZE4weXplUmVXYjF5c2VZeWFLTmtSa05TRlRwUTFXVDZrYmFOcHh2a1psQ19XeVlFeFZMR0ltdHNGS3dWcE5hR1otUmZGakdRblpwRENQdnB5MGllYmhFZElhYkU0YUxQYy1kemVxSDhJa2ZwNWs2NjlHRXVNTElhQnJYeEpoeGltZ2dhckZfLXBkNkUwMkc0ZWlla3QxWXRKQUN2SWlQZw?oc=5\" target=\"_blank\">Waymo recalls self-driving cars over closed freeway lanes, manual traffic control</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Reuters</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-20",
+    "incident_id": "INC-20261123-471",
+    "last_updated_date": "2026-11-23",
+    "timeline": [
+      {
+        "date": "2026-11-20",
+        "title": "Waymo Recalls Self-Driving Cars Over Handling of Closed Freeway Lanes and Manual Traffic Control",
+        "summary_delta": "Report B provides additional technical context, noting that the software recall also addresses issues with handling manual traffic control signals alongside closed freeway lanes.",
+        "phase": "initial_report",
+        "source_url": "https://www.reuters.com/legal/litigation/waymo-recalls-self-driving-cars-over-closed-freeway-lanes-manual-traffic-control-2026-11-20/",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-11-23",
+        "title": "Waymo Files Second Freeway-Closure Voluntary Software Recall",
+        "summary_delta": "Waymo issued its second voluntary software recall in five months related to how its autonomous vehicles respond to freeway closures.",
+        "phase": "initial_report",
+        "source_url": "https://eletric-vehicles.com/waymo/waymo-files-second-freeway-closure-recall-in-5-months-amid-freeway-ban/",
+        "source_type": "google_news_rss"
+      }
+    ]
+  },
+  {
+    "title": "Waymo Autonomous Vehicle Gets Confused at Phoenix Police Investigation Scene",
+    "summary": "A Waymo autonomous vehicle became disoriented and turned around when encountering an active police investigation scene in Phoenix. The navigation system struggled to appropriately maneuver around emergency vehicles and police directions.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "autonomous_mobility",
+    "root_cause_category": "model",
+    "root_cause_subtype": "edge_case_handling",
+    "failure_mode": "The vehicle's autonomous navigation system failed to handle an active emergency scene, leading to improper maneuvering and traffic disruption near a police investigation.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "low",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Waymo",
+      "Phoenix Police Department"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://www.12news.com/article/news/community/transportation/waymo-gets-turned-around-in-phoenix-police-investigation-scene/75-de0d4a14-1ea1-46ae-9159-81a9ceb1e514"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMi9gFBVV95cUxQWW1KclhvWld5ZElpYjlJMk9UeFppdERPSzhjOHNPMjdtamltbC1DNVF1UU1YVXVBWm1FeDA5d2pHdkVOTnRNRGRSQk5ISW56VXJiMGJZTFZPYXFoWmJKZkY0T2w4ZXE5MEpKSm1uRThzTzF3ZTdlbDNvcEZDQ2FIS3JabnVMS1pHZ3Q1RnZpaERsV3FSZ2VKM3g1Z3FBVVpGcjE4YzlvMFotZzhDSXMyWTFUMXlmaXNGSHpIeXZDbllWdW05ZXY5aHFkVFpKWG1EaHF6dE1UZWRjVWlFdGlnZHNlM1BfOTBNVmhrNEJ0aU41MndUZEE?oc=5\" target=\"_blank\">Waymo gets turned around in Phoenix police investigation scene</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">12News</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-22",
+    "incident_id": "INC-20261122-472"
+  },
+  {
+    "title": "US Senators Urge White House Action Over Escalating AI-Enabled Cyber Threats",
+    "summary": "U.S. Senators Maria Cantwell and Mike Rounds issued warnings to the White House regarding escalating AI-enabled cyberthreats, citing incidents such as AI swarms conducting cyberattacks and rogue AI disrupting banking services. The senators called for expedited development of defensive AI tools and comprehensive national security standards for autonomous AI agents.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "dual_use_security",
+    "intent": "intentional_misuse",
+    "primary_purpose": "defense_national_security",
+    "root_cause_category": "external",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "Autonomous AI agents and swarms were deployed maliciously to execute cyberattacks, identify software vulnerabilities, and disrupt critical financial services and digital infrastructure.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "national_security",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": true,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States",
+      "Japan"
+    ],
+    "affected_parties": [
+      "United States Government",
+      "Financial Institutions",
+      "Japanese Companies"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.foxla.com/news/senators-white-house-action-ai-cyber-threats"
+    ],
+    "source_type": "gdelt",
+    "full_text": "FILE-In this photo illustration, the United States official presidential residence, The White House logo seen displayed on a smartphone with Artificial intelligence (AI) chip and symbol in the background. (Photo Illustration by Budrul Chukrut/SOPA Im\n\nSenators warned the Trump administration that intensifying AI-enabled cyberthreats were overtaking the nation’s defenses amid recent cyberattacks.\n\nReuters reported that AI industry leaders like Anthropic's Dario Amodei, OpenAI's Sam Altman and ‌SpaceX's Elon Musk have called for a slowdown, after incidents like the OpenAI-Hugging Face incident, in which an AI \"swarm\" performed cybersecurity attacks.\n\nDemocratic senator Maria Cantwell and Republican senator Mike Rounds told Reuters that the White House should take immediate action to protect ​sensitive infrastructure, financial institutions and software.\n\nCantwell and Rounds recently sent a letter to Jay Clayton, chair of the White House Super Intelligence Task Force, pointing out that U.S. defenses aren’t keeping pace with the growing capabilities of AI.\n\nRELATED: National cyber chief fired after widespread tech outages\n\nCantwell and Rounds referenced several incidents, including ​AI discovering weaknesses in programming language, rogue AI disrupting banking services and data breaches impacting Japanese companies.\n\nThe senators are pushing for expedited development and deployment ​of defensive AI-powered tools ​as well as strong ⁠security standards for autonomous AI agents.\n\nIn October, Cantwell and Rounds sent another letter to Clayton encouraging the federal government to create a comprehensive national artificial intelligence safety and cyber defense strategy.\n\nThe latest letter from the senators follows several publicized tech-related ​disruptions, including ⁠a Microsoft outage that disrupted many of its services, including email.\n\nThe Source: Information for this story was provided by Reuters, which cites comments and a letter from senators Maria Cantwell and Mike Rounds about White House action on AI cyber threats. This story was reported from Washington, D.C.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-20",
+    "incident_id": "INC-20261120-473"
+  },
+  {
+    "title": "AI-Driven Vulnerability Discovery Accelerates Pressure on Critical Software Infrastructure",
+    "summary": "AI tools are enabling rapid discovery of security vulnerabilities in foundational software languages such as Java and PHP, significantly outpacing traditional patch testing timelines. The pressure to quickly deploy fixes across interconnected digital infrastructure increases the risk of cascading failures and operational outages for critical institutions.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "dual_use_security",
+    "intent": "unintentional_failure",
+    "primary_purpose": "defense_national_security",
+    "root_cause_category": "external",
+    "root_cause_subtype": "accelerated_vulnerability_discovery",
+    "failure_mode": "Automated AI code scanning discovers severe security flaws faster than defenders can safely validate and patch, creating widespread operational strain and heightened potential for service disruptions.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "national_security",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MEASURE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": true,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Cybersecurity and Infrastructure Security Agency",
+      "Microsoft",
+      "Federal Aviation Administration"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://kcby.com/news/nation-world/ai-is-finding-security-flaws-faster-than-companies-can-safely-fix-them"
+    ],
+    "source_type": "gdelt",
+    "full_text": "by AUSTIN DENEAN | The National News Desk\n\nWASHINGTON (TNND) — A series of outages impacting major tech companies and banking institutions has raised concerns about the fragility of the digital infrastructure the world relies on and companies face mounting pressure to address security issues artificial intelligence is making easier to find.\n\nA global outage of Microsoft services, a nationwide ground stoppage from the Federal Aviation Administration, issues accessing ATMs or completing transactions at Chase, outages impacting Apple are just a sample of recent disruptions that have raised questions about whether critical systems can withstand the accelerating pace of technological advancement.\n\nWhile governments and the companies that suffered outages have so far ruled out a cyberattack or other foul play, a week of seemingly constant issues have raised concerns about what could go wrong next and whether the world is ready to deal with it.\n\nMost of the outages over the last week have been attributed to system maintenance and technical changes, underscoring the challenge of making changes to complex systems, even when the updates are meant to improve their security.\n\nThose challenges may grow as AI tools make it easier to identify security vulnerabilities faster than companies and government agencies can repair them. That is creating pressure to release patches more quickly, increasing the risk of introducing new problems that can lead to outages as companies rush to protect their systems from potential attacks.\n\nResearchers have already found major flaws in code widely used by government agencies and the world’s biggest companies. Earlier this month, cybersecurity startup Calif said it found a critical software flaw in Java using an AI model, a programming language used by banks, hospitals, tech giants and federal government agencies. The company said its researcher found the flaw in just an hour and developed a working exploit two hours later with a total cost of less than $200 in AI usage.\n\nLast month, the same group found a major security flaw in PHP, a programming language estimated to be used by some 70% of websites and apps.\n\nBoth discoveries prompted warnings from government agencies like the Cybersecurity and Infrastructure Agency for companies to deploy a patch or take their websites offline if they couldn’t fix it quickly.\n\nThe discoveries showcase a growing challenge for cyber defenders as AI makes it easier to uncover flaws that have gone mostly unnoticed for years. Cybersecurity analysts can use AI tools to find and repair vulnerabilities before they are exploited, but they are also giving attackers more powerful tools to identify weaknesses.\n\nThe challenge is that identifying a vulnerability is often easier than fixing it, and a single update can impact thousands of interconnected systems, making it harder to anticipate how that update will affect other software or infrastructure.\n\n“The fact is that everything is very vulnerable to cybersecurity attacks. We have historically gotten away with having pretty sloppy practices as a tech industry, and generally, people have gotten away with this because of this idea of security by obscurity,” said Andrew Yoon, head of research at CivAI, an AI safety nonprofit. “We are still unfortunately in the early innings here.”\n\nTech industry leaders and cybersecurity experts have increasingly warned outages could become more frequent as more vulnerabilities are found and security patches get released.\n\nMicrosoft CEO Satya Nadella warned of a prolonged period of instability as AI tools put more pressure on companies to find holes and implement fixes, potentially shortening the window to test updates before they are deployed across critical systems.\n\n“You have essentially a nation-state level persistent attacker going after you all the time, so that means we have a lot of fragility and we have to deal with it,” Nadella said during an appearance at the DealBook Summit on Wednesday.\n\nTh",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-19",
+    "incident_id": "INC-20261119-474"
   }
 ]
