@@ -25435,6 +25435,7 @@
       "European Union"
     ],
     "affected_parties": [
+      "EU Academy Users",
       "European Union",
       "European Commission"
     ],
@@ -25444,14 +25445,15 @@
     },
     "source_urls": [
       "https://www.ksl.com:443/article/51646858/a-cyberattack-using-artificial-intelligence-targeted-the-eu-in-october-official-says",
-      "https://www.wlky.com/article/cyberattack-artificial-intelligence-targeted-eu-october/74476095"
+      "https://www.wlky.com/article/cyberattack-artificial-intelligence-targeted-eu-october/74476095",
+      "https://www.koat.com/article/eu-academy-data-leak-ai-driven-cyberattack/74515041"
     ],
     "source_type": "gdelt",
-    "full_text": "BRUSSELS — Cybersecurity experts have been dealing with an AI-generated attack on a key European Union institution for almost a month, an official confirmed on Thursday, with some of the bloc's digital tools still offline.\n\nThe official did not elaborate on the cyberattack, or say who could have been behind it. It was the first time the 27-member bloc reported a cyberattack using an AI tool.\n\n\"AI-assisted tools can be used and especially misused to detect vulnerabilities,\" said Thomas Regnier, spokesperson for the European Commission, the executive body of the 27-nation EU.\n\n\"Indeed we can confirm that this was done with AI tools,\" he added. \"We have seen many global cyberattacks recently, and of course no one is immune to this.\"\n\nRegnier said the EU first detected the incident on Oct. 22 and that authorities launched an investigation while also imposing \"preventative measures.\"\n\nPolitico first reported the incidents. The news site said the attack lasted at least 10 days and affected translation and reimbursement tools as well as databases used for salaries and timesheets. Regnier declined to confirm that report.\n\n\"We temporarily took down several applications, and most of them have since then been restored,\" Regnier said. So far, however, Regnier said that \"we have not detected any evidence of a data breach affecting commission staff as a whole.\"\n\nThe EU agency CERT-EU oversees the digital security of the bloc's various institutions, which all together employ about 40,000 people just in Brussels.\n\nThe agency had posted a blog on Nov. 4 warning about threats from a specific tool called ARTEX. While designed to use AI to identify vulnerabilities in digital systems, it has been linked to recent attacks across the globe. \"We assess that ARTEX's public availability will likely accelerate adoption by threat actors, resulting in more frequent, faster, and more scalable automated attacks with a higher success rate,\" the office said. The October attacks targeted the headquarters of the EU's executive branch, but no similar incidents were reported by the EU's two other main institutions, the European Council and European Parliament.",
+    "full_text": "The European Commission on Monday warned users of one of its websites that personal data has been leaked in a major AI-generated cyberattack that was launched on the EU institution last month.\n\nVideo above: Could AI’s discovery of software flaws lead to more outages?\n\nThe European Union’s executive branch said the EU Academy website had been caught up in the cyberattack. The site offers courses and information about the 27-nation bloc’s policies to people outside EU institutions.\n\n“The exact scale of the data leak remains under investigation as a precautionary measure,” spokesperson Thomas Regnier said. Names and email addresses were among the data taken, he said, but did not specify how many people were affected.\n\nThe commission confirmed last week that it had first detected incidents involving its databases on Oct. 22 and that its cyber experts had taken “preventive measures” to limit the damage.\n\nRegnier declined to confirm whether the month-long cyber campaign has been brought under control.\n\n“As long as the investigation is ongoing, I will not make any conclusive statements at this stage on where we are,” he said.\n\nA message on the EU Academy website said that access had been disabled and measures taken to contain the incident and limit its impact. It warned users to watch for suspicious or unsolicited emails and messages and to avoid sharing personal information with anyone contacting them about the website or its activities.\n\nThe CERT-EU agency oversees the digital security of the EU institutions, which employ about 40,000 people just in Brussels.\n\nVideo below: Holiday Charity Scams 2026\n\nIn a Nov. 4 blog post, the agency warned about threats from a specific AI tool called ARTEX. While designed to use AI to identify vulnerabilities in digital systems, it has been linked to recent attacks across the globe.\n\nThe agency said it was “highly likely” that ARTEX had been used in AI-driven activities in “its constituency.” It did not confirm any attack on the commission.\n\n“We assess that ARTEX’s public availability will likely accelerate adoption by threat actors, resulting in more frequent, faster, and more scalable automated attacks with a higher success rate,” the agency said.",
     "valuation_methodology": "unquantified",
     "date": "2026-11-19",
     "incident_id": "INC-20261119-467",
-    "last_updated_date": "2026-11-19",
+    "last_updated_date": "2026-11-24",
     "timeline": [
       {
         "date": "2026-11-19",
@@ -25467,6 +25469,14 @@
         "summary_delta": "Report B provides the specific timeline details, noting the incident occurred in October, was detected specifically on October 22, and prompted preventative application shutdowns.",
         "phase": "investigation",
         "source_url": "https://www.wlky.com/article/cyberattack-artificial-intelligence-targeted-eu-october/74476095",
+        "source_type": "gdelt"
+      },
+      {
+        "date": "2026-11-24",
+        "title": "AI-Powered Cyberattack Targets European Commission's EU Academy Leading to Data Leak",
+        "summary_delta": "Report B provides specific technical details regarding the tool used (ARTEX), identifies the affected platform as the EU Academy website, and confirms a personal data leak of names and email addresses.",
+        "phase": "technical_disclosure",
+        "source_url": "https://www.koat.com/article/eu-academy-data-leak-ai-driven-cyberattack/74515041",
         "source_type": "gdelt"
       }
     ]
@@ -25537,6 +25547,7 @@
       "United States"
     ],
     "affected_parties": [
+      "Vehicle Passenger",
       "Miami Police Department",
       "Waymo"
     ],
@@ -25546,14 +25557,15 @@
     },
     "source_urls": [
       "https://www.miamiherald.com/news/local/community/miami-dade/little-havana/article318204589.html",
-      "https://www.nbcmiami.com/news/local/1-hospitalized-after-crash-involving-cruiser-and-waymo-in-miami-police-say/3891558/"
+      "https://www.nbcmiami.com/news/local/1-hospitalized-after-crash-involving-cruiser-and-waymo-in-miami-police-say/3891558/",
+      "https://www.facebook.com/NBC6SouthFlorida/videos/police-cruiser-slams-into-waymo-after-crash-in-miami-a-passenger-was-taken-to-th/1116392341019679/"
     ],
     "source_type": "google_news_rss",
     "full_text": "According to Miami Police, at around 10:30 a.m., a cruiser and the autonomous vehicle were involved in a crash in the area of Northwest 17th Avenue and Seventh Street.\n\nA crash involving a Miami police cruiser and a Waymo sent one person to the hospital on Sunday, authorities said.\n\nAccording to Miami Police, at around 10:30 a.m., a cruiser and the autonomous vehicle were involved in a crash in the area of Northwest 17th Avenue and Seventh Street.\n\nVideo shows the cruiser with severe front-end damage, as well as the Waymo.\n\nPolice said one person who was inside the Waymo was taken to the hospital.\n\nDetails of the crash remain limited.\n\nNBC6 has reached out to Waymo for information on the incident.\n\nLast Sunday, a Waymo was struck by another vehicle that was drifting in the intersection of Northwest 27th Street and 12th Street, the company said.",
     "valuation_methodology": "unquantified",
     "date": "2026-11-22",
     "incident_id": "INC-20261122-469",
-    "last_updated_date": "2026-11-22",
+    "last_updated_date": "2026-11-23",
     "timeline": [
       {
         "date": "2026-11-22",
@@ -25569,6 +25581,14 @@
         "summary_delta": "Report B provides additional details revealing that the collision was severe enough to hospitalize a Waymo passenger and caused significant front-end damage to both vehicles.",
         "phase": "impact_escalation",
         "source_url": "https://www.nbcmiami.com/news/local/1-hospitalized-after-crash-involving-cruiser-and-waymo-in-miami-police-say/3891558/",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-11-23",
+        "title": "Miami Traffic Collision Involving Waymo Autonomous Vehicle, Police Cruiser, and Private Car",
+        "summary_delta": "Report B provides clarifying details that the Waymo vehicle was stationary at a red light and involved in a multi-vehicle collision including a private car, whereas Report A framed it broadly as a severe crash.",
+        "phase": "technical_disclosure",
+        "source_url": "https://www.facebook.com/NBC6SouthFlorida/videos/police-cruiser-slams-into-waymo-after-crash-in-miami-a-passenger-was-taken-to-th/1116392341019679/",
         "source_type": "google_news_rss"
       }
     ]
