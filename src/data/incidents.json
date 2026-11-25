@@ -16920,30 +16920,31 @@
       "United States"
     ],
     "affected_parties": [
-      "Elliot Slade",
-      "Public drivers and road workers",
       "Robotaxi Passengers",
-      "Waymo passengers",
+      "Public motorists and pedestrians",
       "Waymo",
-      "Passengers (e.g., Elliot Slade)",
       "Public motorists and road workers",
-      "Waymo LLC",
-      "NHTSA",
-      "California Department of Motor Vehicles",
-      "Passengers",
-      "Passengers (e.g., Elliot Slade and fiancée)",
-      "National Highway Traffic Safety Administration",
-      "General Public",
-      "California Highway Patrol",
       "National Highway Traffic Safety Administration (NHTSA)",
-      "Public motorists and pedestrians"
+      "NHTSA",
+      "Waymo LLC",
+      "National Highway Traffic Safety Administration",
+      "Waymo passengers",
+      "Passengers (e.g., Elliot Slade and fiancée)",
+      "California Highway Patrol",
+      "California Department of Motor Vehicles",
+      "General Public",
+      "Public drivers and road workers",
+      "Passengers",
+      "Elliot Slade",
+      "Passengers (e.g., Elliot Slade)"
     ],
     "source_urls": [
       "https://www.reuters.com/legal/litigation/waymo-recall-over-3800-robotaxis-over-risk-entering-closed-construction-zones-2026-06-18/",
       "https://abc7news.com/post/waymo-recalls-entire-us-fleet-robotaxis-drive-speed-freeway-work-zones-due-software-glitch/19325191/",
       "https://www.cnbc.com/2026/06/18/waymo-nhtsa-voluntary-recall-robotaxis-entered-freeway-construction-zones.html",
       "https://abc7news.com/post/waymo-recall-san-francisco-man-recounts-terrifying-moment-when-robotaxi-goes-haywire-construction-zone/19328050/",
-      "https://www.foxbusiness.com/technology/waymo-issues-double-safety-recall-days-after-california-bans-robotaxis-from-freeways"
+      "https://www.foxbusiness.com/technology/waymo-issues-double-safety-recall-days-after-california-bans-robotaxis-from-freeways",
+      "http://www.russiaherald.com/news/279447732/waymo-issues-two-recalls-as-scrutiny-of-its-robotaxis-grows"
     ],
     "related_incidents": [],
     "created_at": "2026-09-26T16:08:13.817751+00:00",
@@ -16953,7 +16954,7 @@
     "iso_42001_category": "System_Impact",
     "impact_scope": "discrete_incident",
     "valuation_methodology": "unquantified",
-    "last_updated_date": "2026-11-22",
+    "last_updated_date": "2026-11-23",
     "timeline": [
       {
         "date": "2026-06-18",
@@ -16978,6 +16979,14 @@
         "phase": "regulatory_action",
         "source_url": "https://www.foxbusiness.com/technology/waymo-issues-double-safety-recall-days-after-california-bans-robotaxis-from-freeways",
         "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-11-23",
+        "title": "Waymo Recalls Self-Driving System Following Freeway and Traffic Control Incidents",
+        "summary_delta": "Report B details two voluntary safety recalls filed with NHTSA that also incorporate incidents involving manual traffic control at intersections and subsequent California DMV actions, expanding upon Report A's initial focus on construction zones.",
+        "phase": "regulatory_action",
+        "source_url": "http://www.russiaherald.com/news/279447732/waymo-issues-two-recalls-as-scrutiny-of-its-robotaxis-grows",
+        "source_type": "gdelt"
       }
     ]
   },
@@ -25818,5 +25827,186 @@
     "valuation_methodology": "unquantified",
     "date": "2026-11-19",
     "incident_id": "INC-20261119-474"
+  },
+  {
+    "title": "Waymo Recalls Autonomous Robotaxi Software Over Human Instruction Handling",
+    "summary": "Waymo issued a software recall for its autonomous vehicle fleet after identifying issues with how the robotaxis respond to human instructions and traffic controllers. The failure to properly interpret or execute human commands presented potential traffic safety risks during operation.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "autonomous_mobility",
+    "root_cause_category": "model",
+    "root_cause_subtype": "instruction_following_failure",
+    "failure_mode": "Robotaxis failed to properly process and respond to human traffic signals and instructions during operation, leading to a voluntary safety recall.",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Waymo",
+      "General Public"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://insideevs.com/news/816340/waymo-manually-controlled-intersection-recall/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMihwFBVV95cUxOVzlGWFhaUFh4X3lJaE1iUVJWTjh2RElzY3B2YkNNY0QweVg1TFNyZXRmQkFXdkppVU9wTS0xOFJZN3NudEJadjVfaElHZzN1T2E2MzVFTWZIaUxsWjFSbVMxOTNmcXdvc3I0Y1NIeFhPb3FhZHh1T044TVhRSnc0LVYzc3JycEE?oc=5\" target=\"_blank\">Waymo Is Recalling Its Robotaxis Because They're Not Great At Dealing With Human Instructions</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">InsideEVs</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-21",
+    "incident_id": "INC-20261121-475"
+  },
+  {
+    "title": "New York Pauses AI Chatbot Toy Sales Over Child Safety Risks",
+    "summary": "New York Governor Kathy Hochul signed legislation implementing a five-year ban on the manufacturing, distribution, and sale of AI-powered chatbot toys due to child safety concerns. Advocacy groups reported incidents of AI toys engaging in sexual conversations and advising children on dangerous activities, such as finding knives. Manufacturers failing to comply face fines of up to $15,000 per day.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "governance",
+    "root_cause_subtype": "lack_of_guardrails",
+    "failure_mode": "Generative AI integrated into children's toys operated with minimal safety controls, resulting in inappropriate conversations and dangerous instructions provided to young users.",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "GOVERN",
+    "iso_42001_category": "Internal_Governance",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "AI toy manufacturers",
+      "AI Chatbot Toy Manufacturers",
+      "Children"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://abc7ny.com/post/new-york-pauses-ai-chatbot-toy-sales-citing-child-safety-concerns/20076376/",
+      "https://www.foxnews.com/video/6408833189112"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "NEW YORK (WABC) -- New York has enacted a five-year pause on the manufacturing, distribution and sale of artificial intelligence chatbot toys, with Gov. Kathy Hochul citing concerns about potential risks to children.\n\nSpeaking Tuesday in Harlem, Hochul signed legislation targeting stuffed dolls and animals with internet access and integrated AI capabilities. The governor said the toys can allow children, regardless of age, to have conversations with software while operating with minimal safety controls.\n\n\"Parents, as you're out there buying gifts for the kids for the holiday season, I wanted you to hear this loud and clear. This is a warning that there are toys out there that could be harmful to your children,\" Hochul said.\n\nThe announcement was made at Grandma's Place, a Harlem toy store owned by retired schoolteacher Dawn Harris-Martine, known to customers as Grandma Dawne.\n\n\"A good toy for a child is the one that stretches their imagination,\" Harris-Martine said.\n\nHarris-Martine opened the store in the late 1990s and said she has long encouraged parents to be actively involved in their children's play.\n\n\"Do not put an iPad in your child's hands and go off and let them sit there and play with it themselves. Be present when they're there, get off your phone,\" she said.\n\nAccording to Hochul, toy manufacturers that do not comply with the law could face penalties of up to $15,000 per day. The governor said technology is evolving rapidly and that laws must adapt to keep pace.\n\nSupporters of the measure say AI-powered toys have generated concerns about child safety.\n\n\"We as the parents, and the children, we want these toys to be fun, but we also have a baseline expectation that they will be safe,\" said Muna Heaven, a Harlem mother and member of Mothers Against Media Addiction.\n\nHeaven said the group has identified examples ranging from inappropriate or sexual conversations to dangerous advice, including instructions on how to find knives, associated with AI chatbot toys.\n\n\"Unfortunately, young people, we have so many examples, are being harmed by toys powered by artificial intelligence,\" she said.\n\nAt Grandma's Place, Harris-Martine said she plans to continue offering what she described as an AI-free environment for children and families.\n\n\"It's really necessary when a three-year-old can sit and listen to a teddy bear telling them to do strange things it's not a good thing,\" she said.\n\n* Download the abc7NY app for breaking news alerts\n\nHave a breaking news tip or an idea for a story we should cover? Send it to Eyewitness News using the form below.    If attaching a video or photo, terms of use apply.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-24",
+    "incident_id": "INC-20261124-476",
+    "last_updated_date": "2026-11-24",
+    "timeline": [
+      {
+        "date": "2026-11-24",
+        "title": "New York Pauses AI Chatbot Toy Sales Over Child Safety Risks",
+        "summary_delta": "New York Governor Kathy Hochul signed legislation implementing a five-year ban on the manufacturing, distribution, and sale of AI-powered chatbot toys due to child safety concerns.",
+        "phase": "initial_report",
+        "source_url": "https://abc7ny.com/post/new-york-pauses-ai-chatbot-toy-sales-citing-child-safety-concerns/20076376/",
+        "source_type": "google_news_rss"
+      }
+    ]
+  },
+  {
+    "title": "European Commission Warns EU Academy Users of Data Leak Following AI-Driven Cyberattack",
+    "summary": "The European Commission notified users of its EU Academy platform about a personal data breach resulting from an automated, AI-driven cyberattack. Cyber security agency CERT-EU linked the threat environment to ARTEX, a dual-use AI tool capable of identifying system vulnerabilities and automating offensive cyber operations. Unauthorized actors accessed databases containing user names and email addresses, prompting the shutdown of the site while investigations continue.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "dual_use_security",
+    "intent": "intentional_misuse",
+    "primary_purpose": "defense_national_security",
+    "root_cause_category": "external",
+    "root_cause_subtype": "adversarial_attack",
+    "failure_mode": "Malicious threat actors leveraged an automated AI vulnerability scanning tool (ARTEX) to compromise European Commission databases and exfiltrate personal user data.",
+    "harm_domain": "persons_rights",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": true,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "Belgium",
+      "European Union"
+    ],
+    "affected_parties": [
+      "European Commission",
+      "EU Academy users"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://www.kmbc.com/article/eu-academy-data-leak-ai-driven-cyberattack/74515041"
+    ],
+    "source_type": "gdelt",
+    "full_text": "The European Commission on Monday warned users of one of its websites that personal data has been leaked in a major AI-generated cyberattack that was launched on the EU institution last month.\n\nVideo above: Could AI’s discovery of software flaws lead to more outages?\n\nThe European Union’s executive branch said the EU Academy website had been caught up in the cyberattack. The site offers courses and information about the 27-nation bloc’s policies to people outside EU institutions.\n\n“The exact scale of the data leak remains under investigation as a precautionary measure,” spokesperson Thomas Regnier said. Names and email addresses were among the data taken, he said, but did not specify how many people were affected.\n\nThe commission confirmed last week that it had first detected incidents involving its databases on Oct. 22 and that its cyber experts had taken “preventive measures” to limit the damage.\n\nRegnier declined to confirm whether the month-long cyber campaign has been brought under control.\n\n“As long as the investigation is ongoing, I will not make any conclusive statements at this stage on where we are,” he said.\n\nA message on the EU Academy website said that access had been disabled and measures taken to contain the incident and limit its impact. It warned users to watch for suspicious or unsolicited emails and messages and to avoid sharing personal information with anyone contacting them about the website or its activities.\n\nThe CERT-EU agency oversees the digital security of the EU institutions, which employ about 40,000 people just in Brussels.\n\nVideo below: Holiday Charity Scams 2026\n\nIn a Nov. 4 blog post, the agency warned about threats from a specific AI tool called ARTEX. While designed to use AI to identify vulnerabilities in digital systems, it has been linked to recent attacks across the globe.\n\nThe agency said it was “highly likely” that ARTEX had been used in AI-driven activities in “its constituency.” It did not confirm any attack on the commission.\n\n“We assess that ARTEX’s public availability will likely accelerate adoption by threat actors, resulting in more frequent, faster, and more scalable automated attacks with a higher success rate,” the agency said.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-24",
+    "incident_id": "INC-20261124-477"
+  },
+  {
+    "title": "State Lawsuits Filed Against Elon Musk's Companies Over Grok AI Generating Sexualized Imagery and CSAM",
+    "summary": "State attorneys general in Virginia and Oregon filed lawsuits against Elon Musk's companies, including X Corp and SpaceX, alleging that the Grok chatbot lacked essential guardrails against generating nonconsensual intimate imagery. The lawsuits claim that deliberate decisions to market a 'spicy mode' and relax system prompts allowed users to create sexualized fake images of women and minors. The state AGs seek injunctive relief, disgorgement of profits, and civil penalties for consumer protection violations.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "deployment_and_integration",
+    "system_classification": "general_purpose_model",
+    "intent": "intentional_misuse",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "governance",
+    "root_cause_subtype": "insufficient_guardrails",
+    "failure_mode": "Developers intentionally omitted industry-standard safety filters and relaxed system prompts in Grok's image generator, allowing users to bypass minimal restriction controls to generate nonconsensual sexualized imagery and child sexual abuse material.",
+    "harm_domain": "persons_rights",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "GOVERN",
+    "iso_42001_category": "Data_&_Resources",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Consumers",
+      "Women",
+      "Minors"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.95,
+      "harm_domain": 0.9,
+      "root_cause_category": 0.9
+    },
+    "source_urls": [
+      "https://www.ketv.com/article/musk-companies-grok-sexualized-images-lawsuit/74507641"
+    ],
+    "source_type": "gdelt",
+    "full_text": "Elon Musk’s businesses harmed consumers by avoiding safeguards when they designed and launched an artificial intelligence chatbot capable of creating sexualized images, two Democratic attorneys general argued in lawsuits filed Monday.\n\nThe choices that went into building Grok led to a proliferation of child sexual abuse material and other nonconsensual intimate imagery on the companies' platforms, the lawsuit said. The companies prioritized their business model over the safety of millions of people, Virginia Attorney General Jay Jones said in his state’s lawsuit.\n\n“To push its lagging product, Grok, to tens of millions of new users, it stripped out industry-standard safeguards and marketed a ‘spicy mode’ built to produce nudity,\" Jones said in the lawsuit. “For these Defendants, weak safeguards were not a failure but a feature.”\n\nOregon also filed a lawsuit Monday. The attorneys general brought their separate but similar cases under their states' consumer protection statutes.\n\nThe lawsuits named as defendants several Musk companies and subsidiaries, including SpaceX and X Corp. Company representatives have not responded to an emailed request for comment.\n\nThe lawsuits come at a time of growing concern about AI’s risks for children, from its impact on brain development to the unhealthy relationships many young people have formed with chatbots.\n\nGrok, which can be accessed through Musk's social media platform X, rolled out image generation and editing features to all users in December 2025, according to the Virginia lawsuit. By January, the tool had sparked a global backlash after it became clear Grok users could create realistic-looking but fake sexualized images of people. Researchers warned that some appeared to depict children.\n\nAs the Virginia lawsuit put it, “X was flooded with sexualized content — primarily of women.”\n\nAt least two countries, Malaysia and Indonesia, announced temporary bans and other nations said they were launching or widening investigations. In response, Grok prevented non-paying users from generating or editing images.\n\nThe change didn't stop users from making more non-consensual sexualized images; “it simply made that generation profitable,\" Virginia’s lawsuit said.\n\nThe developer of Grok was then known as xAI, and has since rebranded to SpaceX Super Intelligence.\n\nVirginia argued that most major AI developers designed their products so they could not be used to produce sexualized images to avoid the generation of nonconsensual content.\n\n“Defendants declined to implement these safeguards. Defendants’ published system prompt materials — the set of instructions that guides the AI model’s behavior — told Grok to ‘assume good intent,’ stated that terms such as ‘teenage’ or ‘girl’ do not necessarily imply underage, and imposed minimal restrictions on sexual content,\" the lawsuit said.\n\nThe lawsuit noted that xAI marketed Grok from the outset as a tool that would “answer spicy questions that are rejected by most other AI systems.”\n\nAnd it argues X made “false, deceptive or misleading” statements in January about changes intended to prevent Grok from allowing users to edit images of real people in revealing clothes.\n\nUsers could still create nonconsensual sexualized imagery through a standalone app and website, the lawsuit said. And when users openly traded “jailbreak” prompts to get around what limits Grok did have on sexualized images, Musk’s companies failed to promptly address the exploits, the Virginia lawsuit alleged.\n\nBoth lawsuits draw heavily on news outlets’ investigative reporting about the rollout of the tool, the backlash and the company’s response to it.\n\nVirginia's lawsuit, filed in a state court in Richmond, argued that the Musk companies violated the state's consumer protection law by \"misrepresenting that they implemented and enforced safeguards to protect consumers from exposure\" to harmful sexualized imagery on their platforms.\n\nIt asked the court for $2,500 for each “willful violation” o",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-23",
+    "incident_id": "INC-20261123-478"
   }
 ]
