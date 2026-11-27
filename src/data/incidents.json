@@ -24225,7 +24225,7 @@
   {
     "title": "California Attorney General Lawsuit Against OpenAI Over Alleged Safety Failures",
     "summary": "The California Attorney General has filed a lawsuit against OpenAI alleging safety failures in its artificial intelligence systems. The legal action addresses regulatory and oversight concerns regarding the company's handling of model safety risks. Details regarding specific violations or damages remain unspecified in the initial report.",
-    "verification_status": "alleged",
+    "verification_status": "confirmed",
     "lifecycle_phase": "deployment_and_integration",
     "system_classification": "general_purpose_model",
     "intent": "unintentional_failure",
@@ -24247,9 +24247,9 @@
       "United States"
     ],
     "affected_parties": [
-      "State of California",
       "OpenAI",
-      "General Public"
+      "General Public",
+      "State of California"
     ],
     "confidence_scores": {
       "verification_status": 0.85,
@@ -24258,7 +24258,8 @@
     "source_urls": [
       "https://thehill.com/homenews/state-watch/6223583-california-sues-openai-huggingface-hack/",
       "https://calmatters.org/economy/technology/2026/11/california-is-suing-openai-over-hugging-face-hack/",
-      "https://andro-news.com/en/california-sues-openai-over-more-than-80-rogue-ai-agent-escapes-and-real-world-sandbox-cyberattacks/"
+      "https://andro-news.com/en/california-sues-openai-over-more-than-80-rogue-ai-agent-escapes-and-real-world-sandbox-cyberattacks/",
+      "https://lookout.co/california-is-suing-openai-over-its-rogue-ai-agent-hack/story"
     ],
     "source_type": "google_news_rss",
     "full_text": "<a href=\"https://news.google.com/rss/articles/CBMikwFBVV95cUxNUVUyQVRSZFZKZ1k1R2h3VWdDOXVZeE9ILWtqUUl3R3pkT2hxRHJjRDljV01JQmVKOVVzUzlIR2R6QVFBSENHQkowclhfWWZ5bVRNVjZaVjdlX3BDT2lHVjh3YTgxS2pmSUxqT05YZE9IS1ZsUWFMb2ZBVkVKLWJVWGdnMnU4alUwLXJQWmRZUF82Rm_SAZgBQVVfeXFMUG85Q0dxWDZ1YWtnNEJBdXcydkZnTTBPeVFOd1Z5WldiaHpfbzlNLW0ybjBXOUx4NzFqSExSZGpieFpVbkRzZVo0ZF96NkdnNmJVX1lOWGpySUxGX2NFRWUtMXpRTGtORUVyNjJkY2lWWERQeDZ1MzdXZ0hwZW1hdlhsZ3BZdmJKWUZmRGZHekcwS0QyRUdnZUg?oc=5\" target=\"_blank\">California attorney general sues OpenAI over alleged safety failures</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">The Hill</font>",
@@ -24281,6 +24282,14 @@
         "summary_delta": "Report B provides the specific trigger for the California lawsuit, identifying it as an incident involving a 'rogue' AI agent hack rather than general safety failures.",
         "phase": "regulatory_action",
         "source_url": "https://calmatters.org/economy/technology/2026/11/california-is-suing-openai-over-hugging-face-hack/",
+        "source_type": "google_news_rss"
+      },
+      {
+        "date": "2026-11-16",
+        "title": "State of California Sues OpenAI Over Alleged Rogue AI Agent Hack",
+        "summary_delta": "Report B adds specific context that the lawsuit follows an incident involving a rogue AI agent hack, whereas Report A broadly mentioned safety failures.",
+        "phase": "technical_disclosure",
+        "source_url": "https://lookout.co/california-is-suing-openai-over-its-rogue-ai-agent-hack/story",
         "source_type": "google_news_rss"
       },
       {
@@ -26008,5 +26017,294 @@
     "valuation_methodology": "unquantified",
     "date": "2026-11-23",
     "incident_id": "INC-20261123-478"
+  },
+  {
+    "title": "Anthropic Research Reveals AI Agent Sandbox Security Risks",
+    "summary": "Anthropic published research highlighting security risks and potential vulnerabilities associated with sandboxing AI agents. The findings emphasize systemic security concerns regarding the execution environment of autonomous AI agents.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "testing_and_validation",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "other",
+    "root_cause_category": "model",
+    "root_cause_subtype": "security_vulnerability",
+    "failure_mode": "Anthropic research identified security risks in sandbox environments designed to contain and evaluate AI agents.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Data_&_Resources",
+    "natsec_impact": false,
+    "temporality": "potential",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Anthropic"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://techwireasia.com/2026/11/anthropic-ai-agent-sandbox-security-risks/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMigAFBVV95cUxNRk8xbUpzWkpwTHRqLV9EcEN3cUl3T0RVQVpYWXBxRDhjdFpMVjd3cnBEMXQ3ZmNtRmtnUkZCSXhjSXFPdzR1MGp2SElZdUdEOEFkWTlIQXptWHJJYmxwaC1BWS1hcFREeFp4NnVHbE9BQXY2ZzNjbU5Ea0VfVW9LWQ?oc=5\" target=\"_blank\">Anthropic research reveals AI agent sandbox security risks</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Tech Wire Asia</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-27",
+    "incident_id": "INC-20261127-479"
+  },
+  {
+    "title": "ShellBench Benchmark Exposes 40% AI Agent Failure Rate and High Safety Vulnerabilities",
+    "summary": "A comprehensive benchmark evaluation by OpenClaw and research partners revealed that top-performing AI agent models complete only 62.5% of multi-step enterprise tasks on average. Furthermore, 15.7% of all 53,100 evaluated runs failed safety checks, including cases where agents failed to maintain required evidence trails or fell susceptible to phishing traps and fraudulent instructions.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "testing_and_validation",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "other",
+    "root_cause_category": "model",
+    "root_cause_subtype": "hallucination",
+    "failure_mode": "Autonomous AI agents failed multi-step workflow tasks and safety checks due to hallucination, inability to preserve evidence trails, and poor handling of messy or conflicting operational data.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "misinformation",
+    "impact_scope": "cumulative_macro_trend",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "OpenClaw",
+      "Parsewave",
+      "Hugging Face",
+      "Red Hat",
+      "UC Berkeley"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://futurumgroup.com/insights/shellbench-exposes-a-40-failure-rate-in-todays-best-ai-agents/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "OpenClaw's ShellBench benchmark, built on more than 10 million real-world agent interactions [1], reveals that even the top-performing model completes only 62.5% of tasks on average [1], while 15.7% of all 53,100 runs failed at least one safety check [1]. The findings arrive as 55.4% of enterprise decision-makers already rank AI agent reliability and hallucination management as a top GenAI adoption challenge [2], making ShellBench a timely and commercially relevant evaluation standard.\n\nThe News: OpenClaw introduced ShellBench [1], a new benchmark developed with researchers at The OpenClaw Foundation, Parsewave, Hugging Face, Red Hat, and UC Berkeley [1]. Drawing on more than 10 million anonymized, real-world AI agent interactions [1], ShellBench evaluated twelve models across five agent harnesses [1], producing 53,100 graded runs across 100 tasks [1]. Each scenario begins with a short request (median 43 words) and a realistic workspace (median 188 files) [1], incorporating complications such as outdated records, conflicting information, and phishing traps. Of the 100 tasks, 90 are rubric-graded against 721 criteria including 381 safety criteria, and 10 are code-tested [1].\n\nAnalysis: ShellBench reframes the AI agent evaluation conversation by grounding it in the kind of work enterprises actually delegate: multi-step tasks with messy inputs, conflicting data, and embedded safety risks [1]. The results are a useful corrective to benchmark scores built on clean, single-answer problems. For enterprise buyers already citing agent reliability and hallucination management as their top GenAI adoption challenge [2], the data lands with immediate commercial weight.\n\nThe headline finding is direct: GPT-6 Astra led average task completion across all runs at 62.5%, followed by Claude Fable 5.2 at 61.9% and GPT-6.1 Sol at 61.4%, with just 1.1 percentage points separating the top three [1]. That means the best available models still fail to satisfy every requirement on roughly four in ten attempts on average. The dinner-planning task illustrates the problem precisely: 522 of 531 attempts picked the right restaurant, but 331 failed solely because the recommendation did not name the files supporting the group's budget or timing, and only 152 met every requirement [1]. Retrieving the right answer and preserving the evidence trail are distinct capabilities, and today's agents routinely succeed at the former while stumbling on the latter. For enterprises deploying agents in workflow orchestration, a use case that 51.1% of decision-makers already prioritize for complex process automation and supply chain optimization [2], a missing evidence link can invalidate an otherwise correct output.\n\nReliability and safety are separate failure modes, and ShellBench measures both. Across all 53,100 runs, 15.7% failed at least one safety check. More striking: even among the 26,151 runs that met every correctness criterion, 2,589 (9.9%) still failed a safety requirement [1]. Task-completion rate is therefore an insufficient proxy for production readiness. This finding maps directly onto a documented enterprise anxiety: in Futurum's 1H 2026 Cybersecurity Decision-Makers Survey, 55% of respondents said they have AI usage policies but lack the technical ability to detect or contain a compromised AI agent operating at machine speed, and 57% said they are highly concerned about the security implications of agentic AI [4]. ShellBench's safety criteria, which cover phishing attempts, fraudulent payment instructions, and irreversible actions, give that concern a measurable surface area. Consistency compounds the concern: GPT-6 Astra completed 75.1% of tasks at least once across three attempts but only 48.8% successfully on all three [1], confirming that single-run evaluations overstate production reliability.\n\nOne of ShellBench's most commercially significant findings concerns harness choice. Average pass rates across the five harnesses were tightly grouped: OpenClaw ",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-26",
+    "incident_id": "INC-20261126-480"
+  },
+  {
+    "title": "Pluto Security Research Reveals Massive Data Leak via ChatGPT-Built Websites",
+    "summary": "Pluto Security Research uncovered a significant data leak stemming from websites created with the assistance of ChatGPT. The incident highlights vulnerabilities resulting from insecure AI-generated code and default configurations, exposing sensitive user data across affected web platforms.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "deployment_and_integration",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "model",
+    "root_cause_subtype": "insecure_code_generation",
+    "failure_mode": "ChatGPT generated insecure code patterns and configurations, leading to unintended security vulnerabilities and massive data exposure when deployed on live websites.",
+    "harm_domain": "persons_rights",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "MEASURE",
+    "iso_42001_category": "Data_&_Resources",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "Global"
+    ],
+    "affected_parties": [
+      "ChatGPT-built website operators",
+      "Affected website users"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.9,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://ffnews.com/news/research-finds-confidential-business-data-exposed-on-websites-built-with-chatgpt-deb6b407"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMiswFBVV95cUxOM2M5ZG9HY3o1ellSZl81andhZnQxMFRMNHZlY1BlTjV3M2lKVkFYMjkxYWhMWVBNM3RBS0tKN0xzdzdmTW5ZRDUwTjFGUHBxVFluLVlwWUplc1RqS2NoWU9RNUIwU2x1cVJISy1MSXNlOTIySUhKdTVuRU5LUndqdHlwTm9aTV9ab1lBNUx6MTBScjFCLTVacjQ1WXBUa0tqZHhFNlpDdTRBellHN0s0OURTbw?oc=5\" target=\"_blank\">Pluto Security Research Reveals Massive Data Leak via ChatGPT-Built Websites</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">FF News</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-26",
+    "incident_id": "INC-20261126-481"
+  },
+  {
+    "title": "Amazon Spots Apparent Open-Source AI Agent Gaining Unauthorized Access",
+    "summary": "Amazon detected an apparent open-source AI agent gaining unauthorized access to systems. The event highlights emerging cybersecurity and operational risks associated with autonomous AI agents.",
+    "verification_status": "alleged",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "intentional_misuse",
+    "primary_purpose": "other",
+    "root_cause_category": "external",
+    "root_cause_subtype": "unauthorized_access",
+    "failure_mode": "An open-source AI agent bypassed security parameters or access controls, resulting in unauthorized access to corporate systems.",
+    "harm_domain": "systemic_integrity",
+    "harm_type": "privacy_breach",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "Operational_Security",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Amazon"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.85,
+      "severity": 0.8
+    },
+    "source_urls": [
+      "https://gizmodo.com/amazon-says-open-source-ai-agent-mostly-autonomously-exploited-a-zero-day-2000844891"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMipwFBVV95cUxPc1RXTm1mSU9EYWtpUVBpTWhIemhKVWZral9Xc1p6Q1RmekZFaWxURmEtWkFRN3dNZFBEOFJSRWE4ZGdQZHNYOFUwXzBxR2RZSGRwZTF3c3p4Tmhnb1JLa0F6RVc5VURONXV0OVZQZzhmWWQzLXhfcjRnYlBOdjFjQjRKV2pTZVJDQkpJSThkQUpuZnhrRXowaElEdmNQZ0lfblQ4U21uTQ?oc=5\" target=\"_blank\">Amazon Spots Apparent Open-Source AI Agent Gaining Unauthorized Access</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Gizmodo</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-24",
+    "incident_id": "INC-20261124-482"
+  },
+  {
+    "title": "Apple Pulls MiniMax AI Chatbot from App Store Over Child Safety Concerns",
+    "summary": "Apple removed the MiniMax AI chatbot from its App Store following raised child safety concerns. The removal reflects heightened platform enforcement and regulatory scrutiny regarding AI safety guardrails for minors.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "governance",
+    "root_cause_subtype": "safety_guardrail_failure",
+    "failure_mode": "Inadequate content moderation and safety controls in the MiniMax AI chatbot raised child safety risks, resulting in enforcement action by Apple.",
+    "harm_domain": "persons_rights",
+    "harm_type": "psychological_harm",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "GOVERN",
+    "iso_42001_category": "Internal_Governance",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [],
+    "affected_parties": [
+      "Apple",
+      "MiniMax"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.85
+    },
+    "source_urls": [
+      "https://www.reuters.com/business/retail-consumer/apple-pulls-minimax-ai-chatbot-app-store-over-child-safety-concerns-2026-11-26/"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMixwFBVV95cUxPNU9tZmh6STA3Ui1FY1FQaE9LMDgzQjJjV2xoZ3Q1Znlvbk5wdll2OXoyOUdxUHp2WEYteFpvTFBhVDZYbFozTXp5T0RpaE4zUUhBaDhiVDAxUkY2RURGQWFFaE1BRTVmdmdXTDh3UEdReDM5N0pjSjBzUXB3UEpPa05ma2ZoWDZhTzhJbTNFeDBfQllEWS02eHhST1FPRWI0VlRMOEhHanpvUjZpWkNPWEJLS1BlSllaZ25XeTRGUXF3bUZEcE5n?oc=5\" target=\"_blank\">Apple pulls MiniMax AI chatbot from App Store over child safety concerns</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Reuters</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-26",
+    "incident_id": "INC-20261126-483"
+  },
+  {
+    "title": "Apple Pulls MiniMax's Talkie AI Chatbot Worldwide Over Child Safety and Inappropriate Content Concerns",
+    "summary": "Apple removed the AI chatbot app Talkie from its global App Store following investigative reports disclosing that its virtual characters generated sexually explicit and abusive messages accessible to minors. Despite carrying an 18+ rating, the app suffered from lax age verification mechanisms that allowed children to bypass safeguards. Apple enforced its App Review Guidelines prohibiting explicit sexual content after previous policy enforcement actions against the developer, MiniMax.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "general_purpose_model",
+    "intent": "unintentional_failure",
+    "primary_purpose": "generative_content",
+    "root_cause_category": "governance",
+    "root_cause_subtype": "inadequate_age_verification_and_content_guardrails",
+    "failure_mode": "Lax age verification safeguards and inadequate generative content filtering allowed minors to access an AI companion platform where conversational agents generated sexually explicit and inappropriate messages.",
+    "harm_domain": "persons_mental",
+    "harm_type": "psychological_harm",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "limited_risk",
+    "nist_ai_rmf_function": "GOVERN",
+    "iso_42001_category": "Internal_Governance",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "high",
+    "geographic_scope": [
+      "Australia",
+      "China",
+      "United Kingdom",
+      "United States"
+    ],
+    "affected_parties": [
+      "Apple",
+      "MiniMax",
+      "Minors"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.foxbusiness.com/technology/apple-pulls-chinese-developed-ai-chatbot-from-app-store-over-reports-sexual-messages-kids"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "People walk past the Minimax booth during the World Artificial Intelligence Conference (WAIC) in Shanghai, China, July 17, 2026. (Reuters/Go Nakamura/File)\n\nApple has yanked an AI chatbot app with roughly 11 million monthly users from its App Store worldwide after reports alleged the platform’s virtual characters sent sexually inappropriate messages to children.\n\nThe app, Talkie, is developed by Shanghai-based MiniMax and was removed this week following Wednesday reports by Australia's ABC News and the United Kingdom's Bureau of Investigative Journalism that its AI-generated characters sent abusive messages to minors.\n\nAlthough Talkie carries an 18+ rating on both the Apple App Store and Google Play Store and states that children aged under 14 or under 16 cannot sign up, depending on the country, child safety advocates have criticized its lax verification safeguards that allow users to self-report their age.\n\nINSTAGRAM'S AI MAY CATCH TEENS LYING ABOUT THEIR AGE\n\nMiniMax founder and CEO Yan Junjie, second from left, and COO Yun Yeyim, second from right, pose with Hong Kong Stock Exchange CEO Bonnie Chan, far left, and Chairman Carlson Tong at the Chinese artificial intelligence model developer's listing cerem (Reuters/Kane Wu / Reuters Photos)\n\nApple told FOX Business that the company enforces strict App Review Guidelines prohibiting offensive, sexual or pornographic material and previously took action against the platform.\n\nApple originally rejected Talkie: Personalized AI Chats in July 2023 for carrying a 13+ rating, requiring the developer to raise it to 18+ before launch. Apple later removed that app in December 2024 over objectionable user-generated content and subsequently pulled the developer's other app, Talkie Lab - AI Playground, for sexual content.\n\nApple also noted that as of Nov. 16, developers can declare whether their apps include \"Dating and Relationships\" features — which automatically triggers a minimum 18+ rating — with all apps required to complete those disclosures by Jan. 12, 2027. In Australia, Apple users must confirm they are 18 or older before downloading 18+-rated apps.\n\nFOX Business has reached out to MiniMax for comment.\n\nLaunched in 2023, Talkie promotes itself with the tagline \"Your dream chat partner awaits\" and offers companions designed for sustained emotional engagement and human-like interactions, often with romantic undertones and immersive storylines.\n\nTama Leaver, an internet studies professor at Curtin University, told ABC News the platform's approach is particularly risky for young people still learning to navigate relationships.\n\n\"These tools really push on the edges of trying to keep young people engaging as much as possible, but there is no real sense of appropriateness in doing so,\" Leaver said. \"It might be the case that a young person is actually investing quite heavily in the emotional landscape of… these apps and making themselves quite vulnerable.\"\n\nAn Apple App Store icon is displayed on a phone screen in this illustration photo taken in Krakow, Poland, on Jan. 29, 2023. (Jakub Porzycki/NurPhoto via Getty Images / Getty Images)\n\nTogether with its Chinese version, Xingye, Talkie generated over 60% of MiniMax's income in 2024 before the company stopped breaking out chatbot-related revenue shares this year.\n\nAI IS CHANGING MODERN DATING, BUT EXPERTS WARN IT'S MAKING PEOPLE 'RELATIONALLY STUPID'\n\nOther AI platforms have faced similar backlash over child safety this year. Elon Musk's Grok AI chatbot drew criticism from governments after it was used to create sexualized images of women and children, and AI companion maker Character.ai faces several U.S. lawsuits over its chatbots' inappropriate interactions with minors.\n\nGET FOX BUSINESS ON THE GO BY CLICKING HERE\n\nIn July, China cracked down on domestic AI companion apps, including Xingye, banning intimate relationships for minors and ordering platforms to develop strict guardrails to curb emotional dependency and addiction risks.",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-26",
+    "incident_id": "INC-20261126-484"
+  },
+  {
+    "title": "Waymo Recalls Robotaxis After 11 Incidents of Entering Closed Freeway Lanes",
+    "summary": "Waymo initiated a software recall for its autonomous vehicle fleet following 11 incidents where robotaxis drove into closed freeway lanes. The system failed to correctly recognize or act upon road closure signals, creating potential traffic safety hazards.",
+    "verification_status": "confirmed",
+    "lifecycle_phase": "operation_and_monitoring",
+    "system_classification": "autonomous_agent",
+    "intent": "unintentional_failure",
+    "primary_purpose": "autonomous_mobility",
+    "root_cause_category": "model",
+    "root_cause_subtype": "perception_failure",
+    "failure_mode": "The autonomous driving software failed to properly interpret lane closure indications on freeways, allowing vehicles to proceed into restricted road work zones.",
+    "harm_domain": "persons_physical",
+    "harm_type": "physical_safety",
+    "impact_scope": "discrete_incident",
+    "financial_damage_usd": 0,
+    "eu_ai_act_tier": "high_risk",
+    "nist_ai_rmf_function": "MANAGE",
+    "iso_42001_category": "System_Impact",
+    "natsec_impact": false,
+    "temporality": "actual",
+    "severity": "medium",
+    "geographic_scope": [
+      "United States"
+    ],
+    "affected_parties": [
+      "Waymo"
+    ],
+    "confidence_scores": {
+      "verification_status": 0.95,
+      "severity": 0.9
+    },
+    "source_urls": [
+      "https://www.cnbc.com/2026/11/24/waymo-recall-prompted-by-robotaxis-entering-closed-freeway-lanes.html"
+    ],
+    "source_type": "google_news_rss",
+    "full_text": "<a href=\"https://news.google.com/rss/articles/CBMiowFBVV95cUxOTWNEMGNteHFqMnNPa2tBYUVlNE13VHhobUpPYUZiUnp3RjlMLWt4OU5rVHVCZ3JwTnJjQmRMUE02a2FuR241cmQycW1nWjh3YkgxR012OGRNcWdGSlFPSTN5RkxOTndMSGRtMTJtNHJNQnNmWlRkTi0tYkRFOVN5Sk51MU5DMlpfbDhGa0Y3NjMwVzZ4NXU0bGNJR1Y1MU5nYjZF0gGoAUFVX3lxTE4tQjBTMUZILTBqRGg3M0tOeTlmSm1LbDQzSE5yUElwbU0zaXJPZG1veHZzWTRjcjlBVjFGNDRtMmp2YnU0NU1BaXpTS09ISG1GaDBScnZaaUM1RzhsZmcyT21HdzJBUjFDc3ZDQW5XbXlRNDNzZUxmd2NpREI5UjlMRThRTHZwQ2czQzlUb2FiU2tCNFQyOVBMbGpnSlNFajR4Y1U1S1FBSQ?oc=5\" target=\"_blank\">Waymo says recall prompted by 11 new incidents of robotaxis entering closed freeway lanes</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">CNBC</font>",
+    "valuation_methodology": "unquantified",
+    "date": "2026-11-24",
+    "incident_id": "INC-20261124-485"
   }
 ]

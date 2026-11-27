@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Adaptive dynamic keyword pool learned from validated AI incidents. Automatically maintained with daily decay and TTL.",
-    "last_updated": "2026-11-26",
+    "last_updated": "2026-11-27",
     "decay_rate_daily": 0.05,
     "min_weight_threshold": 0.2,
     "max_ttl_days": 21,
@@ -12,7 +12,7 @@
       {
         "term": "European Commission",
         "type": "subject",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-11-24",
         "last_hit": "2026-11-25"
@@ -20,7 +20,7 @@
       {
         "term": "EU Academy",
         "type": "subject",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-11-24",
         "last_hit": "2026-11-25"
@@ -28,123 +28,123 @@
       {
         "term": "vulnerability scanning",
         "type": "incident",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-11-24",
         "last_hit": "2026-11-25"
       },
       {
-        "term": "Malicious threat actors",
-        "type": "incident",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-11-25",
-        "last_hit": "2026-11-25"
-      },
-      {
-        "term": "compromise European Commission",
-        "type": "incident",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-11-25",
-        "last_hit": "2026-11-25"
-      },
-      {
-        "term": "databases and exfiltrate",
-        "type": "incident",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-11-25",
-        "last_hit": "2026-11-25"
-      },
-      {
-        "term": "personal",
-        "type": "incident",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-11-25",
-        "last_hit": "2026-11-25"
-      },
-      {
-        "term": "OpenAI",
+        "term": "ChatGPT-built website operators",
         "type": "subject",
-        "weight": 0.735,
-        "hit_count": 2,
-        "first_seen": "2026-11-22",
-        "last_hit": "2026-11-23"
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
+      },
+      {
+        "term": "Affected website",
+        "type": "subject",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
+      },
+      {
+        "term": "ChatGPT generated insecure",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
+      },
+      {
+        "term": "code patterns",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
+      },
+      {
+        "term": "unintended security vulnerabilities",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
       }
     ],
     "autonomous_agents_cyber": [
       {
         "term": "Waymo",
         "type": "subject",
-        "weight": 0.95,
-        "hit_count": 22,
+        "weight": 1.0,
+        "hit_count": 23,
         "first_seen": "2026-11-13",
-        "last_hit": "2026-11-25"
+        "last_hit": "2026-11-27"
       },
       {
-        "term": "Miami Police Department",
+        "term": "Anthropic",
         "type": "subject",
-        "weight": 0.857,
-        "hit_count": 3,
-        "first_seen": "2026-11-23",
-        "last_hit": "2026-11-24"
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
       },
       {
-        "term": "General Public",
+        "term": "Anthropic research identified",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
+      },
+      {
+        "term": "security risks",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
+      },
+      {
+        "term": "sandbox environments designed",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
+      },
+      {
+        "term": "contain and evaluate",
+        "type": "incident",
+        "weight": 0.85,
+        "hit_count": 1,
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
+      },
+      {
+        "term": "OpenAI",
         "type": "subject",
-        "weight": 0.807,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-25",
-        "last_hit": "2026-11-25"
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
       },
       {
-        "term": "Robotaxis failed",
-        "type": "incident",
-        "weight": 0.807,
+        "term": "State of California",
+        "type": "subject",
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-25",
-        "last_hit": "2026-11-25"
-      },
-      {
-        "term": "properly process",
-        "type": "incident",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-11-25",
-        "last_hit": "2026-11-25"
-      },
-      {
-        "term": "human traffic signals",
-        "type": "incident",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-11-25",
-        "last_hit": "2026-11-25"
-      },
-      {
-        "term": "instructions during",
-        "type": "incident",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-11-25",
-        "last_hit": "2026-11-25"
-      },
-      {
-        "term": "Autonomous driving software",
-        "type": "incident",
-        "weight": 0.735,
-        "hit_count": 2,
-        "first_seen": "2026-11-23",
-        "last_hit": "2026-11-23"
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
       }
     ],
     "biometrics_police_surveillance": [
       {
         "term": "Legal professionals",
         "type": "subject",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-22",
         "last_hit": "2026-11-22"
@@ -152,7 +152,7 @@
       {
         "term": "MSG Entertainment utilized",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-22",
         "last_hit": "2026-11-22"
@@ -160,7 +160,7 @@
       {
         "term": "real-time facial recognition",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-22",
         "last_hit": "2026-11-22"
@@ -168,7 +168,7 @@
       {
         "term": "public venue entrances",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-22",
         "last_hit": "2026-11-22"
@@ -176,7 +176,7 @@
       {
         "term": "legal adversaries",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-22",
         "last_hit": "2026-11-22"
@@ -184,7 +184,7 @@
       {
         "term": "civil rights concerns",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-22",
         "last_hit": "2026-11-22"
@@ -192,7 +192,7 @@
       {
         "term": "public backlash",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-22",
         "last_hit": "2026-11-22"
@@ -200,7 +200,7 @@
       {
         "term": "Clearview",
         "type": "subject",
-        "weight": 0.289,
+        "weight": 0.202,
         "hit_count": 1,
         "first_seen": "2026-11-20",
         "last_hit": "2026-11-20"
@@ -210,7 +210,7 @@
       {
         "term": "Tesla",
         "type": "subject",
-        "weight": 0.624,
+        "weight": 0.508,
         "hit_count": 1,
         "first_seen": "2026-11-23",
         "last_hit": "2026-11-23"
@@ -218,7 +218,7 @@
       {
         "term": "FSD software miscalculated",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.508,
         "hit_count": 1,
         "first_seen": "2026-11-23",
         "last_hit": "2026-11-23"
@@ -226,7 +226,7 @@
       {
         "term": "distance and path",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.508,
         "hit_count": 1,
         "first_seen": "2026-11-23",
         "last_hit": "2026-11-23"
@@ -234,7 +234,7 @@
       {
         "term": "trajectory within",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.508,
         "hit_count": 1,
         "first_seen": "2026-11-23",
         "last_hit": "2026-11-23"
@@ -242,7 +242,7 @@
       {
         "term": "parking lot",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.508,
         "hit_count": 1,
         "first_seen": "2026-11-23",
         "last_hit": "2026-11-23"
@@ -250,7 +250,7 @@
       {
         "term": "nearly causing",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.508,
         "hit_count": 1,
         "first_seen": "2026-11-23",
         "last_hit": "2026-11-23"
@@ -258,7 +258,7 @@
       {
         "term": "low-speed collision",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.508,
         "hit_count": 1,
         "first_seen": "2026-11-23",
         "last_hit": "2026-11-23"
@@ -266,7 +266,7 @@
       {
         "term": "another vehicle before",
         "type": "incident",
-        "weight": 0.624,
+        "weight": 0.508,
         "hit_count": 1,
         "first_seen": "2026-11-23",
         "last_hit": "2026-11-23"
@@ -276,7 +276,7 @@
       {
         "term": "New Hampshire Voters",
         "type": "subject",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-22",
         "last_hit": "2026-11-22"
@@ -284,7 +284,7 @@
       {
         "term": "Joe Biden",
         "type": "subject",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-22",
         "last_hit": "2026-11-22"
@@ -292,7 +292,7 @@
       {
         "term": "Malicious actors abused",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-22",
         "last_hit": "2026-11-22"
@@ -300,7 +300,7 @@
       {
         "term": "public official",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-22",
         "last_hit": "2026-11-22"
@@ -308,7 +308,7 @@
       {
         "term": "deliver deceptive robocalls",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-22",
         "last_hit": "2026-11-22"
@@ -316,7 +316,7 @@
       {
         "term": "suppressing voter turnout",
         "type": "incident",
-        "weight": 0.508,
+        "weight": 0.393,
         "hit_count": 1,
         "first_seen": "2026-11-22",
         "last_hit": "2026-11-22"
@@ -324,68 +324,68 @@
     ],
     "social_chatbots_harm_governance": [
       {
+        "term": "MiniMax",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 3,
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
+      },
+      {
+        "term": "Apple",
+        "type": "subject",
+        "weight": 1.0,
+        "hit_count": 2,
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
+      },
+      {
         "term": "Children",
         "type": "subject",
-        "weight": 0.95,
+        "weight": 0.857,
         "hit_count": 2,
         "first_seen": "2026-11-25",
         "last_hit": "2026-11-25"
       },
       {
-        "term": "Chatbot Toy Manufacturers",
-        "type": "subject",
-        "weight": 0.807,
+        "term": "Inadequate content moderation",
+        "type": "incident",
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-25",
-        "last_hit": "2026-11-25"
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
       },
       {
-        "term": "integrated into children",
+        "term": "safety controls",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-25",
-        "last_hit": "2026-11-25"
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
       },
       {
-        "term": "toys operated",
+        "term": "chatbot raised child",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-25",
-        "last_hit": "2026-11-25"
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
       },
       {
-        "term": "minimal safety controls",
+        "term": "safety risks",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-25",
-        "last_hit": "2026-11-25"
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
       },
       {
-        "term": "inappropriate conversations",
+        "term": "enforcement action",
         "type": "incident",
-        "weight": 0.807,
+        "weight": 0.85,
         "hit_count": 1,
-        "first_seen": "2026-11-25",
-        "last_hit": "2026-11-25"
-      },
-      {
-        "term": "dangerous instructions provided",
-        "type": "incident",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-11-25",
-        "last_hit": "2026-11-25"
-      },
-      {
-        "term": "young",
-        "type": "incident",
-        "weight": 0.807,
-        "hit_count": 1,
-        "first_seen": "2026-11-25",
-        "last_hit": "2026-11-25"
+        "first_seen": "2026-11-27",
+        "last_hit": "2026-11-27"
       }
     ]
   }
